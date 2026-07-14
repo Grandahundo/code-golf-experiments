@@ -11,6 +11,10 @@ env/
 # Zip archives
 *.zip
 
+# Batch experiment generated directories
+batch-experiments/experiments/
+batch-experiments/results/
+
 # Python cache
 __pycache__/
 *.pyc
