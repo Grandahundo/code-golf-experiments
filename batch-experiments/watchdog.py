@@ -55,9 +55,13 @@ def get_claude_sessions():
                     ["lsof", "-p", str(pid), "-Fn"], text=True, timeout=5
                 )
                 cwd = None
-                for line in cwd_out.split("\n"):
-                    if line.startswith("fcwd"):
-                        cwd = line[4:].strip()
+                lines = cwd_out.split("\n")
+                for i, line in enumerate(lines):
+                    if line.startswith("fcwd") and i + 1 < len(lines):
+                        next_line = lines[i + 1]
+                        if next_line.startswith("n"):
+                            cwd = next_line[1:].strip()
+                            break
                 if cwd and "batch-experiments/experiments" in cwd:
                     result.append((pid, cwd))
             except subprocess.CalledProcessError:
