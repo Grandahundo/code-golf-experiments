@@ -120,10 +120,17 @@ def main():
                 workdir = os.path.join(cwd, "workdir")
                 best = get_best_bytes(workdir)
                 entry = history.get(pid, [])
+                # Time since best bytes last improved
                 stale = 0
                 if entry and best is not None:
-                    stale = (now - max(t for t, _ in entry)) / 60
-                summary.append(f"{task}={best}B(stale{stale:.0f}m)")
+                    prev_bytes = None
+                    last_change = now
+                    for t, b in sorted(entry):
+                        if b is not None and b != prev_bytes:
+                            last_change = t
+                            prev_bytes = b
+                    stale = (now - last_change) / 60
+                summary.append(f"{task}={best}B(no_imprv{stale:.0f}m)")
             print(f"[watchdog] {active} sessions: {', '.join(summary)}", flush=True)
 
         time.sleep(CHECK_INTERVAL)
