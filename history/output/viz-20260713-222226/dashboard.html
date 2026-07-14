@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Code Golf — History Visualizations</title>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js">
+</script>
+<style>
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+       background: #f8fafc; color: #1e293b; padding: 24px; }
+h1 { font-size: 28px; margin-bottom: 8px; }
+.subtitle { color: #64748b; margin-bottom: 32px; font-size: 15px; }
+.grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(620px, 1fr));
+        gap: 24px; }
+.card { background: #fff; border-radius: 14px; padding: 22px;
+        box-shadow: 0 1px 3px rgba(0,0,0,.07); border: 1px solid #e2e8f0; }
+.card h2 { font-size: 16px; margin-bottom: 14px; color: #334155; }
+.chart-wrap { position: relative; width: 100%; }
+.chart-wrap canvas { width: 100% !important; }
+.summary-table { width: 100%; border-collapse: collapse; font-size: 13px; margin-top: 16px; }
+.summary-table th, .summary-table td { padding: 8px 12px; text-align: right;
+    border-bottom: 1px solid #e2e8f0; }
+.summary-table th:first-child, .summary-table td:first-child { text-align: left; font-weight: 600; }
+.summary-table tr:last-child td { border-bottom: none; }
+.badge { display: inline-block; padding: 2px 8px; border-radius: 6px;
+         font-size: 12px; font-weight: 600; }
+.badge-best { background: #dcfce7; color: #166534; }
+</style>
+</head>
+<body>
+
+<h1>🏌️ Code Golf — Experiment History Dashboard</h1>
+<p class="subtitle">Generated 2026-07-13 22:22:28 · 6 experiments</p>
+
+<div class="card" style="margin-bottom:24px;">
+<h2>📊 Summary Table</h2>
+<div id="summary-table"></div>
+</div>
+
+<div class="grid">
+  <div class="card"><h2>📉 Best Bytes vs Tokens</h2>
+    <div class="chart-wrap"><canvas id="bytesVsTokens"></canvas></div></div>
+  <div class="card"><h2>📉 Best Bytes vs Turns</h2>
+    <div class="chart-wrap"><canvas id="bytesVsTurns"></canvas></div></div>
+  <div class="card"><h2>📈 Token Accumulation</h2>
+    <div class="chart-wrap"><canvas id="tokenAccum"></canvas></div></div>
+  <div class="card"><h2>⚡ Final Bytes Comparison</h2>
+    <div class="chart-wrap"><canvas id="finalBytes"></canvas></div></div>
+  <div class="card"><h2>🔬 Stage Analysis — Tokens</h2>
+    <div class="chart-wrap"><canvas id="stageTokens"></canvas></div></div>
+  <div class="card"><h2>🔬 Stage Analysis — Improvements</h2>
+    <div class="chart-wrap"><canvas id="stageImprove"></canvas></div></div>
+</div>
+
+<script>
+var COLORS = {"Baseline": "#3b82f6", "CoMAP": "#ef4444", "PAL": "#10b981", "PAL-\u03bb": "#f59e0b", "PAL-Aug": "#8b5cf6", "auto-PAL": "#ec4899"};
+var DATA = {"Baseline": {"tokens": [427131, 512479, 537525, 576987, 633558, 1848789], "bytes": [9.5, 8.55, 7.8, 7.65, 5.45, 5.4], "raw_bytes": [190, 171, 156, 153, 109, 108], "turns": [21, 38, 43, 51, 59, 188], "versions": ["v1", "v5", "v6", "v8", "v11", "v31"], "verified": [false, false, false, true, false, false], "stages": [{"name": "1. Understanding & First Solution", "end_tokens": 427131, "end_turn": 21, "improvement": 0, "description": "Task exploration \u2192 first working solution (190 bytes, v1)"}, {"name": "2. Algorithm Exploration", "end_tokens": 537525, "end_turn": 43, "improvement": 34, "description": "-34 bytes total \u2192 156B (v5: -19B, v6: -15B)"}, {"name": "3. Micro-Optimization (Golfing)", "end_tokens": 576987, "end_turn": 51, "improvement": 3, "description": "-3 bytes total \u2192 153B (v8: -3B)"}, {"name": "2. Algorithm Exploration", "end_tokens": 633558, "end_turn": 59, "improvement": 44, "description": "-44 bytes total \u2192 109B (v11: -44B)"}, {"name": "3. Micro-Optimization (Golfing)", "end_tokens": 1848789, "end_turn": 188, "improvement": 1, "description": "-1 bytes total \u2192 108B (v31: -1B)"}], "summary": {"initial_bytes": 190, "final_bytes": 108, "total_improvement": 82, "improvement_pct": 43.2, "total_tokens": 1848789, "total_versions_created": 41, "total_improvements": 6, "bytes_per_token": 4.4e-05, "stages": [{"name": "1. Understanding & First Solution", "tokens_in_stage": 427131, "turns": "0-21", "improvement": 0}, {"name": "2. Algorithm Exploration", "tokens_in_stage": 110394, "turns": "38-43", "improvement": 34}, {"name": "3. Micro-Optimization (Golfing)", "tokens_in_stage": 39462, "turns": "51-51", "improvement": 3}, {"name": "2. Algorithm Exploration", "tokens_in_stage": 56571, "turns": "59-59", "improvement": 44}, {"name": "3. Micro-Optimization (Golfing)", "tokens_in_stage": 1215231, "turns": "188-188", "improvement": 1}]}}, "CoMAP": {"tokens": [290941, 318901, 333485, 407454, 434688, 472057, 537034, 1259771, 1318252, 1365359, 1409177, 1417257, 1426682, 1472064, 1485946, 1504022, 1507010, 1514178, 1517672, 1709637], "bytes": [11.09, 10.64, 10.53, 10.49, 10.14, 10.0, 9.05, 8.75, 8.7, 8.55, 8.45, 7.8, 7.65, 7.5, 7.35, 7.3, 7.0, 6.65, 6.4, 6.15], "raw_bytes": [309, 264, 253, 249, 214, 200, 181, 175, 174, 171, 169, 156, 153, 150, 147, 146, 140, 133, 128, 123], "turns": [27, 32, 36, 49, 54, 59, 71, 107, 142, 155, 188, 193, 198, 218, 225, 232, 237, 242, 247, 329], "versions": ["v1", "v2", "v3", "v5", "v6", "v7", "v9", "v16", "v23", "v25", "v28", "v29", "v30", "v32", "v33", "v34", "v35", "v36", "v37", "v47"], "verified": [false, false, false, false, true, false, false, false, false, false, false, false, false, false, false, false, false, false, true, false], "stages": [{"name": "1. Understanding & First Solution", "end_tokens": 290941, "end_turn": 27, "improvement": 0, "description": "Task exploration \u2192 first working solution (309 bytes, v1)"}, {"name": "2. Algorithm Exploration", "end_tokens": 318901, "end_turn": 32, "improvement": 45, "description": "-45 bytes total \u2192 264B (v2: -45B)"}, {"name": "3. Micro-Optimization (Golfing)", "end_tokens": 407454, "end_turn": 49, "improvement": 15, "description": "-15 bytes total \u2192 249B (v3: -11B, v5: -4B)"}, {"name": "2. Algorithm Exploration", "end_tokens": 434688, "end_turn": 54, "improvement": 35, "description": "-35 bytes total \u2192 214B (v6: -35B)"}, {"name": "3. Micro-Optimization (Golfing)", "end_tokens": 472057, "end_turn": 59, "improvement": 14, "description": "-14 bytes total \u2192 200B (v7: -14B)"}, {"name": "2. Algorithm Exploration", "end_tokens": 537034, "end_turn": 71, "improvement": 19, "description": "-19 bytes total \u2192 181B (v9: -19B)"}, {"name": "3. Micro-Optimization (Golfing)", "end_tokens": 1709637, "end_turn": 329, "improvement": 58, "description": "-58 bytes total \u2192 123B (v16: -6B, v23: -1B, v25: -3B, v28: -2B, v29: -13B, v30: -3B, v32: -3B, v33: -3B, v34: -1B, v35: -6B, v36: -7B, v37: -5B, v47: -5B)"}], "summary": {"initial_bytes": 309, "final_bytes": 123, "total_improvement": 186, "improvement_pct": 60.2, "total_tokens": 1709637, "total_versions_created": 47, "total_improvements": 20, "bytes_per_token": 0.000109, "stages": [{"name": "1. Understanding & First Solution", "tokens_in_stage": 290941, "turns": "0-27", "improvement": 0}, {"name": "2. Algorithm Exploration", "tokens_in_stage": 27960, "turns": "32-32", "improvement": 45}, {"name": "3. Micro-Optimization (Golfing)", "tokens_in_stage": 88553, "turns": "36-49", "improvement": 15}, {"name": "2. Algorithm Exploration", "tokens_in_stage": 27234, "turns": "54-54", "improvement": 35}, {"name": "3. Micro-Optimization (Golfing)", "tokens_in_stage": 37369, "turns": "59-59", "improvement": 14}, {"name": "2. Algorithm Exploration", "tokens_in_stage": 64977, "turns": "71-71", "improvement": 19}, {"name": "3. Micro-Optimization (Golfing)", "tokens_in_stage": 1172603, "turns": "107-329", "improvement": 58}]}}, "PAL": {"tokens": [214048, 229687, 352712, 402841, 508725, 628050], "bytes": [12.56, 11.78, 10.55, 10.5, 8.25, 4.8], "raw_bytes": [456, 378, 255, 250, 165, 96], "turns": [29, 39, 54, 59, 69, 93], "versions": ["v1", "v2", "v3", "v4", "v5", "v10"], "verified": [false, false, false, false, false, false], "stages": [{"name": "1. Understanding & First Solution", "end_tokens": 214048, "end_turn": 29, "improvement": 0, "description": "Task exploration \u2192 first working solution (456 bytes, v1)"}, {"name": "2. Algorithm Exploration", "end_tokens": 352712, "end_turn": 54, "improvement": 201, "description": "-201 bytes total \u2192 255B (v2: -78B, v3: -123B)"}, {"name": "3. Micro-Optimization (Golfing)", "end_tokens": 402841, "end_turn": 59, "improvement": 5, "description": "-5 bytes total \u2192 250B (v4: -5B)"}, {"name": "2. Algorithm Exploration", "end_tokens": 628050, "end_turn": 93, "improvement": 154, "description": "-154 bytes total \u2192 96B (v5: -85B, v10: -69B)"}], "summary": {"initial_bytes": 456, "final_bytes": 96, "total_improvement": 360, "improvement_pct": 78.9, "total_tokens": 628050, "total_versions_created": 12, "total_improvements": 6, "bytes_per_token": 0.000573, "stages": [{"name": "1. Understanding & First Solution", "tokens_in_stage": 214048, "turns": "0-29", "improvement": 0}, {"name": "2. Algorithm Exploration", "tokens_in_stage": 138664, "turns": "39-54", "improvement": 201}, {"name": "3. Micro-Optimization (Golfing)", "tokens_in_stage": 50129, "turns": "59-59", "improvement": 5}, {"name": "2. Algorithm Exploration", "tokens_in_stage": 225209, "turns": "69-93", "improvement": 154}]}}, "PAL-\u03bb": {"tokens": [246704, 283362, 338834, 371024, 387648, 403183, 452961, 514043, 557999, 580887], "bytes": [15.879999999999999, 13.39, 11.8, 11.370000000000001, 10.99, 10.9, 10.33, 10.24, 10.05, 10.01], "raw_bytes": [788, 539, 380, 337, 299, 290, 233, 224, 205, 201], "turns": [34, 44, 49, 54, 59, 64, 69, 79, 87, 105], "versions": ["v1", "v2", "v3", "v4", "v5", "v6", "v7", "v8", "v9", "v11"], "verified": [false, false, false, false, false, false, false, false, true, false], "stages": [{"name": "1. Understanding & First Solution", "end_tokens": 246704, "end_turn": 34, "improvement": 0, "description": "Task exploration \u2192 first working solution (788 bytes, v1)"}, {"name": "2. Algorithm Exploration", "end_tokens": 387648, "end_turn": 59, "improvement": 489, "description": "-489 bytes total \u2192 299B (v2: -249B, v3: -159B, v4: -43B, v5: -38B)"}, {"name": "3. Micro-Optimization (Golfing)", "end_tokens": 403183, "end_turn": 64, "improvement": 9, "description": "-9 bytes total \u2192 290B (v6: -9B)"}, {"name": "2. Algorithm Exploration", "end_tokens": 452961, "end_turn": 69, "improvement": 57, "description": "-57 bytes total \u2192 233B (v7: -57B)"}, {"name": "3. Micro-Optimization (Golfing)", "end_tokens": 514043, "end_turn": 79, "improvement": 9, "description": "-9 bytes total \u2192 224B (v8: -9B)"}, {"name": "2. Algorithm Exploration", "end_tokens": 557999, "end_turn": 87, "improvement": 19, "description": "-19 bytes total \u2192 205B (v9: -19B)"}, {"name": "3. Micro-Optimization (Golfing)", "end_tokens": 580887, "end_turn": 105, "improvement": 4, "description": "-4 bytes total \u2192 201B (v11: -4B)"}], "summary": {"initial_bytes": 788, "final_bytes": 201, "total_improvement": 587, "improvement_pct": 74.5, "total_tokens": 580887, "total_versions_created": 21, "total_improvements": 10, "bytes_per_token": 0.001011, "stages": [{"name": "1. Understanding & First Solution", "tokens_in_stage": 246704, "turns": "0-34", "improvement": 0}, {"name": "2. Algorithm Exploration", "tokens_in_stage": 140944, "turns": "44-59", "improvement": 489}, {"name": "3. Micro-Optimization (Golfing)", "tokens_in_stage": 15535, "turns": "64-64", "improvement": 9}, {"name": "2. Algorithm Exploration", "tokens_in_stage": 49778, "turns": "69-69", "improvement": 57}, {"name": "3. Micro-Optimization (Golfing)", "tokens_in_stage": 61082, "turns": "79-79", "improvement": 9}, {"name": "2. Algorithm Exploration", "tokens_in_stage": 43956, "turns": "87-87", "improvement": 19}, {"name": "3. Micro-Optimization (Golfing)", "tokens_in_stage": 22888, "turns": "105-105", "improvement": 4}]}}, "PAL-Aug": {"tokens": [303608, 335027, 355625, 421133, 614815, 640386, 1107876], "bytes": [10.58, 10.53, 10.5, 10.2, 9.45, 9.3, 9.05], "raw_bytes": [258, 253, 250, 220, 189, 186, 181], "turns": [24, 29, 31, 38, 62, 70, 155], "versions": ["v1", "v2", "v4", "v6", "v10", "v11", "v23"], "verified": [false, false, false, false, false, false, false], "stages": [{"name": "1. Understanding & First Solution", "end_tokens": 303608, "end_turn": 24, "improvement": 0, "description": "Task exploration \u2192 first working solution (258 bytes, v1)"}, {"name": "3. Micro-Optimization (Golfing)", "end_tokens": 355625, "end_turn": 31, "improvement": 8, "description": "-8 bytes total \u2192 250B (v2: -5B, v4: -3B)"}, {"name": "2. Algorithm Exploration", "end_tokens": 614815, "end_turn": 62, "improvement": 61, "description": "-61 bytes total \u2192 189B (v6: -30B, v10: -31B)"}, {"name": "3. Micro-Optimization (Golfing)", "end_tokens": 1107876, "end_turn": 155, "improvement": 8, "description": "-8 bytes total \u2192 181B (v11: -3B, v23: -5B)"}], "summary": {"initial_bytes": 258, "final_bytes": 181, "total_improvement": 77, "improvement_pct": 29.8, "total_tokens": 1107876, "total_versions_created": 30, "total_improvements": 7, "bytes_per_token": 7e-05, "stages": [{"name": "1. Understanding & First Solution", "tokens_in_stage": 303608, "turns": "0-24", "improvement": 0}, {"name": "3. Micro-Optimization (Golfing)", "tokens_in_stage": 52017, "turns": "29-31", "improvement": 8}, {"name": "2. Algorithm Exploration", "tokens_in_stage": 259190, "turns": "38-62", "improvement": 61}, {"name": "3. Micro-Optimization (Golfing)", "tokens_in_stage": 493061, "turns": "70-155", "improvement": 8}]}}, "auto-PAL": {"tokens": [20437, 22378, 23496, 25491, 27165, 41962, 48563, 50243, 51977, 51977, 62510, 65102, 68798], "bytes": [12.0, 10.29, 9.4, 9.3, 8.9, 8.45, 7.25, 6.75, 6.4, 6.1, 5.8, 5.55, 4.5], "raw_bytes": [400, 229, 188, 186, 178, 169, 145, 135, 128, 122, 116, 111, 90], "turns": [22, 25, 27, 30, 33, 48, 53, 56, 59, 59, 66, 69, 72], "versions": ["v1", "v2", "v3", "v4", "v5", "v8", "v9", "v10", "v11", "v12", "v13", "v14", "v15"], "verified": [false, false, false, false, false, false, false, false, false, false, false, false, false], "stages": [{"name": "1. Understanding & First Solution", "end_tokens": 20437, "end_turn": 22, "improvement": 0, "description": "Task exploration \u2192 first working solution (400 bytes, v1)"}, {"name": "2. Algorithm Exploration", "end_tokens": 23496, "end_turn": 27, "improvement": 212, "description": "-212 bytes total \u2192 188B (v2: -171B, v3: -41B)"}, {"name": "3. Micro-Optimization (Golfing)", "end_tokens": 41962, "end_turn": 48, "improvement": 19, "description": "-19 bytes total \u2192 169B (v4: -2B, v5: -8B, v8: -9B)"}, {"name": "2. Algorithm Exploration", "end_tokens": 48563, "end_turn": 53, "improvement": 24, "description": "-24 bytes total \u2192 145B (v9: -24B)"}, {"name": "3. Micro-Optimization (Golfing)", "end_tokens": 65102, "end_turn": 69, "improvement": 34, "description": "-34 bytes total \u2192 111B (v10: -10B, v11: -7B, v12: -6B, v13: -6B, v14: -5B)"}, {"name": "2. Algorithm Exploration", "end_tokens": 68798, "end_turn": 72, "improvement": 21, "description": "-21 bytes total \u2192 90B (v15: -21B)"}], "summary": {"initial_bytes": 400, "final_bytes": 90, "total_improvement": 310, "improvement_pct": 77.5, "total_tokens": 68798, "total_versions_created": 15, "total_improvements": 13, "bytes_per_token": 0.004506, "stages": [{"name": "1. Understanding & First Solution", "tokens_in_stage": 20437, "turns": "0-22", "improvement": 0}, {"name": "2. Algorithm Exploration", "tokens_in_stage": 3059, "turns": "25-27", "improvement": 212}, {"name": "3. Micro-Optimization (Golfing)", "tokens_in_stage": 18466, "turns": "30-48", "improvement": 19}, {"name": "2. Algorithm Exploration", "tokens_in_stage": 6601, "turns": "53-53", "improvement": 24}, {"name": "3. Micro-Optimization (Golfing)", "tokens_in_stage": 16539, "turns": "56-69", "improvement": 34}, {"name": "2. Algorithm Exploration", "tokens_in_stage": 3696, "turns": "72-72", "improvement": 21}]}}};
+var Y_TICKS = [[4.0, 80], [5.0, 100], [6.0, 120], [7.0, 140], [8.0, 160], [9.0, 180], [10.0, 200], [11.0, 300], [12.0, 400], [13.0, 500], [14.0, 600], [15.0, 700], [16.0, 800]];
+var EXP_NAMES = Object.keys(DATA);
+
+// Piecewise-linear y-axis: use Y_TICKS [[pos,label],...] for byte charts
+function bytesToDisplay(v) {
+  return v <= 200 ? v / 20.0 : 10.0 + (v - 200.0) / 100.0;
+}
+function byteYaxis() {
+  return {
+    type: 'linear',
+    title: { display: true, text: 'Best Bytes' },
+    ticks: {
+      stepSize: 1,
+      callback: function(val) {
+        for (var i = 0; i < Y_TICKS.length; i++) {
+          if (Math.abs(Y_TICKS[i][0] - val) < 0.01) return Y_TICKS[i][1];
+        }
+        return '';
+      }
+    },
+    afterBuildTicks: function(axis) {
+      axis.ticks = Y_TICKS.map(function(t) { return { value: t[0] }; });
+    }
+  };
+}
+
+Chart.defaults.font.family = '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif';
+Chart.defaults.font.size = 12;
+
+function makeChart(id, config) {
+  var ctx = document.getElementById(id).getContext('2d');
+  new Chart(ctx, config);
+}
+
+// Summary table
+(function() {
+  var div = document.getElementById('summary-table');
+  var metrics = [
+    {key:'initial_bytes', label:'Initial Bytes'},
+    {key:'final_bytes', label:'Final Bytes'},
+    {key:'total_improvement', label:'Total Improvement'},
+    {key:'improvement_pct', label:'Improvement %', suffix:'%'},
+    {key:'total_tokens', label:'Total Tokens', fmt:'comma'},
+    {key:'total_versions_created', label:'Versions Created'},
+    {key:'total_improvements', label:'Best-Improve Steps'},
+    {key:'bytes_per_token', label:'Bytes/Token', fmt:'.4f'},
+  ];
+  var html = '<table class="summary-table"><thead><tr><th>Metric</th>';
+  for (var i = 0; i < EXP_NAMES.length; i++) html += '<th>' + EXP_NAMES[i] + '</th>';
+  html += '</tr></thead><tbody>';
+
+  for (var mi = 0; mi < metrics.length; mi++) {
+    var m = metrics[mi];
+    html += '<tr><td>' + m.label + '</td>';
+    var vals = EXP_NAMES.map(function(n) { return DATA[n].summary[m.key]; });
+    var best;
+    if (m.key === 'final_bytes' || m.key === 'total_tokens') {
+      best = Math.min.apply(null, vals.filter(function(v) { return v > 0; }));
+    } else {
+      best = Math.max.apply(null, vals);
+    }
+    for (var ni = 0; ni < EXP_NAMES.length; ni++) {
+      var n = EXP_NAMES[ni];
+      var v = DATA[n].summary[m.key];
+      var cls = (v === best && vals.filter(function(x){return x===v;}).length===1) ? 'badge-best' : '';
+      if (m.fmt === 'comma') v = Number(v).toLocaleString();
+      else if (m.fmt) v = Number(v).toFixed(4);
+      if (m.suffix) v += m.suffix;
+      html += '<td>' + (cls ? '<span class="badge ' + cls + '">' + v + '</span>' : v) + '</td>';
+    }
+    html += '</tr>';
+  }
+  html += '</tbody></table>';
+  div.innerHTML = html;
+})();
+
+// Bytes vs Tokens
+makeChart('bytesVsTokens', {
+  type: 'scatter',
+  data: {
+    datasets: EXP_NAMES.map(function(name) {
+      return {
+        label: name,
+        data: DATA[name].tokens.map(function(t, i) { return {x: t, y: DATA[name].bytes[i]}; }),
+        borderColor: COLORS[name],
+        backgroundColor: COLORS[name],
+        showLine: true,
+        tension: 0.1,
+        pointRadius: 4,
+        pointHoverRadius: 7,
+        borderWidth: 2,
+      };
+    }),
+  },
+  options: {
+    responsive: true,
+    scales: {
+      x: { title: {display: true, text: 'Cumulative Tokens'} },
+      y: byteYaxis(),
+    },
+    plugins: { tooltip: { callbacks: {
+      label: function(ctx) {
+        var raw = DATA[ctx.dataset.label].raw_bytes[ctx.dataIndex];
+        return DATA[ctx.dataset.label].versions[ctx.dataIndex] + ': ' + raw + ' bytes';
+      }
+    }}}
+  }
+});
+
+// Bytes vs Turns
+makeChart('bytesVsTurns', {
+  type: 'scatter',
+  data: {
+    datasets: EXP_NAMES.map(function(name) {
+      return {
+        label: name,
+        data: DATA[name].turns.map(function(t, i) { return {x: t, y: DATA[name].bytes[i]}; }),
+        borderColor: COLORS[name],
+        backgroundColor: COLORS[name],
+        showLine: true,
+        tension: 0.1,
+        pointRadius: 4,
+        pointHoverRadius: 7,
+        borderWidth: 2,
+      };
+    }),
+  },
+  options: {
+    responsive: true,
+    scales: {
+      x: { title: {display: true, text: 'Conversation Turn'} },
+      y: byteYaxis(),
+    },
+    plugins: { tooltip: { callbacks: {
+      label: function(ctx) {
+        var raw = DATA[ctx.dataset.label].raw_bytes[ctx.dataIndex];
+        return DATA[ctx.dataset.label].versions[ctx.dataIndex] + ': ' + raw + ' bytes';
+      }
+    }}}
+  }
+});
+
+// Token accumulation
+makeChart('tokenAccum', {
+  type: 'scatter',
+  data: {
+    datasets: EXP_NAMES.map(function(name) {
+      return {
+        label: name,
+        data: DATA[name].turns.map(function(t, i) { return {x: t, y: DATA[name].tokens[i]}; }),
+        borderColor: COLORS[name],
+        backgroundColor: COLORS[name],
+        showLine: true,
+        tension: 0.1,
+        pointRadius: 4,
+        pointHoverRadius: 7,
+        borderWidth: 2,
+      };
+    }),
+  },
+  options: {
+    responsive: true,
+    scales: {
+      x: { title: {display: true, text: 'Conversation Turn'} },
+      y: { title: {display: true, text: 'Cumulative Tokens'} },
+    },
+  }
+});
+
+// Final Bytes bar
+makeChart('finalBytes', {
+  type: 'bar',
+  data: {
+    labels: EXP_NAMES,
+    datasets: [{
+      label: 'Final Bytes',
+      data: EXP_NAMES.map(function(n) { return bytesToDisplay(DATA[n].summary.final_bytes); }),
+      backgroundColor: EXP_NAMES.map(function(n) { return COLORS[n] + '99'; }),
+      borderColor: EXP_NAMES.map(function(n) { return COLORS[n]; }),
+      borderWidth: 2,
+    }],
+  },
+  options: {
+    responsive: true,
+    scales: { y: byteYaxis() },
+    plugins: { legend: { display: false },
+      tooltip: { callbacks: {
+        label: function(ctx) {
+          var raw = DATA[ctx.label].summary.final_bytes;
+          return raw + ' bytes';
+        }
+      }}
+    }
+  }
+});
+
+// Stage breakdown
+(function() {
+  var stageNames = ['1. Understanding & First Solution', '2. Algorithm Exploration',
+                     '3. Micro-Optimization (Golfing)', '4. Plateau / Converged'];
+  var stageColors = ['#f59e0b', '#3b82f6', '#8b5cf6', '#ef4444'];
+
+  var tokDatasets = stageNames.map(function(sn, si) {
+    return {
+      label: sn.split('. ')[1],
+      data: EXP_NAMES.map(function(n) {
+        var stages = DATA[n].stages;
+        for (var i = 0; i < stages.length; i++) {
+          if (stages[i].name === sn) {
+            var prevEnd = i > 0 ? stages[i-1].end_tokens : 0;
+            return stages[i].end_tokens - prevEnd;
+          }
+        }
+        return 0;
+      }),
+      backgroundColor: stageColors[si] + 'bb',
+      borderColor: stageColors[si],
+      borderWidth: 1,
+    };
+  });
+
+  makeChart('stageTokens', {
+    type: 'bar',
+    data: { labels: EXP_NAMES, datasets: tokDatasets },
+    options: {
+      responsive: true,
+      scales: { x: { stacked: true }, y: { stacked: true, title: {display: true, text: 'Tokens'} } },
+    }
+  });
+
+  var impDatasets = stageNames.map(function(sn, si) {
+    return {
+      label: sn.split('. ')[1],
+      data: EXP_NAMES.map(function(n) {
+        var stages = DATA[n].stages;
+        for (var i = 0; i < stages.length; i++) {
+          if (stages[i].name === sn) return stages[i].improvement;
+        }
+        return 0;
+      }),
+      backgroundColor: stageColors[si] + 'bb',
+      borderColor: stageColors[si],
+      borderWidth: 1,
+    };
+  });
+
+  makeChart('stageImprove', {
+    type: 'bar',
+    data: { labels: EXP_NAMES, datasets: impDatasets },
+    options: {
+      responsive: true,
+      scales: { x: { stacked: true }, y: { stacked: true, title: {display: true, text: 'Bytes Reduced'} } },
+    }
+  });
+})();
+</script>
+</body>
+</html>

@@ -1,0 +1,155 @@
+{
+  "nodes": {
+    "v1": {
+      "version": "v1",
+      "parent": null,
+      "code": "def p(g):\n  H=len(g);W=len(g[0])\n  bl=[all(x==0 for x in row) for row in g]+[1,1]\n  out=[[0]*W for _ in range(H)]\n  for r in range(H):\n    rm=max((c for c in range(W) if g[r][c]),default=-1)\n    for c in range(W):\n      x=g[r][c]\n      if x:\n        bot = bl[r+1]\n        clamp = (not bl[r+1]) and bl[r+2] and c==rm\n        if bot or clamp: out[r][c]=x\n        elif c+1<W: out[r][c+1]=x\n  return out\n",
+      "bytes": 400,
+      "passed": true,
+      "code_hash": "888b4e1af5a7",
+      "file": "v1.py",
+      "timestamp": "2026-07-13T20:19:16.399562"
+    },
+    "v2": {
+      "version": "v2",
+      "parent": null,
+      "code": "def p(g):\n W=len(g[0]);b=[any(r)for r in g]+[0,0];o=[[0]*W for _ in g]\n for r,R in enumerate(g):\n  m=max((i for i,x in enumerate(R)if x),default=0)\n  for c,x in enumerate(R):\n   if x:o[r][c+(b[r+1]and(b[r+2]or c<m))]=x\n return o\n",
+      "bytes": 229,
+      "passed": true,
+      "code_hash": "074979fcd006",
+      "file": "v2.py",
+      "timestamp": "2026-07-13T20:20:03.174573"
+    },
+    "v3": {
+      "version": "v3",
+      "parent": "v2",
+      "code": "def p(g):\n W=len(g[0]);b=[any(r)for r in g]+[0,0];o=[[0]*W for _ in g]\n for r,R in enumerate(g):\n  for c,x in enumerate(R):\n   if x:o[r][c+(b[r+1]and(b[r+2]or not g[r+1][c]))]=x\n return o\n",
+      "bytes": 188,
+      "passed": true,
+      "code_hash": "6a6191e29423",
+      "file": "v3.py",
+      "timestamp": "2026-07-13T20:20:36.435673"
+    },
+    "v4": {
+      "version": "v4",
+      "parent": "v3",
+      "code": "def p(g):\n b=[any(r)for r in g]+[0,0]\n s=lambda r,c:b[r+1]and(b[r+2]or g[r+1][c]<1)\n return[[g[r][c]*(s(r,c)<1)or c and g[r][c-1]*s(r,c-1)for c in range(len(R))]for r,R in enumerate(g)]\n",
+      "bytes": 186,
+      "passed": true,
+      "code_hash": "a4ef21d06842",
+      "file": "v4.py",
+      "timestamp": "2026-07-13T20:21:17.238427"
+    },
+    "v5": {
+      "version": "v5",
+      "parent": "v4",
+      "code": "def p(g):\n b=[any(r)for r in g]+[0,0]\n s=lambda r,c:b[r+1]and(b[r+2]or g[r+1][c]<1)\n return[[x*(s(r,c)<1)or c and R[c-1]*s(r,c-1)for c,x in enumerate(R)]for r,R in enumerate(g)]\n",
+      "bytes": 178,
+      "passed": true,
+      "code_hash": "526ee3c811b1",
+      "file": "v5.py",
+      "timestamp": "2026-07-13T20:21:59.958157"
+    },
+    "v6": {
+      "version": "v6",
+      "parent": "v3",
+      "code": "def p(g):\n b=[any(r)for r in g]+[0,0]\n o=[R if not b[i+1]else[0]+R[:-1]for i,R in enumerate(g)]\n for i,R in enumerate(g):\n  if b[i+1]>b[i+2]:\n   m=max(c for c,x in enumerate(g[i+1])if x);o[i][m]=max(R);o[i][m+1]=0\n return o\n",
+      "bytes": 224,
+      "passed": false,
+      "code_hash": "99b1138114e0",
+      "file": "v6.py",
+      "timestamp": "2026-07-13T20:23:56.660429"
+    },
+    "v7": {
+      "version": "v7",
+      "parent": "v5",
+      "code": "def p(g):\n b=[any(r)for r in g]+[0,0];W=len(g[0])\n return[[max(R)*(j in{c+(b[i+1]and(b[i+2]or g[i+1][c]<1))for c,x in enumerate(R)if x})for j in range(W)]for i,R in enumerate(g)]\n",
+      "bytes": 179,
+      "passed": true,
+      "code_hash": "c6459ae92a2b",
+      "file": "v7.py",
+      "timestamp": "2026-07-13T20:27:02.293914"
+    },
+    "v8": {
+      "version": "v8",
+      "parent": "v7",
+      "code": "def p(g):\n a=[any(r)for r in g]+[0];W=len(g[0])\n return[[max(R)*(j in{c+(a[i+1]and g[i+1][c-1]<1)for c,x in enumerate(R)if x})for j in range(W)]for i,R in enumerate(g)]\n",
+      "bytes": 169,
+      "passed": false,
+      "code_hash": "3a6919e4df72",
+      "file": "v8.py",
+      "timestamp": "2026-07-13T20:28:19.996461"
+    },
+    "v9": {
+      "version": "v9",
+      "parent": "v5",
+      "code": "def p(g):\n b=[any(r)for r in g]+[0,0]\n return[[R[c-1]if b[r+1]and(b[r+2]or g[r+1][c-1]<1)else x for c,x in enumerate(R)]for r,R in enumerate(g)]\n",
+      "bytes": 145,
+      "passed": true,
+      "code_hash": "4776a60f4004",
+      "file": "v9.py",
+      "timestamp": "2026-07-13T20:31:12.238934"
+    },
+    "v10": {
+      "version": "v10",
+      "parent": "v9",
+      "code": "def p(g):\n b=[any(r)for r in g]+[0,0]\n return[[R[c-(b[r+1]and(b[r+2]or g[r+1][c-1]<1))]for c in range(len(R))]for r,R in enumerate(g)]\n",
+      "bytes": 135,
+      "passed": true,
+      "code_hash": "3711cab0b327",
+      "file": "v10.py",
+      "timestamp": "2026-07-13T20:31:57.493050"
+    },
+    "v11": {
+      "version": "v11",
+      "parent": "v10",
+      "code": "def p(g):\n b=[*map(any,g),0,0]\n return[[R[c-(b[r+1]and(b[r+2]or g[r+1][c-1]<1))]for c in range(len(R))]for r,R in enumerate(g)]\n",
+      "bytes": 128,
+      "passed": true,
+      "code_hash": "48755dcf8c16",
+      "file": "v11.py",
+      "timestamp": "2026-07-13T20:32:39.828995"
+    },
+    "v12": {
+      "version": "v12",
+      "parent": "v11",
+      "code": "p=lambda g:[[R[c-((b:=[*map(any,g),0,0])[r+1]and(b[r+2]or g[r+1][c-1]<1))]for c in range(len(R))]for r,R in enumerate(g)]\n",
+      "bytes": 122,
+      "passed": true,
+      "code_hash": "5c4ad16abbf5",
+      "file": "v12.py",
+      "timestamp": "2026-07-13T20:32:39.879377"
+    },
+    "v13": {
+      "version": "v13",
+      "parent": "v12",
+      "code": "p=lambda g:[[R[c-(any(n)and(any(m)or n[c-1]<1))]for c in range(len(R))]for R,n,m in zip(g,g[1:]+[[]],g[2:]+[[],[]])]",
+      "bytes": 116,
+      "passed": true,
+      "code_hash": "b76a17657539",
+      "file": "v13.py",
+      "timestamp": "2026-07-13T20:37:05.948644"
+    },
+    "v14": {
+      "version": "v14",
+      "parent": "v13",
+      "code": "p=lambda g:[[R[c-any(n)*(any(m)or n[c-1]<1)]for c in range(len(R))]for R,n,m in zip(g,g[1:]+[[]],g[2:]+[[]]*2)]",
+      "bytes": 111,
+      "passed": false,
+      "code_hash": "201034c62995",
+      "file": "v14.py",
+      "timestamp": "2026-07-13T20:37:58.516419"
+    },
+    "v15": {
+      "version": "v15",
+      "parent": "v14",
+      "code": "p=lambda g:[[R[c-(any(n)and n[c-1]<1)]for c in range(len(R))]for R,n in zip(g,g[1:]+[[]])]",
+      "bytes": 90,
+      "passed": true,
+      "code_hash": "d3cae4982bf9",
+      "file": "v15.py",
+      "timestamp": "2026-07-13T20:39:22.517267"
+    }
+  },
+  "updated": "2026-07-13T20:39:22.517298"
+}

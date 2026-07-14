@@ -1,0 +1,1 @@
+p=lambda g:exec('for r,s in zip(g,g[1:]):\n for j in range(len(r)-2,-1,-1):\n  if(v:=r[j])*(v in s[j+1:]):r[j:j+2]=0,v')or g

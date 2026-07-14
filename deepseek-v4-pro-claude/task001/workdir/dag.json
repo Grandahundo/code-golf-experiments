@@ -1,0 +1,45 @@
+{
+  "nodes": {
+    "v1": {
+      "version": "v1",
+      "parent": null,
+      "code": "def p(g):\n    s=len(g)\n    return [[g[R%s][C%s] if g[R//s][C//s] else 0 for C in range(s*s)] for R in range(s*s)]\n",
+      "bytes": 114,
+      "passed": true,
+      "code_hash": "c405ed2d1c7c",
+      "file": "v1.py",
+      "timestamp": "2026-07-14T11:24:32.452445"
+    },
+    "v2": {
+      "version": "v2",
+      "parent": "v1",
+      "code": "p=lambda g:[[x and y for x in a for y in b]for a in g for b in g]\n",
+      "bytes": 66,
+      "passed": true,
+      "code_hash": "bc4c1259897b",
+      "file": "v2.py",
+      "timestamp": "2026-07-14T11:24:59.062387"
+    },
+    "v3": {
+      "version": "v3",
+      "parent": "v2",
+      "code": "p=lambda g:[[x and y for x in a for y in b]for a in g for b in g]",
+      "bytes": 65,
+      "passed": true,
+      "code_hash": "3b2b64ddee6f",
+      "file": "v3.py",
+      "timestamp": "2026-07-14T11:25:21.122159"
+    },
+    "v4": {
+      "version": "v4",
+      "parent": "v3",
+      "code": "p=lambda g:[[x&y for x in a for y in b]for a in g for b in g]",
+      "bytes": 61,
+      "passed": true,
+      "code_hash": "2395f302713e",
+      "file": "v4.py",
+      "timestamp": "2026-07-14T11:29:53.446341"
+    }
+  },
+  "updated": "2026-07-14T11:29:53.446365"
+}

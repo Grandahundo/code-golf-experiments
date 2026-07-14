@@ -1,0 +1,1 @@
+exec('def p(g):\n w=len(g[0]);g=g+[[0]*w];o=[[0]*w for _ in g[:-1]];r=len(g)-1\n while r:r-=1;x=g[r];y=g[r+1]\n  for c in range(w):\n   v=x[c]\n   if v:o[r][c+(v in y and(y[c]<1 or c+1<w and x[c+1]>0))]=v\n return o')

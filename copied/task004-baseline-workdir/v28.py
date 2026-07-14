@@ -1,0 +1,1 @@
+exec("def p(g,m={}):\n for r in g[::-1]:\n  for j,v in[*enumerate(r)][::-1]:\n   if v:a=m[v]=m.get(v,(r,j));s=r!=a[0]and j!=a[1];r[j+s]=v;r[j]*=1-s\n return g")

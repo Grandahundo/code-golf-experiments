@@ -1,0 +1,22 @@
+{
+  "input_spec": null,
+  "output_spec": null,
+  "transformation_type": "parallelogram_shift",
+  "transformation_params": {
+    "direction": "right",
+    "amount": 1
+  },
+  "invariants": [
+    "grid dimensions unchanged",
+    "color set unchanged",
+    "number of pixels unchanged"
+  ],
+  "rules": [
+    "top row shifts right by 1",
+    "left diagonal shifts right by 1",
+    "right diagonal shifts right by 1 except last pixel",
+    "bottom row stays in place"
+  ],
+  "edge_cases": [],
+  "confidence": 0.95
+}

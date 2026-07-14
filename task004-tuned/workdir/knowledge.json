@@ -1,0 +1,18 @@
+{
+  "input_spec": null,
+  "output_spec": null,
+  "transformation_type": "shift",
+  "transformation_params": {
+    "direction": "right",
+    "amount": 1
+  },
+  "invariants": [],
+  "rules": [
+    "parallelogram outlines in input",
+    "bottom edge: nothing below, horiz neighbor, no diag below",
+    "pixels above bottom edge also stay",
+    "all other pixels shift right by 1"
+  ],
+  "edge_cases": [],
+  "confidence": 0.9
+}

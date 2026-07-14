@@ -1,0 +1,1 @@
+p=lambda g:(w:=len(g[0]),g:=g+[[0]*w],m:={g[r][c]:r for r in range(len(g)-1)for c in range(w)if g[r][c]},[[(g[r][c]if r==m.get(g[r][c],-1)or(g[r+1][c]and not(c+1<w and g[r][c+1]))else(c-1>=0 and g[r][c-1]*(r!=m.get(g[r][c-1],-1))))for c in range(w)]for r in range(len(g)-1)])

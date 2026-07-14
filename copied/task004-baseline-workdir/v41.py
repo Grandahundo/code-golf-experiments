@@ -1,0 +1,1 @@
+p=lambda g:(0for r,s in zip(g,g[1:])for j,v in[*enumerate(r)][::-1]if v*(v in s[j+1:])and(r.__setitem__(slice(j,j+2),(0,v))or 1))and 0or g

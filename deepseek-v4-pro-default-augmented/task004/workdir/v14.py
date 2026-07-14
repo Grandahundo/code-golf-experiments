@@ -1,0 +1,1 @@
+def p(g):o=[[0]*len(g[0])for _ in g];L=len(g);exec('for r in range(L):\n for c in range(len(g[0])):\n  if v:=g[r][c]:a=r and v in g[r-1];b=r<L-1 and v in g[r+1];o[r][c+(a<1 or b and g[r+1][c]!=v)]=v');return o

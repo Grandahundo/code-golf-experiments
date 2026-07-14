@@ -1,0 +1,1 @@
+p=lambda g:(w:=len(g[0]),g:=g+[[0]*w],o:=[[0]*w for _ in g[:-1]],[o[r].__setitem__(c+(v in g[r+1]and(g[r+1][c]<1 or c+1<w and g[r][c+1]>0)),v)for r in range(len(g)-1)for c in range(w)if(v:=g[r][c])],o)[-1]

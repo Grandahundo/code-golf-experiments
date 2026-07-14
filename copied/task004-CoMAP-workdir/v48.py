@@ -1,0 +1,1 @@
+p=lambda g:[exec('r[c:c+2]=0,v')for r,b in zip(g,g[1:])for c,v in[*enumerate(r)][::-1]if v*(c<bytearray(b).rfind(v))]and g

@@ -1,0 +1,1 @@
+p=lambda g:eval(str(g+g[2*(g[0]!=g[3]):][:3]).replace('1','2'))

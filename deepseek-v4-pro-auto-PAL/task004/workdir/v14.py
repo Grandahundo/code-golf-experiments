@@ -1,0 +1,1 @@
+p=lambda g:[[R[c-any(n)*(any(m)or n[c-1]<1)]for c in range(len(R))]for R,n,m in zip(g,g[1:]+[[]],g[2:]+[[]]*2)]

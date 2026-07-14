@@ -1,0 +1,185 @@
+{
+  "nodes": {
+    "v1": {
+      "version": "v1",
+      "parent": null,
+      "code": "def p(g):\n S=len(g)\n # Find densest 3x3 window - this is the middle block\n best=0\n mid=(0,0)\n for r in range(S-2):\n  for c in range(S-2):\n   d=sum(1 for i in range(3) for j in range(3) if g[r+i][c+j])\n   if d>best:best=d;mid=(r,c)\n mr,mc=mid\n # Sprite pattern from middle block\n P=[(i,j) for i in range(3) for j in range(3) if g[mr+i][mc+j]]\n # Build output: for each valid block anchor, stamp along direction\n o=[[0]*S for _ in range(S)]\n for r in range(S-2):\n  for c in range(S-2):\n   if (r-mr)%4==0 and (c-mc)%4==0:\n    v=0\n    for i in range(3):\n     for j in range(3):\n      if g[r+i][c+j]:v=g[r+i][c+j];break\n     if v:break\n    if v:\n     dr=(r-mr)//4;dc=(c-mc)//4\n     R,C=r,c\n     while 0<=R<S and 0<=C<S:\n      for i,j in P:\n       nr,nc=R+i,C+j\n       if 0<=nr<S and 0<=nc<S:o[nr][nc]=v\n      if dr==0 and dc==0:break\n      R+=dr*4;C+=dc*4\n return o\n",
+      "bytes": 861,
+      "passed": false,
+      "code_hash": "d33317e4f321",
+      "file": "v1.py",
+      "timestamp": "2026-07-14T11:30:10.041089"
+    },
+    "v2": {
+      "version": "v2",
+      "parent": null,
+      "code": "def p(g):\n S=len(g)\n m=max((sum(g[r+i][c+j]>0for i in(0,1,2)for j in(0,1,2)),r,c)for r in range(S-2)for c in range(S-2));R,C=m[1],m[2]\n P=[(i,j)for i in(0,1,2)for j in(0,1,2)if g[R+i][C+j]];M=g[R+P[0][0]][C+P[0][1]]\n o=[[0]*S for _ in[0]*S]\n for r in(0,4,-4):\n  for c in(0,4,-4):\n   v=M if r==c==0 else 0\n   if not v:\n    for i in(0,1,2):\n     for j in(0,1,2):\n      if-1<R+r+i<S and-1<C+c+j<S and g[R+r+i][C+c+j]:v=g[R+r+i][C+c+j];break\n     if v:break\n   if v:\n    a,b=R,C\n    while-4<a<S+4and-4<b<S+4:\n     for i,j in P:\n      x,y=a+i,b+j\n      if-1<x<S and-1<y<S:o[x][y]=v\n     if r==c==0:break\n     a+=r;b+=c\n return o\n",
+      "bytes": 624,
+      "passed": false,
+      "code_hash": "f7818eb89083",
+      "file": "v2.py",
+      "timestamp": "2026-07-14T11:34:07.095964"
+    },
+    "v3": {
+      "version": "v3",
+      "parent": "v2",
+      "code": "def p(g,S=21):\n m=max((sum(g[r+i][c+j]>0for i in(0,1,2)for j in(0,1,2)),r,c)for r in range(19)for c in range(19));R,C=m[1],m[2]\n P=[(i,j)for i in(0,1,2)for j in(0,1,2)if g[R+i][C+j]];M=g[R+P[0][0]][C+P[0][1]]\n o=[[0]*S for _ in[0]*S]\n for r in(0,4,-4):\n  for c in(0,4,-4):\n   if r|c:v=0;a,b=R+r,C+c\n   else:v=M;a,b=R,C\n   if not v:\n    for i in(0,1,2):\n     for j in(0,1,2):\n      if-1<a+i<S and-1<b+j<S and g[a+i][b+j]:v=g[a+i][b+j];break\n     if v:break\n   if v:\n    while-4<a<S+4and-4<b<S+4:\n     for i,j in P:\n      x,y=a+i,b+j\n      if-1<x<S and-1<y<S:o[x][y]=v\n     if not r|c:break\n     a+=r;b+=c\n return o\n",
+      "bytes": 614,
+      "passed": true,
+      "code_hash": "4e7a7202aaa7",
+      "file": "v3.py",
+      "timestamp": "2026-07-14T11:34:52.670160"
+    },
+    "v4": {
+      "version": "v4",
+      "parent": "v3",
+      "code": "def p(g):\n R,C=max(((r,c)for r in range(19)for c in range(19)),key=lambda x:sum(g[x[0]+i][x[1]+j]>0for i in(0,1,2)for j in(0,1,2)))\n P=[(i,j)for i in(0,1,2)for j in(0,1,2)if g[R+i][C+j]];M=g[R+P[0][0]][C+P[0][1]]\n o=[[0]*21 for _ in[0]*21]\n for r in(0,4,-4):\n  for c in(0,4,-4):\n   if r|c:a,b=R+r,C+c;v=[g[a+i][b+j]for i in(0,1,2)for j in(0,1,2)if-1<a+i<21and-1<b+j<21and g[a+i][b+j]];v=(v or[0])[0]\n   else:a,b,v=R,C,M\n   if v:\n    while-4<a<25and-4<b<25:\n     for i,j in P:\n      x,y=a+i,b+j\n      if-1<x<21and-1<y<21:o[x][y]=v\n     if not r|c:break\n     a+=r;b+=c\n return o\n",
+      "bytes": 577,
+      "passed": true,
+      "code_hash": "5e5beda3406a",
+      "file": "v4.py",
+      "timestamp": "2026-07-14T11:41:15.626156"
+    },
+    "v5": {
+      "version": "v5",
+      "parent": "v4",
+      "code": "def p(g):\n R,C=max(((r,c)for r in range(19)for c in range(19)),key=lambda x:sum(g[x[0]+i][x[1]+j]>0for i in(0,1,2)for j in(0,1,2)))\n P=[(i,j)for i in(0,1,2)for j in(0,1,2)if g[R+i][C+j]];M=g[R+P[0][0]][C+P[0][1]]\n o=[[0]*21 for _ in[0]*21]\n for i,j in P:\n  x,y=R+i,C+j\n  if-1<x<21and-1<y<21:o[x][y]=M\n for r in(0,4,-4):\n  for c in(0,4,-4):\n   if r|c:\n    a,b=R+r,C+c;v=[g[a+i][b+j]for i in(0,1,2)for j in(0,1,2)if g[a+i][b+j]]\n    if v:\n     v=v[0]\n     while-4<a<25and-4<b<25:\n      for i,j in P:\n       x,y=a+i,b+j\n       if-1<x<21and-1<y<21:o[x][y]=v\n      a+=r;b+=c\n return o\n",
+      "bytes": 580,
+      "passed": true,
+      "code_hash": "5e2e55b0d3c7",
+      "file": "v5.py",
+      "timestamp": "2026-07-14T11:46:08.884645"
+    },
+    "v6": {
+      "version": "v6",
+      "parent": null,
+      "code": "def p(g):\n C={}\n for r in range(21):\n  for c in range(21):\n   if g[r][c]:C[g[r][c]]=C.get(g[r][c],[])+[(r,c)]\n M=max((v for v,p in C.items()if max(r for r,c in p)-min(r for r,c in p)<3and max(c for r,c in p)-min(c for r,c in p)<3),key=lambda v:len(C[v]))\n P=[(r,c)for r,c in C[M]];R=min(r for r,c in P);C0=min(c for r,c in P)\n P=[(r-R,c-C0)for r,c in P];o=[[0]*21 for _ in[0]*21]\n for i,j in P:\n  x,y=R+i,C0+j\n  if-1<x<21and-1<y<21:o[x][y]=M\n for r in range(21):\n  for c in range(21):\n   v=g[r][c]\n   if v and v!=M:\n    ar=r-(r-R)%4;ac=c-(c-C0)%4\n    dr=(ar-R)//4;dc=(ac-C0)//4\n    a,b=ar,ac\n    while-4<a<25and-4<b<25:\n     for i,j in P:\n      x,y=a+i,b+j\n      if-1<x<21and-1<y<21:o[x][y]=v\n     if dr==dc==0:break\n     a+=dr*4;b+=dc*4\n return o\n",
+      "bytes": 748,
+      "passed": true,
+      "code_hash": "5a15af1f2a14",
+      "file": "v6.py",
+      "timestamp": "2026-07-14T11:48:55.344014"
+    },
+    "v7": {
+      "version": "v7",
+      "parent": "v4",
+      "code": "def p(g):\n R,C=max(((r,c)for r in range(19)for c in range(19)),key=lambda x:sum(g[x[0]+i][x[1]+j]>0for i in(0,1,2)for j in(0,1,2)))\n P=[(i,j)for i in(0,1,2)for j in(0,1,2)if g[R+i][C+j]];M=g[R+P[0][0]][C+P[0][1]];o=[[0]*21for _ in[0]*21]\n for r in(0,4,-4):\n  for c in(0,4,-4):\n   if r|c:a,b=R+r,C+c;v=[g[a+i][b+j]for i in(0,1,2)for j in(0,1,2)if g[a+i][b+j]]\n   else:a,b,v=R,C,M\n   if v:\n    if r|c:v=v[0]\n    while-4<a<25and-4<b<25:\n     for i,j in P:\n      x,y=a+i,b+j\n      if-1<x<21and-1<y<21:o[x][y]=v\n     if not r|c:break\n     a+=r;b+=c\n return o\n",
+      "bytes": 554,
+      "passed": true,
+      "code_hash": "888008543f04",
+      "file": "v7.py",
+      "timestamp": "2026-07-14T11:49:47.192311"
+    },
+    "v8": {
+      "version": "v8",
+      "parent": "v7",
+      "code": "def p(g):\n R,C=max(((r,c)for r in range(19)for c in range(19)),key=lambda x:sum(g[x[0]+i][x[1]+j]>0for i in(0,1,2)for j in(0,1,2)))\n P=[(i,j)for i in(0,1,2)for j in(0,1,2)if g[R+i][C+j]];M=g[R+P[0][0]][C+P[0][1]]\n o=[[0]*21 for _ in[0]*21]\n for r in range(21):\n  for c in range(21):\n   v=g[r][c]\n   if v:\n    a=r-(r-R)%4;b=c-(c-C)%4;d=(a-R)//4;e=(b-C)//4\n    while-4<a<25and-4<b<25:\n     for i,j in P:\n      x,y=a+i,b+j\n      if-1<x<21and-1<y<21:o[x][y]=v\n     if d==e==0:break\n     a+=d*4;b+=e*4\n return o\n",
+      "bytes": 507,
+      "passed": true,
+      "code_hash": "d4b786ca5856",
+      "file": "v8.py",
+      "timestamp": "2026-07-14T11:51:41.294055"
+    },
+    "v9": {
+      "version": "v9",
+      "parent": "v8",
+      "code": "def p(g):\n R,C=max(((r,c)for r in range(19)for c in range(19)),key=lambda x:sum(g[x[0]+i][x[1]+j]>0for i in(0,1,2)for j in(0,1,2)))\n P=[(i,j)for i in(0,1,2)for j in(0,1,2)if g[R+i][C+j]]\n o=[[0]*21 for _ in[0]*21]\n for r in range(21):\n  for c in range(21):\n   v=g[r][c]\n   if v:\n    a=r-(r-R)%4;b=c-(c-C)%4;d=(a-R)//4;e=(b-C)//4\n    while-4<a<25and-4<b<25:\n     for i,j in P:\n      try:o[a+i][b+j]=v\n      except:0\n     if d==e==0:break\n     a+=d*4;b+=e*4\n return o\n",
+      "bytes": 466,
+      "passed": false,
+      "code_hash": "837fbc164b8f",
+      "file": "v9.py",
+      "timestamp": "2026-07-14T11:54:26.205095"
+    },
+    "v10": {
+      "version": "v10",
+      "parent": "v8",
+      "code": "def p(g):\n R,C=max(((r,c)for r in range(19)for c in range(19)),key=lambda x:sum(g[x[0]+i][x[1]+j]>0for i in(0,1,2)for j in(0,1,2)))\n P=[(i,j)for i in(0,1,2)for j in(0,1,2)if g[R+i][C+j]];o=[[0]*21 for _ in[0]*21]\n for r in range(21):\n  for c in range(21):\n   if v:=g[r][c]:\n    a=r-(r-R)%4;b=c-(c-C)%4;d=(a-R)//4;e=(b-C)//4\n    while-4<a<25and-4<b<25:\n     for i,j in P:\n      x,y=a+i,b+j\n      if-1<x<21and-1<y<21:o[x][y]=v\n     if d==e==0:break\n     a+=d*4;b+=e*4\n return o\n",
+      "bytes": 476,
+      "passed": true,
+      "code_hash": "85459b4da5ee",
+      "file": "v10.py",
+      "timestamp": "2026-07-14T11:57:01.262101"
+    },
+    "v11": {
+      "version": "v11",
+      "parent": "v10",
+      "code": "from common import*\ndef p(g):\n R,C=max(((r,c)for r in range(19)for c in range(19)),key=lambda x:sum(g[x[0]+i][x[1]+j]>0for i in(0,1,2)for j in(0,1,2)))\n P=[(i,j)for i in(0,1,2)for j in(0,1,2)if g[R+i][C+j]];o=grid(21,21)\n for r,c in all_pixels(21,21):\n  if v:=g[r][c]:\n   a=r-(r-R)%4;b=c-(c-C)%4;d=(a-R)//4;e=(b-C)//4\n   while-4<a<25and-4<b<25:\n    for i,j in P:draw(o,a+i,b+j,v)\n    if d==e==0:break\n    a+=d*4;b+=e*4\n return o\n",
+      "bytes": 429,
+      "passed": true,
+      "code_hash": "550d91e12133",
+      "file": "v11.py",
+      "timestamp": "2026-07-14T11:58:18.252718"
+    },
+    "v12": {
+      "version": "v12",
+      "parent": "v11",
+      "code": "from common import*\ndef p(g):\n R,C=max(all_pixels(19,19),key=lambda x:sum(g[x[0]+i][x[1]+j]>0for i,j in all_pixels(3,3)))\n P=[(i,j)for i,j in all_pixels(3,3)if g[R+i][C+j]];o=grid(21,21)\n for r,c in all_pixels(21,21):\n  if v:=g[r][c]:\n   a=r-(r-R)%4;b=c-(c-C)%4;d=(a-R)//4;e=(b-C)//4\n   while-4<a<25and-4<b<25:\n    for i,j in P:draw(o,a+i,b+j,v)\n    if d==e==0:break\n    a+=d*4;b+=e*4\n return o\n",
+      "bytes": 395,
+      "passed": true,
+      "code_hash": "4904e3c82a85",
+      "file": "v12.py",
+      "timestamp": "2026-07-14T11:58:48.597305"
+    },
+    "v13": {
+      "version": "v13",
+      "parent": "v12",
+      "code": "from common import*\ndef p(g):\n R,C=max(all_pixels(19,19),key=lambda x:sum(g[x[0]+i][x[1]+j]>0for i,j in all_pixels(3,3)))\n o=grid(21,21)\n for r,c in all_pixels(21,21):\n  if v:=g[r][c]:\n   a=r-(r-R)%4;b=c-(c-C)%4;d=(a-R)//4;e=(b-C)//4\n   while-4<a<25and-4<b<25:\n    for i,j in all_pixels(3,3):\n     if g[R+i][C+j]:draw(o,a+i,b+j,v)\n    if d==e==0:break\n    a+=d*4;b+=e*4\n return o\n",
+      "bytes": 380,
+      "passed": true,
+      "code_hash": "950b6b4832c4",
+      "file": "v13.py",
+      "timestamp": "2026-07-14T11:59:56.185795"
+    },
+    "v14": {
+      "version": "v14",
+      "parent": "v13",
+      "code": "from common import*\ndef p(g):\n R,C=max(all_pixels(19,19),key=lambda x:sum(g[x[0]+i][x[1]+j]>0for i,j in all_pixels(3,3)))\n o=grid(21,21)\n for r,c in all_pixels(21,21):\n  if v:=g[r][c]:\n   d=(r-R)//4;e=(c-C)//4;a=R+d*4;b=C+e*4\n   while-4<a<25and-4<b<25:\n    for i,j in all_pixels(3,3):\n     if g[R+i][C+j]:draw(o,a+i,b+j,v)\n    if d==e==0:break\n    a+=d*4;b+=e*4\n return o\n",
+      "bytes": 372,
+      "passed": true,
+      "code_hash": "0ced4de0988f",
+      "file": "v14.py",
+      "timestamp": "2026-07-14T12:00:29.263958"
+    },
+    "v15": {
+      "version": "v15",
+      "parent": "v14",
+      "code": "from common import*\ndef p(g):\n R,C=max(all_pixels(19,19),key=lambda x:sum(g[x[0]+i][x[1]+j]>0for i,j in all_pixels(3,3)))\n for r,c in all_pixels(21,21):\n  if v:=g[r][c]:\n   d=(r-R)//4;e=(c-C)//4;a=R+d*4;b=C+e*4\n   while-4<a<25and-4<b<25:\n    for i,j in all_pixels(3,3):\n     if g[R+i][C+j]:draw(g,a+i,b+j,v)\n    if d==e==0:break\n    a+=d*4;b+=e*4\n return g\n",
+      "bytes": 357,
+      "passed": true,
+      "code_hash": "8ce89614c4dd",
+      "file": "v15.py",
+      "timestamp": "2026-07-14T12:01:16.840055"
+    },
+    "v16": {
+      "version": "v16",
+      "parent": "v15",
+      "code": "from common import*\ndef p(g):\n R,C=max(all_pixels(19,19),key=lambda(r,c):sum(g[r+i][c+j]>0for i,j in all_pixels(3,3)))\n for r,c in all_pixels(21,21):\n  if v:=g[r][c]:\n   d=(r-R)//4;e=(c-C)//4;a=R+d*4;b=C+e*4\n   while-4<a<25and-4<b<25:\n    for i,j in all_pixels(3,3):\n     if g[R+i][C+j]:draw(g,a+i,b+j,v)\n    if d==e==0:break\n    a+=d*4;b+=e*4\n return g\n",
+      "bytes": 354,
+      "passed": false,
+      "code_hash": "1cff1d9f0472",
+      "file": "v16.py",
+      "timestamp": "2026-07-14T12:01:28.309736"
+    },
+    "v17": {
+      "version": "v17",
+      "parent": "v15",
+      "code": "from common import*\ndef p(g):\n R,C=max(all_pixels(19,19),key=lambda x:sum(1for i,j in all_pixels(3,3)if g[x[0]+i][x[1]+j]))\n for r,c in all_pixels(21,21):\n  if v:=g[r][c]:\n   d=(r-R)//4;e=(c-C)//4;a=R+d*4;b=C+e*4\n   while-4<a<25and-4<b<25:\n    for i,j in all_pixels(3,3):\n     if g[R+i][C+j]:draw(g,a+i,b+j,v)\n    if d|e:a+=d*4;b+=e*4\n    else:break\n return g\n",
+      "bytes": 360,
+      "passed": true,
+      "code_hash": "b484b6cedb07",
+      "file": "v17.py",
+      "timestamp": "2026-07-14T12:06:09.602610"
+    },
+    "v18": {
+      "version": "v18",
+      "parent": "v15",
+      "code": "from common import*\ndef p(g):\n R,C=max(all_pixels(19,19),key=lambda x:sum(g[x[0]+i][x[1]+j]>0for i,j in all_pixels(3,3)))\n for r,c in all_pixels(21,21):\n  if v:=g[r][c]:\n   d=(r-R)//4;e=(c-C)//4\n   a=R+d*4;b=C+e*4;k=1\n   while-4<a<25and-4<b<25:\n    for i,j in all_pixels(3,3):\n     if g[R+i][C+j]:draw(g,a+i,b+j,v)\n    if d|e:a=R+d*4*k;b=C+e*4*k;k+=1\n    else:break\n return g\n",
+      "bytes": 376,
+      "passed": true,
+      "code_hash": "606c0fa94312",
+      "file": "v19.py",
+      "timestamp": "2026-07-14T12:07:33.388195"
+    }
+  },
+  "updated": "2026-07-14T12:07:33.388230"
+}

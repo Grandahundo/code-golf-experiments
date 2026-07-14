@@ -1,0 +1,19 @@
+{
+  "input_spec": null,
+  "output_spec": null,
+  "transformation_type": "shift",
+  "transformation_params": {
+    "direction": "right",
+    "amount": 1
+  },
+  "invariants": [],
+  "rules": [
+    "parallelogram outlines: top edge, bottom edge, left/right diagonals",
+    "bottom row pixels stay (row below all zeros + horiz adj)",
+    "pixel directly above bottom-right corner also stays (inherit)",
+    "all other non-zero pixels shift right by 1 column",
+    "shapes separated by >=1 empty row guarantees row-below-empty test works"
+  ],
+  "edge_cases": [],
+  "confidence": 0.95
+}

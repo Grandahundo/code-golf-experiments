@@ -1,0 +1,25 @@
+# macOS
+.DS_Store
+**/.DS_Store
+
+# Large data (original competition data, 93MB)
+google-code-golf-2025/
+
+# Local environment config
+env/
+
+# Zip archives
+*.zip
+
+# Python cache
+__pycache__/
+*.pyc
+*.pyo
+.venv/
+venv/
+
+# IDE
+.idea/
+.vscode/
+*.swp
+*.swo

@@ -1,0 +1,1 @@
+p=lambda g:[[c*2for c in g[r%(4-(g[0]==g[3]))]]for r in range(9)]

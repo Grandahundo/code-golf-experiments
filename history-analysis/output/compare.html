@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Code Golf — auto-PAL vs Default</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; background: #fff; color: #111; max-width: 1060px; margin: 40px auto; padding: 0 20px; }
+  h1 { font-size: 1.4rem; font-weight: 700; margin-bottom: 4px; }
+  .sub { font-size: .85rem; color: #777; margin-bottom: 28px; }
+  table { width: 100%; border-collapse: collapse; font-size: .84rem; }
+  thead th { text-align: left; font-weight: 600; color: #555; font-size: .72rem; text-transform: uppercase; letter-spacing: .04em; padding: 10px 12px; border-bottom: 2px solid #111; }
+  .th-r { text-align: right; }
+  tbody td { padding: 8px 12px; border-bottom: 1px solid #e5e5e5; vertical-align: middle; }
+  tbody tr:hover { background: #f9f9f9; }
+  .task-group { border-top: 2px solid #ddd; }
+  .exp-ap { color: #2563eb; font-weight: 600; }
+  .exp-df { color: #dc2626; font-weight: 600; }
+  .best { font-weight: 700; }
+  .num { text-align: right; font-variant-numeric: tabular-nums; }
+  .tok-total { font-weight: 700; }
+</style>
+</head>
+<body>
+<h1>Code Golf &mdash; auto-PAL vs Default</h1>
+<p class="sub">workdir 文件为 ground truth &middot; Token = 所有 agent 的 usage 求和 &middot; 含 Cache = 含 cache_creation_input_tokens + cache_read_input_tokens</p>
+<table>
+<thead>
+  <tr><th>Task</th><th>实验</th><th>Agents</th><th>最优</th><th>步数</th><th class="th-r">Tok &rarr; Best</th><th class="th-r">Main Tok</th><th class="th-r">Sub Tok</th><th class="th-r">总 Token</th><th class="th-r">含 Cache</th></tr>
+</thead>
+<tbody>
+  <tr class="task-group">
+    <td rowspan="2"><strong>001</strong></td>
+    <td class="exp-ap">auto-PAL</td><td class="num">1</td><td><span class="best">61B</span></td><td class="num">4</td><td class="num">13,184</td><td class="num">108,130</td><td class="num">0</td><td class="num tok-total">108,130</td><td class="num">4,503,266</td>
+  </tr>
+  <tr>
+    <td class="exp-df">Default</td><td class="num">6</td><td><span class="best">61B</span></td><td class="num">1</td><td class="num">&mdash;</td><td class="num">31,289</td><td class="num">58,084</td><td class="num tok-total">89,373</td><td class="num">5,999,261</td>
+  </tr>
+  <tr class="task-group">
+    <td rowspan="2"><strong>002</strong></td>
+    <td class="exp-ap">auto-PAL</td><td class="num">1</td><td>156B</td><td class="num">12</td><td class="num">206,415</td><td class="num">341,553</td><td class="num">0</td><td class="num tok-total">341,553</td><td class="num">55,162,929</td>
+  </tr>
+  <tr>
+    <td class="exp-df">Default</td><td class="num">18</td><td><span class="best">129B</span></td><td class="num">2</td><td class="num">152,672</td><td class="num">175,725</td><td class="num">429,443</td><td class="num tok-total">605,168</td><td class="num">56,353,072</td>
+  </tr>
+  <tr class="task-group">
+    <td rowspan="2"><strong>003</strong></td>
+    <td class="exp-ap">auto-PAL</td><td class="num">1</td><td>61B</td><td class="num">4</td><td class="num">503,616</td><td class="num">639,396</td><td class="num">0</td><td class="num tok-total">639,396</td><td class="num">9,773,988</td>
+  </tr>
+  <tr>
+    <td class="exp-df">Default</td><td class="num">5</td><td><span class="best">60B</span></td><td class="num">2</td><td class="num">5,583</td><td class="num">55,554</td><td class="num">64,946</td><td class="num tok-total">120,500</td><td class="num">5,233,076</td>
+  </tr>
+  <tr class="task-group">
+    <td rowspan="2"><strong>004</strong></td>
+    <td class="exp-ap">auto-PAL</td><td class="num">2</td><td>90B</td><td class="num">13</td><td class="num">68,798</td><td class="num">77,214</td><td class="num">0</td><td class="num tok-total">77,214</td><td class="num">4,056,158</td>
+  </tr>
+  <tr>
+    <td class="exp-df">Default</td><td class="num">22</td><td><span class="best">82B</span></td><td class="num">4</td><td class="num">179,482</td><td class="num">212,518</td><td class="num">712,434</td><td class="num tok-total">924,952</td><td class="num">84,018,776</td>
+  </tr>
+  <tr class="task-group">
+    <td rowspan="2"><strong>005</strong></td>
+    <td class="exp-ap">auto-PAL</td><td class="num">1</td><td>357B</td><td class="num">12</td><td class="num">730,972</td><td class="num">778,460</td><td class="num">0</td><td class="num tok-total">778,460</td><td class="num">22,860,636</td>
+  </tr>
+  <tr>
+    <td class="exp-df">Default</td><td class="num">3</td><td><span class="best">275B</span></td><td class="num">2</td><td class="num">79,975</td><td class="num">89,330</td><td class="num">22,191</td><td class="num tok-total">111,521</td><td class="num">10,232,545</td>
+  </tr>
+</tbody>
+</table>
+</body>
+</html>

@@ -1,0 +1,2643 @@
+{
+  "task001": {
+    "summary": {
+      "initial_bytes": 114,
+      "final_bytes": 61,
+      "total_improvement": 53,
+      "improvement_pct": 46.5,
+      "total_tokens": 13184,
+      "total_versions_created": 6,
+      "total_improvements": 4,
+      "bytes_per_token": 0.00402,
+      "stages": [
+        {
+          "name": "1. Understanding & First Solution",
+          "tokens_in_stage": 3338,
+          "turns": "0-15",
+          "improvement": 0
+        },
+        {
+          "name": "2. Algorithm Exploration",
+          "tokens_in_stage": 1287,
+          "turns": "20-20",
+          "improvement": 48
+        },
+        {
+          "name": "3. Micro-Optimization (Golfing)",
+          "tokens_in_stage": 8559,
+          "turns": "25-35",
+          "improvement": 5
+        }
+      ]
+    },
+    "trajectory": [
+      {
+        "version": "v1",
+        "bytes": 114,
+        "cumulative_tokens": 3338,
+        "conversation_turn": 15,
+        "history_line": 31,
+        "is_verified": false,
+        "timestamp": "2026-07-14T03:24:27.690Z"
+      },
+      {
+        "version": "v2",
+        "bytes": 66,
+        "cumulative_tokens": 4625,
+        "conversation_turn": 20,
+        "history_line": 41,
+        "is_verified": false,
+        "timestamp": "2026-07-14T03:24:55.068Z"
+      },
+      {
+        "version": "v3",
+        "bytes": 65,
+        "cumulative_tokens": 5482,
+        "conversation_turn": 25,
+        "history_line": 48,
+        "is_verified": true,
+        "timestamp": "2026-07-14T03:25:21.049Z"
+      },
+      {
+        "version": "v4",
+        "bytes": 61,
+        "cumulative_tokens": 13184,
+        "conversation_turn": 35,
+        "history_line": 69,
+        "is_verified": true,
+        "timestamp": "2026-07-14T03:29:53.368Z"
+      }
+    ],
+    "stages": [
+      {
+        "name": "1. Understanding & First Solution",
+        "start_turn": 0,
+        "end_turn": 15,
+        "start_tokens": 0,
+        "end_tokens": 3338,
+        "best_bytes_start": null,
+        "best_bytes_end": 114,
+        "improvement_bytes": 0,
+        "description": "Task exploration \u2192 first working solution (114 bytes, v1)"
+      },
+      {
+        "name": "2. Algorithm Exploration",
+        "start_turn": 20,
+        "end_turn": 20,
+        "start_tokens": 4625,
+        "end_tokens": 4625,
+        "best_bytes_start": 114,
+        "best_bytes_end": 66,
+        "improvement_bytes": 48,
+        "description": "-48 bytes total \u2192 66B (v2: -48B)"
+      },
+      {
+        "name": "3. Micro-Optimization (Golfing)",
+        "start_turn": 25,
+        "end_turn": 35,
+        "start_tokens": 5482,
+        "end_tokens": 13184,
+        "best_bytes_start": 66,
+        "best_bytes_end": 61,
+        "improvement_bytes": 5,
+        "description": "-5 bytes total \u2192 61B (v3: -1B, v4: -4B)"
+      }
+    ],
+    "all_versions": [
+      {
+        "version": "v1",
+        "byte_count": 114,
+        "history_line": 31,
+        "cumulative_tokens": 3338,
+        "conversation_turn": 15,
+        "timestamp": "2026-07-14T03:24:27.690Z",
+        "is_verified": false
+      },
+      {
+        "version": "v2",
+        "byte_count": 66,
+        "history_line": 41,
+        "cumulative_tokens": 4625,
+        "conversation_turn": 20,
+        "timestamp": "2026-07-14T03:24:55.068Z",
+        "is_verified": false
+      },
+      {
+        "version": "v3",
+        "byte_count": 65,
+        "history_line": 48,
+        "cumulative_tokens": 5482,
+        "conversation_turn": 25,
+        "timestamp": "2026-07-14T03:25:21.049Z",
+        "is_verified": true
+      },
+      {
+        "version": "v4",
+        "byte_count": 61,
+        "history_line": 69,
+        "cumulative_tokens": 13184,
+        "conversation_turn": 35,
+        "timestamp": "2026-07-14T03:29:53.368Z",
+        "is_verified": true
+      },
+      {
+        "version": "v5",
+        "byte_count": 71,
+        "history_line": 74,
+        "cumulative_tokens": 19736,
+        "conversation_turn": 38,
+        "timestamp": "2026-07-14T03:32:36.327Z",
+        "is_verified": true
+      },
+      {
+        "version": "v6",
+        "byte_count": 64,
+        "history_line": 74,
+        "cumulative_tokens": 19736,
+        "conversation_turn": 38,
+        "timestamp": "2026-07-14T03:32:36.327Z",
+        "is_verified": false
+      }
+    ]
+  },
+  "task002": {
+    "summary": {
+      "initial_bytes": 330,
+      "final_bytes": 156,
+      "total_improvement": 174,
+      "improvement_pct": 52.7,
+      "total_tokens": 206415,
+      "total_versions_created": 144,
+      "total_improvements": 12,
+      "bytes_per_token": 0.000843,
+      "stages": [
+        {
+          "name": "1. Understanding & First Solution",
+          "tokens_in_stage": 7336,
+          "turns": "0-19",
+          "improvement": 0
+        },
+        {
+          "name": "2. Algorithm Exploration",
+          "tokens_in_stage": 7914,
+          "turns": "29-39",
+          "improvement": 70
+        },
+        {
+          "name": "3. Micro-Optimization (Golfing)",
+          "tokens_in_stage": 2408,
+          "turns": "45-45",
+          "improvement": 19
+        },
+        {
+          "name": "2. Algorithm Exploration",
+          "tokens_in_stage": 2416,
+          "turns": "51-51",
+          "improvement": 31
+        },
+        {
+          "name": "3. Micro-Optimization (Golfing)",
+          "tokens_in_stage": 21189,
+          "turns": "53-82",
+          "improvement": 6
+        },
+        {
+          "name": "2. Algorithm Exploration",
+          "tokens_in_stage": 4979,
+          "turns": "91-91",
+          "improvement": 24
+        },
+        {
+          "name": "3. Micro-Optimization (Golfing)",
+          "tokens_in_stage": 160173,
+          "turns": "166-376",
+          "improvement": 24
+        }
+      ]
+    },
+    "trajectory": [
+      {
+        "version": "v1",
+        "bytes": 330,
+        "cumulative_tokens": 7336,
+        "conversation_turn": 19,
+        "history_line": 38,
+        "is_verified": false,
+        "timestamp": "2026-07-14T03:26:30.410Z"
+      },
+      {
+        "version": "v4",
+        "bytes": 289,
+        "cumulative_tokens": 10274,
+        "conversation_turn": 29,
+        "history_line": 58,
+        "is_verified": false,
+        "timestamp": "2026-07-14T03:29:29.512Z"
+      },
+      {
+        "version": "v8",
+        "bytes": 260,
+        "cumulative_tokens": 15250,
+        "conversation_turn": 39,
+        "history_line": 77,
+        "is_verified": false,
+        "timestamp": "2026-07-14T03:31:11.739Z"
+      },
+      {
+        "version": "v11",
+        "bytes": 241,
+        "cumulative_tokens": 17658,
+        "conversation_turn": 45,
+        "history_line": 87,
+        "is_verified": false,
+        "timestamp": "2026-07-14T03:31:53.010Z"
+      },
+      {
+        "version": "v14",
+        "bytes": 210,
+        "cumulative_tokens": 20074,
+        "conversation_turn": 51,
+        "history_line": 96,
+        "is_verified": true,
+        "timestamp": "2026-07-14T03:32:35.664Z"
+      },
+      {
+        "version": "v15",
+        "bytes": 205,
+        "cumulative_tokens": 20624,
+        "conversation_turn": 53,
+        "history_line": 103,
+        "is_verified": true,
+        "timestamp": "2026-07-14T03:32:49.453Z"
+      },
+      {
+        "version": "v26",
+        "bytes": 204,
+        "cumulative_tokens": 41263,
+        "conversation_turn": 82,
+        "history_line": 155,
+        "is_verified": false,
+        "timestamp": "2026-07-14T03:43:00.558Z"
+      },
+      {
+        "version": "v30",
+        "bytes": 180,
+        "cumulative_tokens": 46242,
+        "conversation_turn": 91,
+        "history_line": 168,
+        "is_verified": false,
+        "timestamp": "2026-07-14T03:44:18.972Z"
+      },
+      {
+        "version": "v52",
+        "bytes": 178,
+        "cumulative_tokens": 102863,
+        "conversation_turn": 166,
+        "history_line": 303,
+        "is_verified": false,
+        "timestamp": "2026-07-14T04:05:36.263Z"
+      },
+      {
+        "version": "v73",
+        "bytes": 168,
+        "cumulative_tokens": 130846,
+        "conversation_turn": 231,
+        "history_line": 413,
+        "is_verified": false,
+        "timestamp": "2026-07-14T04:12:47.072Z"
+      },
+      {
+        "version": "v118",
+        "bytes": 165,
+        "cumulative_tokens": 202126,
+        "conversation_turn": 366,
+        "history_line": 639,
+        "is_verified": false,
+        "timestamp": "2026-07-14T04:29:31.434Z"
+      },
+      {
+        "version": "v123",
+        "bytes": 156,
+        "cumulative_tokens": 206415,
+        "conversation_turn": 376,
+        "history_line": 653,
+        "is_verified": false,
+        "timestamp": "2026-07-14T04:30:14.622Z"
+      }
+    ],
+    "stages": [
+      {
+        "name": "1. Understanding & First Solution",
+        "start_turn": 0,
+        "end_turn": 19,
+        "start_tokens": 0,
+        "end_tokens": 7336,
+        "best_bytes_start": null,
+        "best_bytes_end": 330,
+        "improvement_bytes": 0,
+        "description": "Task exploration \u2192 first working solution (330 bytes, v1)"
+      },
+      {
+        "name": "2. Algorithm Exploration",
+        "start_turn": 29,
+        "end_turn": 39,
+        "start_tokens": 10274,
+        "end_tokens": 15250,
+        "best_bytes_start": 330,
+        "best_bytes_end": 260,
+        "improvement_bytes": 70,
+        "description": "-70 bytes total \u2192 260B (v4: -41B, v8: -29B)"
+      },
+      {
+        "name": "3. Micro-Optimization (Golfing)",
+        "start_turn": 45,
+        "end_turn": 45,
+        "start_tokens": 17658,
+        "end_tokens": 17658,
+        "best_bytes_start": 260,
+        "best_bytes_end": 241,
+        "improvement_bytes": 19,
+        "description": "-19 bytes total \u2192 241B (v11: -19B)"
+      },
+      {
+        "name": "2. Algorithm Exploration",
+        "start_turn": 51,
+        "end_turn": 51,
+        "start_tokens": 20074,
+        "end_tokens": 20074,
+        "best_bytes_start": 241,
+        "best_bytes_end": 210,
+        "improvement_bytes": 31,
+        "description": "-31 bytes total \u2192 210B (v14: -31B)"
+      },
+      {
+        "name": "3. Micro-Optimization (Golfing)",
+        "start_turn": 53,
+        "end_turn": 82,
+        "start_tokens": 20624,
+        "end_tokens": 41263,
+        "best_bytes_start": 210,
+        "best_bytes_end": 204,
+        "improvement_bytes": 6,
+        "description": "-6 bytes total \u2192 204B (v15: -5B, v26: -1B)"
+      },
+      {
+        "name": "2. Algorithm Exploration",
+        "start_turn": 91,
+        "end_turn": 91,
+        "start_tokens": 46242,
+        "end_tokens": 46242,
+        "best_bytes_start": 204,
+        "best_bytes_end": 180,
+        "improvement_bytes": 24,
+        "description": "-24 bytes total \u2192 180B (v30: -24B)"
+      },
+      {
+        "name": "3. Micro-Optimization (Golfing)",
+        "start_turn": 166,
+        "end_turn": 376,
+        "start_tokens": 102863,
+        "end_tokens": 206415,
+        "best_bytes_start": 180,
+        "best_bytes_end": 156,
+        "improvement_bytes": 24,
+        "description": "-24 bytes total \u2192 156B (v52: -2B, v73: -10B, v118: -3B, v123: -9B)"
+      }
+    ],
+    "all_versions": [
+      {
+        "version": "v1",
+        "byte_count": 330,
+        "history_line": 38,
+        "cumulative_tokens": 7336,
+        "conversation_turn": 19,
+        "timestamp": "2026-07-14T03:26:30.410Z",
+        "is_verified": false
+      },
+      {
+        "version": "v2",
+        "byte_count": 345,
+        "history_line": 49,
+        "cumulative_tokens": 8266,
+        "conversation_turn": 23,
+        "timestamp": "2026-07-14T03:27:47.416Z",
+        "is_verified": false
+      },
+      {
+        "version": "v3",
+        "byte_count": 357,
+        "history_line": 55,
+        "cumulative_tokens": 9420,
+        "conversation_turn": 27,
+        "timestamp": "2026-07-14T03:29:18.243Z",
+        "is_verified": false
+      },
+      {
+        "version": "v4",
+        "byte_count": 289,
+        "history_line": 58,
+        "cumulative_tokens": 10274,
+        "conversation_turn": 29,
+        "timestamp": "2026-07-14T03:29:29.512Z",
+        "is_verified": false
+      },
+      {
+        "version": "v5",
+        "byte_count": 293,
+        "history_line": 61,
+        "cumulative_tokens": 11182,
+        "conversation_turn": 31,
+        "timestamp": "2026-07-14T03:29:40.762Z",
+        "is_verified": false
+      },
+      {
+        "version": "v6",
+        "byte_count": 300,
+        "history_line": 67,
+        "cumulative_tokens": 12792,
+        "conversation_turn": 35,
+        "timestamp": "2026-07-14T03:30:08.171Z",
+        "is_verified": false
+      },
+      {
+        "version": "v7",
+        "byte_count": 296,
+        "history_line": 74,
+        "cumulative_tokens": 14112,
+        "conversation_turn": 37,
+        "timestamp": "2026-07-14T03:30:37.092Z",
+        "is_verified": false
+      },
+      {
+        "version": "v8",
+        "byte_count": 260,
+        "history_line": 77,
+        "cumulative_tokens": 15250,
+        "conversation_turn": 39,
+        "timestamp": "2026-07-14T03:31:11.739Z",
+        "is_verified": false
+      },
+      {
+        "version": "v9",
+        "byte_count": 274,
+        "history_line": 81,
+        "cumulative_tokens": 16030,
+        "conversation_turn": 41,
+        "timestamp": "2026-07-14T03:31:22.533Z",
+        "is_verified": false
+      },
+      {
+        "version": "v10",
+        "byte_count": 285,
+        "history_line": 84,
+        "cumulative_tokens": 16754,
+        "conversation_turn": 43,
+        "timestamp": "2026-07-14T03:31:32.191Z",
+        "is_verified": false
+      },
+      {
+        "version": "v11",
+        "byte_count": 241,
+        "history_line": 87,
+        "cumulative_tokens": 17658,
+        "conversation_turn": 45,
+        "timestamp": "2026-07-14T03:31:53.010Z",
+        "is_verified": false
+      },
+      {
+        "version": "v12",
+        "byte_count": 281,
+        "history_line": 90,
+        "cumulative_tokens": 18376,
+        "conversation_turn": 47,
+        "timestamp": "2026-07-14T03:32:03.097Z",
+        "is_verified": false
+      },
+      {
+        "version": "v13",
+        "byte_count": 255,
+        "history_line": 93,
+        "cumulative_tokens": 19134,
+        "conversation_turn": 49,
+        "timestamp": "2026-07-14T03:32:14.475Z",
+        "is_verified": false
+      },
+      {
+        "version": "v14",
+        "byte_count": 210,
+        "history_line": 96,
+        "cumulative_tokens": 20074,
+        "conversation_turn": 51,
+        "timestamp": "2026-07-14T03:32:35.664Z",
+        "is_verified": true
+      },
+      {
+        "version": "v15",
+        "byte_count": 205,
+        "history_line": 103,
+        "cumulative_tokens": 20624,
+        "conversation_turn": 53,
+        "timestamp": "2026-07-14T03:32:49.453Z",
+        "is_verified": true
+      },
+      {
+        "version": "v16",
+        "byte_count": 210,
+        "history_line": 106,
+        "cumulative_tokens": 21538,
+        "conversation_turn": 55,
+        "timestamp": "2026-07-14T03:33:02.585Z",
+        "is_verified": true
+      },
+      {
+        "version": "v17",
+        "byte_count": 225,
+        "history_line": 106,
+        "cumulative_tokens": 21538,
+        "conversation_turn": 55,
+        "timestamp": "2026-07-14T03:33:02.585Z",
+        "is_verified": false
+      },
+      {
+        "version": "v18",
+        "byte_count": 207,
+        "history_line": 113,
+        "cumulative_tokens": 26623,
+        "conversation_turn": 60,
+        "timestamp": "2026-07-14T03:35:24.097Z",
+        "is_verified": false
+      },
+      {
+        "version": "v19",
+        "byte_count": 210,
+        "history_line": 117,
+        "cumulative_tokens": 27801,
+        "conversation_turn": 62,
+        "timestamp": "2026-07-14T03:35:52.300Z",
+        "is_verified": true
+      },
+      {
+        "version": "v20",
+        "byte_count": 262,
+        "history_line": 121,
+        "cumulative_tokens": 29958,
+        "conversation_turn": 65,
+        "timestamp": "2026-07-14T03:36:47.692Z",
+        "is_verified": false
+      },
+      {
+        "version": "v21",
+        "byte_count": 224,
+        "history_line": 128,
+        "cumulative_tokens": 31832,
+        "conversation_turn": 67,
+        "timestamp": "2026-07-14T03:38:08.260Z",
+        "is_verified": false
+      },
+      {
+        "version": "v22",
+        "byte_count": 206,
+        "history_line": 131,
+        "cumulative_tokens": 32634,
+        "conversation_turn": 69,
+        "timestamp": "2026-07-14T03:38:36.509Z",
+        "is_verified": true
+      },
+      {
+        "version": "v23",
+        "byte_count": 220,
+        "history_line": 134,
+        "cumulative_tokens": 33526,
+        "conversation_turn": 71,
+        "timestamp": "2026-07-14T03:39:05.103Z",
+        "is_verified": false
+      },
+      {
+        "version": "v24",
+        "byte_count": 237,
+        "history_line": 137,
+        "cumulative_tokens": 35830,
+        "conversation_turn": 73,
+        "timestamp": "2026-07-14T03:40:21.432Z",
+        "is_verified": false
+      },
+      {
+        "version": "v25",
+        "byte_count": 258,
+        "history_line": 143,
+        "cumulative_tokens": 37716,
+        "conversation_turn": 77,
+        "timestamp": "2026-07-14T03:41:23.971Z",
+        "is_verified": false
+      },
+      {
+        "version": "v26",
+        "byte_count": 204,
+        "history_line": 155,
+        "cumulative_tokens": 41263,
+        "conversation_turn": 82,
+        "timestamp": "2026-07-14T03:43:00.558Z",
+        "is_verified": false
+      },
+      {
+        "version": "v27",
+        "byte_count": 208,
+        "history_line": 158,
+        "cumulative_tokens": 41867,
+        "conversation_turn": 84,
+        "timestamp": "2026-07-14T03:43:09.738Z",
+        "is_verified": false
+      },
+      {
+        "version": "v28",
+        "byte_count": 219,
+        "history_line": 161,
+        "cumulative_tokens": 42751,
+        "conversation_turn": 86,
+        "timestamp": "2026-07-14T03:43:27.333Z",
+        "is_verified": false
+      },
+      {
+        "version": "v29",
+        "byte_count": 206,
+        "history_line": 165,
+        "cumulative_tokens": 45070,
+        "conversation_turn": 89,
+        "timestamp": "2026-07-14T03:44:06.630Z",
+        "is_verified": true
+      },
+      {
+        "version": "v30",
+        "byte_count": 180,
+        "history_line": 168,
+        "cumulative_tokens": 46242,
+        "conversation_turn": 91,
+        "timestamp": "2026-07-14T03:44:18.972Z",
+        "is_verified": false
+      },
+      {
+        "version": "v31",
+        "byte_count": 206,
+        "history_line": 168,
+        "cumulative_tokens": 46242,
+        "conversation_turn": 91,
+        "timestamp": "2026-07-14T03:44:18.972Z",
+        "is_verified": true
+      },
+      {
+        "version": "v32",
+        "byte_count": 212,
+        "history_line": 171,
+        "cumulative_tokens": 47430,
+        "conversation_turn": 93,
+        "timestamp": "2026-07-14T03:44:33.416Z",
+        "is_verified": false
+      },
+      {
+        "version": "v33",
+        "byte_count": 201,
+        "history_line": 175,
+        "cumulative_tokens": 50490,
+        "conversation_turn": 96,
+        "timestamp": "2026-07-14T03:45:38.050Z",
+        "is_verified": false
+      },
+      {
+        "version": "v34",
+        "byte_count": 241,
+        "history_line": 175,
+        "cumulative_tokens": 50490,
+        "conversation_turn": 96,
+        "timestamp": "2026-07-14T03:45:38.050Z",
+        "is_verified": false
+      },
+      {
+        "version": "v35",
+        "byte_count": 216,
+        "history_line": 184,
+        "cumulative_tokens": 53085,
+        "conversation_turn": 99,
+        "timestamp": "2026-07-14T03:46:26.355Z",
+        "is_verified": false
+      },
+      {
+        "version": "v36",
+        "byte_count": 205,
+        "history_line": 195,
+        "cumulative_tokens": 57203,
+        "conversation_turn": 107,
+        "timestamp": "2026-07-14T03:47:39.431Z",
+        "is_verified": true
+      },
+      {
+        "version": "v37",
+        "byte_count": 227,
+        "history_line": 204,
+        "cumulative_tokens": 61319,
+        "conversation_turn": 112,
+        "timestamp": "2026-07-14T03:50:15.486Z",
+        "is_verified": false
+      },
+      {
+        "version": "v38",
+        "byte_count": 220,
+        "history_line": 212,
+        "cumulative_tokens": 62195,
+        "conversation_turn": 114,
+        "timestamp": "2026-07-14T03:50:47.604Z",
+        "is_verified": false
+      },
+      {
+        "version": "v39",
+        "byte_count": 267,
+        "history_line": 215,
+        "cumulative_tokens": 63097,
+        "conversation_turn": 116,
+        "timestamp": "2026-07-14T03:51:00.836Z",
+        "is_verified": false
+      },
+      {
+        "version": "v40",
+        "byte_count": 278,
+        "history_line": 230,
+        "cumulative_tokens": 69337,
+        "conversation_turn": 125,
+        "timestamp": "2026-07-14T03:53:13.753Z",
+        "is_verified": false
+      },
+      {
+        "version": "v41",
+        "byte_count": 217,
+        "history_line": 236,
+        "cumulative_tokens": 75433,
+        "conversation_turn": 128,
+        "timestamp": "2026-07-14T03:55:39.506Z",
+        "is_verified": false
+      },
+      {
+        "version": "v42",
+        "byte_count": 200,
+        "history_line": 245,
+        "cumulative_tokens": 77452,
+        "conversation_turn": 131,
+        "timestamp": "2026-07-14T03:56:42.269Z",
+        "is_verified": true
+      },
+      {
+        "version": "v43",
+        "byte_count": 208,
+        "history_line": 249,
+        "cumulative_tokens": 78808,
+        "conversation_turn": 134,
+        "timestamp": "2026-07-14T03:56:54.148Z",
+        "is_verified": false
+      },
+      {
+        "version": "v44",
+        "byte_count": 240,
+        "history_line": 253,
+        "cumulative_tokens": 80152,
+        "conversation_turn": 137,
+        "timestamp": "2026-07-14T03:57:25.864Z",
+        "is_verified": false
+      },
+      {
+        "version": "v45",
+        "byte_count": 225,
+        "history_line": 257,
+        "cumulative_tokens": 82168,
+        "conversation_turn": 140,
+        "timestamp": "2026-07-14T03:58:06.257Z",
+        "is_verified": false
+      },
+      {
+        "version": "v46",
+        "byte_count": 242,
+        "history_line": 260,
+        "cumulative_tokens": 82998,
+        "conversation_turn": 142,
+        "timestamp": "2026-07-14T03:58:30.774Z",
+        "is_verified": false
+      },
+      {
+        "version": "v47",
+        "byte_count": 194,
+        "history_line": 263,
+        "cumulative_tokens": 83738,
+        "conversation_turn": 144,
+        "timestamp": "2026-07-14T03:58:40.714Z",
+        "is_verified": false
+      },
+      {
+        "version": "v48",
+        "byte_count": 201,
+        "history_line": 276,
+        "cumulative_tokens": 91184,
+        "conversation_turn": 150,
+        "timestamp": "2026-07-14T04:01:38.114Z",
+        "is_verified": false
+      },
+      {
+        "version": "v49",
+        "byte_count": 206,
+        "history_line": 283,
+        "cumulative_tokens": 93526,
+        "conversation_turn": 155,
+        "timestamp": "2026-07-14T04:02:26.529Z",
+        "is_verified": true
+      },
+      {
+        "version": "v50",
+        "byte_count": 197,
+        "history_line": 287,
+        "cumulative_tokens": 98659,
+        "conversation_turn": 158,
+        "timestamp": "2026-07-14T04:04:05.419Z",
+        "is_verified": false
+      },
+      {
+        "version": "v51",
+        "byte_count": 209,
+        "history_line": 299,
+        "cumulative_tokens": 101342,
+        "conversation_turn": 163,
+        "timestamp": "2026-07-14T04:04:50.755Z",
+        "is_verified": false
+      },
+      {
+        "version": "v52",
+        "byte_count": 178,
+        "history_line": 303,
+        "cumulative_tokens": 102863,
+        "conversation_turn": 166,
+        "timestamp": "2026-07-14T04:05:36.263Z",
+        "is_verified": false
+      },
+      {
+        "version": "v53",
+        "byte_count": 192,
+        "history_line": 311,
+        "cumulative_tokens": 105695,
+        "conversation_turn": 172,
+        "timestamp": "2026-07-14T04:06:21.304Z",
+        "is_verified": false
+      },
+      {
+        "version": "v54",
+        "byte_count": 200,
+        "history_line": 317,
+        "cumulative_tokens": 106817,
+        "conversation_turn": 176,
+        "timestamp": "2026-07-14T04:06:38.344Z",
+        "is_verified": true
+      },
+      {
+        "version": "v55",
+        "byte_count": 228,
+        "history_line": 327,
+        "cumulative_tokens": 108728,
+        "conversation_turn": 179,
+        "timestamp": "2026-07-14T04:07:13.178Z",
+        "is_verified": false
+      },
+      {
+        "version": "v56",
+        "byte_count": 229,
+        "history_line": 333,
+        "cumulative_tokens": 110330,
+        "conversation_turn": 182,
+        "timestamp": "2026-07-14T04:07:35.527Z",
+        "is_verified": false
+      },
+      {
+        "version": "v57",
+        "byte_count": 264,
+        "history_line": 337,
+        "cumulative_tokens": 111824,
+        "conversation_turn": 185,
+        "timestamp": "2026-07-14T04:07:48.293Z",
+        "is_verified": false
+      },
+      {
+        "version": "v58",
+        "byte_count": 223,
+        "history_line": 341,
+        "cumulative_tokens": 113132,
+        "conversation_turn": 188,
+        "timestamp": "2026-07-14T04:08:04.315Z",
+        "is_verified": false
+      },
+      {
+        "version": "v59",
+        "byte_count": 256,
+        "history_line": 344,
+        "cumulative_tokens": 113810,
+        "conversation_turn": 190,
+        "timestamp": "2026-07-14T04:08:12.584Z",
+        "is_verified": false
+      },
+      {
+        "version": "v60",
+        "byte_count": 260,
+        "history_line": 347,
+        "cumulative_tokens": 114428,
+        "conversation_turn": 192,
+        "timestamp": "2026-07-14T04:08:20.622Z",
+        "is_verified": false
+      },
+      {
+        "version": "v61",
+        "byte_count": 260,
+        "history_line": 351,
+        "cumulative_tokens": 115182,
+        "conversation_turn": 194,
+        "timestamp": "2026-07-14T04:09:03.661Z",
+        "is_verified": false
+      },
+      {
+        "version": "v62",
+        "byte_count": 222,
+        "history_line": 362,
+        "cumulative_tokens": 117169,
+        "conversation_turn": 199,
+        "timestamp": "2026-07-14T04:09:32.557Z",
+        "is_verified": false
+      },
+      {
+        "version": "v63",
+        "byte_count": 238,
+        "history_line": 365,
+        "cumulative_tokens": 117917,
+        "conversation_turn": 201,
+        "timestamp": "2026-07-14T04:09:42.507Z",
+        "is_verified": false
+      },
+      {
+        "version": "v64",
+        "byte_count": 195,
+        "history_line": 369,
+        "cumulative_tokens": 118841,
+        "conversation_turn": 204,
+        "timestamp": "2026-07-14T04:09:52.483Z",
+        "is_verified": false
+      },
+      {
+        "version": "v65",
+        "byte_count": 205,
+        "history_line": 372,
+        "cumulative_tokens": 119381,
+        "conversation_turn": 206,
+        "timestamp": "2026-07-14T04:10:00.179Z",
+        "is_verified": true
+      },
+      {
+        "version": "v66",
+        "byte_count": 201,
+        "history_line": 375,
+        "cumulative_tokens": 119907,
+        "conversation_turn": 208,
+        "timestamp": "2026-07-14T04:10:08.401Z",
+        "is_verified": false
+      },
+      {
+        "version": "v67",
+        "byte_count": 205,
+        "history_line": 383,
+        "cumulative_tokens": 121180,
+        "conversation_turn": 213,
+        "timestamp": "2026-07-14T04:10:23.640Z",
+        "is_verified": true
+      },
+      {
+        "version": "v68",
+        "byte_count": 201,
+        "history_line": 390,
+        "cumulative_tokens": 121818,
+        "conversation_turn": 215,
+        "timestamp": "2026-07-14T04:10:32.650Z",
+        "is_verified": false
+      },
+      {
+        "version": "v69",
+        "byte_count": 201,
+        "history_line": 394,
+        "cumulative_tokens": 123231,
+        "conversation_turn": 218,
+        "timestamp": "2026-07-14T04:10:44.455Z",
+        "is_verified": false
+      },
+      {
+        "version": "v70",
+        "byte_count": 198,
+        "history_line": 397,
+        "cumulative_tokens": 124175,
+        "conversation_turn": 220,
+        "timestamp": "2026-07-14T04:10:55.885Z",
+        "is_verified": false
+      },
+      {
+        "version": "v71",
+        "byte_count": 200,
+        "history_line": 404,
+        "cumulative_tokens": 126052,
+        "conversation_turn": 225,
+        "timestamp": "2026-07-14T04:11:15.902Z",
+        "is_verified": true
+      },
+      {
+        "version": "v72",
+        "byte_count": 200,
+        "history_line": 408,
+        "cumulative_tokens": 129007,
+        "conversation_turn": 228,
+        "timestamp": "2026-07-14T04:12:12.884Z",
+        "is_verified": true
+      },
+      {
+        "version": "v73",
+        "byte_count": 168,
+        "history_line": 413,
+        "cumulative_tokens": 130846,
+        "conversation_turn": 231,
+        "timestamp": "2026-07-14T04:12:47.072Z",
+        "is_verified": false
+      },
+      {
+        "version": "v74",
+        "byte_count": 219,
+        "history_line": 413,
+        "cumulative_tokens": 130846,
+        "conversation_turn": 231,
+        "timestamp": "2026-07-14T04:12:47.072Z",
+        "is_verified": false
+      },
+      {
+        "version": "v75",
+        "byte_count": 206,
+        "history_line": 420,
+        "cumulative_tokens": 132474,
+        "conversation_turn": 233,
+        "timestamp": "2026-07-14T04:13:35.699Z",
+        "is_verified": true
+      },
+      {
+        "version": "v76",
+        "byte_count": 212,
+        "history_line": 424,
+        "cumulative_tokens": 133509,
+        "conversation_turn": 236,
+        "timestamp": "2026-07-14T04:13:46.017Z",
+        "is_verified": false
+      },
+      {
+        "version": "v77",
+        "byte_count": 206,
+        "history_line": 428,
+        "cumulative_tokens": 134478,
+        "conversation_turn": 239,
+        "timestamp": "2026-07-14T04:13:54.428Z",
+        "is_verified": true
+      },
+      {
+        "version": "v78",
+        "byte_count": 204,
+        "history_line": 431,
+        "cumulative_tokens": 135360,
+        "conversation_turn": 241,
+        "timestamp": "2026-07-14T04:14:06.905Z",
+        "is_verified": false
+      },
+      {
+        "version": "v79",
+        "byte_count": 182,
+        "history_line": 435,
+        "cumulative_tokens": 137460,
+        "conversation_turn": 244,
+        "timestamp": "2026-07-14T04:14:27.047Z",
+        "is_verified": false
+      },
+      {
+        "version": "v80",
+        "byte_count": 198,
+        "history_line": 440,
+        "cumulative_tokens": 138336,
+        "conversation_turn": 247,
+        "timestamp": "2026-07-14T04:14:35.547Z",
+        "is_verified": false
+      },
+      {
+        "version": "v81",
+        "byte_count": 200,
+        "history_line": 443,
+        "cumulative_tokens": 138876,
+        "conversation_turn": 249,
+        "timestamp": "2026-07-14T04:14:42.671Z",
+        "is_verified": true
+      },
+      {
+        "version": "v82",
+        "byte_count": 253,
+        "history_line": 451,
+        "cumulative_tokens": 139905,
+        "conversation_turn": 252,
+        "timestamp": "2026-07-14T04:15:13.144Z",
+        "is_verified": false
+      },
+      {
+        "version": "v83",
+        "byte_count": 272,
+        "history_line": 455,
+        "cumulative_tokens": 140913,
+        "conversation_turn": 255,
+        "timestamp": "2026-07-14T04:15:23.346Z",
+        "is_verified": false
+      },
+      {
+        "version": "v84",
+        "byte_count": 202,
+        "history_line": 459,
+        "cumulative_tokens": 142041,
+        "conversation_turn": 258,
+        "timestamp": "2026-07-14T04:15:34.487Z",
+        "is_verified": false
+      },
+      {
+        "version": "v85",
+        "byte_count": 200,
+        "history_line": 468,
+        "cumulative_tokens": 145545,
+        "conversation_turn": 264,
+        "timestamp": "2026-07-14T04:16:28.813Z",
+        "is_verified": true
+      },
+      {
+        "version": "v86",
+        "byte_count": 203,
+        "history_line": 472,
+        "cumulative_tokens": 149628,
+        "conversation_turn": 267,
+        "timestamp": "2026-07-14T04:18:30.343Z",
+        "is_verified": false
+      },
+      {
+        "version": "v87",
+        "byte_count": 184,
+        "history_line": 482,
+        "cumulative_tokens": 151808,
+        "conversation_turn": 271,
+        "timestamp": "2026-07-14T04:19:02.843Z",
+        "is_verified": false
+      },
+      {
+        "version": "v88",
+        "byte_count": 175,
+        "history_line": 486,
+        "cumulative_tokens": 152969,
+        "conversation_turn": 274,
+        "timestamp": "2026-07-14T04:19:13.422Z",
+        "is_verified": false
+      },
+      {
+        "version": "v89",
+        "byte_count": 195,
+        "history_line": 489,
+        "cumulative_tokens": 153831,
+        "conversation_turn": 276,
+        "timestamp": "2026-07-14T04:19:26.008Z",
+        "is_verified": false
+      },
+      {
+        "version": "v90",
+        "byte_count": 184,
+        "history_line": 492,
+        "cumulative_tokens": 154511,
+        "conversation_turn": 278,
+        "timestamp": "2026-07-14T04:19:34.753Z",
+        "is_verified": false
+      },
+      {
+        "version": "v91",
+        "byte_count": 198,
+        "history_line": 497,
+        "cumulative_tokens": 155744,
+        "conversation_turn": 281,
+        "timestamp": "2026-07-14T04:19:45.245Z",
+        "is_verified": false
+      },
+      {
+        "version": "v92",
+        "byte_count": 203,
+        "history_line": 501,
+        "cumulative_tokens": 157631,
+        "conversation_turn": 284,
+        "timestamp": "2026-07-14T04:20:01.214Z",
+        "is_verified": false
+      },
+      {
+        "version": "v93",
+        "byte_count": 175,
+        "history_line": 505,
+        "cumulative_tokens": 158525,
+        "conversation_turn": 287,
+        "timestamp": "2026-07-14T04:20:09.860Z",
+        "is_verified": false
+      },
+      {
+        "version": "v94",
+        "byte_count": 182,
+        "history_line": 512,
+        "cumulative_tokens": 159085,
+        "conversation_turn": 289,
+        "timestamp": "2026-07-14T04:20:17.564Z",
+        "is_verified": false
+      },
+      {
+        "version": "v95",
+        "byte_count": 189,
+        "history_line": 518,
+        "cumulative_tokens": 160795,
+        "conversation_turn": 293,
+        "timestamp": "2026-07-14T04:20:41.438Z",
+        "is_verified": false
+      },
+      {
+        "version": "v96",
+        "byte_count": 184,
+        "history_line": 522,
+        "cumulative_tokens": 161911,
+        "conversation_turn": 296,
+        "timestamp": "2026-07-14T04:20:50.614Z",
+        "is_verified": false
+      },
+      {
+        "version": "v97",
+        "byte_count": 244,
+        "history_line": 530,
+        "cumulative_tokens": 164336,
+        "conversation_turn": 301,
+        "timestamp": "2026-07-14T04:21:26.489Z",
+        "is_verified": false
+      },
+      {
+        "version": "v98",
+        "byte_count": 221,
+        "history_line": 534,
+        "cumulative_tokens": 165902,
+        "conversation_turn": 304,
+        "timestamp": "2026-07-14T04:21:40.377Z",
+        "is_verified": false
+      },
+      {
+        "version": "v99",
+        "byte_count": 225,
+        "history_line": 534,
+        "cumulative_tokens": 165902,
+        "conversation_turn": 304,
+        "timestamp": "2026-07-14T04:21:40.377Z",
+        "is_verified": false
+      },
+      {
+        "version": "v100",
+        "byte_count": 174,
+        "history_line": 538,
+        "cumulative_tokens": 168155,
+        "conversation_turn": 307,
+        "timestamp": "2026-07-14T04:21:59.466Z",
+        "is_verified": false
+      },
+      {
+        "version": "v101",
+        "byte_count": 183,
+        "history_line": 545,
+        "cumulative_tokens": 168707,
+        "conversation_turn": 309,
+        "timestamp": "2026-07-14T04:22:07.142Z",
+        "is_verified": false
+      },
+      {
+        "version": "v102",
+        "byte_count": 190,
+        "history_line": 549,
+        "cumulative_tokens": 169715,
+        "conversation_turn": 312,
+        "timestamp": "2026-07-14T04:22:17.029Z",
+        "is_verified": false
+      },
+      {
+        "version": "v103",
+        "byte_count": 183,
+        "history_line": 554,
+        "cumulative_tokens": 170807,
+        "conversation_turn": 315,
+        "timestamp": "2026-07-14T04:22:27.701Z",
+        "is_verified": false
+      },
+      {
+        "version": "v104",
+        "byte_count": 174,
+        "history_line": 558,
+        "cumulative_tokens": 171797,
+        "conversation_turn": 318,
+        "timestamp": "2026-07-14T04:22:38.768Z",
+        "is_verified": false
+      },
+      {
+        "version": "v105",
+        "byte_count": 186,
+        "history_line": 570,
+        "cumulative_tokens": 174839,
+        "conversation_turn": 326,
+        "timestamp": "2026-07-14T04:23:26.821Z",
+        "is_verified": false
+      },
+      {
+        "version": "v106",
+        "byte_count": 174,
+        "history_line": 578,
+        "cumulative_tokens": 175922,
+        "conversation_turn": 329,
+        "timestamp": "2026-07-14T04:23:37.887Z",
+        "is_verified": false
+      },
+      {
+        "version": "v107",
+        "byte_count": 220,
+        "history_line": 582,
+        "cumulative_tokens": 176992,
+        "conversation_turn": 331,
+        "timestamp": "2026-07-14T04:23:52.783Z",
+        "is_verified": false
+      },
+      {
+        "version": "v108",
+        "byte_count": 203,
+        "history_line": 590,
+        "cumulative_tokens": 180916,
+        "conversation_turn": 337,
+        "timestamp": "2026-07-14T04:24:58.956Z",
+        "is_verified": false
+      },
+      {
+        "version": "v109",
+        "byte_count": 189,
+        "history_line": 594,
+        "cumulative_tokens": 182944,
+        "conversation_turn": 340,
+        "timestamp": "2026-07-14T04:25:17.206Z",
+        "is_verified": false
+      },
+      {
+        "version": "v110",
+        "byte_count": 224,
+        "history_line": 605,
+        "cumulative_tokens": 185734,
+        "conversation_turn": 345,
+        "timestamp": "2026-07-14T04:25:48.705Z",
+        "is_verified": false
+      },
+      {
+        "version": "v111",
+        "byte_count": 209,
+        "history_line": 610,
+        "cumulative_tokens": 189781,
+        "conversation_turn": 348,
+        "timestamp": "2026-07-14T04:26:58.097Z",
+        "is_verified": false
+      },
+      {
+        "version": "v112",
+        "byte_count": 183,
+        "history_line": 610,
+        "cumulative_tokens": 189781,
+        "conversation_turn": 348,
+        "timestamp": "2026-07-14T04:26:58.097Z",
+        "is_verified": false
+      },
+      {
+        "version": "v113",
+        "byte_count": 289,
+        "history_line": 614,
+        "cumulative_tokens": 191392,
+        "conversation_turn": 351,
+        "timestamp": "2026-07-14T04:27:10.613Z",
+        "is_verified": false
+      },
+      {
+        "version": "v114",
+        "byte_count": 229,
+        "history_line": 618,
+        "cumulative_tokens": 192274,
+        "conversation_turn": 354,
+        "timestamp": "2026-07-14T04:27:20.136Z",
+        "is_verified": false
+      },
+      {
+        "version": "v115",
+        "byte_count": 174,
+        "history_line": 626,
+        "cumulative_tokens": 199318,
+        "conversation_turn": 360,
+        "timestamp": "2026-07-14T04:29:02.886Z",
+        "is_verified": false
+      },
+      {
+        "version": "v116",
+        "byte_count": 174,
+        "history_line": 626,
+        "cumulative_tokens": 199318,
+        "conversation_turn": 360,
+        "timestamp": "2026-07-14T04:29:02.886Z",
+        "is_verified": false
+      },
+      {
+        "version": "v117",
+        "byte_count": 297,
+        "history_line": 635,
+        "cumulative_tokens": 200806,
+        "conversation_turn": 363,
+        "timestamp": "2026-07-14T04:29:17.405Z",
+        "is_verified": false
+      },
+      {
+        "version": "v118",
+        "byte_count": 165,
+        "history_line": 639,
+        "cumulative_tokens": 202126,
+        "conversation_turn": 366,
+        "timestamp": "2026-07-14T04:29:31.434Z",
+        "is_verified": false
+      },
+      {
+        "version": "v119",
+        "byte_count": 176,
+        "history_line": 645,
+        "cumulative_tokens": 203772,
+        "conversation_turn": 370,
+        "timestamp": "2026-07-14T04:29:53.422Z",
+        "is_verified": false
+      },
+      {
+        "version": "v120",
+        "byte_count": 165,
+        "history_line": 645,
+        "cumulative_tokens": 203772,
+        "conversation_turn": 370,
+        "timestamp": "2026-07-14T04:29:53.422Z",
+        "is_verified": false
+      },
+      {
+        "version": "v121",
+        "byte_count": 165,
+        "history_line": 649,
+        "cumulative_tokens": 205209,
+        "conversation_turn": 373,
+        "timestamp": "2026-07-14T04:30:04.520Z",
+        "is_verified": false
+      },
+      {
+        "version": "v122",
+        "byte_count": 167,
+        "history_line": 649,
+        "cumulative_tokens": 205209,
+        "conversation_turn": 373,
+        "timestamp": "2026-07-14T04:30:04.520Z",
+        "is_verified": true
+      },
+      {
+        "version": "v123",
+        "byte_count": 156,
+        "history_line": 653,
+        "cumulative_tokens": 206415,
+        "conversation_turn": 376,
+        "timestamp": "2026-07-14T04:30:14.622Z",
+        "is_verified": false
+      },
+      {
+        "version": "v124",
+        "byte_count": 174,
+        "history_line": 666,
+        "cumulative_tokens": 209325,
+        "conversation_turn": 382,
+        "timestamp": "2026-07-14T04:30:44.843Z",
+        "is_verified": false
+      },
+      {
+        "version": "v125",
+        "byte_count": 174,
+        "history_line": 669,
+        "cumulative_tokens": 209777,
+        "conversation_turn": 384,
+        "timestamp": "2026-07-14T04:30:52.280Z",
+        "is_verified": false
+      },
+      {
+        "version": "v126",
+        "byte_count": 171,
+        "history_line": 672,
+        "cumulative_tokens": 210809,
+        "conversation_turn": 386,
+        "timestamp": "2026-07-14T04:31:06.439Z",
+        "is_verified": false
+      },
+      {
+        "version": "v127",
+        "byte_count": 167,
+        "history_line": 676,
+        "cumulative_tokens": 213089,
+        "conversation_turn": 389,
+        "timestamp": "2026-07-14T04:31:26.893Z",
+        "is_verified": true
+      },
+      {
+        "version": "v128",
+        "byte_count": 176,
+        "history_line": 680,
+        "cumulative_tokens": 214997,
+        "conversation_turn": 392,
+        "timestamp": "2026-07-14T04:31:45.790Z",
+        "is_verified": false
+      },
+      {
+        "version": "v129",
+        "byte_count": 179,
+        "history_line": 685,
+        "cumulative_tokens": 216305,
+        "conversation_turn": 395,
+        "timestamp": "2026-07-14T04:31:58.919Z",
+        "is_verified": false
+      },
+      {
+        "version": "v130",
+        "byte_count": 190,
+        "history_line": 700,
+        "cumulative_tokens": 223313,
+        "conversation_turn": 403,
+        "timestamp": "2026-07-14T04:33:40.062Z",
+        "is_verified": false
+      },
+      {
+        "version": "v131",
+        "byte_count": 168,
+        "history_line": 703,
+        "cumulative_tokens": 224279,
+        "conversation_turn": 405,
+        "timestamp": "2026-07-14T04:33:54.111Z",
+        "is_verified": false
+      },
+      {
+        "version": "v132",
+        "byte_count": 184,
+        "history_line": 706,
+        "cumulative_tokens": 224973,
+        "conversation_turn": 407,
+        "timestamp": "2026-07-14T04:34:04.437Z",
+        "is_verified": false
+      },
+      {
+        "version": "v133",
+        "byte_count": 199,
+        "history_line": 722,
+        "cumulative_tokens": 228212,
+        "conversation_turn": 415,
+        "timestamp": "2026-07-14T04:34:45.693Z",
+        "is_verified": false
+      },
+      {
+        "version": "v134",
+        "byte_count": 171,
+        "history_line": 750,
+        "cumulative_tokens": 239234,
+        "conversation_turn": 431,
+        "timestamp": "2026-07-14T04:38:12.023Z",
+        "is_verified": false
+      },
+      {
+        "version": "v135",
+        "byte_count": 202,
+        "history_line": 754,
+        "cumulative_tokens": 241172,
+        "conversation_turn": 434,
+        "timestamp": "2026-07-14T04:38:29.372Z",
+        "is_verified": false
+      },
+      {
+        "version": "v136",
+        "byte_count": 188,
+        "history_line": 757,
+        "cumulative_tokens": 242104,
+        "conversation_turn": 436,
+        "timestamp": "2026-07-14T04:38:41.934Z",
+        "is_verified": false
+      },
+      {
+        "version": "v137",
+        "byte_count": 168,
+        "history_line": 760,
+        "cumulative_tokens": 242972,
+        "conversation_turn": 438,
+        "timestamp": "2026-07-14T04:38:54.886Z",
+        "is_verified": false
+      },
+      {
+        "version": "v138",
+        "byte_count": 175,
+        "history_line": 764,
+        "cumulative_tokens": 244157,
+        "conversation_turn": 441,
+        "timestamp": "2026-07-14T04:39:07.262Z",
+        "is_verified": false
+      },
+      {
+        "version": "v139",
+        "byte_count": 226,
+        "history_line": 771,
+        "cumulative_tokens": 249457,
+        "conversation_turn": 446,
+        "timestamp": "2026-07-14T04:41:08.764Z",
+        "is_verified": false
+      },
+      {
+        "version": "v140",
+        "byte_count": 183,
+        "history_line": 780,
+        "cumulative_tokens": 251077,
+        "conversation_turn": 449,
+        "timestamp": "2026-07-14T04:41:26.560Z",
+        "is_verified": false
+      },
+      {
+        "version": "v141",
+        "byte_count": 166,
+        "history_line": 784,
+        "cumulative_tokens": 252190,
+        "conversation_turn": 452,
+        "timestamp": "2026-07-14T04:41:37.852Z",
+        "is_verified": false
+      },
+      {
+        "version": "v142",
+        "byte_count": 168,
+        "history_line": 787,
+        "cumulative_tokens": 253210,
+        "conversation_turn": 454,
+        "timestamp": "2026-07-14T04:41:48.887Z",
+        "is_verified": false
+      },
+      {
+        "version": "v143",
+        "byte_count": 169,
+        "history_line": 787,
+        "cumulative_tokens": 253210,
+        "conversation_turn": 454,
+        "timestamp": "2026-07-14T04:41:48.887Z",
+        "is_verified": false
+      },
+      {
+        "version": "v144",
+        "byte_count": 173,
+        "history_line": 798,
+        "cumulative_tokens": 258625,
+        "conversation_turn": 462,
+        "timestamp": "2026-07-14T04:43:29.979Z",
+        "is_verified": false
+      }
+    ]
+  },
+  "task003": {
+    "summary": {
+      "initial_bytes": 93,
+      "final_bytes": 61,
+      "total_improvement": 32,
+      "improvement_pct": 34.4,
+      "total_tokens": 503616,
+      "total_versions_created": 8,
+      "total_improvements": 4,
+      "bytes_per_token": 6.4e-05,
+      "stages": [
+        {
+          "name": "1. Understanding & First Solution",
+          "tokens_in_stage": 181813,
+          "turns": "0-16",
+          "improvement": 0
+        },
+        {
+          "name": "2. Algorithm Exploration",
+          "tokens_in_stage": 257091,
+          "turns": "27-32",
+          "improvement": 28
+        },
+        {
+          "name": "3. Micro-Optimization (Golfing)",
+          "tokens_in_stage": 64712,
+          "turns": "42-42",
+          "improvement": 4
+        }
+      ]
+    },
+    "trajectory": [
+      {
+        "version": "v1",
+        "bytes": 93,
+        "cumulative_tokens": 181813,
+        "conversation_turn": 16,
+        "history_line": 39,
+        "is_verified": false,
+        "timestamp": "2026-07-14T03:29:13.549Z"
+      },
+      {
+        "version": "v2",
+        "bytes": 83,
+        "cumulative_tokens": 362400,
+        "conversation_turn": 27,
+        "history_line": 71,
+        "is_verified": false,
+        "timestamp": "2026-07-14T04:00:22.136Z"
+      },
+      {
+        "version": "v3",
+        "bytes": 65,
+        "cumulative_tokens": 438904,
+        "conversation_turn": 32,
+        "history_line": 88,
+        "is_verified": false,
+        "timestamp": "2026-07-14T04:04:15.154Z"
+      },
+      {
+        "version": "v5",
+        "bytes": 61,
+        "cumulative_tokens": 503616,
+        "conversation_turn": 42,
+        "history_line": 112,
+        "is_verified": true,
+        "timestamp": "2026-07-14T04:07:44.812Z"
+      }
+    ],
+    "stages": [
+      {
+        "name": "1. Understanding & First Solution",
+        "start_turn": 0,
+        "end_turn": 16,
+        "start_tokens": 0,
+        "end_tokens": 181813,
+        "best_bytes_start": null,
+        "best_bytes_end": 93,
+        "improvement_bytes": 0,
+        "description": "Task exploration \u2192 first working solution (93 bytes, v1)"
+      },
+      {
+        "name": "2. Algorithm Exploration",
+        "start_turn": 27,
+        "end_turn": 32,
+        "start_tokens": 362400,
+        "end_tokens": 438904,
+        "best_bytes_start": 93,
+        "best_bytes_end": 65,
+        "improvement_bytes": 28,
+        "description": "-28 bytes total \u2192 65B (v2: -10B, v3: -18B)"
+      },
+      {
+        "name": "3. Micro-Optimization (Golfing)",
+        "start_turn": 42,
+        "end_turn": 42,
+        "start_tokens": 503616,
+        "end_tokens": 503616,
+        "best_bytes_start": 65,
+        "best_bytes_end": 61,
+        "improvement_bytes": 4,
+        "description": "-4 bytes total \u2192 61B (v5: -4B)"
+      }
+    ],
+    "all_versions": [
+      {
+        "version": "v1",
+        "byte_count": 93,
+        "history_line": 39,
+        "cumulative_tokens": 181813,
+        "conversation_turn": 16,
+        "timestamp": "2026-07-14T03:29:13.549Z",
+        "is_verified": false
+      },
+      {
+        "version": "v2",
+        "byte_count": 83,
+        "history_line": 71,
+        "cumulative_tokens": 362400,
+        "conversation_turn": 27,
+        "timestamp": "2026-07-14T04:00:22.136Z",
+        "is_verified": false
+      },
+      {
+        "version": "v3",
+        "byte_count": 65,
+        "history_line": 88,
+        "cumulative_tokens": 438904,
+        "conversation_turn": 32,
+        "timestamp": "2026-07-14T04:04:15.154Z",
+        "is_verified": false
+      },
+      {
+        "version": "v4",
+        "byte_count": 65,
+        "history_line": 100,
+        "cumulative_tokens": 474757,
+        "conversation_turn": 37,
+        "timestamp": "2026-07-14T04:06:49.036Z",
+        "is_verified": false
+      },
+      {
+        "version": "v5",
+        "byte_count": 61,
+        "history_line": 112,
+        "cumulative_tokens": 503616,
+        "conversation_turn": 42,
+        "timestamp": "2026-07-14T04:07:44.812Z",
+        "is_verified": true
+      },
+      {
+        "version": "v6",
+        "byte_count": 62,
+        "history_line": 133,
+        "cumulative_tokens": 559407,
+        "conversation_turn": 53,
+        "timestamp": "2026-07-14T04:11:49.931Z",
+        "is_verified": false
+      },
+      {
+        "version": "v7",
+        "byte_count": 63,
+        "history_line": 145,
+        "cumulative_tokens": 584225,
+        "conversation_turn": 58,
+        "timestamp": "2026-07-14T04:13:47.525Z",
+        "is_verified": false
+      },
+      {
+        "version": "v8",
+        "byte_count": 65,
+        "history_line": 175,
+        "cumulative_tokens": 622621,
+        "conversation_turn": 72,
+        "timestamp": "2026-07-14T04:16:32.138Z",
+        "is_verified": false
+      }
+    ]
+  },
+  "task004": {
+    "summary": {
+      "initial_bytes": 400,
+      "final_bytes": 90,
+      "total_improvement": 310,
+      "improvement_pct": 77.5,
+      "total_tokens": 68798,
+      "total_versions_created": 15,
+      "total_improvements": 13,
+      "bytes_per_token": 0.004506,
+      "stages": [
+        {
+          "name": "1. Understanding & First Solution",
+          "tokens_in_stage": 20437,
+          "turns": "0-22",
+          "improvement": 0
+        },
+        {
+          "name": "2. Algorithm Exploration",
+          "tokens_in_stage": 3059,
+          "turns": "25-27",
+          "improvement": 212
+        },
+        {
+          "name": "3. Micro-Optimization (Golfing)",
+          "tokens_in_stage": 18466,
+          "turns": "30-48",
+          "improvement": 19
+        },
+        {
+          "name": "2. Algorithm Exploration",
+          "tokens_in_stage": 6601,
+          "turns": "53-53",
+          "improvement": 24
+        },
+        {
+          "name": "3. Micro-Optimization (Golfing)",
+          "tokens_in_stage": 16539,
+          "turns": "56-69",
+          "improvement": 34
+        },
+        {
+          "name": "2. Algorithm Exploration",
+          "tokens_in_stage": 3696,
+          "turns": "72-72",
+          "improvement": 21
+        }
+      ]
+    },
+    "trajectory": [
+      {
+        "version": "v1",
+        "bytes": 400,
+        "cumulative_tokens": 20437,
+        "conversation_turn": 22,
+        "history_line": 44,
+        "is_verified": false,
+        "timestamp": "2026-07-13T12:19:16.310Z"
+      },
+      {
+        "version": "v2",
+        "bytes": 229,
+        "cumulative_tokens": 22378,
+        "conversation_turn": 25,
+        "history_line": 48,
+        "is_verified": false,
+        "timestamp": "2026-07-13T12:20:03.089Z"
+      },
+      {
+        "version": "v3",
+        "bytes": 188,
+        "cumulative_tokens": 23496,
+        "conversation_turn": 27,
+        "history_line": 51,
+        "is_verified": false,
+        "timestamp": "2026-07-13T12:20:36.346Z"
+      },
+      {
+        "version": "v4",
+        "bytes": 186,
+        "cumulative_tokens": 25491,
+        "conversation_turn": 30,
+        "history_line": 59,
+        "is_verified": false,
+        "timestamp": "2026-07-13T12:21:17.139Z"
+      },
+      {
+        "version": "v5",
+        "bytes": 178,
+        "cumulative_tokens": 27165,
+        "conversation_turn": 33,
+        "history_line": 63,
+        "is_verified": false,
+        "timestamp": "2026-07-13T12:21:59.862Z"
+      },
+      {
+        "version": "v8",
+        "bytes": 169,
+        "cumulative_tokens": 41962,
+        "conversation_turn": 48,
+        "history_line": 89,
+        "is_verified": false,
+        "timestamp": "2026-07-13T12:28:19.900Z"
+      },
+      {
+        "version": "v9",
+        "bytes": 145,
+        "cumulative_tokens": 48563,
+        "conversation_turn": 53,
+        "history_line": 97,
+        "is_verified": false,
+        "timestamp": "2026-07-13T12:31:12.147Z"
+      },
+      {
+        "version": "v10",
+        "bytes": 135,
+        "cumulative_tokens": 50243,
+        "conversation_turn": 56,
+        "history_line": 105,
+        "is_verified": false,
+        "timestamp": "2026-07-13T12:31:57.416Z"
+      },
+      {
+        "version": "v11",
+        "bytes": 128,
+        "cumulative_tokens": 51977,
+        "conversation_turn": 59,
+        "history_line": 109,
+        "is_verified": false,
+        "timestamp": "2026-07-13T12:32:39.741Z"
+      },
+      {
+        "version": "v12",
+        "bytes": 122,
+        "cumulative_tokens": 51977,
+        "conversation_turn": 59,
+        "history_line": 109,
+        "is_verified": false,
+        "timestamp": "2026-07-13T12:32:39.741Z"
+      },
+      {
+        "version": "v13",
+        "bytes": 116,
+        "cumulative_tokens": 62510,
+        "conversation_turn": 66,
+        "history_line": 123,
+        "is_verified": false,
+        "timestamp": "2026-07-13T12:37:05.841Z"
+      },
+      {
+        "version": "v14",
+        "bytes": 111,
+        "cumulative_tokens": 65102,
+        "conversation_turn": 69,
+        "history_line": 132,
+        "is_verified": false,
+        "timestamp": "2026-07-13T12:37:58.412Z"
+      },
+      {
+        "version": "v15",
+        "bytes": 90,
+        "cumulative_tokens": 68798,
+        "conversation_turn": 72,
+        "history_line": 136,
+        "is_verified": true,
+        "timestamp": "2026-07-13T12:39:22.424Z"
+      }
+    ],
+    "stages": [
+      {
+        "name": "1. Understanding & First Solution",
+        "start_turn": 0,
+        "end_turn": 22,
+        "start_tokens": 0,
+        "end_tokens": 20437,
+        "best_bytes_start": null,
+        "best_bytes_end": 400,
+        "improvement_bytes": 0,
+        "description": "Task exploration \u2192 first working solution (400 bytes, v1)"
+      },
+      {
+        "name": "2. Algorithm Exploration",
+        "start_turn": 25,
+        "end_turn": 27,
+        "start_tokens": 22378,
+        "end_tokens": 23496,
+        "best_bytes_start": 400,
+        "best_bytes_end": 188,
+        "improvement_bytes": 212,
+        "description": "-212 bytes total \u2192 188B (v2: -171B, v3: -41B)"
+      },
+      {
+        "name": "3. Micro-Optimization (Golfing)",
+        "start_turn": 30,
+        "end_turn": 48,
+        "start_tokens": 25491,
+        "end_tokens": 41962,
+        "best_bytes_start": 188,
+        "best_bytes_end": 169,
+        "improvement_bytes": 19,
+        "description": "-19 bytes total \u2192 169B (v4: -2B, v5: -8B, v8: -9B)"
+      },
+      {
+        "name": "2. Algorithm Exploration",
+        "start_turn": 53,
+        "end_turn": 53,
+        "start_tokens": 48563,
+        "end_tokens": 48563,
+        "best_bytes_start": 169,
+        "best_bytes_end": 145,
+        "improvement_bytes": 24,
+        "description": "-24 bytes total \u2192 145B (v9: -24B)"
+      },
+      {
+        "name": "3. Micro-Optimization (Golfing)",
+        "start_turn": 56,
+        "end_turn": 69,
+        "start_tokens": 50243,
+        "end_tokens": 65102,
+        "best_bytes_start": 145,
+        "best_bytes_end": 111,
+        "improvement_bytes": 34,
+        "description": "-34 bytes total \u2192 111B (v10: -10B, v11: -7B, v12: -6B, v13: -6B, v14: -5B)"
+      },
+      {
+        "name": "2. Algorithm Exploration",
+        "start_turn": 72,
+        "end_turn": 72,
+        "start_tokens": 68798,
+        "end_tokens": 68798,
+        "best_bytes_start": 111,
+        "best_bytes_end": 90,
+        "improvement_bytes": 21,
+        "description": "-21 bytes total \u2192 90B (v15: -21B)"
+      }
+    ],
+    "all_versions": [
+      {
+        "version": "v1",
+        "byte_count": 400,
+        "history_line": 44,
+        "cumulative_tokens": 20437,
+        "conversation_turn": 22,
+        "timestamp": "2026-07-13T12:19:16.310Z",
+        "is_verified": false
+      },
+      {
+        "version": "v2",
+        "byte_count": 229,
+        "history_line": 48,
+        "cumulative_tokens": 22378,
+        "conversation_turn": 25,
+        "timestamp": "2026-07-13T12:20:03.089Z",
+        "is_verified": false
+      },
+      {
+        "version": "v3",
+        "byte_count": 188,
+        "history_line": 51,
+        "cumulative_tokens": 23496,
+        "conversation_turn": 27,
+        "timestamp": "2026-07-13T12:20:36.346Z",
+        "is_verified": false
+      },
+      {
+        "version": "v4",
+        "byte_count": 186,
+        "history_line": 59,
+        "cumulative_tokens": 25491,
+        "conversation_turn": 30,
+        "timestamp": "2026-07-13T12:21:17.139Z",
+        "is_verified": false
+      },
+      {
+        "version": "v5",
+        "byte_count": 178,
+        "history_line": 63,
+        "cumulative_tokens": 27165,
+        "conversation_turn": 33,
+        "timestamp": "2026-07-13T12:21:59.862Z",
+        "is_verified": false
+      },
+      {
+        "version": "v6",
+        "byte_count": 224,
+        "history_line": 68,
+        "cumulative_tokens": 32316,
+        "conversation_turn": 36,
+        "timestamp": "2026-07-13T12:23:56.562Z",
+        "is_verified": false
+      },
+      {
+        "version": "v7",
+        "byte_count": 179,
+        "history_line": 85,
+        "cumulative_tokens": 38242,
+        "conversation_turn": 45,
+        "timestamp": "2026-07-13T12:27:02.195Z",
+        "is_verified": false
+      },
+      {
+        "version": "v8",
+        "byte_count": 169,
+        "history_line": 89,
+        "cumulative_tokens": 41962,
+        "conversation_turn": 48,
+        "timestamp": "2026-07-13T12:28:19.900Z",
+        "is_verified": false
+      },
+      {
+        "version": "v9",
+        "byte_count": 145,
+        "history_line": 97,
+        "cumulative_tokens": 48563,
+        "conversation_turn": 53,
+        "timestamp": "2026-07-13T12:31:12.147Z",
+        "is_verified": false
+      },
+      {
+        "version": "v10",
+        "byte_count": 135,
+        "history_line": 105,
+        "cumulative_tokens": 50243,
+        "conversation_turn": 56,
+        "timestamp": "2026-07-13T12:31:57.416Z",
+        "is_verified": false
+      },
+      {
+        "version": "v11",
+        "byte_count": 128,
+        "history_line": 109,
+        "cumulative_tokens": 51977,
+        "conversation_turn": 59,
+        "timestamp": "2026-07-13T12:32:39.741Z",
+        "is_verified": false
+      },
+      {
+        "version": "v12",
+        "byte_count": 122,
+        "history_line": 109,
+        "cumulative_tokens": 51977,
+        "conversation_turn": 59,
+        "timestamp": "2026-07-13T12:32:39.741Z",
+        "is_verified": false
+      },
+      {
+        "version": "v13",
+        "byte_count": 116,
+        "history_line": 123,
+        "cumulative_tokens": 62510,
+        "conversation_turn": 66,
+        "timestamp": "2026-07-13T12:37:05.841Z",
+        "is_verified": false
+      },
+      {
+        "version": "v14",
+        "byte_count": 111,
+        "history_line": 132,
+        "cumulative_tokens": 65102,
+        "conversation_turn": 69,
+        "timestamp": "2026-07-13T12:37:58.412Z",
+        "is_verified": false
+      },
+      {
+        "version": "v15",
+        "byte_count": 90,
+        "history_line": 136,
+        "cumulative_tokens": 68798,
+        "conversation_turn": 72,
+        "timestamp": "2026-07-13T12:39:22.424Z",
+        "is_verified": true
+      }
+    ]
+  },
+  "task005": {
+    "summary": {
+      "initial_bytes": 861,
+      "final_bytes": 357,
+      "total_improvement": 504,
+      "improvement_pct": 58.5,
+      "total_tokens": 730972,
+      "total_versions_created": 19,
+      "total_improvements": 12,
+      "bytes_per_token": 0.000689,
+      "stages": [
+        {
+          "name": "1. Understanding & First Solution",
+          "tokens_in_stage": 208714,
+          "turns": "0-14",
+          "improvement": 0
+        },
+        {
+          "name": "2. Algorithm Exploration",
+          "tokens_in_stage": 72229,
+          "turns": "19-19",
+          "improvement": 237
+        },
+        {
+          "name": "3. Micro-Optimization (Golfing)",
+          "tokens_in_stage": 251640,
+          "turns": "24-53",
+          "improvement": 70
+        },
+        {
+          "name": "2. Algorithm Exploration",
+          "tokens_in_stage": 53832,
+          "turns": "58-63",
+          "improvement": 88
+        },
+        {
+          "name": "3. Micro-Optimization (Golfing)",
+          "tokens_in_stage": 144557,
+          "turns": "78-100",
+          "improvement": 109
+        }
+      ]
+    },
+    "trajectory": [
+      {
+        "version": "v1",
+        "bytes": 861,
+        "cumulative_tokens": 208714,
+        "conversation_turn": 14,
+        "history_line": 37,
+        "is_verified": false,
+        "timestamp": "2026-07-14T03:30:07.251Z"
+      },
+      {
+        "version": "v2",
+        "bytes": 624,
+        "cumulative_tokens": 280943,
+        "conversation_turn": 19,
+        "history_line": 53,
+        "is_verified": false,
+        "timestamp": "2026-07-14T03:34:03.666Z"
+      },
+      {
+        "version": "v3",
+        "bytes": 614,
+        "cumulative_tokens": 339415,
+        "conversation_turn": 24,
+        "history_line": 65,
+        "is_verified": false,
+        "timestamp": "2026-07-14T03:34:50.384Z"
+      },
+      {
+        "version": "v4",
+        "bytes": 577,
+        "cumulative_tokens": 394214,
+        "conversation_turn": 35,
+        "history_line": 91,
+        "is_verified": false,
+        "timestamp": "2026-07-14T03:41:12.232Z"
+      },
+      {
+        "version": "v7",
+        "bytes": 554,
+        "cumulative_tokens": 532583,
+        "conversation_turn": 53,
+        "history_line": 128,
+        "is_verified": false,
+        "timestamp": "2026-07-14T03:49:44.863Z"
+      },
+      {
+        "version": "v8",
+        "bytes": 507,
+        "cumulative_tokens": 552069,
+        "conversation_turn": 58,
+        "history_line": 137,
+        "is_verified": false,
+        "timestamp": "2026-07-14T03:51:37.987Z"
+      },
+      {
+        "version": "v9",
+        "bytes": 466,
+        "cumulative_tokens": 586415,
+        "conversation_turn": 63,
+        "history_line": 151,
+        "is_verified": false,
+        "timestamp": "2026-07-14T03:53:27.798Z"
+      },
+      {
+        "version": "v11",
+        "bytes": 429,
+        "cumulative_tokens": 691439,
+        "conversation_turn": 78,
+        "history_line": 185,
+        "is_verified": false,
+        "timestamp": "2026-07-14T03:58:15.986Z"
+      },
+      {
+        "version": "v12",
+        "bytes": 395,
+        "cumulative_tokens": 698619,
+        "conversation_turn": 83,
+        "history_line": 197,
+        "is_verified": false,
+        "timestamp": "2026-07-14T03:58:45.631Z"
+      },
+      {
+        "version": "v13",
+        "bytes": 380,
+        "cumulative_tokens": 712625,
+        "conversation_turn": 88,
+        "history_line": 206,
+        "is_verified": false,
+        "timestamp": "2026-07-14T03:59:53.841Z"
+      },
+      {
+        "version": "v14",
+        "bytes": 372,
+        "cumulative_tokens": 721815,
+        "conversation_turn": 93,
+        "history_line": 218,
+        "is_verified": false,
+        "timestamp": "2026-07-14T04:00:26.372Z"
+      },
+      {
+        "version": "v15",
+        "bytes": 357,
+        "cumulative_tokens": 730972,
+        "conversation_turn": 100,
+        "history_line": 229,
+        "is_verified": true,
+        "timestamp": "2026-07-14T04:01:13.653Z"
+      }
+    ],
+    "stages": [
+      {
+        "name": "1. Understanding & First Solution",
+        "start_turn": 0,
+        "end_turn": 14,
+        "start_tokens": 0,
+        "end_tokens": 208714,
+        "best_bytes_start": null,
+        "best_bytes_end": 861,
+        "improvement_bytes": 0,
+        "description": "Task exploration \u2192 first working solution (861 bytes, v1)"
+      },
+      {
+        "name": "2. Algorithm Exploration",
+        "start_turn": 19,
+        "end_turn": 19,
+        "start_tokens": 280943,
+        "end_tokens": 280943,
+        "best_bytes_start": 861,
+        "best_bytes_end": 624,
+        "improvement_bytes": 237,
+        "description": "-237 bytes total \u2192 624B (v2: -237B)"
+      },
+      {
+        "name": "3. Micro-Optimization (Golfing)",
+        "start_turn": 24,
+        "end_turn": 53,
+        "start_tokens": 339415,
+        "end_tokens": 532583,
+        "best_bytes_start": 624,
+        "best_bytes_end": 554,
+        "improvement_bytes": 70,
+        "description": "-70 bytes total \u2192 554B (v3: -10B, v4: -37B, v7: -23B)"
+      },
+      {
+        "name": "2. Algorithm Exploration",
+        "start_turn": 58,
+        "end_turn": 63,
+        "start_tokens": 552069,
+        "end_tokens": 586415,
+        "best_bytes_start": 554,
+        "best_bytes_end": 466,
+        "improvement_bytes": 88,
+        "description": "-88 bytes total \u2192 466B (v8: -47B, v9: -41B)"
+      },
+      {
+        "name": "3. Micro-Optimization (Golfing)",
+        "start_turn": 78,
+        "end_turn": 100,
+        "start_tokens": 691439,
+        "end_tokens": 730972,
+        "best_bytes_start": 466,
+        "best_bytes_end": 357,
+        "improvement_bytes": 109,
+        "description": "-109 bytes total \u2192 357B (v11: -37B, v12: -34B, v13: -15B, v14: -8B, v15: -15B)"
+      }
+    ],
+    "all_versions": [
+      {
+        "version": "v1",
+        "byte_count": 861,
+        "history_line": 37,
+        "cumulative_tokens": 208714,
+        "conversation_turn": 14,
+        "timestamp": "2026-07-14T03:30:07.251Z",
+        "is_verified": false
+      },
+      {
+        "version": "v2",
+        "byte_count": 624,
+        "history_line": 53,
+        "cumulative_tokens": 280943,
+        "conversation_turn": 19,
+        "timestamp": "2026-07-14T03:34:03.666Z",
+        "is_verified": false
+      },
+      {
+        "version": "v3",
+        "byte_count": 614,
+        "history_line": 65,
+        "cumulative_tokens": 339415,
+        "conversation_turn": 24,
+        "timestamp": "2026-07-14T03:34:50.384Z",
+        "is_verified": false
+      },
+      {
+        "version": "v4",
+        "byte_count": 577,
+        "history_line": 91,
+        "cumulative_tokens": 394214,
+        "conversation_turn": 35,
+        "timestamp": "2026-07-14T03:41:12.232Z",
+        "is_verified": false
+      },
+      {
+        "version": "v5",
+        "byte_count": 580,
+        "history_line": 99,
+        "cumulative_tokens": 451048,
+        "conversation_turn": 40,
+        "timestamp": "2026-07-14T03:45:48.892Z",
+        "is_verified": false
+      },
+      {
+        "version": "v6",
+        "byte_count": 748,
+        "history_line": 115,
+        "cumulative_tokens": 507957,
+        "conversation_turn": 48,
+        "timestamp": "2026-07-14T03:48:51.041Z",
+        "is_verified": false
+      },
+      {
+        "version": "v7",
+        "byte_count": 554,
+        "history_line": 128,
+        "cumulative_tokens": 532583,
+        "conversation_turn": 53,
+        "timestamp": "2026-07-14T03:49:44.863Z",
+        "is_verified": false
+      },
+      {
+        "version": "v8",
+        "byte_count": 507,
+        "history_line": 137,
+        "cumulative_tokens": 552069,
+        "conversation_turn": 58,
+        "timestamp": "2026-07-14T03:51:37.987Z",
+        "is_verified": false
+      },
+      {
+        "version": "v9",
+        "byte_count": 466,
+        "history_line": 151,
+        "cumulative_tokens": 586415,
+        "conversation_turn": 63,
+        "timestamp": "2026-07-14T03:53:27.798Z",
+        "is_verified": false
+      },
+      {
+        "version": "v10",
+        "byte_count": 476,
+        "history_line": 169,
+        "cumulative_tokens": 673949,
+        "conversation_turn": 70,
+        "timestamp": "2026-07-14T03:56:58.610Z",
+        "is_verified": false
+      },
+      {
+        "version": "v11",
+        "byte_count": 429,
+        "history_line": 185,
+        "cumulative_tokens": 691439,
+        "conversation_turn": 78,
+        "timestamp": "2026-07-14T03:58:15.986Z",
+        "is_verified": false
+      },
+      {
+        "version": "v12",
+        "byte_count": 395,
+        "history_line": 197,
+        "cumulative_tokens": 698619,
+        "conversation_turn": 83,
+        "timestamp": "2026-07-14T03:58:45.631Z",
+        "is_verified": false
+      },
+      {
+        "version": "v13",
+        "byte_count": 380,
+        "history_line": 206,
+        "cumulative_tokens": 712625,
+        "conversation_turn": 88,
+        "timestamp": "2026-07-14T03:59:53.841Z",
+        "is_verified": false
+      },
+      {
+        "version": "v14",
+        "byte_count": 372,
+        "history_line": 218,
+        "cumulative_tokens": 721815,
+        "conversation_turn": 93,
+        "timestamp": "2026-07-14T04:00:26.372Z",
+        "is_verified": false
+      },
+      {
+        "version": "v15",
+        "byte_count": 357,
+        "history_line": 229,
+        "cumulative_tokens": 730972,
+        "conversation_turn": 100,
+        "timestamp": "2026-07-14T04:01:13.653Z",
+        "is_verified": true
+      },
+      {
+        "version": "v16",
+        "byte_count": 357,
+        "history_line": 241,
+        "cumulative_tokens": 733280,
+        "conversation_turn": 104,
+        "timestamp": "2026-07-14T04:01:25.767Z",
+        "is_verified": true
+      },
+      {
+        "version": "v17",
+        "byte_count": 360,
+        "history_line": 271,
+        "cumulative_tokens": 759120,
+        "conversation_turn": 118,
+        "timestamp": "2026-07-14T04:06:06.850Z",
+        "is_verified": false
+      },
+      {
+        "version": "v18",
+        "byte_count": 357,
+        "history_line": 284,
+        "cumulative_tokens": 763220,
+        "conversation_turn": 123,
+        "timestamp": "2026-07-14T04:06:21.493Z",
+        "is_verified": true
+      },
+      {
+        "version": "v19",
+        "byte_count": 376,
+        "history_line": 298,
+        "cumulative_tokens": 776236,
+        "conversation_turn": 132,
+        "timestamp": "2026-07-14T04:07:30.192Z",
+        "is_verified": false
+      }
+    ]
+  }
+}
