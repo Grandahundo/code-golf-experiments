@@ -11,6 +11,7 @@ import json
 import os
 import subprocess
 import sys
+import threading
 import time
 from concurrent.futures import ThreadPoolExecutor, as_completed
 from datetime import datetime
@@ -105,20 +106,40 @@ def run_job(method: str, task: int, trial: int, run_dir_path: str, state: dict) 
             "trial": trial,
         }
 
+    # ── Log stderr per job for debugging ──
+    logs_dir = os.path.join(run_dir_path, "logs")
+    os.makedirs(logs_dir, exist_ok=True)
+    log_file = os.path.join(logs_dir, f"{job_key}.log")
+
     # Build command
     cmd = [CLAUDE_BINARY] + CLAUDE_ARGS + [CLAUDE_PROMPT]
 
-    print(f"[{job_key}] Starting in {cwd}")
+    print(f"[{job_key}] Starting in {cwd}", flush=True)
     started_at = time.time()
 
     try:
-        proc = subprocess.Popen(
-            cmd,
-            cwd=cwd,
-            stdout=subprocess.DEVNULL,
-            stderr=subprocess.DEVNULL,
-        )
-        proc.wait()
+        with open(log_file, "w") as log_f:
+            proc = subprocess.Popen(
+                cmd,
+                cwd=cwd,
+                stdout=log_f,
+                stderr=subprocess.STDOUT,
+            )
+            try:
+                proc.wait(timeout=7200)  # 2 hour timeout
+            except subprocess.TimeoutExpired:
+                proc.kill()
+                proc.wait()
+                elapsed = time.time() - started_at
+                return {
+                    "state": "timeout",
+                    "error": "Job exceeded 2 hour timeout",
+                    "method": method,
+                    "task": task,
+                    "trial": trial,
+                    "duration_seconds": round(elapsed, 1),
+                    "log_file": log_file,
+                }
         elapsed = time.time() - started_at
     except Exception as e:
         return {
@@ -143,10 +164,11 @@ def run_job(method: str, task: int, trial: int, run_dir_path: str, state: dict) 
         "duration_seconds": round(elapsed, 1),
         "best_bytes": best_bytes,
         "cwd": cwd,
+        "log_file": log_file,
     }
 
     status = f"{best_bytes}B" if best_bytes else "N/A"
-    print(f"[{job_key}] Done in {elapsed:.0f}s — best: {status}")
+    print(f"[{job_key}] Done in {elapsed:.0f}s — best: {status}", flush=True)
     return result
 
 
@@ -253,15 +275,37 @@ def main():
     # ── Execute ─────────────────────────────────────────────────
     completed = 0
     failed = 0
+    lock = threading.Lock()
+
+    def run_and_track(m, t, trial):
+        """Wrapper: run a job and update state."""
+        jk = job_id(m, t, trial)
+        with lock:
+            state["jobs"][jk] = {"state": "running", "method": m, "task": t, "trial": trial}
+            save_state(state_path, state)
+        try:
+            result = run_job(m, t, trial, run_dir_path, state)
+        except Exception as e:
+            result = {
+                "state": "failed",
+                "error": str(e),
+                "method": m,
+                "task": t,
+                "trial": trial,
+            }
+        with lock:
+            state["jobs"][jk] = result
+            save_state(state_path, state)
+        return result
 
     with ThreadPoolExecutor(max_workers=args.parallel) as pool:
         futures = {}
         for m, t, trial in pending:
             jk = job_id(m, t, trial)
-            # Mark as running
-            state["jobs"][jk] = {"state": "running", "method": m, "task": t, "trial": trial}
-            fut = pool.submit(run_job, m, t, trial, run_dir_path, state)
+            state["jobs"][jk] = {"state": "queued", "method": m, "task": t, "trial": trial}
+            fut = pool.submit(run_and_track, m, t, trial)
             futures[fut] = (m, t, trial)
+        save_state(state_path, state)
 
         for fut in as_completed(futures):
             m, t, trial = futures[fut]
@@ -277,16 +321,17 @@ def main():
                     "trial": trial,
                 }
 
-            state["jobs"][jk] = result
-            save_state(state_path, state)
+            with lock:
+                state["jobs"][jk] = result
+                save_state(state_path, state)
 
-            if result["state"] == "completed":
+            if result.get("state") == "completed":
                 completed += 1
             else:
                 failed += 1
 
             print(f"Progress: {completed} done, {failed} failed, "
-                  f"{len(pending) - completed - failed} remaining")
+                  f"{len(pending) - completed - failed} remaining", flush=True)
 
     # ── Final summary ──────────────────────────────────────────
     print()
