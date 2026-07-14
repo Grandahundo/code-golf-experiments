@@ -16,10 +16,12 @@ from typing import Optional
 
 EXPERIMENTS_DIR = os.path.join(os.path.dirname(os.path.abspath(__file__)), "experiments")
 CONVERGENCE_MINUTES = 12  # Kill if no improvement in this many minutes
+HARD_TIMEOUT_MINUTES = 25  # Kill any session running longer than this
 CHECK_INTERVAL = 120       # Check every 2 minutes
 
 # Track best bytes per pid over time
 history: dict = defaultdict(list)  # pid -> [(timestamp, best_bytes), ...]
+first_seen: dict = {}  # pid -> timestamp of first observation
 
 
 def get_best_bytes(workdir: str) -> Optional[int]:
@@ -85,20 +87,46 @@ def main():
             # Track history
             if pid not in history:
                 history[pid] = []
+                first_seen[pid] = now
             history[pid].append((now, best))
 
             # Clean old entries
             cutoff = now - CONVERGENCE_MINUTES * 60
             history[pid] = [(t, b) for t, b in history[pid] if t > cutoff]
 
+            # Clean up stale first_seen entries
+            for old_pid in list(first_seen.keys()):
+                if old_pid not in [p for p, _ in sessions]:
+                    del first_seen[old_pid]
+
+            killed = False
+            task_name = os.path.basename(cwd)
+            method = os.path.basename(os.path.dirname(cwd))
+
+            # Check hard timeout
+            session_age = (now - first_seen.get(pid, now)) / 60
+            if session_age > HARD_TIMEOUT_MINUTES:
+                print(
+                    f"[watchdog] KILLING {method}/{task_name} "
+                    f"(PID {pid}, hard timeout {session_age:.0f}min > {HARD_TIMEOUT_MINUTES}min, "
+                    f"best={best}B)",
+                    flush=True,
+                )
+                try:
+                    os.kill(pid, signal.SIGTERM)
+                except ProcessLookupError:
+                    pass
+                killed = True
+                del history[pid]
+                if pid in first_seen:
+                    del first_seen[pid]
+
             # Check convergence
-            if len(history[pid]) >= 3:
+            if not killed and len(history[pid]) >= 3:
                 recent_bytes = [b for _, b in history[pid] if b is not None]
                 if recent_bytes and all(b == recent_bytes[0] for b in recent_bytes):
                     elapsed = now - history[pid][0][0]
                     if elapsed > CONVERGENCE_MINUTES * 60:
-                        task_name = os.path.basename(cwd)
-                        method = os.path.basename(os.path.dirname(cwd))
                         print(
                             f"[watchdog] KILLING {method}/{task_name} "
                             f"(PID {pid}, converged at {recent_bytes[0]}B for "
@@ -109,7 +137,10 @@ def main():
                             os.kill(pid, signal.SIGTERM)
                         except ProcessLookupError:
                             pass
+                        killed = True
                         del history[pid]
+                        if pid in first_seen:
+                            del first_seen[pid]
 
         # Print status
         active = len(sessions)
