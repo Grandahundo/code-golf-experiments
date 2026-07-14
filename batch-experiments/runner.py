@@ -62,12 +62,12 @@ def load_state(state_path: str) -> dict:
 
 
 def save_state(state_path: str, state: dict):
-    """Atomically save state to disk."""
-    tmp = state_path + ".tmp"
+    """Thread-safe atomic save to disk using per-thread temp file."""
+    tmp = f"{state_path}.tmp.{threading.get_ident()}"
     state["updated_at"] = datetime.now().isoformat()
     with open(tmp, "w") as f:
         json.dump(state, f, indent=2, default=str)
-    os.replace(tmp, state_path)
+    os.replace(tmp, state_path)  # atomic on same filesystem
 
 
 def scan_best_bytes(workdir: str) -> Optional[int]:
