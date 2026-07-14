@@ -40,7 +40,7 @@ TASK_SOURCE_DIR = os.path.join(
 )
 
 # ── Concurrency ─────────────────────────────────────────────────
-MAX_PARALLEL = 4
+MAX_PARALLEL = 8
 
 # ── Claude CLI ──────────────────────────────────────────────────
 CLAUDE_BINARY = "claude"

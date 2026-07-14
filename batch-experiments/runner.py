@@ -27,7 +27,7 @@ RESULTS_DIR = os.path.join(SCRIPT_DIR, "results")
 TASKS = list(range(1, 11))  # task001 – task010
 METHODS = ["baseline", "auto_pal", "default"]
 DEFAULT_TRIALS = 3
-DEFAULT_PARALLEL = 4
+DEFAULT_PARALLEL = 8
 
 CLAUDE_BINARY = "claude"
 CLAUDE_ARGS = ["--dangerously-skip-permissions"]
