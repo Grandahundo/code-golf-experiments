@@ -30,7 +30,7 @@ def seed_state():
         state = json.load(f)
 
     seeded = 0
-    for method in ["baseline", "auto_pal", "default"]:
+    for method in ["comap", "auto_pal", "default"]:
         for task in range(1, 11):
             task_str = f"task{task:03d}"
             wd = os.path.join(EXPERIMENTS_DIR, method, task_str, "workdir")

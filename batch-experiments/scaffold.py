@@ -23,8 +23,8 @@ TASK_SOURCE_DIR = os.path.join(
 
 # ── Methods definition ─────────────────────────────────────────
 METHODS = {
-    "baseline": {
-        "label": "Baseline",
+    "comap": {
+        "label": "CoMAP",
         "has_claude_md": False,
         "has_agent_md": True,
     },
@@ -40,7 +40,7 @@ METHODS = {
     },
 }
 
-# ── Per-task files copied as-is from baseline task directories ──
+# ── Per-task files copied as-is from source task directories ──
 COPY_FROM_SOURCE = ["gen.py", "common.py", "verify.py", "data.json"]
 
 
@@ -107,8 +107,8 @@ def main():
         help="Task range, e.g. '1-5' or '1,3,5' (default: 1-10)"
     )
     parser.add_argument(
-        "--methods", type=str, default="baseline,auto_pal,default",
-        help="Comma-separated methods (default: baseline,auto_pal,default)"
+        "--methods", type=str, default="comap,auto_pal,default",
+        help="Comma-separated methods (default: comap,auto_pal,default)"
     )
     parser.add_argument(
         "--force", action="store_true",

@@ -10,14 +10,14 @@ SCRIPT_DIR = os.path.dirname(os.path.abspath(__file__))
 RESULTS_DIR = os.path.join(SCRIPT_DIR, "results", "20260714-212716")
 EXPERIMENTS_DIR = os.path.join(SCRIPT_DIR, "experiments")
 
-METHODS = ["baseline", "auto_pal", "default"]
+METHODS = ["comap", "auto_pal", "default"]
 METHOD_LABELS = {
-    "baseline": "Baseline (11KB Map-and-Act)",
+    "comap": "CoMAP (11KB Map-and-Act — same as Baseline)",
     "auto_pal": "Auto-PAL (900B minimal)",
     "default": "Default (4.8KB streamlined)",
 }
 METHOD_COLORS = {
-    "baseline": "#ef4444",
+    "comap": "#ef4444",
     "auto_pal": "#3b82f6",
     "default": "#10b981",
 }
@@ -113,9 +113,9 @@ tr:last-child td {{ border-bottom: none; }}
 <p class="subtitle">Generated {gen_time} · 3 Methods × 10 Tasks · deepseek-v4-pro</p>
 
 <div class="verdict-box">
-<h2>🏆 Verdict: Default > Baseline > Auto-PAL</h2>
+<h2>🏆 Verdict: Default > CoMAP > Auto-PAL</h2>
 <p>Default (4.8KB streamlined prompt) wins <strong>{wins['default']}/10</strong> tasks with a median of <strong>{stats['default']['median']}B</strong>.
-Baseline (11KB Map-and-Act) is the most consistent (lowest mean: {stats['baseline']['mean']}B).
+CoMAP (11KB Map-and-Act — same as Baseline) is the most consistent (lowest mean: {stats['comap']['mean']}B).
 Auto-PAL (900B minimal) excels on simple tasks but collapses on complex ones.</p>
 </div>
 
@@ -236,7 +236,7 @@ Chart.defaults.font.size = 12;
       responsive: true,
       plugins: {{
         legend: {{ position: 'bottom' }},
-        title: {{ display: true, text: 'Total wins: ' + (W.baseline + W.auto_pal + W.default) + ' (ties count for all)', font: {{ size: 13 }} }}
+        title: {{ display: true, text: 'Total wins: ' + (W.comap + W.auto_pal + W.default) + ' (ties count for all)', font: {{ size: 13 }} }}
       }}
     }}
   }});
@@ -340,7 +340,7 @@ Chart.defaults.font.size = 12;
         var meta = chart.getDatasetMeta(0);
         ctx.font = 'bold 11px -apple-system, BlinkMacSystemFont, sans-serif';
         ctx.textAlign = 'center';
-        ctx.textBaseline = 'middle';
+        ctx.textCoMAP = 'middle';
         meta.data.forEach(function(rect) {{
           if (rect.raw && rect.raw.v != null) {{
             // Find min per column

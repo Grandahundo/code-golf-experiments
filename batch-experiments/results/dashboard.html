@@ -37,9 +37,9 @@ tr:last-child td { border-bottom: none; }
 <p class="subtitle">Generated 2026-07-15 15:38:23 · 3 Methods × 10 Tasks · deepseek-v4-pro</p>
 
 <div class="verdict-box">
-<h2>🏆 Verdict: Default > Baseline > Auto-PAL</h2>
+<h2>🏆 Verdict: Default > CoMAP > Auto-PAL</h2>
 <p>Default (4.8KB streamlined prompt) wins <strong>7/10</strong> tasks with a median of <strong>73.0B</strong>.
-Baseline (11KB Map-and-Act) is the most consistent (lowest mean: 181.6B).
+CoMAP (11KB Map-and-Act) is the most consistent (lowest mean: 181.6B).
 Auto-PAL (900B minimal) excels on simple tasks but collapses on complex ones.</p>
 </div>
 
@@ -71,7 +71,7 @@ Auto-PAL (900B minimal) excels on simple tasks but collapses on complex ones.</p
 </div>
 
 <script>
-var DATA = {"tasks": [1, 2, 3, 4, 5, 6, 7, 8, 9, 10], "results": {"baseline": {"1": 61, "2": 243, "3": 60, "4": 180, "5": 342, "6": 52, "7": 92, "8": 377, "9": 306, "10": 103}, "auto_pal": {"1": 61, "2": 276, "3": 96, "4": 175, "5": 980, "6": 53, "7": 72, "8": 602, "9": 410, "10": 103}, "default": {"1": 59, "2": 1869, "3": 56, "4": 327, "5": 74, "6": 53, "7": 72, "8": 298, "9": 99, "10": 71}}, "stats": {"baseline": {"count": 10, "min": 52, "max": 377, "median": 141.5, "mean": 181.6, "std": 126.27}, "auto_pal": {"count": 10, "min": 53, "max": 980, "median": 139.0, "mean": 282.8, "std": 303.59}, "default": {"count": 10, "min": 53, "max": 1869, "median": 73.0, "mean": 297.8, "std": 561.44}}, "wins": {"baseline": 2, "auto_pal": 2, "default": 7}, "methods": ["baseline", "auto_pal", "default"], "methodLabels": {"baseline": "Baseline (11KB Map-and-Act)", "auto_pal": "Auto-PAL (900B minimal)", "default": "Default (4.8KB streamlined)"}, "methodColors": {"baseline": "#ef4444", "auto_pal": "#3b82f6", "default": "#10b981"}};
+var DATA = {"tasks": [1, 2, 3, 4, 5, 6, 7, 8, 9, 10], "results": {"comap": {"1": 61, "2": 243, "3": 60, "4": 180, "5": 342, "6": 52, "7": 92, "8": 377, "9": 306, "10": 103}, "auto_pal": {"1": 61, "2": 276, "3": 96, "4": 175, "5": 980, "6": 53, "7": 72, "8": 602, "9": 410, "10": 103}, "default": {"1": 59, "2": 1869, "3": 56, "4": 327, "5": 74, "6": 53, "7": 72, "8": 298, "9": 99, "10": 71}}, "stats": {"comap": {"count": 10, "min": 52, "max": 377, "median": 141.5, "mean": 181.6, "std": 126.27}, "auto_pal": {"count": 10, "min": 53, "max": 980, "median": 139.0, "mean": 282.8, "std": 303.59}, "default": {"count": 10, "min": 53, "max": 1869, "median": 73.0, "mean": 297.8, "std": 561.44}}, "wins": {"comap": 2, "auto_pal": 2, "default": 7}, "methods": ["comap", "auto_pal", "default"], "methodLabels": {"comap": "CoMAP (11KB Map-and-Act)", "auto_pal": "Auto-PAL (900B minimal)", "default": "Default (4.8KB streamlined)"}, "methodColors": {"comap": "#ef4444", "auto_pal": "#3b82f6", "default": "#10b981"}};
 var T = DATA.tasks;
 var M = DATA.methods;
 var R = DATA.results;
@@ -160,7 +160,7 @@ Chart.defaults.font.size = 12;
       responsive: true,
       plugins: {
         legend: { position: 'bottom' },
-        title: { display: true, text: 'Total wins: ' + (W.baseline + W.auto_pal + W.default) + ' (ties count for all)', font: { size: 13 } }
+        title: { display: true, text: 'Total wins: ' + (W.comap + W.auto_pal + W.default) + ' (ties count for all)', font: { size: 13 } }
       }
     }
   });
@@ -264,7 +264,7 @@ Chart.defaults.font.size = 12;
         var meta = chart.getDatasetMeta(0);
         ctx.font = 'bold 11px -apple-system, BlinkMacSystemFont, sans-serif';
         ctx.textAlign = 'center';
-        ctx.textBaseline = 'middle';
+        ctx.textCoMAP = 'middle';
         meta.data.forEach(function(rect) {
           if (rect.raw && rect.raw.v != null) {
             // Find min per column

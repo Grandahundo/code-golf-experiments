@@ -13,8 +13,8 @@ TASKS = list(range(1, 11))  # task001 – task010
 TRIALS_PER_COMBO = 3
 
 METHODS = {
-    "baseline": {
-        "label": "Baseline",
+    "comap": {
+        "label": "CoMAP",
         "color": "#ef4444",
         "has_claude_md": False,
         "has_agent_md": True,

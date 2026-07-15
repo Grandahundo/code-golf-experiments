@@ -19,12 +19,12 @@ import numpy as np
 
 # ── Method colors ──────────────────────────────────────────────
 METHOD_COLORS = {
-    "baseline": "#ef4444",
+    "comap": "#ef4444",
     "auto_pal": "#3b82f6",
     "default": "#10b981",
 }
 METHOD_LABELS = {
-    "baseline": "Baseline",
+    "comap": "CoMAP",
     "auto_pal": "auto-PAL",
     "default": "Default",
 }
@@ -45,8 +45,8 @@ def plot_final_bytes_bars(aggregated: dict, output_dir: str):
     """Grouped bar chart: final bytes per task, grouped by method."""
     results = aggregated["results"]
     methods = sorted(set(r["method"] for r in results.values()),
-                     key=lambda m: ["baseline", "auto_pal", "default"].index(m)
-                     if m in ["baseline", "auto_pal", "default"] else 99)
+                     key=lambda m: ["comap", "auto_pal", "default"].index(m)
+                     if m in ["comap", "auto_pal", "default"] else 99)
     tasks = sorted(set(r["task"] for r in results.values()))
 
     x = np.arange(len(tasks))
@@ -100,8 +100,8 @@ def plot_method_ranking_heatmap(aggregated: dict, output_dir: str):
     """Heatmap: rows=methods, cols=tasks, cell=min best_bytes."""
     results = aggregated["results"]
     methods = sorted(set(r["method"] for r in results.values()),
-                     key=lambda m: ["baseline", "auto_pal", "default"].index(m)
-                     if m in ["baseline", "auto_pal", "default"] else 99)
+                     key=lambda m: ["comap", "auto_pal", "default"].index(m)
+                     if m in ["comap", "auto_pal", "default"] else 99)
     tasks = sorted(set(r["task"] for r in results.values()))
 
     # Build data matrix
@@ -146,8 +146,8 @@ def plot_per_task_violin(aggregated: dict, output_dir: str):
     results = aggregated["results"]
     tasks = sorted(set(r["task"] for r in results.values()))
     methods = sorted(set(r["method"] for r in results.values()),
-                     key=lambda m: ["baseline", "auto_pal", "default"].index(m)
-                     if m in ["baseline", "auto_pal", "default"] else 99)
+                     key=lambda m: ["comap", "auto_pal", "default"].index(m)
+                     if m in ["comap", "auto_pal", "default"] else 99)
 
     ncols = min(5, len(tasks))
     nrows = (len(tasks) + ncols - 1) // ncols
@@ -218,8 +218,8 @@ def plot_summary_bars(aggregated: dict, output_dir: str):
     """Summary bar chart: best bytes across all tasks per method."""
     results = aggregated["results"]
     methods = sorted(set(r["method"] for r in results.values()),
-                     key=lambda m: ["baseline", "auto_pal", "default"].index(m)
-                     if m in ["baseline", "auto_pal", "default"] else 99)
+                     key=lambda m: ["comap", "auto_pal", "default"].index(m)
+                     if m in ["comap", "auto_pal", "default"] else 99)
 
     tasks = sorted(set(r["task"] for r in results.values()))
 
