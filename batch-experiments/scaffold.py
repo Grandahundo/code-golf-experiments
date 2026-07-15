@@ -1,25 +1,24 @@
 #!/usr/bin/env python3
-"""Scaffold experiment directories for batch code-golf runs.
+"""Scaffold per-trial experiment directories for a batch run.
 
-Creates:  batch-experiments/experiments/<method>/task<NNN>/
-Populates with agent.md, CLAUDE.md, gen.py, verify.py, common.py, data.json
+Creates:  runs/<timestamp>/experiments/<method>/task<NNN>/trial_<N>/
+Each trial gets its OWN copy of all files + workdir — truly independent.
 """
 
 import os
 import shutil
 import sys
+from datetime import datetime
 
-# ── Paths (relative to this script) ────────────────────────────
+# ── Paths ──────────────────────────────────────────────────────
 SCRIPT_DIR = os.path.dirname(os.path.abspath(__file__))
 PROJECT_ROOT = os.path.dirname(SCRIPT_DIR)
 
 TEMPLATES_DIR = os.path.join(SCRIPT_DIR, "templates")
-EXPERIMENTS_DIR = os.path.join(SCRIPT_DIR, "experiments")
+RUNS_DIR = os.path.join(SCRIPT_DIR, "runs")
 
-# Source for per-task data files
-TASK_SOURCE_DIR = os.path.join(
-    PROJECT_ROOT, "deepseek-v4-pro-baseline"
-)
+# Source for per-task data files (gen.py, verify.py, etc.)
+TASK_SOURCE_DIR = os.path.join(PROJECT_ROOT, "deepseek-v4-pro-baseline")
 
 # ── Methods definition ─────────────────────────────────────────
 METHODS = {
@@ -50,83 +49,74 @@ METHODS = {
     },
 }
 
-# ── Per-task files copied as-is from source task directories ──
 COPY_FROM_SOURCE = ["gen.py", "common.py", "verify.py", "data.json"]
 
 
 def render_template(template_path: str, task_num: int) -> str:
-    """Read template and substitute {{TASK_NUM}} placeholder."""
     with open(template_path, "r") as f:
-        content = f.read()
-    return content.replace("{{TASK_NUM}}", f"{task_num:03d}")
+        return f.read().replace("{{TASK_NUM}}", f"{task_num:03d}")
 
 
-def scaffold_method_task(method: str, task_num: int, force: bool = False):
-    """Create one (method, task) experiment directory."""
-    task_str = f"task{task_num:03d}"
-    target_dir = os.path.join(EXPERIMENTS_DIR, method, task_str)
+def scaffold_run(methods: list, tasks: list, trials: int = 3) -> str:
+    """Create a new timestamped run directory with all experiment files.
 
-    # Skip if already complete
-    workdir = os.path.join(target_dir, "workdir")
-    agent_md_path = os.path.join(target_dir, "agent.md")
-    if os.path.exists(agent_md_path) and not force:
-        print(f"  [skip] {method}/{task_str} — already exists")
-        return
+    Returns the run directory path.
+    """
+    ts = datetime.now().strftime("%Y%m%d-%H%M%S")
+    run_dir = os.path.join(RUNS_DIR, ts)
+    exp_dir = os.path.join(run_dir, "experiments")
+    os.makedirs(exp_dir, exist_ok=True)
 
-    os.makedirs(target_dir, exist_ok=True)
-    os.makedirs(workdir, exist_ok=True)
+    total = len(methods) * len(tasks) * trials
+    print(f"Scaffolding run: {run_dir}")
+    print(f"  {len(methods)} methods × {len(tasks)} tasks × {trials} trials = {total} dirs\n")
 
-    meta = METHODS[method]
+    for method in methods:
+        meta = METHODS[method]
+        for task_num in tasks:
+            task_str = f"task{task_num:03d}"
+            source_task_dir = os.path.join(TASK_SOURCE_DIR, task_str)
 
-    # ── Write agent.md from template ──
-    if meta["has_agent_md"]:
-        template = os.path.join(TEMPLATES_DIR, method, "agent.md")
-        if os.path.exists(template):
-            content = render_template(template, task_num)
-            with open(agent_md_path, "w") as f:
-                f.write(content)
+            for trial in range(1, trials + 1):
+                trial_dir = os.path.join(exp_dir, method, task_str, f"trial_{trial}")
+                workdir = os.path.join(trial_dir, "workdir")
+                os.makedirs(workdir, exist_ok=True)
 
-    # ── Write CLAUDE.md from template ──
-    if meta["has_claude_md"]:
-        template = os.path.join(TEMPLATES_DIR, method, "CLAUDE.md")
-        if os.path.exists(template):
-            content = render_template(template, task_num)
-            claude_path = os.path.join(target_dir, "CLAUDE.md")
-            with open(claude_path, "w") as f:
-                f.write(content)
+                # ── agent.md ──
+                if meta["has_agent_md"]:
+                    tmpl = os.path.join(TEMPLATES_DIR, method, "agent.md")
+                    if os.path.exists(tmpl):
+                        with open(os.path.join(trial_dir, "agent.md"), "w") as f:
+                            f.write(render_template(tmpl, task_num))
 
-    # ── Copy task-specific data files ──
-    source_task_dir = os.path.join(TASK_SOURCE_DIR, task_str)
-    for filename in COPY_FROM_SOURCE:
-        src = os.path.join(source_task_dir, filename)
-        dst = os.path.join(target_dir, filename)
-        if os.path.exists(src):
-            shutil.copy2(src, dst)
-        else:
-            print(f"  [warn] {method}/{task_str}: {filename} not found in {source_task_dir}")
+                # ── CLAUDE.md ──
+                if meta["has_claude_md"]:
+                    tmpl = os.path.join(TEMPLATES_DIR, method, "CLAUDE.md")
+                    if os.path.exists(tmpl):
+                        with open(os.path.join(trial_dir, "CLAUDE.md"), "w") as f:
+                            f.write(render_template(tmpl, task_num))
 
-    print(f"  [done] {method}/{task_str}")
+                # ── Task data files ──
+                for filename in COPY_FROM_SOURCE:
+                    src = os.path.join(source_task_dir, filename)
+                    dst = os.path.join(trial_dir, filename)
+                    if os.path.exists(src):
+                        shutil.copy2(src, dst)
+
+        print(f"  [{method}] {len(tasks)} tasks × {trials} trials")
+
+    print(f"\nDone: {run_dir}")
+    return run_dir
 
 
 def main():
     import argparse
-
     parser = argparse.ArgumentParser(description="Scaffold batch experiment directories")
-    parser.add_argument(
-        "--tasks", type=str, default="1-10",
-        help="Task range, e.g. '1-5' or '1,3,5' (default: 1-10)"
-    )
-    parser.add_argument(
-        "--methods", type=str, default="comap,comap_claude,baseline,auto_pal,default",
-        help="Comma-separated methods (default: comap,auto_pal,default)"
-    )
-    parser.add_argument(
-        "--force", action="store_true",
-        help="Overwrite existing directories"
-    )
+    parser.add_argument("--tasks", type=str, default="1-10")
+    parser.add_argument("--methods", type=str, default="comap,comap_claude,baseline,auto_pal,default")
+    parser.add_argument("--trials", type=int, default=3)
     args = parser.parse_args()
 
-    # Parse task list
     tasks = []
     for part in args.tasks.split(","):
         part = part.strip()
@@ -137,24 +127,12 @@ def main():
             tasks.append(int(part))
 
     methods = [m.strip() for m in args.methods.split(",")]
-
-    # Validate
     for m in methods:
         if m not in METHODS:
             print(f"Unknown method: {m}. Choices: {list(METHODS.keys())}")
             sys.exit(1)
 
-    print(f"Scaffolding {len(tasks)} tasks × {len(methods)} methods "
-          f"= {len(tasks) * len(methods)} directories")
-    print(f"Output: {EXPERIMENTS_DIR}\n")
-
-    for method in methods:
-        print(f"[{method}]")
-        for task_num in tasks:
-            scaffold_method_task(method, task_num, force=args.force)
-        print()
-
-    print("Done. Run with --force to overwrite existing directories.")
+    scaffold_run(methods, tasks, args.trials)
 
 
 if __name__ == "__main__":
