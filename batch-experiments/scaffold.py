@@ -28,6 +28,16 @@ METHODS = {
         "has_claude_md": False,
         "has_agent_md": True,
     },
+    "comap_claude": {
+        "label": "CoMAP+CLAUDE",
+        "has_claude_md": True,
+        "has_agent_md": True,
+    },
+    "baseline": {
+        "label": "Baseline",
+        "has_claude_md": False,
+        "has_agent_md": True,
+    },
     "auto_pal": {
         "label": "auto-PAL",
         "has_claude_md": True,
@@ -107,7 +117,7 @@ def main():
         help="Task range, e.g. '1-5' or '1,3,5' (default: 1-10)"
     )
     parser.add_argument(
-        "--methods", type=str, default="comap,auto_pal,default",
+        "--methods", type=str, default="comap,comap_claude,baseline,auto_pal,default",
         help="Comma-separated methods (default: comap,auto_pal,default)"
     )
     parser.add_argument(

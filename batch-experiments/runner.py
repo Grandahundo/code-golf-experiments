@@ -26,7 +26,7 @@ RESULTS_DIR = os.path.join(SCRIPT_DIR, "results")
 
 # ── Experiment matrix ──────────────────────────────────────────
 TASKS = list(range(1, 11))  # task001 – task010
-METHODS = ["comap", "auto_pal", "default"]
+METHODS = ["comap", "comap_claude", "baseline", "auto_pal", "default"]
 DEFAULT_TRIALS = 3
 DEFAULT_PARALLEL = 8
 
@@ -184,7 +184,7 @@ def main():
         help="Task range, e.g. '1-5' or '1,3,5' (default: 1-10)"
     )
     parser.add_argument(
-        "--methods", type=str, default="comap,auto_pal,default",
+        "--methods", type=str, default="comap,comap_claude,baseline,auto_pal,default",
         help="Comma-separated methods"
     )
     parser.add_argument(

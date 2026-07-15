@@ -19,6 +19,18 @@ METHODS = {
         "has_claude_md": False,
         "has_agent_md": True,
     },
+    "comap_claude": {
+        "label": "CoMAP+CLAUDE",
+        "color": "#dc2626",
+        "has_claude_md": True,
+        "has_agent_md": True,
+    },
+    "baseline": {
+        "label": "Baseline",
+        "color": "#f97316",
+        "has_claude_md": False,
+        "has_agent_md": True,
+    },
     "auto_pal": {
         "label": "auto-PAL",
         "color": "#3b82f6",
