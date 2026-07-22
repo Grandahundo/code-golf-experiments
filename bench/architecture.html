@@ -1,0 +1,437 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Code Golf Benchmark — Architecture</title>
+<style>
+  :root {
+    --bg: #0f1117;
+    --surface: #1a1d27;
+    --border: #2a2d3a;
+    --text: #e1e4eb;
+    --muted: #8b90a0;
+    --accent: #5b9cf5;
+    --green: #34c77b;
+    --amber: #f0a040;
+    --rose: #e05880;
+    --purple: #a78bfa;
+    --cyan: #38bdf8;
+    --teal: #2dd4bf;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: system-ui, -apple-system, sans-serif;
+    line-height: 1.5;
+    padding: 40px;
+    min-height: 100vh;
+  }
+  h1 {
+    font-size: 24px;
+    font-weight: 700;
+    margin-bottom: 4px;
+    letter-spacing: -0.3px;
+  }
+  .subtitle {
+    color: var(--muted);
+    margin-bottom: 40px;
+    font-size: 14px;
+  }
+
+  /* ── Layout grid ─────────────────────────────── */
+  .diagram {
+    display: grid;
+    grid-template-columns: 280px 1fr 260px;
+    grid-template-rows: auto auto;
+    gap: 0;
+    max-width: 1400px;
+  }
+
+  /* ── Columns ─────────────────────────────────── */
+  .col { display: flex; flex-direction: column; gap: 16px; }
+  .col-label {
+    font-size: 11px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: var(--muted);
+    margin-bottom: 4px;
+  }
+
+  /* ── Cards ───────────────────────────────────── */
+  .card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 16px 18px;
+    position: relative;
+  }
+  .card h3 {
+    font-size: 13px;
+    font-weight: 600;
+    margin-bottom: 8px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .card h3 .dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    flex-shrink: 0;
+  }
+  .card p, .card ul {
+    font-size: 12px;
+    color: var(--muted);
+  }
+  .card ul { padding-left: 16px; }
+  .card ul li { margin-bottom: 2px; }
+
+  .dot-blue   { background: var(--accent); }
+  .dot-green  { background: var(--green); }
+  .dot-amber  { background: var(--amber); }
+  .dot-rose   { background: var(--rose); }
+  .dot-purple { background: var(--purple); }
+  .dot-cyan   { background: var(--cyan); }
+  .dot-teal   { background: var(--teal); }
+
+  .card.blue   { border-left: 3px solid var(--accent); }
+  .card.green  { border-left: 3px solid var(--green); }
+  .card.amber  { border-left: 3px solid var(--amber); }
+  .card.rose   { border-left: 3px solid var(--rose); }
+  .card.purple { border-left: 3px solid var(--purple); }
+  .card.cyan   { border-left: 3px solid var(--cyan); }
+  .card.teal   { border-left: 3px solid var(--teal); }
+
+  /* ── Center loop (expanded) ──────────────────── */
+  .loop-box {
+    background: var(--surface);
+    border: 2px solid var(--accent);
+    border-radius: 14px;
+    padding: 24px;
+    grid-column: 2;
+    grid-row: 1 / 3;
+  }
+  .loop-box h2 {
+    font-size: 16px;
+    font-weight: 700;
+    text-align: center;
+    margin-bottom: 24px;
+    color: var(--accent);
+  }
+
+  .loop-flow {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+  }
+  .loop-step {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 10px 14px;
+    border-radius: 8px;
+    background: rgba(91,156,245,0.06);
+    border: 1px solid rgba(91,156,245,0.15);
+    font-size: 13px;
+  }
+  .loop-step .num {
+    width: 24px; height: 24px;
+    border-radius: 50%;
+    background: var(--accent);
+    color: #fff;
+    font-weight: 700;
+    font-size: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+  }
+  .loop-step strong { color: var(--text); }
+  .loop-step span { color: var(--muted); font-size: 11px; }
+
+  .loop-arrow {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 28px;
+    position: relative;
+  }
+  .loop-arrow::before {
+    content: '';
+    width: 2px;
+    height: 100%;
+    background: var(--accent);
+    opacity: 0.3;
+  }
+  .loop-arrow.back::after {
+    content: '↻  repeat ×30 rounds';
+    font-size: 10px;
+    color: var(--accent);
+    background: var(--surface);
+    padding: 2px 8px;
+    position: absolute;
+    right: 16px;
+    border-radius: 4px;
+  }
+
+  .loop-side {
+    display: flex;
+    gap: 12px;
+    margin-top: 16px;
+  }
+  .loop-side .mini {
+    flex: 1;
+    background: rgba(91,156,245,0.04);
+    border: 1px solid rgba(91,156,245,0.1);
+    border-radius: 8px;
+    padding: 10px 12px;
+    font-size: 11px;
+  }
+  .loop-side .mini h4 {
+    font-size: 11px;
+    font-weight: 600;
+    color: var(--accent);
+    margin-bottom: 4px;
+  }
+  .loop-side .mini p { color: var(--muted); }
+
+  /* ── Connector SVG ───────────────────────────── */
+  .connectors {
+    position: absolute;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  /* ── Output summary ──────────────────────────── */
+  .output-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 14px 16px;
+  }
+  .output-card h4 {
+    font-size: 11px;
+    font-weight: 600;
+    color: var(--muted);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-bottom: 10px;
+  }
+  .output-tree {
+    font-size: 12px;
+    font-family: 'SF Mono', 'Fira Code', monospace;
+    color: var(--muted);
+    line-height: 1.8;
+  }
+  .output-tree .hl { color: var(--accent); }
+  .output-tree .hl2 { color: var(--green); }
+
+  /* ── Arrow annotations ───────────────────────── */
+  .arrow-annot {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 11px;
+    color: var(--muted);
+    gap: 8px;
+    padding: 4px 0;
+  }
+  .arrow-annot svg { opacity: 0.4; }
+
+  /* ── Responsive ──────────────────────────────── */
+  @media (max-width: 1000px) {
+    .diagram {
+      grid-template-columns: 1fr;
+      max-width: 600px;
+    }
+    .loop-box { grid-column: 1; grid-row: auto; }
+    body { padding: 20px; }
+  }
+</style>
+</head>
+<body>
+
+<h1>⛳ Code Golf Benchmark</h1>
+<p class="subtitle">Agentic Loop Architecture — spec v2</p>
+
+<div class="diagram">
+
+  <!-- ═══ LEFT: INPUTS ═══ -->
+  <div class="col" style="grid-column:1; grid-row:1/3;">
+    <div class="col-label">Inputs</div>
+
+    <div class="card green">
+      <h3><span class="dot dot-green"></span> Tasks (400)</h3>
+      <p>taskNNN.json — Google Code Golf 2025<br>
+      ARC-style grid transformation puzzles.<br>
+      Each has <code>train</code> (2-10 examples),<br>
+      <code>test</code> + <code>arc-gen</code> (hidden judge set).</p>
+    </div>
+
+    <div class="card cyan">
+      <h3><span class="dot dot-cyan"></span> Generators</h3>
+      <p><code>gen.py</code> — ground-truth transformation<br>
+      Available for task001–010 only.<br>
+      Injected directly into model prompt.</p>
+    </div>
+
+    <div class="card purple">
+      <h3><span class="dot dot-purple"></span> Config</h3>
+      <p><code>config.yaml</code><br>
+      Models, concurrency, timeouts,<br>
+      token budgets, seed count.</p>
+    </div>
+
+    <div class="card amber">
+      <h3><span class="dot dot-amber"></span> Pool Records</h3>
+      <p><code>records.json</code><br>
+      Rolling best-bytes-per-task across<br>
+      all models &amp; seeds. Updated by scoring.</p>
+    </div>
+  </div>
+
+  <!-- ═══ CENTER: AGENTIC LOOP ═══ -->
+  <div class="loop-box">
+    <h2>🧠 Agentic Loop — run_job()</h2>
+
+    <div class="loop-flow">
+
+      <div class="loop-step">
+        <div class="num">1</div>
+        <div>
+          <strong>Build Prompt</strong><br>
+          <span>prompts.py → system + gen.py + train examples + state + scratchpad + history</span>
+        </div>
+      </div>
+
+      <div class="loop-arrow"></div>
+
+      <div class="loop-step">
+        <div class="num">2</div>
+        <div>
+          <strong>Call LLM</strong><br>
+          <span>llm.py → OpenAI-compatible / Anthropic, retry 5× with backoff</span>
+        </div>
+      </div>
+
+      <div class="loop-arrow"></div>
+
+      <div class="loop-step">
+        <div class="num">3</div>
+        <div>
+          <strong>Parse Reply</strong><br>
+          <span>Extract last ```python block + &lt;notes&gt; → code &amp; scratchpad</span>
+        </div>
+      </div>
+
+      <div class="loop-arrow"></div>
+
+      <div class="loop-step">
+        <div class="num">4</div>
+        <div>
+          <strong>Judge</strong><br>
+          <span>executor.py → compile check → subprocess → judge_wrapper.py</span>
+        </div>
+      </div>
+
+      <div class="loop-arrow back"></div>
+
+      <div class="loop-step">
+        <div class="num">5</div>
+        <div>
+          <strong>Record &amp; Update</strong><br>
+          <span>Append trajectory.jsonl, update best.py if new record, write meta.json</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Side detail -->
+    <div class="loop-side">
+      <div class="mini">
+        <h4>📋 Judge Wrapper (subprocess)</h4>
+        <p>import user code → set resource limits → signal.alarm per-case → call p(input) → normalize (JSON roundtrip, true→1, false→0) → numpy.array_equal → stream JSON-lines results → short-circuit after 3 failures</p>
+      </div>
+      <div class="mini">
+        <h4>🔍 7-level error taxonomy</h4>
+        <p>parse_error | syntax_error | no_p | crash | timeout | wrong | correct<br>+ api_error (not counted as a round)</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══ RIGHT: OUTPUTS ═══ -->
+  <div class="col" style="grid-column:3; grid-row:1/3;">
+    <div class="col-label">Outputs</div>
+
+    <div class="output-card">
+      <h4>📁 runs/{model}/{task}/seed{n}/</h4>
+      <div class="output-tree">
+        ├── <span class="hl">trajectory.jsonl</span>  &nbsp;per-round records<br>
+        ├── <span class="hl2">best.py</span>           &nbsp;current best solution<br>
+        └── <span class="hl">meta.json</span>          &nbsp;job summary + stats
+      </div>
+    </div>
+
+    <div class="card rose">
+      <h3><span class="dot dot-rose"></span> Scoring</h3>
+      <p><code>scoring.py</code><br>
+      Reads all meta.json → pool records →<br>
+      score = record_bytes / your_bytes.<br>
+      Best-of-3 &amp; median-of-3 per model.</p>
+    </div>
+
+    <div class="output-card">
+      <h4>📊 Leaderboard Outputs</h4>
+      <div class="output-tree">
+        ├── <span class="hl">leaderboard.csv</span>   &nbsp;per-model summary<br>
+        ├── <span class="hl">per_task.csv</span>       &nbsp;per-task detail<br>
+        └── <span class="hl">records.json</span>       &nbsp;pool records
+      </div>
+    </div>
+
+    <div class="card" style="border-left: 3px solid var(--teal);">
+      <h3><span class="dot dot-teal"></span> Runner</h3>
+      <p><code>runner.py</code> — async scheduler<br>
+      job matrix = tasks × models × seeds<br>
+      per-model concurrency via semaphore<br>
+      Ctrl-C graceful shutdown<br>
+      --dry-run cost estimate<br>
+      Resume from meta.json</p>
+    </div>
+  </div>
+
+</div>
+
+<!-- Bottom: data flow summary -->
+<div style="margin-top: 32px; padding: 20px 24px; background: var(--surface); border: 1px solid var(--border); border-radius: 12px; max-width: 1400px;">
+  <h3 style="font-size:13px; font-weight:600; margin-bottom:12px; color:var(--muted);">Data Flow (one round)</h3>
+  <div style="display:flex; align-items:center; gap:12px; flex-wrap:wrap; font-size:12px; font-family:'SF Mono','Fira Code',monospace;">
+    <span style="background:rgba(52,199,123,0.15);color:var(--green);padding:6px 12px;border-radius:6px;">task.json</span>
+    <span style="color:var(--muted);">→</span>
+    <span style="background:rgba(56,189,248,0.15);color:var(--cyan);padding:6px 12px;border-radius:6px;">gen.py</span>
+    <span style="color:var(--muted);">→</span>
+    <span style="background:rgba(160,120,250,0.15);color:var(--purple);padding:6px 12px;border-radius:6px;">task_loader.py<br>→ TaskBundle</span>
+    <span style="color:var(--muted);">→</span>
+    <span style="background:rgba(91,156,245,0.15);color:var(--accent);padding:6px 12px;border-radius:6px;">prompts.py<br>→ build_user_prompt()</span>
+    <span style="color:var(--muted);">→</span>
+    <span style="background:rgba(240,160,64,0.15);color:var(--amber);padding:6px 12px;border-radius:6px;">llm.py<br>→ chat()</span>
+    <span style="color:var(--muted);">→</span>
+    <span style="background:rgba(224,88,128,0.15);color:var(--rose);padding:6px 12px;border-radius:6px;">executor.py<br>→ judge()</span>
+    <span style="color:var(--muted);">→</span>
+    <span style="background:rgba(52,199,123,0.15);color:var(--green);padding:6px 12px;border-radius:6px;">trajectory.jsonl<br>+ best.py</span>
+  </div>
+
+  <div style="margin-top:16px; display:flex; gap:24px; font-size:11px; color:var(--muted);">
+    <div>🔄 <strong>Loop</strong>: rounds 1→30 per (task, model, seed)</div>
+    <div>⚡ <strong>Concurrency</strong>: per-model semaphore (default 8)</div>
+    <div>💾 <strong>Resume</strong>: reads trajectory.jsonl, skips finished meta.json</div>
+    <div>💰 <strong>Budget</strong>: 1.5M tokens per job, 22K tokens per prompt</div>
+  </div>
+</div>
+
+</body>
+</html>

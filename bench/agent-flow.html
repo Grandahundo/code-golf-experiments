@@ -1,0 +1,457 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Code Golf Agent — 工作流 & 上下文窗口</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap');
+
+  :root {
+    --bg: #f8f9fb;
+    --surface: #ffffff;
+    --text: #1a1d28;
+    --muted: #6b7280;
+    --faint: #9ca3af;
+    --border: #e5e7eb;
+    --ring: rgba(0,0,0,0.04);
+    --blue: #3b82f6;
+    --blue-bg: #eff6ff;
+    --green: #10b981;
+    --green-bg: #ecfdf5;
+    --amber: #f59e0b;
+    --amber-bg: #fffbeb;
+    --rose: #f43f5e;
+    --rose-bg: #fff1f2;
+    --purple: #8b5cf6;
+    --purple-bg: #f5f3ff;
+    --cyan: #06b6d4;
+    --cyan-bg: #ecfeff;
+    --shadow-sm: 0 1px 2px rgba(0,0,0,0.04);
+    --shadow: 0 1px 3px rgba(0,0,0,0.06), 0 1px 2px rgba(0,0,0,0.04);
+    --shadow-lg: 0 4px 16px rgba(0,0,0,0.06), 0 2px 4px rgba(0,0,0,0.04);
+    --radius: 14px;
+    --radius-sm: 8px;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'Inter', system-ui, -apple-system, sans-serif;
+    line-height: 1.6;
+    min-height: 100vh;
+  }
+
+  /* ── glass decoration ──────────────────────── */
+  .bg-orb {
+    position: fixed;
+    border-radius: 50%;
+    filter: blur(120px);
+    opacity: 0.35;
+    pointer-events: none;
+    z-index: 0;
+  }
+  .bg-orb.a { width: 480px; height: 480px; background: #dbeafe; top: -180px; left: -120px; }
+  .bg-orb.b { width: 360px; height: 360px; background: #ede9fe; bottom: -100px; right: -80px; }
+  .bg-orb.c { width: 280px; height: 280px; background: #d1fae5; top: 50%; left: 50%; transform: translate(-50%,-50%); }
+
+  .container {
+    position: relative;
+    z-index: 1;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 48px 32px 64px;
+  }
+
+  /* ── header ────────────────────────────────── */
+  .header {
+    text-align: center;
+    margin-bottom: 48px;
+  }
+  .header h1 {
+    font-size: 32px;
+    font-weight: 700;
+    letter-spacing: -0.5px;
+    margin-bottom: 6px;
+  }
+  .header h1 span { color: var(--blue); }
+  .header p {
+    color: var(--muted);
+    font-size: 15px;
+  }
+
+  /* ── glass card ────────────────────────────── */
+  .glass {
+    background: rgba(255,255,255,0.72);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border: 1px solid rgba(0,0,0,0.06);
+    border-radius: var(--radius);
+    box-shadow: var(--shadow-lg);
+  }
+
+  /* ── layout ────────────────────────────────── */
+  .two-col {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 28px;
+    margin-bottom: 28px;
+  }
+  @media (max-width: 900px) {
+    .two-col { grid-template-columns: 1fr; }
+    .container { padding: 24px 16px 40px; }
+  }
+
+  /* ── section titles ────────────────────────── */
+  .section-title {
+    font-size: 13px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.8px;
+    color: var(--faint);
+    padding: 20px 24px 0;
+  }
+
+  /* ── loop steps ────────────────────────────── */
+  .loop-card { padding: 20px 24px 24px; }
+
+  .step-list {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+  }
+  .step {
+    display: flex;
+    align-items: flex-start;
+    gap: 14px;
+    padding: 12px 14px;
+    border-radius: var(--radius-sm);
+    position: relative;
+  }
+  .step-ball {
+    width: 34px; height: 34px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    font-size: 14px;
+    flex-shrink: 0;
+    color: #fff;
+  }
+  .step.s1 .step-ball { background: var(--purple); }
+  .step.s2 .step-ball { background: var(--blue); }
+  .step.s3 .step-ball { background: var(--cyan); }
+  .step.s4 .step-ball { background: var(--rose); }
+  .step.s5 .step-ball { background: var(--green); }
+
+  .step-body h4 { font-size: 14px; font-weight: 600; margin-bottom: 2px; }
+  .step-body p  { font-size: 12px; color: var(--muted); margin: 0; }
+
+  .step-line {
+    width: 2px;
+    height: 14px;
+    background: var(--border);
+    margin-left: 31px;
+  }
+
+  /* ── context window ────────────────────────── */
+  .ctx-card { padding: 20px 24px 24px; }
+
+  .ctx-block {
+    border-radius: var(--radius-sm);
+    padding: 14px 16px;
+    margin-bottom: 10px;
+    font-size: 13px;
+    border: 1px solid;
+    position: relative;
+  }
+  .ctx-block:last-child { margin-bottom: 0; }
+
+  .ctx-label {
+    font-size: 10px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.6px;
+    margin-bottom: 6px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+  .ctx-label .dot {
+    width: 7px; height: 7px;
+    border-radius: 50%;
+    flex-shrink: 0;
+  }
+
+  .ctx-A { background: #f8fafc; border-color: #e2e8f0; }
+  .ctx-A .dot { background: #94a3b8; }
+  .ctx-B { background: var(--purple-bg); border-color: #ddd6fe; }
+  .ctx-B .dot { background: var(--purple); }
+  .ctx-C { background: var(--cyan-bg); border-color: #a5f3fc; }
+  .ctx-C .dot { background: var(--cyan); }
+  .ctx-D { background: var(--blue-bg); border-color: #bfdbfe; }
+  .ctx-D .dot { background: var(--blue); }
+  .ctx-E { background: var(--amber-bg); border-color: #fde68a; }
+  .ctx-E .dot { background: var(--amber); }
+  .ctx-F { background: var(--rose-bg); border-color: #fecdd3; }
+  .ctx-F .dot { background: var(--rose); }
+  .ctx-G { background: var(--green-bg); border-color: #a7f3d0; }
+  .ctx-G .dot { background: var(--green); }
+
+  .ctx-code {
+    font-family: 'JetBrains Mono', 'SF Mono', monospace;
+    font-size: 11px;
+    background: rgba(0,0,0,0.04);
+    padding: 6px 10px;
+    border-radius: 4px;
+    margin-top: 6px;
+    color: var(--muted);
+    white-space: pre-wrap;
+    word-break: break-all;
+  }
+  .ctx-note {
+    font-size: 11px;
+    color: var(--faint);
+    margin-top: 4px;
+  }
+
+  /* ── bottom summary ────────────────────────── */
+  .summary-row {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 16px;
+    margin-bottom: 28px;
+  }
+  @media (max-width: 700px) {
+    .summary-row { grid-template-columns: 1fr 1fr; }
+  }
+  .stat-card {
+    padding: 18px 20px;
+    text-align: center;
+  }
+  .stat-card .value {
+    font-size: 28px;
+    font-weight: 700;
+    letter-spacing: -0.5px;
+    color: var(--text);
+  }
+  .stat-card .label {
+    font-size: 12px;
+    color: var(--muted);
+    margin-top: 2px;
+  }
+  .stat-card.blue  .value { color: var(--blue); }
+  .stat-card.green .value { color: var(--green); }
+  .stat-card.amber .value { color: var(--amber); }
+  .stat-card.purple .value { color: var(--purple); }
+
+  /* ── data flow bar ──────────────────────────── */
+  .flow-bar {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0;
+    padding: 20px 24px;
+    flex-wrap: wrap;
+  }
+  .flow-chip {
+    font-family: 'JetBrains Mono', 'SF Mono', monospace;
+    font-size: 12px;
+    font-weight: 500;
+    padding: 8px 14px;
+    border-radius: 20px;
+    background: #f3f4f6;
+    color: var(--text);
+    white-space: nowrap;
+  }
+  .flow-arrow {
+    color: var(--faint);
+    font-size: 18px;
+    margin: 0 6px;
+    font-weight: 300;
+  }
+  .flow-chip.f1 { background: #ede9fe; color: #7c3aed; }
+  .flow-chip.f2 { background: #dbeafe; color: #2563eb; }
+  .flow-chip.f3 { background: #fffbeb; color: #d97706; }
+  .flow-chip.f4 { background: #fff1f2; color: #e11d48; }
+  .flow-chip.f5 { background: #ecfdf5; color: #059669; }
+
+  .flow-bar .arrow-symbol {
+    display: flex; align-items: center;
+    color: var(--faint); font-size: 22px; margin: 0 2px;
+  }
+</style>
+</head>
+<body>
+
+<div class="bg-orb a"></div>
+<div class="bg-orb b"></div>
+<div class="bg-orb c"></div>
+
+<div class="container">
+
+  <!-- ── Header ──────────────────────────────── -->
+  <div class="header">
+    <h1>⛳ Code Golf <span>Agent</span></h1>
+    <p>Agentic Loop 工作流 &amp; 上下文窗口结构</p>
+  </div>
+
+  <!-- ── Stats row ────────────────────────────── -->
+  <div class="summary-row">
+    <div class="glass stat-card purple">
+      <div class="value">30</div>
+      <div class="label">每任务最大轮数</div>
+    </div>
+    <div class="glass stat-card blue">
+      <div class="value">3</div>
+      <div class="label">每组合 seed 数</div>
+    </div>
+    <div class="glass stat-card amber">
+      <div class="value">~22K</div>
+      <div class="label">单轮上下文 token</div>
+    </div>
+    <div class="glass stat-card green">
+      <div class="value">~62%</div>
+      <div class="label">前缀缓存命中率</div>
+    </div>
+  </div>
+
+  <!-- ── Two columns ──────────────────────────── -->
+  <div class="two-col">
+
+    <!-- LEFT: loop -->
+    <div class="glass loop-card">
+      <div class="section-title">🔄 Agentic Loop</div>
+
+      <div class="step-list">
+        <div class="step s1">
+          <div class="step-ball">1</div>
+          <div class="step-body">
+            <h4>构建 Prompt</h4>
+            <p>prompts.py 将上下文七段拼装为单轮对话<br>≈22K tokens，system + [B][C] 作为缓存前缀</p>
+          </div>
+        </div>
+        <div class="step-line"></div>
+        <div class="step s2">
+          <div class="step-ball">2</div>
+          <div class="step-body">
+            <h4>调用 LLM</h4>
+            <p>llm.py 统一接口 → DeepSeek / GLM / Qwen<br>指数退避重试 5 次，区分可重试/不可重试错误</p>
+          </div>
+        </div>
+        <div class="step-line"></div>
+        <div class="step s3">
+          <div class="step-ball">3</div>
+          <div class="step-body">
+            <h4>解析回复</h4>
+            <p>提取最后一个 ```python 代码块 + &lt;notes&gt;<br>均缺失 → parse_error 计入轮数</p>
+          </div>
+        </div>
+        <div class="step-line"></div>
+        <div class="step s4">
+          <div class="step-ball">4</div>
+          <div class="step-body">
+            <h4>沙箱判分</h4>
+            <p>子进程 judge_wrapper → import → signal.alarm<br>逐用例 normalize → numpy.array_equal 比对</p>
+          </div>
+        </div>
+        <div class="step-line"></div>
+        <div class="step s5">
+          <div class="step-ball">5</div>
+          <div class="step-body">
+            <h4>落盘更新</h4>
+            <p>trajectory.jsonl 追加本轮记录<br>刷新纪录时更新 best.py + best_bytes</p>
+          </div>
+        </div>
+      </div>
+
+      <div style="text-align:center; margin-top:16px; padding-top:14px; border-top:1px solid var(--border);">
+        <span style="display:inline-flex; align-items:center; gap:6px; font-size:13px; color:var(--blue); font-weight:600;">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M23 4v6h-6"/><path d="M1 20v-6h6"/><path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"/></svg>
+          重复 ×30 轮（或直到 early stop）
+        </span>
+      </div>
+    </div>
+
+    <!-- RIGHT: context window -->
+    <div class="glass ctx-card">
+      <div class="section-title">📋 上下文窗口（每轮重建）</div>
+
+      <div class="ctx-block ctx-A">
+        <div class="ctx-label"><span class="dot"></span> System — 固定前缀（命中缓存）</div>
+        <div class="ctx-note" style="color:var(--text);">Code golf 规则说明：function-call 接口 p(grid)→grid、字节数计算、numpy.array_equal 语义、输出格式要求</div>
+      </div>
+
+      <div class="ctx-block ctx-B">
+        <div class="ctx-label"><span class="dot"></span> [B] gen.py 生成器源码 — 固定前缀（命中缓存）</div>
+        <div class="ctx-code">def generate(rows, cols, color, size): ...</div>
+        <div class="ctx-note">题目变换规则的权威定义。仅 task001-010 有，上限 8000 字符。其余 390 题显示「请从训练样例推断规则」。</div>
+      </div>
+
+      <div class="ctx-block ctx-C">
+        <div class="ctx-label"><span class="dot"></span> [C] 训练样例（3 个） — 固定前缀（命中缓存）</div>
+        <div class="ctx-code">Example 1    Input:    Output:
+000         222
+050  →      242
+000         222</div>
+        <div class="ctx-note">按 grid 面积取最小、中位、最大各 1 个。值域 0-9 时 digits 连写（token 最省）。单样例超 1500 字符则跳过。</div>
+      </div>
+
+      <div class="ctx-block ctx-D">
+        <div class="ctx-label"><span class="dot"></span> [D] 当前状态 — 每轮变化</div>
+        <div class="ctx-code">Round 5/30
+Best so far: 61 bytes (correct)
+```python
+p=lambda g:[[a&b for a in s for b in r]for s in g for r in g]
+```</div>
+      </div>
+
+      <div class="ctx-block ctx-E">
+        <div class="ctx-label"><span class="dot"></span> [E] 模型笔记（scratchpad） — 上一轮产出</div>
+        <div class="ctx-code">规则：Kronecker 积，g[i][j] & g[k][l]
+已试：lambda 代替 def 省 35 字节
+下一步：尝试去掉 list() 包裹</div>
+        <div class="ctx-note">模型自维护，上限 3000 字符。每轮由模型更新，下一轮原样注入。</div>
+      </div>
+
+      <div class="ctx-block ctx-F">
+        <div class="ctx-label"><span class="dot"></span> [F] 最近尝试历史（3 条） — 每轮变化</div>
+        <div class="ctx-code">Round 4: ✗ wrong — Passed 0/7, failed at case 3
+Round 3: ✓ correct, 96 bytes
+Round 2: ✓ correct, 113 bytes</div>
+        <div class="ctx-note">代码超 2000 字符截断中部。Prompt 总预算超限时从最旧条目开始丢弃。</div>
+      </div>
+
+      <div class="ctx-block ctx-G">
+        <div class="ctx-label"><span class="dot"></span> [G] 输出格式指令 — 固定文本</div>
+        <div class="ctx-note" style="color:var(--text);">"请先在 &lt;notes&gt;...&lt;/notes&gt; 中更新你的笔记（≤500 token），然后给出完整程序，放在回复最后的 ```python 代码块中。"</div>
+      </div>
+
+      <div style="display:flex; align-items:center; gap:8px; margin-top:14px; padding:10px 14px; background:#f0f9ff; border-radius:8px; font-size:12px; color:var(--blue);">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+        System + [B] + [C] 在同一作业 30 轮内不变，作为缓存前缀。Anthropic 显式 cache_control，OpenAI/DeepSeek 自动命中。
+      </div>
+    </div>
+  </div>
+
+  <!-- ── Data flow bar ────────────────────────── -->
+  <div class="glass flow-bar">
+    <span class="flow-chip f1">task.json</span>
+    <span class="arrow-symbol">→</span>
+    <span class="flow-chip f1">TaskBundle</span>
+    <span class="arrow-symbol">→</span>
+    <span class="flow-chip f2">build_prompt()</span>
+    <span class="arrow-symbol">→</span>
+    <span class="flow-chip f3">LLM API</span>
+    <span class="arrow-symbol">→</span>
+    <span class="flow-chip f4">parse + judge</span>
+    <span class="arrow-symbol">→</span>
+    <span class="flow-chip f5">trajectory.jsonl</span>
+  </div>
+
+</div>
+
+</body>
+</html>

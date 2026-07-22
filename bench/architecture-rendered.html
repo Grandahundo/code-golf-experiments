@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Code Golf Bench — 架构图</title>
+<script src="https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.min.js"></script>
+<style>
+  body {
+    background: #fff;
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 40px 24px;
+    font-family: system-ui, -apple-system, sans-serif;
+  }
+  h1 { font-size: 28px; margin-bottom: 4px; }
+  .sub { color: #666; margin-bottom: 40px; }
+  h2 {
+    font-size: 18px;
+    margin: 48px 0 16px;
+    padding-bottom: 8px;
+    border-bottom: 2px solid #e5e7eb;
+  }
+  .mermaid {
+    background: #fafbfc;
+    border: 1px solid #e5e7eb;
+    border-radius: 10px;
+    padding: 24px;
+    margin-bottom: 24px;
+  }
+</style>
+</head>
+<body>
+
+<h1>⛳ Code Golf Benchmark</h1>
+<p class="sub">Agentic Loop 架构 — spec v2 · 401 题 · 多模型标定</p>
+
+<h2>1. 总体架构</h2>
+<div class="mermaid">
+flowchart TB
+    subgraph input["📥 输入"]
+        T["400 道题目 task*.json<br/>train + test + arc-gen"]
+        G["生成器 gen.py<br/>（仅 task001-010）"]
+        C["config.yaml<br/>模型 / 并发 / 预算"]
+    end
+
+    subgraph core["🔄 Agentic Loop — 每题 30 轮"]
+        direction TB
+        P["① 拼 Prompt<br/>system + gen.py + 样例 + 状态 + 笔记"]
+        L["② 调 LLM<br/>DeepSeek / GLM / Qwen"]
+        X["③ 解析回复<br/>取最后一个 ```python 块"]
+        J["④ 判分<br/>子进程沙箱 → normalize → 比对"]
+        R["⑤ 落盘<br/>trajectory.jsonl / best.py / meta.json"]
+
+        P --> L --> X --> J --> R
+        R -->|"↻ 下一轮 ×30"| P
+    end
+
+    subgraph output["📤 输出"]
+        O1["runs/模型/题目/seed{n}/"]
+        O2["scoring.py 聚合<br/>score = record / yours"]
+        O3["leaderboard.csv<br/>per_task.csv"]
+    end
+
+    T & G --> P
+    C --> L
+    R --> O1 --> O2 --> O3
+</div>
+
+<h2>2. 判分器细节（executor.py + judge_wrapper.py）</h2>
+<div class="mermaid">
+flowchart LR
+    A["代码 compile 检查"] --> B{syntax ok?}
+    B -- "no" --> E1["syntax_error ❌"]
+    B -- "yes" --> C["子进程 judge_wrapper.py"]
+    C --> D{import 成功?}
+    D -- "超时" --> E2["timeout ⏱"]
+    D -- "无 p" --> E3["no_p ❌"]
+    D -- "异常" --> E4["crash 💥"]
+    D -- "yes" --> F["逐用例 signal.alarm(2s)"]
+    F --> G{全部通过?}
+    G -- "yes" --> H["correct ✅"]
+    G -- "no" --> I{失败类型?}
+    I -- "输出不匹配" --> J["wrong ✗"]
+    I -- "超时/异常" --> K["crash 💥"]
+
+    style H fill:#d1fae5,stroke:#34c77b
+    style E1 fill:#fee2e2,stroke:#ef4444
+    style E2 fill:#fee2e2,stroke:#ef4444
+    style E3 fill:#fee2e2,stroke:#ef4444
+    style E4 fill:#fee2e2,stroke:#ef4444
+    style J fill:#fef3c7,stroke:#f59e0b
+    style K fill:#fee2e2,stroke:#ef4444
+</div>
+
+<h2>3. 调度器（runner.py）</h2>
+<div class="mermaid">
+flowchart TB
+    M["作业矩阵 = task × model × seed"] --> N["逐个检查 meta.json<br/>已完成 → 跳过"]
+    N --> O["每模型独立 Semaphore<br/>默认并发 8"]
+    O --> P["asyncio.gather 并发执行"]
+    P --> Q["每 60s 打印进度<br/>Ctrl-C 优雅退出等待写盘"]
+</div>
+
+<h2>4. 单轮数据流</h2>
+<div class="mermaid">
+flowchart LR
+    D1["task.json"] --> D2["TaskBundle<br/>task_loader.py"]
+    D2 --> D3["build_user_prompt()<br/>prompts.py"]
+    D3 --> D4["LLM API 调用<br/>llm.py"]
+    D4 --> D5["parse_reply()<br/>提取代码 + 笔记"]
+    D5 --> D6["judge()<br/>executor.py"]
+    D6 --> D7["trajectory.jsonl<br/>+ best.py"]
+
+    style D1 fill:#e0f2fe,stroke:#38bdf8
+    style D3 fill:#ede9fe,stroke:#a78bfa
+    style D4 fill:#fef3c7,stroke:#f59e0b
+    style D6 fill:#fce7f3,stroke:#ec4899
+    style D7 fill:#d1fae5,stroke:#34c77b
+</div>
+
+<h2>5. 离线聚合（scoring.py）</h2>
+<div class="mermaid">
+flowchart LR
+    A["遍历 runs/ 下所有 meta.json"] --> B["计算池纪录<br/>record_bytes = 全体最短"]
+    B --> C["每题每模型<br/>score = record / best"]
+    C --> D["按模型汇总<br/>best-of-3 & median-of-3"]
+    D --> E["输出"]
+    E --> F["leaderboard.csv"]
+    E --> G["per_task.csv"]
+    E --> H["records.json"]
+</div>
+
+</body>
+</html>

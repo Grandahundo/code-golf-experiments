@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-theme="light">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Code Golf ReAct Agent — 实验报告</title>
+<style>
+  :root {
+    --surface: #fcfcfb;
+    --surface2: #f5f5f2;
+    --text: #0b0b0b;
+    --text2: #52514e;
+    --text3: #8c8a84;
+    --blue: #2a78d6;
+    --orange: #eb6834;
+    --aqua: #1baf7a;
+    --border: #e0e0d8;
+    --max-w: 960px;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:where(:not([data-theme="light"])) {
+      --surface: #1a1a19; --surface2: #222220; --text: #ffffff;
+      --text2: #c3c2b7; --text3: #8c8a78; --border: #3a3a35;
+    }
+  }
+  :root[data-theme="dark"] { --surface: #1a1a19; --surface2: #222220; --text: #ffffff; --text2: #c3c2b7; --text3: #8c8a78; --border: #3a3a35; }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif; background: var(--surface); color: var(--text); line-height: 1.7; }
+  .container { max-width: var(--max-w); margin: 0 auto; padding: 40px 24px 80px; }
+
+  h1 { font-size: 2rem; font-weight: 800; letter-spacing: -0.02em; margin-bottom: 8px; }
+  h2 { font-size: 1.4rem; font-weight: 700; margin: 40px 0 16px; padding-bottom: 8px; border-bottom: 2px solid var(--border); }
+  h3 { font-size: 1.1rem; font-weight: 600; margin: 24px 0 12px; color: var(--text2); }
+  .subtitle { color: var(--text3); font-size: 0.95rem; margin-bottom: 32px; }
+
+  p, li { color: var(--text2); margin-bottom: 8px; }
+  ul { padding-left: 20px; margin-bottom: 12px; }
+
+  table { width: 100%; border-collapse: collapse; margin: 16px 0 24px; font-size: 0.9rem; }
+  th, td { padding: 8px 12px; text-align: left; border-bottom: 1px solid var(--border); }
+  th { font-weight: 600; color: var(--text); background: var(--surface2); font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.05em; }
+  tr:hover td { background: var(--surface2); }
+
+  .kpi-row { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 16px; margin: 24px 0; }
+  .kpi { background: var(--surface2); border: 1px solid var(--border); border-radius: 8px; padding: 20px; text-align: center; }
+  .kpi .value { font-size: 2rem; font-weight: 800; color: var(--blue); }
+  .kpi .label { font-size: 0.8rem; color: var(--text3); margin-top: 4px; text-transform: uppercase; letter-spacing: 0.05em; }
+
+  .chart { margin: 24px 0; text-align: center; }
+  .chart img { max-width: 100%; height: auto; border-radius: 6px; border: 1px solid var(--border); }
+
+  .insight { background: var(--surface2); border-left: 3px solid var(--blue); padding: 16px 20px; margin: 16px 0; border-radius: 0 6px 6px 0; }
+  .insight strong { color: var(--text); }
+
+  .tag { display: inline-block; padding: 2px 8px; border-radius: 4px; font-size: 0.75rem; font-weight: 600; margin-right: 4px; }
+  .tag-green { background: #d4f0e4; color: #0d5c32; }
+  .tag-blue { background: #d4e3f5; color: #1a4d8a; }
+  .tag-orange { background: #fce4d4; color: #8a3d0c; }
+
+  code { background: var(--surface2); padding: 2px 6px; border-radius: 3px; font-size: 0.9em; }
+  pre { background: var(--surface2); padding: 12px 16px; border-radius: 6px; overflow-x: auto; font-size: 0.85rem; border: 1px solid var(--border); margin: 12px 0; }
+  pre code { background: none; padding: 0; }
+
+  @media (max-width: 640px) {
+    h1 { font-size: 1.5rem; }
+    .kpi-row { grid-template-columns: repeat(2, 1fr); }
+    table { font-size: 0.78rem; }
+    th, td { padding: 6px 8px; }
+  }
+</style>
+</head>
+<body>
+<div class="container">
+
+<h1>Code Golf ReAct Agent — 实验报告</h1>
+<p class="subtitle">2026-07-22 · DeepSeek V4 Pro · Qwen 3.6-Flash · 96 任务 × 3 seeds · 30 轮 ReAct 循环</p>
+
+<!-- ═══════════ KPI ═══════════ -->
+<h2>核心指标</h2>
+<div class="kpi-row">
+  <div class="kpi"><div class="value">100%</div><div class="label">DS V4 Pro 解题率</div></div>
+  <div class="kpi"><div class="value">157B</div><div class="label">DS 中位数最优字节</div></div>
+  <div class="kpi"><div class="value">49B</div><div class="label">DS 最短解</div></div>
+  <div class="kpi"><div class="value">#27/48</div><div class="label">DS IRT 排名</div></div>
+  <div class="kpi"><div class="value">ρ=0.83</div><div class="label">AI vs 人类相关性</div></div>
+  <div class="kpi"><div class="value">73/96</div><div class="label">任务覆盖率</div></div>
+</div>
+
+<!-- ═══════════ 实验框架 ═══════════ -->
+<h2>实验框架</h2>
+<p>
+  极简 ReAct agent：每轮调模型 → 提取 Python 代码 → 沙箱判题（263 个隐藏用例）→ 回传观测结果（AC/WA/RE/TLE + 字节数 + 当前最优）→ 追加到对话上下文。
+  最多 30 轮，连续 5 轮无改进时提前停止。
+</p>
+
+<h3>模型层级</h3>
+<table>
+  <tr><th>模型</th><th>API 端点</th><th>模式</th><th>文件数</th></tr>
+  <tr><td><strong>DeepSeek V4 Pro</strong></td><td>api.deepseek.com</td><td>deepseek-reasoner（thinking 开启）</td><td>217</td></tr>
+  <tr><td><strong>Qwen 3.6-Flash</strong></td><td>阿里云 MaaS (Beijing)</td><td>qwen3.6-flash</td><td>57</td></tr>
+  <tr><td>Claude Code</td><td colspan="2">基线（chenhao benchmark，3 trials）</td><td>96 任务</td></tr>
+  <tr><td>Codex</td><td colspan="2">基线（chenhao benchmark，单 trial）</td><td>96 任务</td></tr>
+</table>
+
+<!-- ═══════════ DS 结果 ═══════════ -->
+<h2>DeepSeek V4 Pro 结果</h2>
+
+<div class="chart"><img src="charts/chart1_dist.png" alt="字节分布"></div>
+
+<h3>最短解 Top-5</h3>
+<table>
+  <tr><th>任务</th><th>最优字节</th><th>代码</th></tr>
+  <tr><td>task211</td><td><strong>49B</strong></td><td><code>p=lambda g:[r[::-1]+r for r in g[::-1]+g+g[::-1]]</code></td></tr>
+  <tr><td>task329</td><td><strong>54B</strong></td><td><code>p=lambda g:[(m:=len(g)//2)*[0]+[r[m]]+m*[0]for r in g]</code></td></tr>
+  <tr><td>task177</td><td><strong>54B</strong></td><td><code>p=lambda g:[y[::-1]for r in g if(y:=[*filter(int,r)])]</code></td></tr>
+  <tr><td>task267</td><td><strong>56B</strong></td><td><code>p=lambda g:[[(c:=g[6][0])*(0&lt;x!=c)for x in r]for r in g]</code></td></tr>
+  <tr><td>task318</td><td><strong>60B</strong></td><td><code>p=lambda g:[[3*any(z)for z in zip(*t)]for t in zip(g,g[5:])]</code></td></tr>
+</table>
+
+<h3>最长解 Bottom-5</h3>
+<table>
+  <tr><th>任务</th><th>字节</th><th>难度</th></tr>
+  <tr><td>task185</td><td>535B</td><td><span class="tag tag-orange">困难</span></td></tr>
+  <tr><td>task349</td><td>475B</td><td><span class="tag tag-orange">困难</span></td></tr>
+  <tr><td>task125</td><td>428B</td><td><span class="tag tag-blue">中等</span></td></tr>
+  <tr><td>task198</td><td>406B</td><td><span class="tag tag-orange">困难</span></td></tr>
+  <tr><td>task153</td><td>401B</td><td><span class="tag tag-orange">困难</span></td></tr>
+</table>
+
+<div class="chart"><img src="charts/chart2_per_task.png" alt="每个任务的最优解"></div>
+
+<!-- ═══════════ 模型对比 ═══════════ -->
+<h2>模型对比</h2>
+
+<div class="chart"><img src="charts/chart3_models.png" alt="模型对比"></div>
+
+<table>
+  <tr><th>对比</th><th>Δ</th><th>W/L/T</th><th>p (Wilcoxon)</th><th>Cohen's d</th><th>结论</th></tr>
+  <tr><td>DS V4 Pro vs Claude Code</td><td>+36B</td><td>15/46/6</td><td><0.0001 ***</td><td>0.38</td><td>Claude Code 显著领先</td></tr>
+  <tr><td>DS V4 Pro vs Codex</td><td>−6B</td><td>39/22/6</td><td>0.023 *</td><td>0.06</td><td>DS 略优，效应极小</td></tr>
+  <tr><td>DS V4 Pro vs Qwen 3.6-Flash</td><td>−47%</td><td>19/0/2</td><td>—</td><td>—</td><td>DS 全胜（21 共同任务）</td></tr>
+  <tr><td>Claude Code vs Codex</td><td>−53B</td><td>81/7/8</td><td><0.0001 ***</td><td>0.49</td><td>Claude Code 碾压</td></tr>
+</table>
+
+<div class="insight">
+  <strong>洞察：</strong>Claude Code > DS V4 Pro > Codex ≈ Qwen 3.6-Flash。
+  模型层级在所有难度等级上稳定。Claude Code 在 96 任务中赢了 Codex 81 次（84%），
+  DS 在 21 个共同任务中赢 Qwen 19 次。
+</div>
+
+<!-- ═══════════ AI vs Human ═══════════ -->
+<h2>AI vs 人类基准</h2>
+
+<div class="chart"><img src="charts/chart4_corr.png" alt="AI vs Human 相关性"></div>
+
+<h3>按难度分组的 AI/Human 比值</h3>
+<div class="chart"><img src="charts/chart6_gap.png" alt="按难度的差距"></div>
+
+<table>
+  <tr><th>难度</th><th>任务数</th><th>AI 均值</th><th>人类最优均值</th><th>AI/Human 比值</th><th>组内 Spearman ρ</th></tr>
+  <tr><td><span class="tag tag-green">简单</span></td><td>14</td><td>81B</td><td>69B</td><td><strong>1.18x</strong></td><td>0.93</td></tr>
+  <tr><td><span class="tag tag-blue">中等</span></td><td>35</td><td>190B</td><td>99B</td><td><strong>1.90x</strong></td><td>0.82</td></tr>
+  <tr><td><span class="tag tag-orange">困难</span></td><td>5</td><td>231B</td><td>95B</td><td><strong>2.57x</strong></td><td>0.60</td></tr>
+</table>
+
+<div class="insight">
+  <strong>洞察：</strong>AI 和人类高度一致（Spearman ρ=0.83，p&lt;0.001）。对人类难的任务对 AI 也难。
+  但差距随难度呈非线性增长——简单题 1.18x，中等题 1.90x，困难题 2.57x。
+  这不是因为困难题的最优解更高（其实差不多，95B vs 69B），而是因为困难题的<em>方差大</em>：
+  顶尖人类能找到好解，普通人类找不到，AI 更接近普通人类水平。
+</div>
+
+<!-- ═══════════ IRT ═══════════ -->
+<h2>IRT 能力估计</h2>
+
+<div class="chart"><img src="charts/chart5_irt.png" alt="IRT 能力排名"></div>
+
+<table>
+  <tr><th>模型</th><th>θ (IRT 能力)</th><th>排名 / 48</th><th>最接近的人类队伍</th></tr>
+  <tr><td><strong>DeepSeek V4 Pro</strong></td><td>−0.13 ± 0.82</td><td><strong>第 27 名</strong></td><td>kambarakun (θ=−0.11)</td></tr>
+  <tr><td><strong>Qwen 3.6-Flash</strong></td><td>−0.90 ± 1.68</td><td><strong>第 37 名</strong></td><td>azakhtyamov (θ=−0.91)</td></tr>
+</table>
+
+<div class="insight">
+  <strong>洞察：</strong>DS V4 Pro 排在全球 48 支顶尖队伍的第 27 名——恰好是中位数。
+  它之上的每一支队伍都由人类专家组成，每人花了数小时优化每个任务。
+  而 DS 只用了 30 轮自动化对话，每轮数秒到数十秒。
+  这意味着：<strong>当前前沿模型在 code golf 上已经达到熟练人类的竞争力</strong>，
+  根本的瓶颈不是"能不能做对"，而是"能不能压得足够短"。
+</div>
+
+<!-- ═══════════ 相关性 ═══════════ -->
+<h2>什么指标预测 AI 表现？</h2>
+
+<table>
+  <tr><th>排名</th><th>指标</th><th>Spearman ρ（与 AI/Human 比值）</th><th>含义</th></tr>
+  <tr><td>🥇</td><td><strong>Q50/Best 比值</strong></td><td><strong>0.78</strong></td><td>人类中位数/最优解比——人类方差越大，AI 越挣扎</td></tr>
+  <tr><td>🥈</td><td>IRT b2</td><td>0.76</td><td>中段难度阈值</td></tr>
+  <tr><td>🥉</td><td>CTT median_r</td><td>−0.75</td><td>人类中位数压缩率（越高=越容易=AI 越好）</td></tr>
+  <tr><td>—</td><td>IRT a (区分度)</td><td><strong>−0.04</strong></td><td>完全无关！区分好/差人类的题，不能区分好/差 AI</td></tr>
+  <tr><td>—</td><td>b4−b1 (难度跨度)</td><td><strong>−0.02</strong></td><td>同样无关</td></tr>
+</table>
+
+<div class="insight">
+  <strong>洞察：</strong>最强预测因子不是 IRT 区分度（a），而是<strong>人类技能方差</strong>（Q50/Best）。
+  这意味着 AI 的弱点和人类的"能力梯度"是不同维度的——IRT a 区分的是顶尖 vs 普通人类，
+  但 AI 被困在<em>所有人都能找到基础解但只有少数人能极端优化</em>的任务上。
+</div>
+
+<!-- ═══════════ Prompt 工程 ═══════════ -->
+<h2>Prompt 工程：下一步方向</h2>
+
+<p>
+  当前实验使用通用 code golf prompt。模板 <code>agent_prompt_template.md</code> 提供了更结构化的方案：
+</p>
+<ul>
+  <li><strong>显式 submit_code 工具语义</strong>：让模型明确知道每轮的"动作"和"回报"结构</li>
+  <li><strong>四步策略</strong>：理解规则 → AC 优先 → 增量压缩 → 死磕换思路</li>
+  <li><strong>结构化观测模板</strong>：AC 新纪录 / AC 未破纪录 / WA 含失败样例 / RE 含 traceback / TLE</li>
+  <li><strong>Golf tricks 清单</strong>：lambda、comprehension、zip 转置、walrus 等显式列出</li>
+</ul>
+<p>
+  这是明确的下一步实验方向——预期在压缩比上会有提升，尤其在中等和困难题上。
+</p>
+
+<!-- ═══════════ 底部 ═══════════ -->
+<p style="margin-top:48px; color:var(--text3); font-size:0.85rem;">
+  实验环境：macOS · Python 3.9 · openai 库 · ThreadPoolExecutor 并行
+  &nbsp;|&nbsp; 图表 <code>agent_experiments/react/charts/</code>
+  &nbsp;|&nbsp; 原始数据 <code>agent_experiments/react/results/</code>
+</p>
+
+</div>
+</body>
+</html>

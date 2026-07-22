@@ -1,0 +1,412 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-theme="light">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>进展 20270722 — Code Golf ReAct Agent</title>
+<style>
+  :root {
+    --bg: #fcfcfb; --bg2: #f5f5f2; --text: #0b0b0b; --text2: #52514e; --text3: #8c8a84;
+    --blue: #2a78d6; --orange: #eb6834; --aqua: #1baf7a; --border: #e0e0d8;
+    --red: #d9444a; --yellow-bg: #fff9e6; --blue-bg: #e8f2fc;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:where(:not([data-theme="light"])) {
+      --bg: #1a1a19; --bg2: #222220; --text: #ffffff; --text2: #c3c2b7; --text3: #8c8a78;
+      --border: #3a3a35; --yellow-bg: #2a2614; --blue-bg: #121d2e;
+    }
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif; background: var(--bg); color: var(--text); line-height: 1.85; }
+  .container { max-width: 800px; margin: 0 auto; padding: 40px 24px 80px; }
+
+  h1 { font-size: 1.8rem; font-weight: 800; margin-bottom: 4px; }
+  h2 { font-size: 1.25rem; font-weight: 700; margin: 36px 0 16px; padding-bottom: 6px; border-bottom: 2px solid var(--border); }
+  h3 { font-size: 1.05rem; font-weight: 600; margin: 20px 0 10px; color: var(--text2); }
+  .date { color: var(--text3); font-size: 0.9rem; margin-bottom: 32px; }
+
+  p { color: var(--text2); margin-bottom: 10px; }
+  ul, ol { color: var(--text2); padding-left: 22px; margin-bottom: 12px; }
+  li { margin-bottom: 4px; }
+
+  /* ── Data Tables ── */
+  table { width: 100%; border-collapse: collapse; margin: 12px 0 20px; font-size: 0.88rem; }
+  thead th { background: var(--bg2); font-weight: 600; color: var(--text); font-size: 0.78rem; text-transform: uppercase; letter-spacing: 0.04em; }
+  th, td { padding: 7px 12px; text-align: left; border-bottom: 1px solid var(--border); }
+  tbody td { color: var(--text2); }
+  tbody td:first-child { font-weight: 500; color: var(--text); }
+  tr:hover td { background: var(--bg2); }
+  td.num { text-align: right; font-variant-numeric: tabular-nums; }
+
+  /* ── Callout boxes ── */
+  .data-box { background: var(--bg2); border-left: 3px solid var(--blue); padding: 14px 18px; margin: 16px 0; border-radius: 0 6px 6px 0; font-size: 0.9rem; }
+  .data-box strong { color: var(--text); }
+  .data-box table { margin: 8px 0 0; }
+  .data-box table th, .data-box table td { border-color: var(--border); font-size: 0.83rem; }
+
+  .irt-box { background: var(--yellow-bg); border: 1px solid var(--border); padding: 16px 20px; margin: 16px 0; border-radius: 6px; font-size: 0.9rem; }
+  .irt-box h3 { margin-top: 0; color: var(--text); }
+
+  .highlight { background: var(--blue-bg); border: 1px solid var(--border); padding: 16px 20px; margin: 16px 0; border-radius: 6px; font-size: 0.9rem; }
+  .highlight h3 { margin-top: 0; color: var(--text); }
+
+  /* ── Tags ── */
+  .tag { display: inline-block; padding: 1px 8px; border-radius: 3px; font-size: 0.72rem; font-weight: 600; margin: 0 2px; }
+  .tag-green { background: #d4f0e4; color: #0d5c32; }
+  .tag-blue { background: #d4e3f5; color: #1a4d8a; }
+  .tag-orange { background: #fce4d4; color: #8a3d0c; }
+
+  .section-ref { color: var(--text3); font-size: 0.78rem; font-style: italic; }
+
+  /* ── Mermaid ── */
+  .mermaid-box { background: var(--bg2); border: 1px solid var(--border); border-radius: 8px; padding: 20px; margin: 16px 0; text-align: center; overflow-x: auto; }
+  .mermaid-box svg { max-width: 100%; }
+
+  /* ── Lang switcher ── */
+  .lang-tabs { display: flex; gap: 6px; margin-bottom: 12px; }
+  .lang-tab { padding: 4px 14px; border-radius: 4px; border: 1px solid var(--border); background: var(--bg); color: var(--text2); cursor: pointer; font-size: 0.82rem; font-family: inherit; }
+  .lang-tab.active { background: var(--blue); color: white; border-color: var(--blue); }
+  .diagram-container { display: none; }
+  .diagram-container.active { display: block; }
+</style>
+</head>
+<body>
+<div class="container">
+
+<h1>进展 20270722</h1>
+<p class="date">Code Golf ReAct Agent · 实验总结</p>
+
+<!-- ═══════════════════════════════════════════════════════════════════ -->
+<!-- 用户原文 -->
+<!-- ═══════════════════════════════════════════════════════════════════ -->
+
+<p>
+  这个星期开始具体的测评，总的来说找到了实验的方向，想测出一个 <strong>Ability[model][agent]</strong> 的矩阵，即不同模型、不同 agent 在整个 golf 比赛中的表现。
+</p>
+<p>
+  我的工作是在 <strong>ReAct 框架</strong>下进行测试，目前测试了 deepseek-v4-pro 在筛选过后的 96 题上的表现。
+</p>
+
+<!-- ═══════════════════════════════════════════════════════════════════ -->
+<!-- 快速总览 -->
+<!-- ═══════════════════════════════════════════════════════════════════ -->
+
+<h2>快速总览</h2>
+
+<div class="data-box">
+<table>
+  <thead><tr><th>指标</th><th>DeepSeek V4 Pro</th><th>说明</th></tr></thead>
+  <tbody>
+    <tr><td>解题率</td><td class="num"><strong>100%</strong> (73/73)</td><td>所有已测任务均找到正确解</td></tr>
+    <tr><td>最优字节中位数</td><td class="num">157B</td><td>范围 49B – 535B</td></tr>
+    <tr><td>最优字节均值</td><td class="num">190B</td><td></td></tr>
+    <tr><td>完成度</td><td class="num">73/96 任务 (76%)</td><td>217/288 文件，23 个任务待补</td></tr>
+    <tr><td>平均轮次</td><td class="num">~16 轮</td><td>多数任务在 15-20 轮内提前停止</td></tr>
+  </tbody>
+</table>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════════════════ -->
+<!-- 发现 1：难度区分 AI -->
+<!-- ═══════════════════════════════════════════════════════════════════ -->
+
+<h2>发现一：难度分类确实能区分 AI 和人类</h2>
+
+<p>
+  chenhao 的测试集里面，<strong>难度确实很能区分 deepseek-v4-pro 和人类</strong>。AI/Human 比值随难度递增——简单题仅 1.18 倍，困难题达到 2.81 倍。
+</p>
+
+<div class="data-box">
+  <strong>AI vs 人类最优解 — 按难度分组</strong>
+  <table>
+    <thead><tr><th>难度</th><th>任务数</th><th class="num">AI 均值</th><th class="num">人类最优均值</th><th class="num">AI/Human 比值</th><th class="num">Spearman ρ (组内)</th></tr></thead>
+    <tbody>
+      <tr><td><span class="tag tag-green">简单</span></td><td class="num">14</td><td class="num">81B</td><td class="num">69B</td><td class="num"><strong>1.18x</strong></td><td class="num">0.93</td></tr>
+      <tr><td><span class="tag tag-blue">中等</span></td><td class="num">35</td><td class="num">190B</td><td class="num">98B</td><td class="num"><strong>1.90x</strong></td><td class="num">0.82</td></tr>
+      <tr><td><span class="tag tag-orange">困难</span></td><td class="num">24</td><td class="num">254B</td><td class="num">89B</td><td class="num"><strong>2.81x</strong></td><td class="num">0.60</td></tr>
+    </tbody>
+  </table>
+  <p style="font-size:0.82rem;margin-top:8px;color:var(--text3)">
+    Spearman ρ = 0.76 (p &lt; 0.001)：AI 和人类在任务难易排序上高度一致。
+    注意困难题的<em>人类最优</em>（89B）和简单题（69B）差距不大，但<em>人类中位数</em>差距很大（185B vs 75B）——困难题的特点是方差大，不是边界高。
+  </p>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════════════════ -->
+<!-- IRT 解释 -->
+<!-- ═══════════════════════════════════════════════════════════════════ -->
+
+<h2>IRT 评级说明</h2>
+
+<p>
+  IRT 算出来的评级也很能说明问题。那么 IRT 评级<strong>到底是什么</strong>？
+</p>
+
+<div class="irt-box">
+  <h3>IRT（项目反应理论）评级 — 来源与含义</h3>
+  <p>
+    IRT 评级来自 <code>difficulty/grm_item_params.csv</code>，基于 <strong>GRM (Graded Response Model，等级反应模型)</strong> 对 48 支参赛队伍在所有 400 个任务上的压缩表现拟合得出。每个任务有 5 个参数：
+  </p>
+  <table>
+    <thead><tr><th>参数</th><th>含义</th><th>与 AI 的相关性</th></tr></thead>
+    <tbody>
+      <tr><td><strong>a</strong> (区分度)</td><td>题目区分高能力和低能力受试者的<em>精度</em>。高 a = 题目能精准区分能力强弱</td><td><strong>ρ = −0.04 — 几乎无关</strong></td></tr>
+      <tr><td><strong>b₁–b₄</strong> (难度阈值)</td><td>将连续能力 θ 映射到 5 个有序响应类别的 4 个分界点。b₁ 是最低门槛，b₄ 是最高</td><td>b₂ (ρ=0.76)、b₃ (ρ=0.63) 相关性较高</td></tr>
+      <tr><td><strong>b₄−b₁</strong> (难度跨度)</td><td>题目覆盖的能力范围</td><td><strong>ρ = −0.02 — 几乎无关</strong></td></tr>
+      <tr><td><strong>info_mean / info_high</strong></td><td>平均信息量 / 高能力区间信息量</td><td>info_high (ρ=0.61) 有一定相关性</td></tr>
+    </tbody>
+  </table>
+
+  <h3 style="margin-top:16px;">IRT 等级 (A/B/C)</h3>
+  <p>
+    等级基于 <strong>a 区分度</strong> 划分：A 级 (a 高，区分度极好)、B 级 (良好)、C 级 (可接受)。
+    IRT 难度层级 (T1_easiest ~ T5_hardest) 则基于 b 参数综合排序。
+  </p>
+
+  <h3 style="margin-top:16px;">难度分类 × IRT 等级交叉表</h3>
+  <table>
+    <thead><tr><th>难度分类</th><th class="num">A (高区分)</th><th class="num">B (良好)</th><th class="num">C (可接受)</th><th class="num">合计</th></tr></thead>
+    <tbody>
+      <tr><td>简单</td><td class="num">2</td><td class="num">7</td><td class="num">7</td><td class="num">16</td></tr>
+      <tr><td>中等</td><td class="num">36</td><td class="num">12</td><td class="num">0</td><td class="num">48</td></tr>
+      <tr><td>困难</td><td class="num">15</td><td class="num">17</td><td class="num">0</td><td class="num">32</td></tr>
+    </tbody>
+  </table>
+
+  <p style="margin-top:12px;font-size:0.82rem;color:var(--text3)">
+    关键观察：简单题散布在 A/B/C 各等级，中等问题几乎全是 A 级（高区分度），困难题以 A/B 为主。
+    这意味着 selection 的"简单/中等/困难"分类和 IRT 区分度不是同一个维度——
+    简单题虽然容易，但有些也是高质量区分器（A 级），有些区分度低（C 级，大家都做得差不多）。
+  </p>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════════════════ -->
+<!-- 发现 2：IRT 等级区分模型 -->
+<!-- ═══════════════════════════════════════════════════════════════════ -->
+
+<h2>发现二：IRT 等级高 → 模型间差异大</h2>
+
+<p>
+  <strong>IRT 评级高的题目在 qwen-3.6-flash 和 deepseek-v4-pro 上有比较大的差异。</strong>
+  IRT Grade A 的题，QW/DS 比值达到 1.88x；Grade C 的题只有 1.16x。
+</p>
+
+<div class="data-box">
+  <strong>DS vs Qwen 3.6-Flash — 按 IRT 等级分组（21 个共同任务）</strong>
+  <table>
+    <thead><tr><th>IRT 等级</th><th class="num">任务数</th><th class="num">DS 均值</th><th class="num">QW 均值</th><th class="num">QW/DS 比值</th><th>含义</th></tr></thead>
+    <tbody>
+      <tr><td><strong>Grade A</strong> (高区分度)</td><td class="num">8</td><td class="num">148B</td><td class="num">266B</td><td class="num"><strong>1.88x</strong></td><td>差距最大 — 区分度好的题也区分强/弱模型</td></tr>
+      <tr><td><strong>Grade B</strong> (良好)</td><td class="num">8</td><td class="num">82B</td><td class="num">104B</td><td class="num"><strong>1.26x</strong></td><td>中等差距</td></tr>
+      <tr><td><strong>Grade C</strong> (可接受)</td><td class="num">5</td><td class="num">73B</td><td class="num">84B</td><td class="num"><strong>1.16x</strong></td><td>差距最小 — 大家都差不多</td></tr>
+    </tbody>
+  </table>
+  <p style="font-size:0.82rem;margin-top:8px;color:var(--text3)">
+    Head-to-head: DS 19 胜 — 0 负 — 2 平。平均 QW/DS = +47%。
+    但 Qwen 只跑了 21 个任务（最简单的），所以整体均值反而更低（161B vs 190B）——这不是 Qwen 更强，而是它在更简单的子集上。
+  </p>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════════════════ -->
+<!-- 发现 3：我的框架不如 claude code / codex -->
+<!-- ═══════════════════════════════════════════════════════════════════ -->
+
+<h2>发现三：ReAct + DS V4 Pro 整体不如 Claude Code</h2>
+
+<p>
+  我的 ReAct 框架搭配我的提示词用 deepseek-v4-pro 跑出来的效果<strong>整体是不如 claude code 和 codex 的</strong>。
+</p>
+
+<div class="data-box">
+  <strong>模型对比（73 个共同任务，best-of-3 trials）</strong>
+  <table>
+    <thead><tr><th>模型</th><th class="num">均值</th><th class="num">中位数</th><th class="num">标准差</th><th class="num">范围</th><th class="num">vs DS (Δ)</th><th class="num">W/L/T vs DS</th></tr></thead>
+    <tbody>
+      <tr><td><strong>Claude Code</strong></td><td class="num"><strong>150B</strong></td><td class="num"><strong>126B</strong></td><td class="num">88B</td><td class="num">[44, 475]</td><td class="num" style="color:var(--aqua)"><strong>−40B</strong></td><td class="num">51 / 15 / 7</td></tr>
+      <tr><td>DeepSeek V4 Pro (ReAct)</td><td class="num">190B</td><td class="num">157B</td><td class="num">107B</td><td class="num">[49, 535]</td><td class="num">—</td><td class="num">—</td></tr>
+      <tr><td><strong>Codex</strong></td><td class="num">191B</td><td class="num">161B</td><td class="num">120B</td><td class="num">[44, 671]</td><td class="num" style="color:var(--red)">+1B</td><td class="num">22 / 39 / 12</td></tr>
+    </tbody>
+  </table>
+  <p style="font-size:0.82rem;margin-top:8px;color:var(--text3)">
+    Claude Code 在 70% 的任务上优于 DS，显著性 p &lt; 0.001 (Wilcoxon)。Cohen's d = 0.38（中等效应量）。
+    Codex 和 DS 差距可忽略（p=0.023, d=0.06）——但注意 Codex 仅有单次 trial，信息不足。
+  </p>
+</div>
+
+<p>
+  我的 ReAct 框架<strong>比较简单，不支持文件读写</strong>，所以我自己弄了一套 prompt，和 chenhao 的没有对接上，因此我的实验跟他之间还不好直接对比。
+</p>
+
+<p>
+  目前我准备重新跑一次，基本使用他的 prompt，但是把需要文件读写的地方直接贴上结果——比如 gen.py 就直接贴代码，data.json 就直接放 5 个小样例。
+</p>
+
+<!-- ═══════════════════════════════════════════════════════════════════ -->
+<!-- IRT 排名 -->
+<!-- ═══════════════════════════════════════════════════════════════════ -->
+
+<h2>附：AI 在人类队伍中的 IRT 排名</h2>
+
+<div class="data-box">
+  <strong>基于 GRM 模型的 MLE 能力估计（48 支参赛队伍，θ ~ N(0, 1.01)）</strong>
+  <table>
+    <thead><tr><th>模型</th><th class="num">θ (IRT 能力)</th><th class="num">排名 / 48</th><th>最接近的人类队伍</th></tr></thead>
+    <tbody>
+      <tr><td><strong>DeepSeek V4 Pro</strong></td><td class="num">−0.13 ± 0.82</td><td class="num"><strong>第 27 名</strong></td><td>kambarakun (θ=−0.11)</td></tr>
+      <tr><td><strong>Qwen 3.6-Flash</strong></td><td class="num">−0.90 ± 1.68</td><td class="num"><strong>第 37 名</strong></td><td>azakhtyamov (θ=−0.91)</td></tr>
+    </tbody>
+  </table>
+  <p style="font-size:0.82rem;margin-top:8px;color:var(--text3)">
+    DS V4 Pro 恰好排在全球 48 支顶尖队伍的中位数 (±0)。其上的 26 支队伍全是人类专家。
+  </p>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════════════════ -->
+<!-- ReAct 框架 -->
+<!-- ═══════════════════════════════════════════════════════════════════ -->
+
+<h2>附录：ReAct 框架设计</h2>
+
+<p>
+  我的 ReAct agent 采用极简设计——无文件系统、无工具注册、无外部记忆，<strong>纯粹通过对话轮次实现 ReAct 循环</strong>。
+  每一轮对话既是"思考"也是"行动"，判题结果通过下一轮的 observation 回传。
+</p>
+
+<div class="lang-tabs">
+  <button class="lang-tab active" onclick="switchLang('cn')">中文</button>
+  <button class="lang-tab" onclick="switchLang('en')">English</button>
+</div>
+
+<div id="diagram-cn" class="diagram-container active">
+<div class="mermaid-box">
+<pre class="mermaid">
+flowchart TD
+    S["<b>System Prompt</b><br/>角色：code golf 专家<br/>目标：最短 AC 代码<br/>策略：先对后优，增量压缩"]
+
+    U["<b>User (Round 1)</b><br/>• gen.py 源码（转换规则）<br/>• 5 个训练样例<br/>• 当前状态：Round 1/30"]
+
+    M["🤖 <b>模型推理</b><br/>理解规则 → 写代码<br/>输出 &lt;thought&gt; + Python 代码块"]
+
+    E["🔍 <b>提取代码</b><br/>正则提取最后一个<br/>```python 块"]
+
+    J["⚖️ <b>判题</b><br/>沙箱子进程执行<br/>263 个隐藏用例<br/>{AC, WA, RE, TLE}"]
+
+    D1{"AC?"}
+
+    UPD["📉 <b>更新最优</b><br/>记录 best_bytes + best_code<br/>best 改进 → no_improve 归零"]
+
+    OBS["📋 <b>构造 Observation</b><br/>反馈本轮结果 + 当前最优<br/>追加到 messages"]
+
+    CHK{"继续?"}
+
+    FIN["🏁 <b>结束</b><br/>连续 5 轮无改进<br/>或达到 30 轮上限"]
+
+    S --> U --> M --> E --> J --> D1
+    D1 -->|"✅ AC"| UPD --> OBS --> CHK
+    D1 -->|"❌ WA/RE/TLE"| OBS --> CHK
+    CHK -->|"继续"| M
+    CHK -->|"停止"| FIN
+
+    style S fill:#d4e3f5,stroke:#2a78d6
+    style U fill:#fff9e6,stroke:#e0d060
+    style M fill:#e8f2fc,stroke:#2a78d6
+    style J fill:#fce4d4,stroke:#eb6834
+    style D1 fill:#f5f5f2,stroke:#999
+    style UPD fill:#d4f0e4,stroke:#1baf7a
+    style FIN fill:#f5f5f2,stroke:#999
+</pre>
+</div>
+</div>
+
+<div id="diagram-en" class="diagram-container">
+<div class="mermaid-box">
+<pre class="mermaid">
+flowchart TD
+    S["<b>System Prompt</b><br/>Role: code golf expert<br/>Goal: shortest AC solution<br/>Strategy: correct first, then compress"]
+
+    U["<b>User (Round 1)</b><br/>• gen.py source (ground truth)<br/>• 5 training examples<br/>• Status: Round 1/30"]
+
+    M["🤖 <b>Model Inference</b><br/>Understand rule → write code<br/>Output: thought + Python block"]
+
+    E["🔍 <b>Extract Code</b><br/>Regex extract last<br/>```python block"]
+
+    J["⚖️ <b>Judge</b><br/>Sandbox subprocess<br/>263 hidden test cases<br/>{AC, WA, RE, TLE}"]
+
+    D1{"AC?"}
+
+    UPD["📉 <b>Update Best</b><br/>Record best_bytes + best_code<br/>Improvement → reset stall counter"]
+
+    OBS["📋 <b>Build Observation</b><br/>Feedback: status + bytes + best<br/>Append to messages"]
+
+    CHK{"Continue?"}
+
+    FIN["🏁 <b>Done</b><br/>5 rounds no improvement<br/>or 30 round limit"]
+
+    S --> U --> M --> E --> J --> D1
+    D1 -->|"✅ AC"| UPD --> OBS --> CHK
+    D1 -->|"❌ WA/RE/TLE"| OBS --> CHK
+    CHK -->|"continue"| M
+    CHK -->|"stop"| FIN
+
+    style S fill:#d4e3f5,stroke:#2a78d6
+    style U fill:#fff9e6,stroke:#e0d060
+    style M fill:#e8f2fc,stroke:#2a78d6
+    style J fill:#fce4d4,stroke:#eb6834
+    style D1 fill:#f5f5f2,stroke:#999
+    style UPD fill:#d4f0e4,stroke:#1baf7a
+    style FIN fill:#f5f5f2,stroke:#999
+</pre>
+</div>
+</div>
+
+<div class="data-box" style="margin-top:16px;">
+  <strong>关键设计决策</strong>
+  <table>
+    <thead><tr><th>维度</th><th>本框架</th><th>chenhao 的 agent</th></tr></thead>
+    <tbody>
+      <tr><td>文件系统</td><td>❌ 无（gen.py 贴 prompt，data.json 放样例）</td><td>✅ 有（工作目录，v1.py/v2.py...）</td></tr>
+      <tr><td>工具</td><td>无——纯对话，模型输出即代码</td><td>submit_code(code) 工具调用</td></tr>
+      <tr><td>记忆</td><td>对话上下文全量累积（30 轮 messages）</td><td>scratchpad + history_window=3</td></tr>
+      <tr><td>提前停止</td><td>连续 5 轮 AC 但无改进</td><td>可配置（默认关闭）</td></tr>
+      <tr><td>并行性</td><td>单线程串行</td><td>asyncio + 多 job 并行</td></tr>
+    </tbody>
+  </table>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════════════════ -->
+<!-- 关键数据来源 -->
+<!-- ═══════════════════════════════════════════════════════════════════ -->
+
+<h2>数据来源</h2>
+
+<ul style="color:var(--text3);font-size:0.85rem;">
+  <li>任务集：<code>benchmark_1_3_2_selection.xlsx</code>（选定 96 题，简单 16 / 中等 48 / 困难 32）</li>
+  <li>AI 测试：<code>agent_experiments/react/results/</code>（DS V4 Pro 217 文件，QW 3.6-Flash 57 文件）</li>
+  <li>人类基线：chenhao 的 <code>benchmark_combined_final.csv</code> (run2+3=Claude Code, run4=Codex)</li>
+  <li>IRT 参数：<code>difficulty/grm_item_params.csv</code> — 基于 48 支队伍在 400 题上的 GRM 拟合</li>
+  <li>队伍能力：<code>difficulty/grm_team_theta.csv</code> — 48 支队伍的 θ 估计值</li>
+</ul>
+
+</div>
+
+<script type="module">
+  import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.esm.min.mjs';
+  mermaid.initialize({
+    startOnLoad: true,
+    theme: document.documentElement.dataset.theme === 'dark' ? 'dark' : 'default',
+    flowchart: { useMaxWidth: true, htmlLabels: true, curve: 'basis' },
+  });
+</script>
+
+<script>
+  function switchLang(lang) {
+    document.querySelectorAll('.lang-tab').forEach(t => t.classList.remove('active'));
+    document.querySelectorAll('.diagram-container').forEach(d => d.classList.remove('active'));
+    document.querySelector(`.lang-tab:nth-child(${lang === 'cn' ? 1 : 2})`).classList.add('active');
+    document.getElementById(`diagram-${lang}`).classList.add('active');
+  }
+</script>
+
+</body>
+</html>
