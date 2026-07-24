@@ -1,0 +1,235 @@
+{
+  "solved": true,
+  "bytes": 227,
+  "code": "def p(g):\n n=len(g);R=range(n);o=[r[:]for r in g];h=g.index(max(g,key=lambda r:r[0]))\n for c in R:\n  for r in R:\n   if 0<(v:=g[r][c])<3:\n    d=v*2-3;r>=h and(d:=-d);r+=d\n    while 0<=r<n and not o[r][c]:o[r][c]=v;r+=d\n return o",
+  "history": [
+    {
+      "round": 1,
+      "status": "api_error",
+      "error": "Request timed out."
+    },
+    {
+      "round": 2,
+      "status": "api_error",
+      "error": "Request timed out."
+    },
+    {
+      "round": 3,
+      "status": "api_error",
+      "error": "Request timed out."
+    },
+    {
+      "round": 4,
+      "status": "api_error",
+      "error": "Request timed out."
+    },
+    {
+      "round": 5,
+      "code": "def p(g):\n n=len(g);h=next(i for i in range(n) if g[i][0]>2);o=[r[:]for r in g]\n for r in range(n):\n  for c in range(n):\n   v=g[r][c]\n   if v>1:\n    d=-1 if v==1 else 1\n    if r>=h:d=-d\n    j=r+d\n    while 0<=j<n and not o[j][c]:o[j][c]=v;j+=d\n return o",
+      "status": "wrong",
+      "bytes": 253,
+      "passed": 0,
+      "total": 263,
+      "error": "",
+      "elapsed_s": 37.71
+    },
+    {
+      "round": 6,
+      "code": "def p(g):\n n=len(g);o=[*g];h=next(i for i in range(n) if g[i][0]>2)\n for r,row in enumerate(g):\n  for c,v in enumerate(row):\n   if v<3:\n    d=-1 if v<2 else(r<h)-(r>h)\n    for rr in(range(r+d,-1,-1)if d<0 else range(r+d,n)):\n     if o[rr][c]:break\n     o[rr][c]=v\n return o",
+      "status": "wrong",
+      "bytes": 273,
+      "passed": 0,
+      "total": 263,
+      "error": "",
+      "elapsed_s": 80.64
+    },
+    {
+      "round": 7,
+      "code": "def p(g):\n L=len(g);o=[r[:]for r in g];h=next(i for i in range(L)if g[i][0]>2)\n for r,row in enumerate(g):\n  for c,v in enumerate(row):\n   if 0<v<3:\n    d=1 if(v>1)==(r>=h)else -1\n    while -1<r<L and(not o[r][c] or o[r][c]==v):o[r][c]=v;r+=d\n return o",
+      "status": "wrong",
+      "bytes": 252,
+      "passed": 0,
+      "total": 263,
+      "error": "",
+      "elapsed_s": 79.43
+    },
+    {
+      "round": 8,
+      "code": "def p(g):\n n=len(g);o=[r[:]for r in g];h=next(i for i in range(n)if g[i][0]>2)\n for c in range(n):\n  for r in range(n):\n   if 0<(v:=g[r][c])<3:\n    d=-1 if v<2 else 1\n    if r>=h:d=-d\n    r+=d\n    while 0<=r<n and not o[r][c]:o[r][c]=v;r+=d\n return o",
+      "status": "correct",
+      "bytes": 250,
+      "passed": 263,
+      "total": 263,
+      "error": "",
+      "elapsed_s": 71.48
+    },
+    {
+      "round": 9,
+      "code": "def p(g):\n L=len(g);h=g.index(max(g,key=lambda r:r[0]))\n for c in range(L):\n  for r in range(L):\n   v=g[r][c];if v<3:\n    d=v*2-3;if r>=h:d=-d\n    r+=d\n    while 0<=r<L and g[r][c]in{0,v}:g[r][c]=v;r+=d\n return g",
+      "status": "syntax_error",
+      "bytes": 0,
+      "passed": 0,
+      "total": 263,
+      "error": "SyntaxError: invalid syntax (line 5)",
+      "elapsed_s": 72.22
+    },
+    {
+      "round": 10,
+      "code": "def p(g):\n n=len(g);R=range(n);o=[r[:]for r in g];h=g.index(max(g,key=lambda r:r[0]))\n for c in R:\n  for r in R:\n   if 0<(v:=g[r][c])<3:\n    d=v*2-3;r>=h and(d:=-d);r+=d\n    while 0<=r<n and not o[r][c]:o[r][c]=v;r+=d\n return o",
+      "status": "correct",
+      "bytes": 227,
+      "passed": 263,
+      "total": 263,
+      "error": "",
+      "elapsed_s": 77.17
+    },
+    {
+      "round": 11,
+      "code": "def p(g):\n L=len(g);h=L-1;o=[r[:]for r in g]\n while g[h][0]<3:h-=1\n for c in range(L):for r in range(L):\n  if 0<(v:=g[r][c])<3:\n   d=v*2-3;r>=h and(d:=-d);r+=d\n   while 0<r<L and not o[r][c]:o[r][c]=v;r+=d\n return o",
+      "status": "syntax_error",
+      "bytes": 0,
+      "passed": 0,
+      "total": 263,
+      "error": "SyntaxError: invalid syntax (line 4)",
+      "elapsed_s": 72.15
+    },
+    {
+      "round": 12,
+      "code": "def p(g):\n n=len(g);h=0;while g[h][0]<3:h+=1;R=range(n);o=[*map(list,g)]\n for c in R:\n  for r in R:\n   if(v:=g[r][c])in 1,2:\n    d=v*2-3;if r>=h:d=-d;r+=d\n    while 0<=r<n and o[r][c]<1:o[r][c]=v;r+=d\n return o",
+      "status": "syntax_error",
+      "bytes": 0,
+      "passed": 0,
+      "total": 263,
+      "error": "SyntaxError: invalid syntax (line 2)",
+      "elapsed_s": 97.26
+    },
+    {
+      "round": 13,
+      "code": "def p(g):\n n=len(g);h=n-1;while g[h][0]<3:h-=1;o=[*map(list,g)];R=range(n)\n for c in R:\n  for r in R:\n   if(v:=g[r][c]) and v<3:\n    d=v*2-3;r>=h and(d:=-d);r+=d\n    while 0<=r<n and not o[r][c]:o[r][c]=v;r+=d\n return o",
+      "status": "syntax_error",
+      "bytes": 0,
+      "passed": 0,
+      "total": 263,
+      "error": "SyntaxError: invalid syntax (line 2)",
+      "elapsed_s": 71.42
+    },
+    {
+      "round": 14,
+      "code": "def p(g):n=len(g);h=n-1;while g[h][0]<3:h-=1;o=[r[:]for r in g]\nfor c in range(n):\n for r in range(n):\n  if(v:=g[r][c])and v<3:\n   d=v*2-3;r>h and(d:=-d)\n   while 0<=r<n and not o[r][c]:o[r][c]=v;r+=d\nreturn o",
+      "status": "syntax_error",
+      "bytes": 0,
+      "passed": 0,
+      "total": 263,
+      "error": "SyntaxError: invalid syntax (line 1)",
+      "elapsed_s": 76.46
+    },
+    {
+      "round": 15,
+      "code": "def p(g):\n n=len(g);h=n-1;while g[h][0]<3:h-=1;o=[r[:]for r in g];R=range(n)\n for c in R:\n  for r in R:\n   if(v:=g[r][c])and v<3:\n    d=1;if v>1:d=-1 if r>h else 1\n    while 0<=r<n and not o[r][c]:o[r][c]=v;r+=d\n return o",
+      "status": "syntax_error",
+      "bytes": 0,
+      "passed": 0,
+      "total": 263,
+      "error": "SyntaxError: invalid syntax (line 2)",
+      "elapsed_s": 66.85
+    }
+  ],
+  "messages": [
+    {
+      "role": "system",
+      "content": "You are a code golf expert participating in a 30-round iterative code golf competition.\n\n## Goal\nWrite the **shortest possible Python program** that defines `p(grid) -> grid` and passes ALL test cases.\n\n## Rules\n- `p` receives a nested list of ints and must return a nested list of ints (0-9 only).\n- Score = UTF-8 byte count of your code (fewer = better).\n- Define `p` as `def p(g):` or `p = lambda g:`.  Must be the callable name `p`.\n- Standard library only.  No numpy / scipy / third-party packages.\n- The judge auto-converts booleans → 0/1 and integral floats → ints (numpy.array_equal semantics).\n\n## Strategy\n1. Study the generator code — it IS the ground truth for the transformation rule.\n2. **First get a correct solution** (any length), then compress aggressively.\n3. In each round, try ONE optimization / new approach.  Verify by submitting.\n4. If stuck, try radically different approaches: different algorithms, data structures, builtins.\n\n## Output Format\nYour reply MUST contain a single ````python` code block with your complete program.\nOnly the LAST python block is judged.\nYou may also include brief reasoning before the code block."
+    },
+    {
+      "role": "user",
+      "content": "## Task: task212\n\n## Generator Code (ground truth for the transformation rule)\n```python\ndef generate(rows=None, cols=None, idxs=None, horizon=None, size=10):\n  \"\"\"Returns input and output grids according to the given parameters.\n\n  Args:\n    rows: a list of vertical coordinates where pixels should be placed\n    cols: a list of horizontal coordinates where pixels should be placed\n    idxs: a list of 0/1 values (for blue/red pixels, respectively)\n    horizon: the placement of the grey horizon\n    size: the width and height of the (square) grid\n  \"\"\"\n  if rows is None:\n    horizon = common.randint(3, 6)\n    rows, cols = [], []\n    for c in range(size):\n      if common.randint(0, 1) == 0: continue\n      rows.append(common.randint(0, horizon - 2))\n      cols.append(c)\n    for c in range(size):\n      if common.randint(0, 1) == 0: continue\n      rows.append(common.randint(horizon + 2, size - 1))\n      cols.append(c)\n    idxs = [common.randint(0, 1) for _ in range(len(rows))]\n\n  grid, output = common.grids(size, size)\n  for c in range(size):\n    output[horizon][c] = grid[horizon][c] = common.gray()\n  for r, c, idx in zip(rows, cols, idxs):\n    grid[r][c] = idx + 1\n    dr = -1 if idx == 0 else 1\n    dr = dr if r < horizon else -dr\n    while True:\n      if r < 0 or r >= size or output[r][c]:\n        break\n      output[r][c], r = idx + 1, r + dr\n  return {\"input\": grid, \"output\": output}\n```\n\n## Training Examples\n### Example 1\n\nInput:\n0010000000\n0000001000\n0200000002\n0000000000\n0000000000\n5555555555\n0000000000\n0000000000\n0100020010\n0000000000\n\nOutput:\n0010001000\n0000001000\n0200000002\n0200000002\n0200000002\n5555555555\n0000020000\n0000020000\n0100020010\n0100000010\n\n### Example 2\n\nInput:\n0201000000\n0000020100\n0000000000\n5555555555\n0000000000\n0200000002\n0000100000\n0000000000\n0010002010\n0000000000\n\nOutput:\n0201000100\n0200020100\n0200020000\n5555555555\n0200002002\n0200002002\n0000102000\n0000102000\n0010102010\n0010100010\n\n## Status\nRound 1 / 30\n\n**Best so far: NONE** — you need to get ANY correct solution first.\n\nWrite your code in a ```python block.  Good luck!"
+    },
+    {
+      "role": "assistant",
+      "content": "Looking at the generator code, I need to understand the transformation:\n\n1. Find the **horizon** row (grey row with value > 2, e.g., 5)\n2. For each colored pixel (value 1 or 2):\n   - Value 1 (blue) → starts going up (-1)\n   - Value 2 (red) → starts going down (+1)\n   - If pixel is below/at horizon, **flip** direction\n   - So pixels always move **toward** the horizon\n3. Fill all cells from the pixel toward the horizon (stopping at edge or already-filled cell)\n\n```python\ndef p(g):\n n=len(g);h=next(i for i in range(n) if g[i][0]>2);o=[r[:]for r in g]\n for r in range(n):\n  for c in range(n):\n   v=g[r][c]\n   if v>1:\n    d=-1 if v==1 else 1\n    if r>=h:d=-d\n    j=r+d\n    while 0<=j<n and not o[j][c]:o[j][c]=v;j+=d\n return o\n```"
+    },
+    {
+      "role": "user",
+      "content": "## Round 5 / 30 — Result\n❌ **WRONG ANSWER** — 253 bytes\nPassed 3 cases but failed some.\nStill no correct solution yet.\nFailures (first few):\n  - Input: [[0, 0, 0, 0, 0, 0, 0, 0, 0, 0], [0, 2, 0, 1, 0, 0, 0, 0, 2, 0], [0, 0, 0, 0, 0, 0, 1, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0, 0, 0], [5, 5, 5, 5, 5, 5, 5, 5, 5, 5], [0, 0, 0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 1, 0, 0, 2, 0, 0, 0, 0], [2, 0, 0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0, 1, 0]]\n    Expected: [[0, 0, 0, 1, 0, 0, 1, 0, 0, 0], [0, 2, 0, 1, 0, 0, 1, 0, 2, 0], [0, 2, 0, 0, 0, 0, 1, 0, 2, 0], [0, 2, 0, 0, 0, 0, 0, 0, 2, 0], [5, 5, 5, 5, 5, 5, 5, 5, 5, 5], [2, 0, 0, 0, 0, 2, 0, 0, 0, 0], [2, 0, 0, 0, 0, 2, 0, 0, 0, 0], [2, 0, 1, 0, 0, 2, 0, 0, 0, 0], [2, 0, 1, 0, 0, 0, 0, 0, 0, 0], [0, 0, 1, 0, 0, 0, 0, 0, 1, 0]]\n    Got: [[5, 0, 5, 0, 5, 5, 0, 5, 0, 5], [5, 2, 5, 1, 5, 5, 0, 5, 2, 5], [5, 2, 5, 5, 5, 5, 1, 5, 2, 5], [5, 2, 5, 5, 5, 5, 5, 5, 2, 5], [5, 5, 5, 5, 5, 5, 5, 5, 5, 5], [2, 0, 0, 0, 0, 2, 0, 0, 0, 0], [2, 0, 0, 0, 0, 2, 0, 0, 0, 0], [2, 0, 1, 0, 0, 2, 0, 0, 0, 0], [2, 0, 0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0, 1, 0]]\n  - Input: [[1, 0, 0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 1, 0, 0, 1, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0, 0, 0], [5, 5, 5, 5, 5, 5, 5, 5, 5, 5], [0, 0, 0, 0, 0, 0, 0, 0, 0, 0], [1, 1, 0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0, 1, 0], [0, 0, 0, 0, 0, 0, 0, 0, 0, 1]]\n    Expected: [[1, 0, 1, 0, 0, 1, 0, 0, 0, 0], [0, 0, 1, 0, 0, 1, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0, 0, 0], [5, 5, 5, 5, 5, 5, 5, 5, 5, 5], [0, 0, 0, 0, 0, 0, 0, 0, 0, 0], [1, 1, 0, 0, 0, 0, 0, 0, 0, 0], [1, 1, 0, 0, 0, 0, 0, 0, 0, 0], [1, 1, 0, 0, 0, 0, 0, 0, 0, 0], [1, 1, 0, 0, 0, 0, 0, 0, 1, 0], [1, 1, 0, 0, 0, 0, 0, 0, 1, 1]]\n    Got: [[1, 5, 0, 5, 5, 0, 5, 5, 5, 5], [5, 5, 1, 5, 5, 1, 5, 5, 5, 5], [5, 5, 5, 5, 5, 5, 5, 5, 5, 5], [5, 5, 5, 5, 5, 5, 5, 5, 5, 5], [0, 0, 0, 0, 0, 0, 0, 0, 0, 0], [1, 1, 0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0, 1, 0], [0, 0, 0, 0, 0, 0, 0, 0, 0, 1]]\n  - Input: [[2, 0, 0, 1, 0, 0, 0, 2, 2, 0], [0, 0, 2, 0, 0, 0, 0, 0, 0, 1], [0, 0, 0, 0, 0, 0, 0, 0, 0, 0], [5, 5, 5, 5, 5, 5, 5, 5, 5, 5], [0, 0, 0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 2, 0, 0, 1, 0], [0, 0, 0, 0, 0, 0, 0, 2, 0, 0], [0, 2, 2, 0, 0, 0, 2, 0, 0, 1], [0, 0, 0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 2, 0, 0, 0, 0, 0, 0]]\n    Expected: [[2, 0, 0, 1, 0, 0, 0, 2, 2, 1], [2, 0, 2, 0, 0, 0, 0, 2, 2, 1], [2, 0, 2, 0, 0, 0, 0, 2, 2, 0], [5, 5, 5, 5, 5, 5, 5, 5, 5, 5], [0, 2, 2, 2, 0, 2, 2, 2, 0, 0], [0, 2, 2, 2, 0, 2, 2, 2, 1, 0], [0, 2, 2, 2, 0, 0, 2, 2, 1, 0], [0, 2, 2, 2, 0, 0, 2, 0, 1, 1], [0, 0, 0, 2, 0, 0, 0, 0, 1, 1], [0, 0, 0, 2, 0, 0, 0, 0, 1, 1]]\n    Got: [[2, 5, 0, 1, 5, 5, 5, 2, 2, 0], [2, 5, 2, 5, 5, 5, 5, 2, 2, 1], [2, 5, 2, 5, 5, 5, 5, 2, 2, 5], [5, 5, 5, 5, 5, 5, 5, 5, 5, 5], [0, 2, 2, 2, 0, 2, 2, 2, 0, 0], [0, 2, 2, 2, 0, 2, 2, 2, 1, 0], [0, 2, 2, 2, 0, 0, 2, 2, 0, 0], [0, 2, 2, 2, 0, 0, 2, 0, 0, 1], [0, 0, 0, 2, 0, 0, 0, 0, 0, 0], [0, 0, 0, 2, 0, 0, 0, 0, 0, 0]]\n\nWrite your next (shorter!) solution in a ```python block."
+    },
+    {
+      "role": "assistant",
+      "content": "```python\ndef p(g):\n n=len(g);o=[*g];h=next(i for i in range(n) if g[i][0]>2)\n for r,row in enumerate(g):\n  for c,v in enumerate(row):\n   if v<3:\n    d=-1 if v<2 else(r<h)-(r>h)\n    for rr in(range(r+d,-1,-1)if d<0 else range(r+d,n)):\n     if o[rr][c]:break\n     o[rr][c]=v\n return o\n```"
+    },
+    {
+      "role": "user",
+      "content": "## Round 6 / 30 — Result\n❌ **WRONG ANSWER** — 273 bytes\nPassed 3 cases but failed some.\nStill no correct solution yet.\nFailures (first few):\n  - Input: [[0, 0, 0, 1, 0, 0, 1, 0, 0, 0], [0, 2, 0, 1, 0, 0, 1, 0, 2, 0], [0, 2, 0, 0, 0, 0, 1, 0, 2, 0], [0, 2, 0, 0, 0, 0, 0, 0, 2, 0], [5, 5, 5, 5, 5, 5, 5, 5, 5, 5], [2, 0, 1, 0, 0, 2, 0, 0, 1, 0], [2, 0, 1, 0, 0, 2, 0, 0, 1, 0], [2, 0, 1, 0, 0, 2, 0, 0, 1, 0], [2, 0, 0, 0, 0, 0, 0, 0, 1, 0], [0, 0, 0, 0, 0, 0, 0, 0, 1, 0]]\n    Expected: [[0, 0, 0, 1, 0, 0, 1, 0, 0, 0], [0, 2, 0, 1, 0, 0, 1, 0, 2, 0], [0, 2, 0, 0, 0, 0, 1, 0, 2, 0], [0, 2, 0, 0, 0, 0, 0, 0, 2, 0], [5, 5, 5, 5, 5, 5, 5, 5, 5, 5], [2, 0, 0, 0, 0, 2, 0, 0, 0, 0], [2, 0, 0, 0, 0, 2, 0, 0, 0, 0], [2, 0, 1, 0, 0, 2, 0, 0, 0, 0], [2, 0, 1, 0, 0, 0, 0, 0, 0, 0], [0, 0, 1, 0, 0, 0, 0, 0, 1, 0]]\n    Got: [[0, 0, 0, 1, 0, 0, 1, 0, 0, 0], [0, 2, 0, 1, 0, 0, 1, 0, 2, 0], [0, 2, 0, 0, 0, 0, 1, 0, 2, 0], [0, 2, 0, 0, 0, 0, 0, 0, 2, 0], [5, 5, 5, 5, 5, 5, 5, 5, 5, 5], [2, 0, 1, 0, 0, 2, 0, 0, 1, 0], [2, 0, 1, 0, 0, 2, 0, 0, 1, 0], [2, 0, 1, 0, 0, 2, 0, 0, 1, 0], [2, 0, 0, 0, 0, 0, 0, 0, 1, 0], [0, 0, 0, 0, 0, 0, 0, 0, 1, 0]]\n  - Input: [[1, 0, 1, 0, 0, 1, 0, 0, 0, 0], [0, 0, 1, 0, 0, 1, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0, 0, 0], [5, 5, 5, 5, 5, 5, 5, 5, 5, 5], [1, 1, 0, 0, 0, 0, 0, 0, 1, 1], [1, 1, 0, 0, 0, 0, 0, 0, 1, 1], [0, 0, 0, 0, 0, 0, 0, 0, 1, 1], [0, 0, 0, 0, 0, 0, 0, 0, 1, 1], [0, 0, 0, 0, 0, 0, 0, 0, 1, 1], [0, 0, 0, 0, 0, 0, 0, 0, 0, 1]]\n    Expected: [[1, 0, 1, 0, 0, 1, 0, 0, 0, 0], [0, 0, 1, 0, 0, 1, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0, 0, 0], [5, 5, 5, 5, 5, 5, 5, 5, 5, 5], [0, 0, 0, 0, 0, 0, 0, 0, 0, 0], [1, 1, 0, 0, 0, 0, 0, 0, 0, 0], [1, 1, 0, 0, 0, 0, 0, 0, 0, 0], [1, 1, 0, 0, 0, 0, 0, 0, 0, 0], [1, 1, 0, 0, 0, 0, 0, 0, 1, 0], [1, 1, 0, 0, 0, 0, 0, 0, 1, 1]]\n    Got: [[1, 0, 1, 0, 0, 1, 0, 0, 0, 0], [0, 0, 1, 0, 0, 1, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0, 0, 0], [5, 5, 5, 5, 5, 5, 5, 5, 5, 5], [1, 1, 0, 0, 0, 0, 0, 0, 1, 1], [1, 1, 0, 0, 0, 0, 0, 0, 1, 1], [0, 0, 0, 0, 0, 0, 0, 0, 1, 1], [0, 0, 0, 0, 0, 0, 0, 0, 1, 1], [0, 0, 0, 0, 0, 0, 0, 0, 1, 1], [0, 0, 0, 0, 0, 0, 0, 0, 0, 1]]\n  - Input: [[2, 0, 0, 1, 0, 0, 0, 2, 2, 1], [2, 0, 2, 0, 0, 0, 0, 2, 2, 1], [2, 0, 2, 0, 0, 0, 0, 2, 2, 0], [5, 5, 5, 5, 5, 5, 5, 5, 5, 5], [0, 2, 2, 2, 0, 2, 2, 2, 1, 1], [0, 2, 2, 2, 0, 2, 2, 2, 1, 1], [0, 2, 2, 2, 0, 0, 2, 2, 0, 1], [0, 2, 2, 2, 0, 0, 2, 0, 0, 1], [0, 0, 0, 2, 0, 0, 0, 0, 0, 0], [0, 0, 0, 2, 0, 0, 0, 0, 0, 0]]\n    Expected: [[2, 0, 0, 1, 0, 0, 0, 2, 2, 1], [2, 0, 2, 0, 0, 0, 0, 2, 2, 1], [2, 0, 2, 0, 0, 0, 0, 2, 2, 0], [5, 5, 5, 5, 5, 5, 5, 5, 5, 5], [0, 2, 2, 2, 0, 2, 2, 2, 0, 0], [0, 2, 2, 2, 0, 2, 2, 2, 1, 0], [0, 2, 2, 2, 0, 0, 2, 2, 1, 0], [0, 2, 2, 2, 0, 0, 2, 0, 1, 1], [0, 0, 0, 2, 0, 0, 0, 0, 1, 1], [0, 0, 0, 2, 0, 0, 0, 0, 1, 1]]\n    Got: [[2, 0, 0, 1, 0, 0, 0, 2, 2, 1], [2, 0, 2, 0, 0, 0, 0, 2, 2, 1], [2, 0, 2, 0, 0, 0, 0, 2, 2, 0], [5, 5, 5, 5, 5, 5, 5, 5, 5, 5], [0, 2, 2, 2, 0, 2, 2, 2, 1, 1], [0, 2, 2, 2, 0, 2, 2, 2, 1, 1], [0, 2, 2, 2, 0, 0, 2, 2, 0, 1], [0, 2, 2, 2, 0, 0, 2, 0, 0, 1], [0, 0, 0, 2, 0, 0, 0, 0, 0, 0], [0, 0, 0, 2, 0, 0, 0, 0, 0, 0]]\n\nWrite your next (shorter!) solution in a ```python block."
+    },
+    {
+      "role": "assistant",
+      "content": "```python\ndef p(g):\n L=len(g);o=[r[:]for r in g];h=next(i for i in range(L)if g[i][0]>2)\n for r,row in enumerate(g):\n  for c,v in enumerate(row):\n   if 0<v<3:\n    d=1 if(v>1)==(r>=h)else -1\n    while -1<r<L and(not o[r][c] or o[r][c]==v):o[r][c]=v;r+=d\n return o\n```"
+    },
+    {
+      "role": "user",
+      "content": "## Round 7 / 30 — Result\n❌ **WRONG ANSWER** — 252 bytes\nPassed 3 cases but failed some.\nStill no correct solution yet.\nFailures (first few):\n  - Input: [[0, 0, 0, 0, 0, 0, 0, 0, 0, 0], [0, 2, 0, 1, 0, 0, 0, 0, 2, 0], [0, 0, 0, 0, 0, 0, 1, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0, 0, 0], [5, 5, 5, 5, 5, 5, 5, 5, 5, 5], [0, 0, 0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 1, 0, 0, 2, 0, 0, 0, 0], [2, 0, 0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0, 1, 0]]\n    Expected: [[0, 0, 0, 1, 0, 0, 1, 0, 0, 0], [0, 2, 0, 1, 0, 0, 1, 0, 2, 0], [0, 2, 0, 0, 0, 0, 1, 0, 2, 0], [0, 2, 0, 0, 0, 0, 0, 0, 2, 0], [5, 5, 5, 5, 5, 5, 5, 5, 5, 5], [2, 0, 0, 0, 0, 2, 0, 0, 0, 0], [2, 0, 0, 0, 0, 2, 0, 0, 0, 0], [2, 0, 1, 0, 0, 2, 0, 0, 0, 0], [2, 0, 1, 0, 0, 0, 0, 0, 0, 0], [0, 0, 1, 0, 0, 0, 0, 0, 1, 0]]\n    Got: [[0, 2, 0, 0, 0, 0, 0, 0, 0, 0], [0, 2, 0, 1, 0, 0, 0, 0, 2, 0], [0, 0, 0, 0, 0, 0, 1, 0, 0, 0], [0, 0, 0, 0, 0, 0, 1, 0, 0, 0], [5, 5, 5, 5, 5, 5, 5, 5, 5, 5], [0, 0, 1, 0, 0, 0, 0, 0, 1, 0], [0, 0, 1, 0, 0, 0, 0, 0, 1, 0], [0, 0, 1, 0, 0, 2, 0, 0, 1, 0], [2, 0, 0, 0, 0, 0, 0, 0, 1, 0], [2, 0, 0, 0, 0, 0, 0, 0, 1, 0]]\n  - Input: [[1, 0, 0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 1, 0, 0, 1, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0, 0, 0], [5, 5, 5, 5, 5, 5, 5, 5, 5, 5], [0, 0, 0, 0, 0, 0, 0, 0, 0, 0], [1, 1, 0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0, 1, 0], [0, 0, 0, 0, 0, 0, 0, 0, 0, 1]]\n    Expected: [[1, 0, 1, 0, 0, 1, 0, 0, 0, 0], [0, 0, 1, 0, 0, 1, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0, 0, 0], [5, 5, 5, 5, 5, 5, 5, 5, 5, 5], [0, 0, 0, 0, 0, 0, 0, 0, 0, 0], [1, 1, 0, 0, 0, 0, 0, 0, 0, 0], [1, 1, 0, 0, 0, 0, 0, 0, 0, 0], [1, 1, 0, 0, 0, 0, 0, 0, 0, 0], [1, 1, 0, 0, 0, 0, 0, 0, 1, 0], [1, 1, 0, 0, 0, 0, 0, 0, 1, 1]]\n    Got: [[1, 0, 0, 0, 0, 0, 0, 0, 0, 0], [1, 0, 1, 0, 0, 1, 0, 0, 0, 0], [1, 0, 1, 0, 0, 0, 0, 0, 0, 0], [5, 5, 5, 5, 5, 5, 5, 5, 5, 5], [1, 0, 0, 0, 0, 0, 0, 0, 1, 1], [1, 1, 0, 0, 0, 0, 0, 0, 1, 1], [0, 0, 0, 0, 0, 0, 0, 0, 1, 1], [0, 0, 0, 0, 0, 0, 0, 0, 1, 1], [0, 0, 0, 0, 0, 0, 0, 0, 1, 1], [0, 0, 0, 0, 0, 0, 0, 0, 0, 1]]\n  - Input: [[2, 0, 0, 1, 0, 0, 0, 2, 2, 0], [0, 0, 2, 0, 0, 0, 0, 0, 0, 1], [0, 0, 0, 0, 0, 0, 0, 0, 0, 0], [5, 5, 5, 5, 5, 5, 5, 5, 5, 5], [0, 0, 0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 2, 0, 0, 1, 0], [0, 0, 0, 0, 0, 0, 0, 2, 0, 0], [0, 2, 2, 0, 0, 0, 2, 0, 0, 1], [0, 0, 0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 2, 0, 0, 0, 0, 0, 0]]\n    Expected: [[2, 0, 0, 1, 0, 0, 0, 2, 2, 1], [2, 0, 2, 0, 0, 0, 0, 2, 2, 1], [2, 0, 2, 0, 0, 0, 0, 2, 2, 0], [5, 5, 5, 5, 5, 5, 5, 5, 5, 5], [0, 2, 2, 2, 0, 2, 2, 2, 0, 0], [0, 2, 2, 2, 0, 2, 2, 2, 1, 0], [0, 2, 2, 2, 0, 0, 2, 2, 1, 0], [0, 2, 2, 2, 0, 0, 2, 0, 1, 1], [0, 0, 0, 2, 0, 0, 0, 0, 1, 1], [0, 0, 0, 2, 0, 0, 0, 0, 1, 1]]\n    Got: [[2, 0, 2, 1, 0, 0, 0, 2, 2, 0], [0, 0, 2, 0, 0, 0, 0, 0, 0, 1], [0, 0, 0, 0, 0, 0, 0, 0, 0, 0], [5, 5, 5, 5, 5, 5, 5, 5, 5, 5], [0, 0, 0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 2, 0, 0, 1, 0], [0, 0, 0, 0, 0, 2, 0, 2, 0, 0], [0, 2, 2, 0, 0, 2, 2, 2, 0, 1], [0, 2, 0, 0, 0, 2, 0, 2, 0, 0], [0, 2, 0, 2, 0, 2, 0, 2, 0, 0]]\n\nWrite your next (shorter!) solution in a ```python block."
+    },
+    {
+      "role": "assistant",
+      "content": "```python\ndef p(g):\n n=len(g);o=[r[:]for r in g];h=next(i for i in range(n)if g[i][0]>2)\n for c in range(n):\n  for r in range(n):\n   if 0<(v:=g[r][c])<3:\n    d=-1 if v<2 else 1\n    if r>=h:d=-d\n    r+=d\n    while 0<=r<n and not o[r][c]:o[r][c]=v;r+=d\n return o\n```"
+    },
+    {
+      "role": "user",
+      "content": "## Round 8 / 30 — Result\n✅ **ACCEPTED** — 250 bytes\n🏆 **NEW BEST!** 250 bytes\n\nWrite your next (shorter!) solution in a ```python block."
+    },
+    {
+      "role": "assistant",
+      "content": "```python\ndef p(g):\n L=len(g);h=g.index(max(g,key=lambda r:r[0]))\n for c in range(L):\n  for r in range(L):\n   v=g[r][c];if v<3:\n    d=v*2-3;if r>=h:d=-d\n    r+=d\n    while 0<=r<L and g[r][c]in{0,v}:g[r][c]=v;r+=d\n return g\n```"
+    },
+    {
+      "role": "user",
+      "content": "## Round 9 / 30 — Result\n⚠️ **SYNTAX_ERROR**\nError: SyntaxError: invalid syntax (line 5)\nCurrent best: 250 bytes\n\nWrite your next (shorter!) solution in a ```python block."
+    },
+    {
+      "role": "assistant",
+      "content": "```python\ndef p(g):\n n=len(g);R=range(n);o=[r[:]for r in g];h=g.index(max(g,key=lambda r:r[0]))\n for c in R:\n  for r in R:\n   if 0<(v:=g[r][c])<3:\n    d=v*2-3;r>=h and(d:=-d);r+=d\n    while 0<=r<n and not o[r][c]:o[r][c]=v;r+=d\n return o\n```"
+    },
+    {
+      "role": "user",
+      "content": "## Round 10 / 30 — Result\n✅ **ACCEPTED** — 227 bytes\n🏆 **NEW BEST!** 227 bytes\n\nWrite your next (shorter!) solution in a ```python block."
+    },
+    {
+      "role": "assistant",
+      "content": "```python\ndef p(g):\n L=len(g);h=L-1;o=[r[:]for r in g]\n while g[h][0]<3:h-=1\n for c in range(L):for r in range(L):\n  if 0<(v:=g[r][c])<3:\n   d=v*2-3;r>=h and(d:=-d);r+=d\n   while 0<r<L and not o[r][c]:o[r][c]=v;r+=d\n return o\n```"
+    },
+    {
+      "role": "user",
+      "content": "## Round 11 / 30 — Result\n⚠️ **SYNTAX_ERROR**\nError: SyntaxError: invalid syntax (line 4)\nCurrent best: 227 bytes\n\nWrite your next (shorter!) solution in a ```python block."
+    },
+    {
+      "role": "assistant",
+      "content": "```python\ndef p(g):\n n=len(g);h=0;while g[h][0]<3:h+=1;R=range(n);o=[*map(list,g)]\n for c in R:\n  for r in R:\n   if(v:=g[r][c])in 1,2:\n    d=v*2-3;if r>=h:d=-d;r+=d\n    while 0<=r<n and o[r][c]<1:o[r][c]=v;r+=d\n return o\n```"
+    },
+    {
+      "role": "user",
+      "content": "## Round 12 / 30 — Result\n⚠️ **SYNTAX_ERROR**\nError: SyntaxError: invalid syntax (line 2)\nCurrent best: 227 bytes\n\nWrite your next (shorter!) solution in a ```python block."
+    },
+    {
+      "role": "assistant",
+      "content": "```python\ndef p(g):\n n=len(g);h=n-1;while g[h][0]<3:h-=1;o=[*map(list,g)];R=range(n)\n for c in R:\n  for r in R:\n   if(v:=g[r][c]) and v<3:\n    d=v*2-3;r>=h and(d:=-d);r+=d\n    while 0<=r<n and not o[r][c]:o[r][c]=v;r+=d\n return o\n```"
+    },
+    {
+      "role": "user",
+      "content": "## Round 13 / 30 — Result\n⚠️ **SYNTAX_ERROR**\nError: SyntaxError: invalid syntax (line 2)\nCurrent best: 227 bytes\n\nWrite your next (shorter!) solution in a ```python block."
+    },
+    {
+      "role": "assistant",
+      "content": "```python\ndef p(g):n=len(g);h=n-1;while g[h][0]<3:h-=1;o=[r[:]for r in g]\nfor c in range(n):\n for r in range(n):\n  if(v:=g[r][c])and v<3:\n   d=v*2-3;r>h and(d:=-d)\n   while 0<=r<n and not o[r][c]:o[r][c]=v;r+=d\nreturn o\n```"
+    },
+    {
+      "role": "user",
+      "content": "## Round 14 / 30 — Result\n⚠️ **SYNTAX_ERROR**\nError: SyntaxError: invalid syntax (line 1)\nCurrent best: 227 bytes\n\nWrite your next (shorter!) solution in a ```python block."
+    },
+    {
+      "role": "assistant",
+      "content": "```python\ndef p(g):\n n=len(g);h=n-1;while g[h][0]<3:h-=1;o=[r[:]for r in g];R=range(n)\n for c in R:\n  for r in R:\n   if(v:=g[r][c])and v<3:\n    d=1;if v>1:d=-1 if r>h else 1\n    while 0<=r<n and not o[r][c]:o[r][c]=v;r+=d\n return o\n```"
+    },
+    {
+      "role": "user",
+      "content": "## Round 15 / 30 — Result\n⚠️ **SYNTAX_ERROR**\nError: SyntaxError: invalid syntax (line 2)\nCurrent best: 227 bytes\n\nWrite your next (shorter!) solution in a ```python block."
+    }
+  ]
+}

@@ -1,0 +1,1 @@
+p=lambda g:[[a&b for b in sum(g,[])]for a in sum(g,[])]

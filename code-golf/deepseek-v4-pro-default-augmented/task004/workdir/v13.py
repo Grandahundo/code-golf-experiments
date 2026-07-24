@@ -1,0 +1,1 @@
+p=lambda g:[[g[r][c-1]if c and g[r][c-1]and r+1<len(g)and g[r][c-1]in g[r+1]and(g[r+1][c-1]!=g[r][c-1]or g[r][c:c+1]==[g[r][c-1]])else g[r][c]if g[r][c]and(r+1==len(g)or g[r][c]not in g[r+1]or g[r+1][c]==g[r][c])else 0for c in range(len(g[0]))]for r in range(len(g))]

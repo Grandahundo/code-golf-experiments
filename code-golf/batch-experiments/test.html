@@ -1,0 +1,364 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<title>Code Golf — DeepSeek Experiment Results</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","Helvetica Neue",Arial,sans-serif;background:#fff;color:#111;padding:32px 24px 80px}
+.container{max-width:1400px;margin:0 auto}
+h1{font-size:22px;font-weight:700;margin-bottom:4px}
+h1 span{font-weight:400;color:#888;font-size:15px}
+h2{font-size:15px;font-weight:600;margin:32px 0 12px;padding-bottom:6px;border-bottom:2px solid #000}
+
+/* Tabs */
+.tabs{display:flex;gap:0;margin:20px 0 0}
+.tabs button{padding:8px 22px;font-size:13px;font-weight:600;border:2px solid #000;border-bottom:none;background:#eee;color:#555;cursor:pointer}
+.tabs button.active{background:#fff;color:#000;border-bottom:2px solid #fff;margin-bottom:-2px}
+.tab-panel{display:none}
+.tab-panel.active{display:block}
+
+/* Tables */
+table{width:100%;border-collapse:collapse;font-size:13px;border-top:2px solid #000}
+thead{background:#000;color:#fff}
+th,td{padding:8px 10px;text-align:center;border:1px solid #ccc}
+th{font-weight:600;letter-spacing:.3px}
+td{font-family:"SF Mono",Monaco,Consolas,monospace}
+td.label{font-family:inherit;font-weight:600;text-align:left}
+tbody tr:nth-child(even){background:#f8f8f8}
+tbody tr:hover{background:#eaeaea}
+
+.r-great{color:#1a7a1a;font-weight:700}
+.r-good{color:#2e8b2e}
+.r-ok{color:#b8860b}
+.r-bad{color:#c0392b;font-weight:600}
+.r-fail{color:#999}
+
+.best-cell{font-weight:700;background:#fffde7}
+
+.summary{margin-top:20px;font-size:12px;color:#555;display:flex;gap:14px;flex-wrap:wrap}
+.summary span{padding:5px 10px;border:1px solid #aaa;background:#fff}
+
+/* dist card */
+.dist-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(580px,1fr));gap:18px}
+.dist-card{border:1.5px solid #000;padding:14px 16px 10px;background:#fafafa}
+.dist-card h3{font-size:13px;margin-bottom:2px}
+.dist-card .meta{font-size:10px;color:#888;margin-bottom:8px}
+.dist-row{display:flex;align-items:center;margin-bottom:5px;gap:8px}
+.dist-label{width:78px;font-size:10px;font-weight:600;text-align:right;flex-shrink:0}
+.dist-bar-wrap{flex:1;position:relative;height:20px}
+.dist-bar-wrap svg{width:100%;height:100%;display:block}
+
+.legend{display:flex;gap:14px;font-size:11px;margin:14px 0 8px;align-items:center;flex-wrap:wrap}
+.legend .dot{display:inline-block;width:9px;height:9px;border-radius:50%;margin-right:3px}
+.legend .tri{display:inline-block;width:0;height:0;border-left:5px solid transparent;border-right:5px solid transparent;border-bottom:8px solid;margin-right:3px;vertical-align:middle}
+
+/* mini trial table */
+.trial-table{width:100%;font-size:10px;margin-top:6px;border-collapse:collapse}
+.trial-table td,.trial-table th{padding:3px 6px;border:1px solid #ddd}
+.trial-table .pass{background:#e8f5e9}
+.trial-table .fail{background:#ffebee}
+</style>
+</head>
+<body>
+<div class="container">
+
+<h1>Code Golf — DeepSeek v4 Pro 实验结果 <span>（prompt: "SHORTEST possible Python"）</span></h1>
+
+<div class="tabs">
+  <button id="btn-compare" class="active" onclick="switchTab('compare')">🤖 全模型 vs Human</button>
+  <button id="btn-dist" onclick="switchTab('dist')">📊 分布图</button>
+  <button id="btn-detail" onclick="switchTab('detail')">🔬 DeepSeek 每题详情</button>
+</div>
+
+<!-- ============ TAB 1: COMPARE ============ -->
+<div id="tab-compare" class="tab-panel active">
+  <h2>各模型最优长度 / 人类最优</h2>
+  <table>
+    <thead>
+      <tr>
+        <th>Task</th><th>Human</th>
+        <th>Baseline</th><th>B/H</th>
+        <th>Auto-PAL</th><th>A/H</th>
+        <th>Default</th><th>D/H</th>
+        <th>DeepSeek</th><th>DS/H</th>
+        <th>最优</th>
+      </tr>
+    </thead>
+    <tbody id="compare-body"></tbody>
+  </table>
+  <div class="summary" id="compare-summary"></div>
+</div>
+
+<!-- ============ TAB 2: DISTRIBUTION CHARTS ============ -->
+<div id="tab-dist" class="tab-panel">
+  <div class="legend">
+    <span><span class="dot" style="background:#1a7a1a"></span>人类选手</span>
+    <span><span style="font-weight:700;">▎</span> 人类最优</span>
+    <span><span class="tri" style="border-bottom-color:#c0392b"></span> Baseline</span>
+    <span><span class="tri" style="border-bottom-color:#e67e22"></span> Auto-PAL</span>
+    <span><span class="tri" style="border-bottom-color:#2980b9"></span> Default</span>
+    <span><span class="tri" style="border-bottom-color:#8e44ad"></span> DeepSeek</span>
+    <span style="font-size:10px;color:#888;">横轴 = score/min（1.0 即人类最优）</span>
+  </div>
+  <div class="dist-grid" id="dist-grid"></div>
+</div>
+
+<!-- ============ TAB 3: DEEPSEEK DETAIL ============ -->
+<div id="tab-detail" class="tab-panel">
+  <h2>DeepSeek 每题 5 次 Trial 详情</h2>
+  <div id="detail-cards"></div>
+</div>
+
+</div>
+
+<script>
+// ── DATA ──
+const HUMAN = {
+  "001": {scores:[58,58,58,58,60,60,61,61,61,61,61,61,61,61,61,61,61,61,61,61,61,61,61,61,61,61,61,61,61,61,61,61,61,61,61,61,61,61,61,71,71,74,74,74,74,74,77,105],min:58,n:48,
+    rmse_r:0.1668,p50_r:1.05,p75_r:1.05,p90_r:1.28,max_r:1.81,pct_near:81},
+  "002": {scores:[85,86,88,88,91,92,94,95,96,97,97,98,99,99,101,101,102,102,102,107,107,108,110,126,129,171,188,192,194,196,196,196,196,199,200,200,200,201,202,217,259,259,300,314,338],min:85,n:45,
+    rmse_r:1.1358,p50_r:1.29,p75_r:2.34,p90_r:2.85,max_r:3.98,pct_near:13},
+  "003": {scores:[58,58,58,58,58,58,58,58,58,58,58,58,61,61,61,61,61,61,61,61,61,61,61,61,61,61,62,63,65,65,65,65,65,65,65,65,65,65,65,65,65,66,66,66,66,86],min:58,n:46,
+    rmse_r:0.1092,p50_r:1.05,p75_r:1.12,p90_r:1.13,max_r:1.48,pct_near:61},
+  "004": {scores:[73,73,74,79,80,84,86,91,93,99,99,101,103,104,108,110,119,119,125,132,139,139,149,170,180,190,191,191,191,192,194,194,194,194,194,194,195,222,222,222,222,258],min:73,n:42,
+    rmse_r:1.2484,p50_r:1.9,p75_r:2.66,p90_r:3.0,max_r:3.53,pct_near:12},
+  "005": {scores:[166,166,174,199,221,234,234,235,236,242,242,246,246,250,253,257,273,275,279,279,279,309,330,346,349,358,382,388,396,399,400,409,414,424,437,438,484,494],min:166,n:38,
+    rmse_r:1.0171,p50_r:1.68,p75_r:2.37,p90_r:2.58,max_r:2.98,pct_near:8},
+  "006": {scores:[49,49,49,49,49,51,51,51,51,51,51,51,51,51,53,53,53,53,53,53,53,53,53,53,53,53,53,53,53,53,53,53,53,53,54,57,57,57,57,57,57,59,70,70,71,71,71],min:49,n:47,
+    rmse_r:0.1684,p50_r:1.08,p75_r:1.13,p90_r:1.29,max_r:1.45,pct_near:72},
+  "007": {scores:[62,62,62,63,63,64,64,64,64,64,64,64,67,68,72,72,72,72,72,72,72,72,72,74,84,84,97,98,98,103,104,104,108,118,124,126,135,142,142,142,155,155,155,180],min:62,n:44,
+    rmse_r:0.7243,p50_r:1.16,p75_r:1.78,p90_r:2.29,max_r:2.9,pct_near:32},
+  "008": {scores:[83,84,84,90,97,99,99,99,101,103,104,114,115,120,122,125,127,142,146,149,152,184,184,184,186,186,189,218,221,222,236,238,277,290,296,296,299,320,323,394],min:83,n:40,
+    rmse_r:1.5033,p50_r:1.81,p75_r:2.72,p90_r:3.57,max_r:4.75,pct_near:10},
+  "009": {scores:[95,95,107,108,108,109,109,109,112,112,113,113,116,116,118,119,121,123,123,126,147,158,166,167,207,216,223,226,229,240,263,263,263,263,279,279,281,305,317,323,507],min:95,n:41,
+    rmse_r:1.3299,p50_r:1.55,p75_r:2.77,p90_r:2.96,max_r:5.34,pct_near:5},
+  "010": {scores:[66,66,67,67,68,70,71,71,71,72,72,77,77,80,82,82,83,83,87,87,87,88,89,89,92,94,94,94,94,94,94,94,94,95,95,95,95,101,106,106,106,106,106,106,108],min:66,n:45,
+    rmse_r:0.3743,p50_r:1.35,p75_r:1.44,p90_r:1.61,max_r:1.64,pct_near:24}
+};
+
+const MODELS = {
+  "001": {baseline:61, autopal:61, default:59},
+  "002": {baseline:243, autopal:276, default:1869},
+  "003": {baseline:60, autopal:96, default:56},
+  "004": {baseline:180, autopal:175, default:327},
+  "005": {baseline:342, autopal:980, default:74},
+  "006": {baseline:52, autopal:53, default:53},
+  "007": {baseline:92, autopal:72, default:72},
+  "008": {baseline:377, autopal:602, default:298},
+  "009": {baseline:306, autopal:410, default:99},
+  "010": {baseline:103, autopal:103, default:71}
+};
+
+// DeepSeek trial results
+const DS = {
+  "001": [{trial:1,bytes:92,correct:false},{trial:2,bytes:78,correct:true},{trial:3,bytes:78,correct:true},{trial:4,bytes:107,correct:true},{trial:5,bytes:96,correct:true}],
+  "002": [{trial:1,bytes:239,correct:false},{trial:2,bytes:316,correct:false},{trial:3,bytes:292,correct:false},{trial:4,bytes:285,correct:true},{trial:5,bytes:292,correct:false}],
+  "003": [{trial:1,bytes:149,correct:true},{trial:2,bytes:93,correct:true},{trial:3,bytes:155,correct:true},{trial:4,bytes:131,correct:false},{trial:5,bytes:132,correct:true}],
+  "004": [{trial:1,bytes:254,correct:true},{trial:2,bytes:313,correct:true},{trial:3,bytes:248,correct:true},{trial:4,bytes:372,correct:false},{trial:5,bytes:478,correct:true}],
+  "005": [{trial:1,bytes:1743,correct:false},{trial:2,bytes:1,correct:false},{trial:3,bytes:1,correct:false},{trial:4,bytes:936,correct:false},{trial:5,bytes:987,correct:false}],
+  "006": [{trial:1,bytes:76,correct:false},{trial:2,bytes:59,correct:true},{trial:3,bytes:64,correct:true},{trial:4,bytes:75,correct:false},{trial:5,bytes:74,correct:false}],
+  "007": [{trial:1,bytes:160,correct:true},{trial:2,bytes:143,correct:true},{trial:3,bytes:165,correct:true},{trial:4,bytes:128,correct:true},{trial:5,bytes:176,correct:true}],
+  "008": [{trial:1,bytes:414,correct:true},{trial:2,bytes:414,correct:false},{trial:3,bytes:341,correct:false},{trial:4,bytes:407,correct:true},{trial:5,bytes:518,correct:true}],
+  "009": [{trial:1,bytes:596,correct:true},{trial:2,bytes:421,correct:true},{trial:3,bytes:773,correct:false},{trial:4,bytes:571,correct:false},{trial:5,bytes:479,correct:true}],
+  "010": [{trial:1,bytes:193,correct:false},{trial:2,bytes:193,correct:true},{trial:3,bytes:123,correct:true},{trial:4,bytes:91,correct:true},{trial:5,bytes:209,correct:true}]
+};
+
+function dsBest(tid) {
+  const ok = DS[tid].filter(t=>t.correct);
+  return ok.length ? Math.min(...ok.map(t=>t.bytes)) : null;
+}
+function dsOk(tid) { return DS[tid].filter(t=>t.correct).length; }
+
+const MCOLORS = {baseline:"#c0392b",autopal:"#e67e22",default:"#2980b9",deepseek:"#8e44ad"};
+const MLABELS = {baseline:"Baseline",autopal:"Auto-PAL",default:"Default",deepseek:"DeepSeek"};
+
+function rCls(v) {
+  if (v === null) return 'r-fail';
+  if (v <= 1.1) return 'r-great';
+  if (v <= 1.5) return 'r-good';
+  if (v <= 3.0) return 'r-ok';
+  return 'r-bad';
+}
+
+// ══════════════ TAB 1: COMPARE ══════════════
+function buildCompare() {
+  const tasks = Object.keys(MODELS).sort();
+  let html = '';
+  const geos = {baseline:[],autopal:[],default:[],deepseek:[]};
+  const wins = {human:0,baseline:0,autopal:0,default:0,deepseek:0};
+
+  tasks.forEach(tid => {
+    const h = HUMAN[tid].min;
+    const m = MODELS[tid];
+    const dsBestVal = dsBest(tid);
+    const ratios = {};
+    ['baseline','autopal','default'].forEach(k => { ratios[k] = m[k]/h; geos[k].push(ratios[k]); });
+    const dsRatio = dsBestVal ? dsBestVal/h : null;
+    if (dsRatio) geos.deepseek.push(dsRatio);
+
+    const rCell = (k, val) => {
+      const cls = rCls(val !== null ? val/h : null);
+      return `<td class="${cls}">${val !== null ? val+'B' : '—'}</td><td class="${cls}">${val !== null ? (val/h).toFixed(2)+'×' : '—'}</td>`;
+    };
+
+    const all = [{k:'human',v:h},{k:'baseline',v:m.baseline},{k:'autopal',v:m.autopal},{k:'default',v:m.default}];
+    if (dsBestVal !== null) all.push({k:'deepseek',v:dsBestVal});
+    all.sort((a,b)=>a.v-b.v);
+    const bestName = all[0].k==='human'?'Human':all[0].k==='baseline'?'Baseline':all[0].k==='autopal'?'Auto-PAL':all[0].k==='default'?'Default':'DeepSeek';
+    if (all[0].k !== 'human') wins[all[0].k]++; else wins.human++;
+
+    const bestDS = dsBestVal !== null ? dsBestVal+'B' : '—';
+
+    html += `<tr>
+      <td style="font-weight:700;">${tid}</td>
+      <td style="font-weight:700;">${h}B</td>
+      ${rCell('baseline',m.baseline)}
+      ${rCell('autopal',m.autopal)}
+      ${rCell('default',m.default)}
+      <td class="${rCls(dsRatio)}">${bestDS}</td>
+      <td class="${rCls(dsRatio)}">${dsRatio ? dsRatio.toFixed(2)+'×' : '—'}</td>
+      <td style="font-weight:600;">${bestName}</td>
+    </tr>`;
+  });
+
+  function geoMean(arr) { return arr.length ? Math.exp(arr.reduce((s,v)=>s+Math.log(v),0)/arr.length) : 0; }
+  const g = {};
+  ['baseline','autopal','default','deepseek'].forEach(k => { g[k] = geoMean(geos[k]); });
+
+  html += `<tr style="border-top:2px solid #000;font-weight:700;">
+    <td>几何平均</td><td>—</td>
+    <td colspan="2" class="${rCls(g.baseline)}">${g.baseline.toFixed(2)}×</td>
+    <td colspan="2" class="${rCls(g.autopal)}">${g.autopal.toFixed(2)}×</td>
+    <td colspan="2" class="${rCls(g.default)}">${g.default.toFixed(2)}×</td>
+    <td colspan="2" class="${rCls(g.deepseek)}">${g.deepseek.toFixed(2)}×</td>
+    <td>—</td>
+  </tr>`;
+  document.getElementById('compare-body').innerHTML = html;
+
+  document.getElementById('compare-summary').innerHTML = `
+    <span><strong>Baseline:</strong> 几何 ${g.baseline.toFixed(2)}× | 胜 ${wins.baseline} 题</span>
+    <span><strong>Auto-PAL:</strong> 几何 ${g.autopal.toFixed(2)}× | 胜 ${wins.autopal} 题</span>
+    <span><strong>Default:</strong> 几何 ${g.default.toFixed(2)}× | 胜 ${wins.default} 题</span>
+    <span><strong>DeepSeek:</strong> 几何 ${g.deepseek.toFixed(2)}× | 胜 ${wins.deepseek} 题</span>
+    <span><strong>Human:</strong> 胜 ${wins.human} 题</span>
+  `;
+}
+
+// ══════════════ TAB 2: DIST ══════════════
+function buildDist() {
+  const grid = document.getElementById('dist-grid');
+  const tasks = Object.keys(HUMAN).sort();
+  let html = '';
+
+  tasks.forEach(tid => {
+    const d = HUMAN[tid];
+    const m = MODELS[tid];
+    const dsb = dsBest(tid);
+    const allModelVals = [m.baseline,m.autopal,m.default];
+    if (dsb !== null) allModelVals.push(dsb);
+    const maxRatio = Math.max(d.max_r, ...allModelVals.map(v=>v/d.min), 1.6);
+    const xMax = Math.ceil(maxRatio * 1.08);
+
+    const points = [];
+    const bins = new Map();
+    d.scores.forEach(s => {
+      const r = s/d.min;
+      const key = s;
+      if (!bins.has(key)) bins.set(key,[]);
+      bins.get(key).push(r);
+    });
+    bins.forEach(ratios => {
+      const n = ratios.length;
+      ratios.forEach((r,i) => {
+        points.push({x:r, y:0.1 + (n===1?0.5:i/(n-1))*0.8});
+      });
+    });
+
+    const svgW=800, svgH=85, padL=50, padR=50, padT=10, padB=18;
+    const plotW=svgW-padL-padR, plotH=svgH-padT-padB;
+    const toX = r => padL + ((r-1)/(xMax-1))*plotW;
+
+    let ticks='';
+    const step = xMax<=2.5 ? 0.25 : (xMax<=5?0.5:1.0);
+    for (let v=1.0; v<=xMax+0.001; v+=step) {
+      const x=toX(v);
+      ticks+=`<line x1="${x}" y1="${padT}" x2="${x}" y2="${svgH-padB}" stroke="#ddd" stroke-width="0.5"/>`;
+      ticks+=`<text x="${x}" y="${svgH-3}" text-anchor="middle" font-size="9" fill="#888">${v.toFixed(v%1===0?0:1)}×</text>`;
+    }
+
+    let dots='';
+    points.forEach(p => {
+      dots+=`<circle cx="${toX(p.x)}" cy="${padT+p.y*plotH}" r="2.5" fill="#1a7a1a" opacity="0.5"><title>${(p.x*d.min).toFixed(0)}B (${p.x.toFixed(2)}×)</title></circle>`;
+    });
+
+    // min line
+    const minX=toX(1);
+    let extras=`<line x1="${minX}" y1="${padT}" x2="${minX}" y2="${svgH-padB}" stroke="#000" stroke-width="2" stroke-dasharray="3,2"/>`;
+    extras+=`<text x="${minX}" y="${padT-2}" text-anchor="middle" font-size="9" font-weight="700" fill="#000">${d.min}B</text>`;
+
+    // model markers
+    const mds = [
+      {k:'baseline',v:m.baseline},
+      {k:'autopal',v:m.autopal},
+      {k:'default',v:m.default},
+    ];
+    if (dsb !== null) mds.push({k:'deepseek',v:dsb});
+
+    mds.forEach((md,idx) => {
+      const r=md.v/d.min;
+      if (r<=xMax) {
+        const rx=toX(r), triY=padT+idx*9;
+        extras+=`<polygon points="${rx-4},${triY+3} ${rx+4},${triY+3} ${rx},${triY-3}" fill="${MCOLORS[md.k]}"/>`;
+        extras+=`<text x="${rx}" y="${triY+12}" text-anchor="middle" font-size="8" font-weight="600" fill="${MCOLORS[md.k]}">${md.v}B</text>`;
+      }
+    });
+
+    const svg=`<svg viewBox="0 0 ${svgW} ${svgH}" style="width:100%;height:auto">${ticks}${dots}${extras}</svg>`;
+
+    html+=`<div class="dist-card">
+      <h3>Task ${tid} <span style="font-weight:400;font-size:11px;color:#888;">human min=${d.min}B, n=${d.n}, DS best=${dsb!==null?dsb+'B':'—'}</span></h3>
+      <div class="dist-row"><div class="dist-bar-wrap">${svg}</div></div>
+    </div>`;
+  });
+  grid.innerHTML=html;
+}
+
+// ══════════════ TAB 3: DETAIL ══════════════
+function buildDetail() {
+  const tasks = Object.keys(DS).sort();
+  let html='';
+  tasks.forEach(tid => {
+    const h=HUMAN[tid].min;
+    const dsData=DS[tid];
+    const dsb=dsBest(tid);
+    let trialsHtml='';
+    dsData.forEach(t=>{
+      const cls=t.correct?'pass':'fail';
+      const icon=t.correct?'✓':'✗';
+      const ratio=t.bytes/h;
+      trialsHtml+=`<td class="${cls}">T${t.trial}: ${t.bytes}B ${icon}<br><span style="font-size:9px;color:#888">${ratio.toFixed(2)}× human</span></td>`;
+    });
+
+    html+=`<div style="border:1px solid #000;padding:12px 14px;margin-bottom:12px;background:#fafafa">
+      <strong>Task ${tid}</strong> &nbsp; Human: ${h}B &nbsp;|&nbsp; DS best: <strong>${dsb!==null?dsb+'B ('+(dsb/h).toFixed(2)+'×)':'全败'}</strong> &nbsp;|&nbsp; ${dsOk(tid)}/5 correct
+      <table class="trial-table" style="margin-top:6px"><tr>${trialsHtml}</tr></table>
+    </div>`;
+  });
+  document.getElementById('detail-cards').innerHTML=html;
+}
+
+// ── Init ──
+buildCompare();
+buildDist();
+buildDetail();
+
+function switchTab(name) {
+  document.querySelectorAll('.tab-panel').forEach(p=>p.classList.remove('active'));
+  document.querySelectorAll('.tabs button').forEach(b=>b.classList.remove('active'));
+  document.getElementById('tab-'+name).classList.add('active');
+  document.getElementById('btn-'+name).classList.add('active');
+}
+</script>
+</body>
+</html>

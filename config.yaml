@@ -1,0 +1,90 @@
+# Code Golf Benchmark — v2 Configuration
+# ==========================================
+
+python_bin: python3
+max_rounds: 30
+history_window: 3
+temperature: 0.7
+timeout_s: 5.0
+memory_mb: 512
+token_budget_per_job: 1_500_000
+prompt_token_budget: 22_000
+
+# ── Paths ─────────────────────────────────────────────────
+tasks_dir: code-golf/google-code-golf-2025
+gen_dir:   code-golf/deepseek-v4-pro-baseline
+
+# ── Judge ─────────────────────────────────────────────────
+per_case_timeout: 2.0
+max_failures_shown: 3
+max_failure_chars: 500
+short_circuit_failures: 3     # stop after 3 failures (unless already correct)
+judge_timeout_padding: 10     # base padding added to per-case time
+judge_max_timeout: 120        # hard cap on total subprocess timeout
+
+# ── Early stopping (null = disabled) ──────────────────────
+early_stop:
+  no_improve_rounds: null
+
+# ── Prompt ────────────────────────────────────────────────
+train_examples_max: 3
+train_example_max_chars: 1500
+gen_source_max_chars: 8000
+include_common: false
+scratchpad_max_chars: 3000
+
+# ── Concurrency ───────────────────────────────────────────
+progress_interval_s: 60
+
+# ── Models ────────────────────────────────────────────────
+models:
+  deepseek-v4-pro:
+    provider: openai_compatible
+    base_url: https://api.deepseek.com/v1
+    model_name: deepseek-reasoner
+    api_key: <your-api-key>
+    max_concurrency: 8
+    max_output_tokens: 16384
+    extra_body:
+      thinking:
+        type: enabled
+    price_per_mtok:
+      input: 0.27
+      output: 1.10
+      cached_input: 0.027
+
+  glm-5:
+    provider: openai_compatible
+    base_url: https://open.bigmodel.cn/api/paas/v4
+    model_name: glm-4.7
+    api_key: <your-api-key>
+    max_concurrency: 8
+    max_output_tokens: 16384
+    price_per_mtok:
+      input: 0.55
+      output: 2.20
+      cached_input: 0.055
+
+  qwen-3-max:
+    provider: openai_compatible
+    base_url: https://dashscope-intl.aliyuncs.com/compatible-mode/v1
+    model_name: qwen-max
+    api_key: <your-api-key>
+    max_concurrency: 8
+    max_output_tokens: 16384
+    price_per_mtok:
+      input: 1.60
+      output: 6.40
+      cached_input: 0.0
+
+  # claude-sonnet:
+  #   provider: anthropic
+  #   model_name: claude-sonnet-4-5
+  #   api_key_env: ANTHROPIC_API_KEY
+  #   max_concurrency: 4
+  #   max_output_tokens: 16384
+  #   cache_system_prefix: true
+  #   price_per_mtok:
+  #     input: 3.0
+  #     output: 15.0
+  #     cached_input: 0.3

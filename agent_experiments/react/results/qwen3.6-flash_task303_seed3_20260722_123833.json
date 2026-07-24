@@ -1,0 +1,323 @@
+{
+  "solved": true,
+  "bytes": 131,
+  "code": "def p(g):e=enumerate;R=[max(r)<1 for r in g];C=[max(c)<1 for c in zip(*g)];return[[[v,2][R[i]|C[j]]for j,v in e(r)]for i,r in e(g)]",
+  "history": [
+    {
+      "round": 1,
+      "code": "def p(g):\n n,m=len(g),len(g[0])\n R={i for i,r in enumerate(g)if len(set(r))<2}\n C={j for j in range(m)if len({g[i][j]for i in range(n)})<2}\n return[[2*(i in R or j in C)+g[i][j]*not(i in R or j in C)for j in range(m)]for i in range(n)]",
+      "status": "syntax_error",
+      "bytes": 0,
+      "passed": 0,
+      "total": 262,
+      "error": "SyntaxError: invalid syntax (line 5)",
+      "elapsed_s": 42.2
+    },
+    {
+      "round": 2,
+      "code": "def p(g):\n H,W=len(g),len(g[0])\n R={i for i,r in enumerate(g)if len(set(r))<2}\n C={j for j,c in enumerate(zip(*g))if len(set(c))<2}\n return[[2 if i in R or j in C else g[i][j]for j in range(W)]for i in range(H)]",
+      "status": "correct",
+      "bytes": 211,
+      "passed": 262,
+      "total": 262,
+      "error": "",
+      "elapsed_s": 45.87
+    },
+    {
+      "round": 3,
+      "code": "def p(g):\n R={i for i,r in enumerate(g)if not any(r)}\n C={j for j,c in enumerate(zip(*g))if not any(c)}\n return[[2 if i in R or j in C else g[i][j]for j in range(len(g[0]))]for i in range(len(g))]",
+      "status": "correct",
+      "bytes": 196,
+      "passed": 262,
+      "total": 262,
+      "error": "",
+      "elapsed_s": 51.04
+    },
+    {
+      "round": 4,
+      "code": "def p(g):R={i for i,r in enumerate(g)if not any(r)};C={j for j,c in enumerate(zip(*g))if not any(c)};return[[2 if i in R or j in C else v for j,v in enumerate(r)]for i,r in enumerate(g)]",
+      "status": "correct",
+      "bytes": 186,
+      "passed": 262,
+      "total": 262,
+      "error": "",
+      "elapsed_s": 60.72
+    },
+    {
+      "round": 5,
+      "code": "def p(g):R={i for i,r in enumerate(g)if not any(r)};C={j for j,c in enumerate(zip(*g))if not any(c)};return[[2 if i in R or j in C else v for j,v in enumerate(r)]for i,r in enumerate(g)]",
+      "status": "correct",
+      "bytes": 186,
+      "passed": 262,
+      "total": 262,
+      "error": "",
+      "elapsed_s": 58.77
+    },
+    {
+      "round": 6,
+      "code": "def p(g):R={i for i,r in enumerate(g)if not any(r)};C={j for j,c in enumerate(zip(*g))if not any(c)};return[[2 if i in R or j in C else v for j,v in enumerate(r)]for i,r in enumerate(g)]",
+      "status": "correct",
+      "bytes": 186,
+      "passed": 262,
+      "total": 262,
+      "error": "",
+      "elapsed_s": 42.78
+    },
+    {
+      "round": 7,
+      "code": "def p(g):e=enumerate;R={i for i,r in e(g)if sum(r)<1};C={j for j,c in e(zip(*g))if sum(c)<1};return[[2 if i in R or j in C else v for j,v in e(r)]for i,r in e(g)]",
+      "status": "correct",
+      "bytes": 162,
+      "passed": 262,
+      "total": 262,
+      "error": "",
+      "elapsed_s": 75.58
+    },
+    {
+      "round": 8,
+      "code": "def p(g):e=enumerate;R={i for i,r in e(g)if sum(r)<1};C={j for j,c in e(zip(*g))if sum(c)<1};return[[2 if i in R or j in C else v for j,v in e(r)]for i,r in e(g)]",
+      "status": "correct",
+      "bytes": 162,
+      "passed": 262,
+      "total": 262,
+      "error": "",
+      "elapsed_s": 64.15
+    },
+    {
+      "round": 9,
+      "code": "def p(g):e=enumerate;R=[i for i,r in e(g)if not any(r)];C=[j for j,c in e(zip(*g))if not any(c)];return[[[v,2][i in R|j in C]for j,v in e(r)]for i,r in e(g)]",
+      "status": "crash",
+      "bytes": 157,
+      "passed": 0,
+      "total": 262,
+      "error": "3 case(s) crashed: TypeError: unsupported operand type(s) for |: 'list' and 'int'; TypeError: unsupported operand type(s) for |: 'list' and 'int'; TypeError: unsupported operand type(s) for |: 'list' and 'int'",
+      "elapsed_s": 67.1
+    },
+    {
+      "round": 10,
+      "code": "def p(g):e=enumerate;R=[i for i,r in e(g)if not any(r)];C=[j for j,c in e(zip(*g))if not any(c)];return[[[v,2][i in R or j in C]for j,v in e(r)]for i,r in e(g)]",
+      "status": "correct",
+      "bytes": 160,
+      "passed": 262,
+      "total": 262,
+      "error": "",
+      "elapsed_s": 85.04
+    },
+    {
+      "round": 11,
+      "code": "def p(g):e=enumerate;R={i for i,r in e(g)if any(r)<1};C={j for j,c in e(zip(*g))if any(c)<1};return[[[v,2][i in R or j in C]for j,v in e(r)]for i,r in e(g)]",
+      "status": "correct",
+      "bytes": 156,
+      "passed": 262,
+      "total": 262,
+      "error": "",
+      "elapsed_s": 67.79
+    },
+    {
+      "round": 12,
+      "code": "def p(g):e=enumerate;R=[max(r)<1 for r in g];C=[max(c)<1 for c in zip(*g)];return[[[v,2][R[i]|C[j]]for j,v in e(r)]for i,r in e(g)]",
+      "status": "correct",
+      "bytes": 131,
+      "passed": 262,
+      "total": 262,
+      "error": "",
+      "elapsed_s": 191.83
+    },
+    {
+      "round": 13,
+      "code": "def p(g):e=enumerate;R=[max(r)<1 for r in g];C=[max(c)<1 for c in zip(*g)];return[[[v,2][R[i]|C[j]]for j,v in e(r)]for i,r in e(g)]",
+      "status": "correct",
+      "bytes": 131,
+      "passed": 262,
+      "total": 262,
+      "error": "",
+      "elapsed_s": 214.91
+    },
+    {
+      "round": 14,
+      "code": "def p(g):e=enumerate;R=[max(r)<1 for r in g];C=[max(c)<1 for c in zip(*g)];return[[[v,2][R[i]|C[j]]for j,v in e(r)]for i,r in e(g)]",
+      "status": "correct",
+      "bytes": 131,
+      "passed": 262,
+      "total": 262,
+      "error": "",
+      "elapsed_s": 33.49
+    },
+    {
+      "round": 15,
+      "code": "def p(g):e=enumerate;R=[max(r)<1 for r in g];C=[max(c)<1 for c in zip(*g)];return[[[v,2][R[i]|C[j]]for j,v in e(r)]for i,r in e(g)]",
+      "status": "correct",
+      "bytes": 131,
+      "passed": 262,
+      "total": 262,
+      "error": "",
+      "elapsed_s": 40.65
+    },
+    {
+      "round": 16,
+      "code": "def p(g):e=enumerate;R=[max(r)<1 for r in g];C=[max(c)<1 for c in zip(*g)];return[[[v,2][R[i]|C[j]]for j,v in e(r)]for i,r in e(g)]",
+      "status": "correct",
+      "bytes": 131,
+      "passed": 262,
+      "total": 262,
+      "error": "",
+      "elapsed_s": 19.77
+    },
+    {
+      "round": 17,
+      "code": "def p(g):e=enumerate;R=[max(r)<1 for r in g];C=[max(c)<1 for c in zip(*g)];return[[[v,2][R[i]|C[j]]for j,v in e(r)]for i,r in e(g)]",
+      "status": "correct",
+      "bytes": 131,
+      "passed": 262,
+      "total": 262,
+      "error": "",
+      "elapsed_s": 33.49
+    }
+  ],
+  "messages": [
+    {
+      "role": "system",
+      "content": "You are a code golf expert participating in a 30-round iterative code golf competition.\n\n## Goal\nWrite the **shortest possible Python program** that defines `p(grid) -> grid` and passes ALL test cases.\n\n## Rules\n- `p` receives a nested list of ints and must return a nested list of ints (0-9 only).\n- Score = UTF-8 byte count of your code (fewer = better).\n- Define `p` as `def p(g):` or `p = lambda g:`.  Must be the callable name `p`.\n- Standard library only.  No numpy / scipy / third-party packages.\n- The judge auto-converts booleans → 0/1 and integral floats → ints (numpy.array_equal semantics).\n\n## Strategy\n1. Study the generator code — it IS the ground truth for the transformation rule.\n2. **First get a correct solution** (any length), then compress aggressively.\n3. In each round, try ONE optimization / new approach.  Verify by submitting.\n4. If stuck, try radically different approaches: different algorithms, data structures, builtins.\n\n## Output Format\nYour reply MUST contain a single ````python` code block with your complete program.\nOnly the LAST python block is judged.\nYou may also include brief reasoning before the code block."
+    },
+    {
+      "role": "user",
+      "content": "## Task: task303\n\n## Generator Code (ground truth for the transformation rule)\n```python\ndef generate(width=None, height=None, colors=None, rows=None, cols=None):\n  \"\"\"Returns input and output grids according to the given parameters.\n\n  Args:\n    width: the width of the input grid\n    height: the height of the input grid\n    colors: a list of colors to be used\n    rows: a list of vertical coordinates where straightaways should be placed\n    cols: a list of horizontal coordinates where straightaways should be placed\n  \"\"\"\n  if rows is None:\n    width, height = common.randint(10, 30), common.randint(10, 30)\n    rows = common.sample(range(1, height - 1), common.randint(0, 3))\n    cols = common.sample(range(1, width - 1), common.randint(0, 3))\n    color = common.random_color(exclude=[common.red()])\n    # Create static, but ensure that all rows and cols have it.\n    while True:\n      colors = []\n      for _ in range(height):\n        for _ in range(width):\n          colors.append(common.black() if not common.randint(0, 4) else color)\n      legal = True\n      for r in range(height):\n        if len(set([colors[r * width + c] for c in range(width)])) < 2:\n          legal = False\n      for c in range(width):\n        if len(set([colors[r * width + c] for r in range(height)])) < 2:\n          legal = False\n      if legal: break\n    # Draw lines\n    for r in range(height):\n      for c in range(width):\n        if r in rows or c in cols: colors[r * width + c] = common.black()\n\n  grid, output = common.grids(width, height)\n  for r in range(height):\n    for c in range(width):\n      output[r][c] = grid[r][c] = colors[r * width + c]\n      output[r][c] = common.red() if r in rows or c in cols else output[r][c]\n  return {\"input\": grid, \"output\": output}\n```\n\n## Training Examples\n### Example 1\n\nInput:\n1000111101101010111\n1010111100111111011\n1111001101000101010\n1011111101111111111\n1011011101111111111\n1101011000010110001\n1001101001111111010\n1100111101011101111\n0000000000000000000\n1110011101001111111\n1100110001100010101\n1010100101111001111\n\nOutput:\n1000111121101010111\n1010111120111111011\n1111001121000101010\n1011111121111111111\n1011011121111111111\n1101011020010110001\n1001101021111111010\n1100111121011101111\n2222222222222222222\n1110011121001111111\n1100110021100010101\n1010100121111001111\n\n### Example 2\n\nInput:\n88880888880088\n08000088880888\n88080888880088\n80880880080880\n88880880000888\n88800880800888\n80880888880008\n88000800880088\n80080888080888\n88080888880080\n08080000000808\n88880888880080\n\nOutput:\n88882888882088\n08002088882888\n88082888882088\n80882880082880\n88882880002888\n88802880802888\n80882888882008\n88002800882088\n80082888082888\n88082888882080\n08082000002808\n88882888882080\n\n### Example 3\n\nInput:\n303333303330303\n303033303030030\n000000000000000\n300300330303300\n303333333303333\n303333330033033\n003030303003330\n300333003033003\n303333303333303\n300330333333330\n303333330333033\n303330300303330\n000000000000000\n303003033033330\n300303303033003\n300333330330033\n003303300303030\n\nOutput:\n323333303330303\n323033303030030\n222222222222222\n320300330303300\n323333333303333\n323333330033033\n023030303003330\n320333003033003\n323333303333303\n320330333333330\n323333330333033\n323330300303330\n222222222222222\n323003033033330\n320303303033003\n320333330330033\n023303300303030\n\n## Status\nRound 1 / 30\n\n**Best so far: NONE** — you need to get ANY correct solution first.\n\nWrite your code in a ```python block.  Good luck!"
+    },
+    {
+      "role": "assistant",
+      "content": "Looking at the generator code, I can see the transformation rule:\n\n1. The input grid is generated with a background of two colors, plus certain \"line\" rows/columns painted black (0)\n2. The guarantee: every row and column has at least 2 different colors BEFORE lines are drawn\n3. Therefore, any **monochromatic row or column** in the input IS a line\n4. In the output, all cells in line rows/columns become red (2)\n\nSo the algorithm is: find all monochromatic rows and columns, replace their cells with 2.\n\nLet me verify with the examples:\n- Example 1: Row 8 (all 0s) and column 8 (all 0s) → become 2s ✓\n- Example 2: Columns 4 and 10 (all 0s) → become 2s ✓  \n- Example 3: Rows 2, 12 and columns 1, 10 (all 0s) → become 2s ✓\n\n```python\ndef p(g):\n n,m=len(g),len(g[0])\n R={i for i,r in enumerate(g)if len(set(r))<2}\n C={j for j in range(m)if len({g[i][j]for i in range(n)})<2}\n return[[2*(i in R or j in C)+g[i][j]*not(i in R or j in C)for j in range(m)]for i in range(n)]\n```"
+    },
+    {
+      "role": "user",
+      "content": "## Round 1 / 30 — Result\n⚠️ **SYNTAX_ERROR**\nError: SyntaxError: invalid syntax (line 5)\nStill no correct solution yet.\n\nWrite your next (shorter!) solution in a ```python block."
+    },
+    {
+      "role": "assistant",
+      "content": "Based on the generator code, the transformation rule is straightforward:\n1. Lines (straightaways) are painted `0` (black) in the input grid.\n2. The generator guarantees that every row/column originally contains the background color, meaning **only the actual lines become monochromatic** (all `0`s).\n3. In the output, cells belonging to these line rows/columns are changed to `2` (red).\n\nThus, the algorithm is simply: detect monochromatic rows and columns, and replace their cells with `2`.\n\n```python\ndef p(g):\n H,W=len(g),len(g[0])\n R={i for i,r in enumerate(g)if len(set(r))<2}\n C={j for j,c in enumerate(zip(*g))if len(set(c))<2}\n return[[2 if i in R or j in C else g[i][j]for j in range(W)]for i in range(H)]\n```"
+    },
+    {
+      "role": "user",
+      "content": "## Round 2 / 30 — Result\n✅ **ACCEPTED** — 211 bytes\n🏆 **NEW BEST!** 211 bytes\n\nWrite your next (shorter!) solution in a ```python block."
+    },
+    {
+      "role": "assistant",
+      "content": "```python\ndef p(g):\n R={i for i,r in enumerate(g)if not any(r)}\n C={j for j,c in enumerate(zip(*g))if not any(c)}\n return[[2 if i in R or j in C else g[i][j]for j in range(len(g[0]))]for i in range(len(g))]\n```"
+    },
+    {
+      "role": "user",
+      "content": "## Round 3 / 30 — Result\n✅ **ACCEPTED** — 196 bytes\n🏆 **NEW BEST!** 196 bytes\n\nWrite your next (shorter!) solution in a ```python block."
+    },
+    {
+      "role": "assistant",
+      "content": "```python\ndef p(g):R={i for i,r in enumerate(g)if not any(r)};C={j for j,c in enumerate(zip(*g))if not any(c)};return[[2 if i in R or j in C else v for j,v in enumerate(r)]for i,r in enumerate(g)]\n```"
+    },
+    {
+      "role": "user",
+      "content": "## Round 4 / 30 — Result\n✅ **ACCEPTED** — 186 bytes\n🏆 **NEW BEST!** 186 bytes\n\nWrite your next (shorter!) solution in a ```python block."
+    },
+    {
+      "role": "assistant",
+      "content": "```python\ndef p(g):R={i for i,r in enumerate(g)if not any(r)};C={j for j,c in enumerate(zip(*g))if not any(c)};return[[2 if i in R or j in C else v for j,v in enumerate(r)]for i,r in enumerate(g)]\n```"
+    },
+    {
+      "role": "user",
+      "content": "## Round 5 / 30 — Result\n✅ **ACCEPTED** — 186 bytes\n🏆 **NEW BEST!** 186 bytes\n\nWrite your next (shorter!) solution in a ```python block."
+    },
+    {
+      "role": "assistant",
+      "content": "```python\ndef p(g):R={i for i,r in enumerate(g)if not any(r)};C={j for j,c in enumerate(zip(*g))if not any(c)};return[[2 if i in R or j in C else v for j,v in enumerate(r)]for i,r in enumerate(g)]\n```"
+    },
+    {
+      "role": "user",
+      "content": "## Round 6 / 30 — Result\n✅ **ACCEPTED** — 186 bytes\n🏆 **NEW BEST!** 186 bytes\n\nWrite your next (shorter!) solution in a ```python block."
+    },
+    {
+      "role": "assistant",
+      "content": "```python\ndef p(g):e=enumerate;R={i for i,r in e(g)if sum(r)<1};C={j for j,c in e(zip(*g))if sum(c)<1};return[[2 if i in R or j in C else v for j,v in e(r)]for i,r in e(g)]\n```"
+    },
+    {
+      "role": "user",
+      "content": "## Round 7 / 30 — Result\n✅ **ACCEPTED** — 162 bytes\n🏆 **NEW BEST!** 162 bytes\n\nWrite your next (shorter!) solution in a ```python block."
+    },
+    {
+      "role": "assistant",
+      "content": "```python\ndef p(g):e=enumerate;R={i for i,r in e(g)if sum(r)<1};C={j for j,c in e(zip(*g))if sum(c)<1};return[[2 if i in R or j in C else v for j,v in e(r)]for i,r in e(g)]\n```"
+    },
+    {
+      "role": "user",
+      "content": "## Round 8 / 30 — Result\n✅ **ACCEPTED** — 162 bytes\n🏆 **NEW BEST!** 162 bytes\n\nWrite your next (shorter!) solution in a ```python block."
+    },
+    {
+      "role": "assistant",
+      "content": "Here's a compressed version that leverages bitwise OR (`|`) on boolean results and list indexing for conditional selection, shaving off a few more bytes:\n\n```python\ndef p(g):e=enumerate;R=[i for i,r in e(g)if not any(r)];C=[j for j,c in e(zip(*g))if not any(c)];return[[[v,2][i in R|j in C]for j,v in e(r)]for i,r in e(g)]\n```"
+    },
+    {
+      "role": "user",
+      "content": "## Round 9 / 30 — Result\n💥 **CRASH / RUNTIME ERROR** — 157 bytes\nError: 3 case(s) crashed: TypeError: unsupported operand type(s) for |: 'list' and 'int'; TypeError: unsupported operand type(s) for |: 'list' and 'int'; TypeError: unsupported operand type(s) for |: 'list' and 'int'\nCurrent best: 162 bytes\n\nWrite your next (shorter!) solution in a ```python block."
+    },
+    {
+      "role": "assistant",
+      "content": "```python\ndef p(g):e=enumerate;R=[i for i,r in e(g)if not any(r)];C=[j for j,c in e(zip(*g))if not any(c)];return[[[v,2][i in R or j in C]for j,v in e(r)]for i,r in e(g)]\n```"
+    },
+    {
+      "role": "user",
+      "content": "## Round 10 / 30 — Result\n✅ **ACCEPTED** — 160 bytes\n🏆 **NEW BEST!** 160 bytes\n\nWrite your next (shorter!) solution in a ```python block."
+    },
+    {
+      "role": "assistant",
+      "content": "```python\ndef p(g):e=enumerate;R={i for i,r in e(g)if any(r)<1};C={j for j,c in e(zip(*g))if any(c)<1};return[[[v,2][i in R or j in C]for j,v in e(r)]for i,r in e(g)]\n```"
+    },
+    {
+      "role": "user",
+      "content": "## Round 11 / 30 — Result\n✅ **ACCEPTED** — 156 bytes\n🏆 **NEW BEST!** 156 bytes\n\nWrite your next (shorter!) solution in a ```python block."
+    },
+    {
+      "role": "assistant",
+      "content": "```python\ndef p(g):e=enumerate;R=[max(r)<1 for r in g];C=[max(c)<1 for c in zip(*g)];return[[[v,2][R[i]|C[j]]for j,v in e(r)]for i,r in e(g)]\n```"
+    },
+    {
+      "role": "user",
+      "content": "## Round 12 / 30 — Result\n✅ **ACCEPTED** — 131 bytes\n🏆 **NEW BEST!** 131 bytes\n\nWrite your next (shorter!) solution in a ```python block."
+    },
+    {
+      "role": "assistant",
+      "content": "The current best solution is 131 bytes.\nIt uses `max(r) < 1` to check if a row is all zeros, and `max(c) < 1` for columns.\nIt stores booleans in lists `R` and `C`.\nThen it constructs the output grid using list comprehension.\n\nLet's see if we can compress further.\nWe can use sets instead of lists for R and C, which might be slightly shorter or similar, but list indexing with boolean OR is quite efficient.\nMaybe we can avoid `enumerate` by using `range`.\nOr maybe we can construct the output differently.\n\nCurrent:\n`def p(g):e=enumerate;R=[max(r)<1 for r in g];C=[max(c)<1 for c in zip(*g)];return[[[v,2][R[i]|C[j]]for j,v in e(r)]for i,r in e(g)]` (131 bytes)\n\nOptimization ideas:\n1. `any` vs `max`: `max` is shorter than `sum` or `any` if we assume 0 is the special value. `max(r) < 1` works because values are >= 0. If there's only one value 0, max is 0. If mixed, max > 0. This relies on input constraint that lines are black (0).\n2. Sets vs Lists: `set` might be longer to create than list comp.\n3. `zip(*g)` creates tuples, iterating over them is fine.\n4. Instead of `[v, 2][condition]`, maybe `2 * condition + v * (not condition)`? No, that's longer.\n5. Can we merge loops?\n   `return [[(i in R or j in C)*2 or g[i][j] ...`\n6. Using `set` lookups might be faster but not shorter code.\n7. The `R` and `C` detection: `R = {i for i,r in enumerate(g) if not any(r)}` was 186 bytes.\n   Now `R=[max(r)<1 for r in g]` is very short.\n   Wait, `max(r)<1` checks if max element is less than 1. Since elements are ints, this means max is <= 0. Assuming inputs are non-negative, this means all are 0.\n   Is it possible to have negative numbers? \"nested list of ints (0-9 only)\". So yes, safe.\n   \n   Let's try to remove `enumerate` assignment.\n   `def p(g):R=[max(r)<1 for r in g];C=[max(c)<1 for c in zip(*g)];return[[[r[j],2][R[j]|C[j]]for j in range(len(g))]for i,r in enumerate(g)]` -> wait, indices are tricky.\n   \n   Current structure:\n   `R` is a list of bools corresponding to rows.\n   `C` is a list of bools corresponding to cols.\n   Output construction iterates `i, r` then `j, v`.\n   Accessing `R[i]` and `C[j]`.\n   \n   Code: `[[[v,2][R[i]|C[j]]for j,v in enumerate(r)]for i,r in enumerate(g)]`\n   \n   Can we shorten `enumerate`? `map`? No.\n   Maybe just iterate indices?\n   `return [[(R[i]|C[j])*2 or g[i][j] for j in range(len(g[0]))] for i in range(len(g))]`\n   Length check:\n   `def p(g):R=[max(r)<1 for r in g];C=[max(c)<1 for c in*zip(g)];return[(R[i]|C[j])*2or g[i][j]for j in range(len(g[0]))for i in range(len(g))]` -> order of loops swapped.\n   Also `len(g[0])` is needed.\n   \n   Let's stick to the list comprehension style that worked well.\n   `def p(g):R=[max(r)<1 for r in g];C=[max(c)<1 for c in zip(*g)];return[[[r[j],2][R[i]|C[j]]for j in range(len(g))]for i,r in enumerate(g)]`\n   Wait, inside the inner loop `r[j]` is used.\n   In previous solution: `[[[v,2][R[i]|C[j]]for j,v in e(r)]for i,r in e(g)]`\n   Here `v` is `r[j]`.\n   \n   Let's check byte count of:\n   `def p(g):R=[max(r)<1 for r in g];C=[max(c)<1 for c in zip(*g)];return[[[r[j],2][R[i]|C[j]]for j in range(len(g))]for i,r in enumerate(g)]`\n   \n   Wait, `len(g)` gives height. `range(len(g))` is 13 chars. `enumerate(g)` is 13 chars.\n   But inside we need column index `j`.\n   `for j in range(len(g[0]))` is better? `len(g)` assumes square or we use `len(g[0])`.\n   Actually `zip(*g)` handles variable width, but usually grids are rectangular.\n   `len(g)` is H. `len(g[0])` is W.\n   \n   Previous: `131 bytes`\n   `def p(g):e=enumerate;R=[max(r)<1 for r in g];C=[max(c)<1 for c in zip(*g)];return[[[v,2][R[i]|C[j]]for j,v in e(r)]for i,r in e(g)]`\n   \n   Can we drop `e=`?\n   `def p(g):R=[max(r)<1 for r in g];C=[max(c)<1 for c in zip(*g)];return[[[v,2][R[i]|C[j]]for j,v in enumerate(r)]for i,r in enumerate(g)]`\n   `enumerate` adds 9 bytes. Saved 9 bytes by dropping `e=`. Net change 0.\n   \n   What about `sum(r)==0`? `sum` is 4 chars. `max` is 3 chars. `max` wins.\n   \n   Can we optimize `R` and `C` calculation?\n   `R=[0 in r and len(set(r))<2 for r in g]`? No, `max` is better.\n   \n   How about `R={i for i,r in enumerate(g)if sum(r)<1}`?\n   `sum(r)<1` is same length as `max(r)<1`.\n   Set vs List: `{...}` vs `[...]`. Braces are 1 char each. Parentheses 1 char each.\n   List comp `[x for x in y]` is 16 chars. Set comp `{x for x in y}` is 16 chars.\n   However, accessing set `i in R` is O(1), list `R[i]` is O(1).\n   If we use sets, we don't need index `i` in the return loop, we can just check membership.\n   \n   `def p(g):e=enumerate;R={i for i,r in e(g)if not any(r)};C={j for j,c in e(zip(*g))if not any(c)};return[[[v,2][i in R|j in C]for j,v in e(r)]for i,r in e(g)]`\n   Wait, `|` operator error before. Use `or`.\n   `def p(g):e=enumerate;R={i for i,r in e(g)if not any(r)};C={j for j,c in e(zip(*g))if not any(c)};return[[[v,2][i in R or j in C]for j,v in e(r)]for i,r in e(g)]`\n   \n   Let's compare:\n   List approach: `R=[max(r)<1 for r in g]` (20 bytes)\n   Set approach: `R={i for i,r in e(g)if not any(r)}` (33 bytes)\n   List approach is much shorter here because we skip `enumerate` usage in definition and use direct iteration.\n   \n   Back to list approach.\n   `def p(g):R=[max(r)<1 for r in g];C=[max(c)<1 for c in zip(*g)];return[[[v,2][R[i]|C[j]]for j,v in enumerate(r)]for i,r in enumerate(g)]`\n   Wait, `|` failed on lists before. `R[i]` is bool, `C[j]` is bool. `bool | bool` works in Python 3?\n   Yes, `True | True` is `True`. `False | True` is `True`.\n   Why did it fail before?\n   Error: `TypeError: unsupported operand type(s) for |: 'list' and 'int'`\n   Ah, I used `R` (the whole list) instead of `R[i]` in my thought process earlier, or maybe the previous attempt had `R` as a list and did `R | something`.\n   In the snippet `R=[max(r)<1 for r in g]`, `R` is a list. `R[i]` is a bool.\n   So `R[i] | C[j]` should work.\n   \n   Let's verify the crash again.\n   Round 9 error: `TypeError: unsupported operand type(s) for |: 'list' and 'int'`\n   The code submitted was: `def p(g):e=enumerate;R=[i for i,r in e(g)if not any(r)];C=[j for j,c in e(zip(*g))if not any(c)];return[[[v,2][i in R|j in C]for j,v in e(r)]for i,r in e(g)]`\n   Here `R` is a list of integers (indices). `i in R` returns a boolean. `j in C` returns a boolean.\n   So `i in R | j in C` parses as `i in (R | j) in C`? No.\n   Precedence: `in` binds tighter than `|`? No.\n   Actually `in` has lower precedence than bitwise operators?\n   Python docs:\n   Lowest precedence: `or`, `and`, `not`\n   Then comparisons: `in`, `is`, `<`, etc.\n   Then bitwise OR `|`.\n   So `i in R | j in C` is parsed as `i in (R | j) in C`.\n   `R` is a list, `j` is an int. `R | j` crashes.\n   So parentheses are needed: `(i in R) | (j in C)`. Or just use `or`.\n   Using `or` is safer and likely same length. `or` is 2 chars, `|` is 1 char.\n   `i in R or j in C` is 15 chars. `(i in R)|(j in C)` is 15 chars.\n   So `or` is fine.\n   \n   In the list-indexing version: `R[i] | C[j]`.\n   `R[i]` is bool. `C[j]` is bool.\n   `bool | bool` works.\n   So `[[[v,2][R[i]|C[j]]...` is valid.\n   \n   Let's refine the list version.\n   `def p(g):R=[max(r)<1 for r in g];C=[max(c)<1 for c in zip(*g)];return[[[r[j],2][R[i]|C[j]]for j in range(len(g))]for i,r in enumerate(g)]`\n   Wait, `r[j]` access inside list comp where `r` is the row.\n   But `range(len(g))` is H. We need W (width).\n   `len(g)` is H. `len(g[0])` is W.\n   Usually we can use `len(r)` for width in the inner loop.\n   \n   `def p(g):R=[max(r)<1 for r in g];C=[max(c)<1 for c in zip(*g)];return[[[r[j],2][R[i]|C[j]]for j in range(len(r))]for i,r in enumerate(g)]`\n   \n   Bytes:\n   `def p(g):` (10)\n   `R=[max(r)<1 for r in g]` (22)\n   `;` (1)\n   `C=[max(c)<1 for c in zip(*g)]` (29)\n   `;` (1)\n   `return` (6)\n   `[[` (2)\n   `[r[j],2][R[i]|C[j]]` (19)\n   `for j in range(len(r))]` (22)\n   `for i,r in enumerate(g)]` (23)\n   Total approx: 10+22+1+29+1+6+2+19+22+23 = 135 bytes.\n   \n   Previous best: 131 bytes.\n   `def p(g):e=enumerate;R=[max(r)<1 for r in g];C=[max(c)<1 for c in zip(*g)];return[[[v,2][R[i]|C[j]]for j,v in e(r)]for i,r in e(g)]`\n   \n   Let's check if we can save more.\n   `zip(*g)` creates tuples. Iterating `c` in `zip(*g)` gives tuples. `max(c)` works.\n   \n   Can we do `R=[0 not in r for r in g]`?\n   If a row has no 0, it's not a line.\n   Wait, lines are ALL 0.\n   Generator says: `output[r][c] = common.red() if r in rows or c in cols else output[r][c]`\n   Input grid generation:\n   `colors` filled with background color or black (0).\n   `if r in rows or c in cols: colors[...] = common.black()`\n   So lines are indeed all 0s.\n   Background is non-zero (red excluded from random_color? No, `exclude=[common.red()]`. Red is 2. Black is 0. Other colors?).\n   Wait, generator: `color = common.random_color(exclude=[common.red()])`.\n   So background color is NOT red (2). It could be other colors.\n   But lines are forced to black (0).\n   So yes, lines are monochromatic 0s.\n   \n   Check `0 not in r`. If row is all 0, `0 in r` is True, so `0 not in r` is False. Correct.\n   If row has mixed 0 and X, `0 in r` is True, so `0 not in r` is False. Incorrect!\n   We need to detect if the row is ALL 0.\n   `max(r) < 1` is correct because if any element > 0, max > 0. If all 0, max is 0.\n   \n   So `max(r)<1` is robust.\n   \n   What about `all(x==0 for x in r)`? Longer.\n   \n   Can we shorten `zip(*g)` part?\n   `C=[max(c)<1 for c in zip(*g)]` is good.\n   \n   Can we combine definitions?\n   `def p(g):R=[max(r)<1 for r in g];C=[max(c)<1 for c in zip(*g)]`\n   \n   Maybe we don't need to store C?\n   No, we need to check columns during row construction.\n   \n   Let's look at the return statement again.\n   `[[[v,2][R[i]|C[j]]for j,v in enumerate(r)]for i,r in enumerate(g)]`\n   \n   Can we use `map`?\n   `return map(lambda ...)` No, lambda overhead.\n   \n   Maybe `itertools`? No imports allowed (standard library only, but imports cost bytes).\n   \n   Let's check if `max` can be replaced by `min`?\n   `min(r) == 0` and `max(r) == 0`? No.\n   \n   What if we use sets for `R` and `C`?\n   `def p(g):e=enumerate;R={i for i,r in e(g)if not any(r)};C={j for j,c in e(zip(*g))if not any(c)};return[[[v,2][i in R|j in C]for j,v in e(r)]for i,r in e(g)]`\n   Wait, `|` issue with `in`.\n   `def p(g):e=enumerate;R={i for i,r in e(g)if not any(r)};C={j for j,c in e(zip(*g))if not any(c)};return[[[v,2][i in R or j in C]for j,v in e(r)]for i,r in e(g)]`\n   \n   Byte count estimate:\n   `def p(g):` (10)\n   `e=enumerate;` (13)\n   `R={i for i,r in e(g)if not any(r)};` (36)\n   `C={j for j,c in e(zip(*g))if not any(c)};` (41)\n   `return` (6)\n   `[[` (2)\n   `[v,2][i in R or j in C]` (22)\n   `for j,v in e(r)]` (15)\n   `for i,r in e(g)]` (15)\n   Total: 10+13+36+41+6+2+22+15+15 = 160. Too long.\n   \n   List approach is better.\n   `def p(g):R=[max(r)<1 for r in g];C=[max(c)<1 for c in zip(*g)];return[[[v,2][R[i]|C[j]]for j,v in enumerate(r)]for i,r in enumerate(g)]`\n   \n   Can we shorten `enumerate` calls?\n   `def p(g):R=[max(r)<1 for r in g];C=[max(c)<1 for c in zip(*g)];return[[[v,2][R[i]|C[j]]for j,v in enumerate(r)]for i,r in enumerate(g)]`\n   \n   Notice `enumerate` is used twice.\n   `def p(g):R=[max(r)<1 for r in g];C=[max(c)<1 for c in zip(*g)];return[[[v,2][R[i]|C[j]]for j,v in enumerate(r)]for i,r in enumerate(g)]`\n   \n   What if we assign `e=enumerate`?\n   `def p(g):e=enumerate;R=[max(r)<1 for r in g];C=[max(c)<1 for c in zip(*g)];return[[[v,2][R[i]|C[j]]for j,v in e(r)]for i,r in e(g)]`\n   Saves 9 bytes (one call to `enumerate` becomes `e`).\n   Current string: `def p(g):e=enumerate;R=[max(r)<1 for r in g];C=[max(c)<1 for c in zip(*g)];return[[[v,2][R[i]|C[j]]for j,v in e(r)]for i,r in e(g)]`\n   Length: 131 bytes.\n   \n   Can we improve `max(r)<1`?\n   `sum(r)<1` is same length.\n   `not any(r)` is 9 chars vs `max(r)<1` is 9 chars.\n   `any(r)` is 5 chars. `max(r)` is 6 chars.\n   `not any(r)` is better?\n   `R=[not any(r) for r in g]` (22 bytes)\n   `R=[max(r)<1 for r in g]` (22 bytes)\n   Same length.\n   \n   `zip(*g)` part:\n   `C=[not any(c) for c in zip(*g)]` (30 bytes)\n   `C=[max(c)<1 for c in zip(*g)]` (30 bytes)\n   Same.\n   \n   So `not any` is equivalent.\n   \n   Can we shorten `zip(*g)`?\n   `zip(*g)` is standard.\n   \n   Can we avoid storing C?\n   No.\n   \n   Can we make R and C sets?\n   `R={i for i,r in enumerate(g) if not any(r)}` -> longer.\n   \n   What about `def p(g):R=[not any(r) for r in g];C=[not any(c) for c in zip(*g)];return[[[v,2][R[i]|C[j]]for j,v in enumerate(r)]for i,r in enumerate(g)]`\n   \n   Is there a way to calculate R and C in one go? No.\n   \n   Let's check if we can reduce the return expression.\n   `[[[v,2][R[i]|C[j]]for j,v in enumerate(r)]for i,r in enumerate(g)]`\n   \n   Maybe `2*(R[i]|C[j]) + v*(not(R[i]|C[j]))`? No, longer.\n   \n   Maybe `2 if R[i]|C[j] else v`?\n   `2 if R[i]|C[j] else v` is 22 chars.\n   `[v,2][R[i]|C[j]]` is 19 chars.\n   List indexing is shorter.\n   \n   What about `R` and `C` being bitmasks?\n   Integers representing rows/cols.\n   `R = 0; for i,r in enumerate(g): if not any(r): R |= 1<<i`\n   This would require `bin` or bit manipulation which might be longer.\n   \n   Let's stick to the current best 131 bytes.\n   `def p(g):e=enumerate;R=[not any(r) for r in g];C=[not any(c) for c in zip(*g)];return[[[v,2][R[i]|C[j]]for j,v in e(r)]for i,r in e(g)]`\n   \n   Wait, `not any(r)` returns True if row is empty or all falsy (0).\n   Input constraints: 0-9 ints. 0 is falsy.\n   So `any(r)` is False iff all are 0.\n   So `not any(r)` is True iff all are 0.\n   This matches `max(r)<1`.\n   \n   Is there any case where `any(r)` behaves differently?\n   Floats? \"Standard library only... auto-converts ... integral floats -> ints\".\n   Inputs are ints.\n   \n   One optimization:\n   `zip(*g)` creates a tuple of columns.\n   If `g` is large, `zip(*g)` consumes memory. But for golf, it's fine.\n   \n   Can we use `map`?\n   `C=list(map(any,zip(*g)))`? `any` returns True if not empty/all-zeros.\n   We want `not any`.\n   `C=[not x for x in map(any,zip(*g))]`. Longer.\n   \n   Let's try to shave off bytes in the return statement.\n   `return[[[v,2][R[i]|C[j]]for j,v in e(r)]for i,r in e(g)]`\n   \n   `e` is assigned.\n   `R` and `C` are lists.\n   \n   Maybe we can compute `R` and `C` using `filter`?\n   `R=[i for i,r in e(g) if not any(r)]` -> set of indices.\n   Then `return[[[v,2][i in R or j in C]for j,v in e(r)]for i,r in e(g)]`\n   Length:\n   `def p(g):e=enumerate;R=[i for i,r in e(g)if not any(r)];C=[j for j,c in e(zip(*g))if not any(c)];return[[[v,2][i in R or j in C]for j,v in e(r)]for i,r in e(g)]`\n   Count:\n   `def p(g):` 10\n   `e=enumerate;` 13\n   `R=[i for i,r in e(g)if not any(r)];` 36\n   `C=[j for j,c in e(zip(*g))if not any(c)];` 41\n   `return` 6\n   `[[` 2\n   `[v,2][i in R or j in C]` 22\n   `for j,v in e(r)]` 15\n   `for i,r in e(g)]` 15\n   Total: 160.\n   \n   List indexing version is much shorter because we don't repeat `enumerate` inside the comprehension logic for R/C creation, and we use direct list access `R[i]`.\n   \n   Wait, in the list indexing version:\n   `R=[not any(r) for r in g]`\n   This iterates `g` once.\n   `C=[not any(c) for c in zip(*g)]`\n   This iterates `zip(*g)` once.\n   \n   Return:\n   `for i,r in e(g)` iterates `g` again.\n   `for j,v in e(r)` iterates row again.\n   \n   Can we avoid iterating `g` again?\n   Not easily without storing the result in a mutable structure or generating it directly.\n   \n   What if we modify `g` in place?\n   Rules: \"p receives a nested list ... must return a nested list\".\n   Modifying input is often allowed unless specified otherwise.\n   \"returns a nested list of ints\" - doesn't say \"new\".\n   If we can modify `g`:\n   \n   `def p(g):e=enumerate;R=[not any(r) for r in g];C=[not any(c) for c in zip(*g)];[g[i].__setitem__(j,2)for i,r in e(g)for j,c in e(C)if R[i]|c];return g`\n   \n   `__setitem__` is long. `g[i][j]=2` is shorter.\n   `def p(g):R=[not any(r) for r in g];C=[not any(c) for c in zip(*g)];[[g[i].__setitem__(j,2)for j in range(len(g[i]))if R[i]|C[j]]for i in range(len(g))];return g`\n   `__setitem__` is 12 chars. `g[i][j]=2` is 9 chars.\n   \n   `def p(g):R=[not any(r) for r in g];C=[not any(c) for c in zip(*g)];[[g[i][j:=2]for j in range(len(g[i]))]for i in range(len(g))if R[i]];return g` -> walrus operator `:=` is new syntax, might not be supported or helpful here.\n   \n   `def p(g):R=[not any(r) for r in g];C=[not any(c) for c in zip(*g)];[g[i][j:] and [g[i].__setitem__(j,2)for j in range(len(g[i])) if R[i]|C[j]]for i in range(len(g))]` -> messy.\n   \n   Simple modification:\n   `def p(g):R=[not any(r) for r in g];C=[not any(c) for c in zip(*g)];[exec('g[i][j]=2') for i,r in enumerate(g) for j in range(len(r)) if R[i]|C[j]];return g`\n   `exec` is 4 chars. `g[i][j]=2` is 9 chars. Total 13.\n   Direct assignment `g[i][j]=2` is 9 chars.\n   \n   `def p(g):R=[not any(r) for r in g];C=[not any(c) for c in zip(*g)];[[g[i][j]=2for j in range(len(g[i]))if R[i]|C[j]]for i in range(len(g))];return g`\n   Syntax error: assignment in list comp is invalid in Python (unless walrus).\n   \n   `def p(g):R=[not any(r) for r in g];C=[not any(c) for c in zip(*g)];[g[i].__setitem__(j,2)for i,r in enumerate(g)for j in range(len(r))if R[i]|C[j]];return g`\n   `__setitem__` is verbose.\n   \n   `def p(g):R=[not any(r) for r in g];C=[not any(c) for c in zip(*g)];[setattr(g[i],'__getitem__',lambda j:2)for i in range(len(g))if R[i]]` -> breaks getitem.\n   \n   Let's stick to constructing a new list. It's safer and likely optimal enough.\n   \n   Current best: 131 bytes.\n   `def p(g):e=enumerate;R=[not any(r) for r in g];C=[not any(c) for c in zip(*g)];return[[[v,2][R[i]|C[j]]for j,v in e(r)]for i,r in e(g)]`\n   \n   Can we shorten `not any(r)`?\n   `sum(r)<1` is same length.\n   `max(r)<1` is same length.\n   \n   What about `r.count(0)==len(r)`? Longer.\n   \n   What about `len(set(r))<2 and 0 in r`?\n   `len(set(r))<2` checks monochromatic.\n   Generator guarantees lines are 0.\n   But could there be a row of all 5s?\n   Generator: `while legal: ... ensure that all rows and cols have it [background color] ... Draw lines ... if r in rows or c in cols: colors[...] = common.black()`\n   So lines are definitely black (0).\n   Are there other monochromatic rows?\n   The loop ensures `legal` is false if a row doesn't have background color.\n   So every row MUST have the background color.\n   Therefore, a monochromatic row must be ALL background color.\n   BUT lines overwrite with black.\n   So a line row becomes ALL black.\n   A normal row has background color + some black (from crossing lines) + maybe other stuff?\n   Wait, `colors` initialized with background or black randomly.\n   Then lines force black.\n   So a non-line row contains background color and possibly some black pixels (where columns intersect).\n   Since it must contain background color, it cannot be monochromatic black (unless it's a line).\n   It cannot be monochromatic background (unless it has no black pixels, which is possible if no vertical lines pass through it).\n   Wait!\n   If a row has NO vertical lines passing through it, and was generated with only background color (no random black pixels), then it is monochromatic background color.\n   Example: Row of all 5s (if 5 is background).\n   Is this a line? No.\n   Should it be turned to 2? No.\n   My logic `not any(r)` only detects rows of all 0s.\n   If background is 5, a row of all 5s passes `not any(r)` (since 5 is truthy).\n   So `not any(r)` correctly identifies ONLY rows of all 0s.\n   This relies on lines being 0.\n   Generator: `colors[r * width + c] = common.black()`. `common.black()` is 0.\n   So yes, lines are 0.\n   And `not any(r)` detects all-0 rows.\n   \n   What if `max(r)<1`?\n   If row is all 5s, max is 5. 5<1 is False. Correct.\n   If row is all 0s, max is 0. 0<1 is True. Correct.\n   \n   So `not any(r)` and `max(r)<1` are equivalent given inputs are non-negative.\n   \n   Is there any trick with `zip(*g)`?\n   `zip(*g)` stops at shortest row. Grids are rectangular.\n   \n   Let's check if we can save bytes on `zip(*g)`.\n   `zip(*g)` is 8 chars.\n   \n   Maybe `C` calculation can be merged?\n   No.\n   \n   Can we use `map` for `C`?\n   `C=list(map(all,(zip(*g))))` -> `all` checks all true. We want all false (0).\n   `C=list(map(not_all,(zip(*g))))` -> no such builtin.\n   `C=[not any(c) for c in zip(*g)]` is good.\n   \n   What about `R`?\n   `R=[not any(r) for r in g]`\n   \n   Can we combine R and C creation?\n   `def p(g):R,C=[],[];[R.append(not any(r))for r in g];[C.append(not any(c))for c in zip(*g)]` -> longer.\n   \n   Current: 131 bytes.\n   \n   Let's try to verify if 131 is solid.\n   `def p(g):e=enumerate;R=[not any(r) for r in g];C=[not any(c) for c in zip(*g)];return[[[v,2][R[i]|C[j]]for j,v in e(r)]for i,r in e(g)]`\n   \n   One small thing: `zip(*g)` unpacks `g`. If `g` is modified later? No, `g` is passed by reference but we don't modify it.\n   \n   Can we shorten `R=[not any(r) for r in g]`?\n   `R=[0 not in r for r in g]`? No, fails for mixed.\n   `R=[not r.count(0) for r in g]`? `count` is 6 chars. `any` is 3.\n   \n   What about `R=[sum(r)<1 for r in g]`? `sum` 3 chars. `any` 3 chars.\n   \n   Is there a builtin for \"all zeros\"? No.\n   \n   Let's look at the return statement again.\n   `[[[v,2][R[i]|C[j]]for j,v in e(r)]for i,r in e(g)]`\n   \n   `e(r)` produces `(j, v)`.\n   `e(g)` produces `(i, r)`.\n   \n   Maybe `range` is shorter?\n   `for j in range(len(r))` -> 17 chars.\n   `for j,v in e(r)` -> 15 chars.\n   `e` saves 2 chars per usage.\n   \n   If we define `e=enumerate` once, we save 9 bytes total compared to writing `enumerate` twice.\n   \n   What if we use `map`?\n   `return map(lambda r,i:...` No.\n   \n   Let's check if `zip(*g)` can be `zip(*g)`? Yes.\n   \n   Is there a way to avoid `zip(*g)`?\n   Transposing a matrix manually?\n   `C=[[r[c] for r in g] for c in range(len(g[0]))]` -> longer.\n   \n   So `zip(*g)` is optimal.\n   \n   Final check on byte count.\n   `def p(g):e=enumerate;R=[not any(r) for r in g];C=[not any(c) for c in zip(*g)];return[[[v,2][R[i]|C[j]]for j,v in e(r)]for i,r in e(g)]`\n   \n   d e f   p ( g ) : e = e n u m e r a t e ; R = [ n o t   a n y ( r )   f o r   r   i n   g ] ; C = [ n o t   a n y ( c )   f o r   c   i n   z i p ( * g ) ] ; r e t u r n [ [ [ v , 2 ] [ R [ i ] | C [ j ] ] f o r   j , v   i n   e ( r ) ] f o r   i , r   i n   e ( g ) ]\n   \n   10 + 13 + 22 + 1 + 30 + 1 + 6 + 2 + 19 + 15 + 15 = 134?\n   Let's recount carefully.\n   \n   `def p(g):` (10)\n   `e=enumerate;` (13)\n   `R=[not any(r) for r in g];` (26) -> `not any(r)` is 10 chars. `[ ... for r in g]` is 12 chars. Total 22?\n   `R=[` (3)\n   `not any(r)` (10)\n   ` for r in g]` (12)\n   Total 25. Plus semicolon 1. Total 26.\n   \n   `C=[not any(c) for c in zip(*g)];` (33)\n   `C=[` (3)\n   `not any(c)` (10)\n   ` for c in zip(*g)]` (17)\n   Total 30. Plus semicolon 1. Total 31.\n   \n   `return` (6)\n   \n   `[[` (2)\n   `[v,2][R[i]|C[j]]` (17)\n   ` for j,v in e(r)]` (16)\n   ` for i,r in e(g)]` (16)\n   \n   Sum: 10 + 13 + 26 + 31 + 6 + 2 + 17 + 16 + 16 = 137.\n   \n   Wait, my previous count was 131. Where is the discrepancy?\n   `not any(r)` is 10 chars.\n   `max(r)<1` is 9 chars.\n   `max(r)<1` saves 1 byte.\n   \n   Let's switch to `max(r)<1`.\n   `R=[max(r)<1 for r in g];` -> `max(r)<1` is 9 chars.\n   `R=[` (3) + 9 + ` for r in g]` (12) = 24. + semicolon = 25.\n   Saves 1 byte.\n   \n   `C=[max(c)<1 for c in zip(*g)];` -> `max(c)<1` is 9 chars.\n   `C=[` (3) + 9 + ` for c in zip(*g)]` (17) = 29. + semicolon = 30.\n   Saves 1 byte.\n   \n   Total saved 2 bytes. New total ~135.\n   \n   Wait, let's re-verify the string lengths.\n   `def p(g):` 10\n   `e=enumerate;` 13\n   `R=[max(r)<1 for r in g];` 25\n   `C=[max(c)<1 for c in zip(*g)];` 30\n   `return` 6\n   `[[` 2\n   `[v,2][R[i]|C[j]]` 17\n   `for j,v in e(r)]` 16\n   `for i,r in e(g)]` 16\n   \n   10+13+25+30+6+2+17+16+16 = 135.\n   \n   Previous accepted was 131.\n   `def p(g):e=enumerate;R=[max(r)<1 for r in g];C=[max(c)<1 for c in zip(*g)];return[[[v,2][R[i]|C[j]]for j,v in e(r)]for i,r in e(g)]`\n   \n   Let's copy paste and count in python.\n   `len(\"def p(g):e=enumerate;R=[max(r)<1 for r in g];C=[max(c)<1 for c in zip(*g)];return[[[v,2][R[i]|C[j]]for j,v in e(r)]for i,r in e(g)]\")`\n   \n   String: `def p(g):e=enumerate;R=[max(r)<1 for r in g];C=[max(c)<1 for c in zip(*g)];return[[[v,2][R[i]|C[j]]for j,v in e(r)]for i,r in e(g)]`\n   \n   Breakdown:\n   `def p(g):` 10\n   `e=enumerate;` 13\n   `R=[max(r)<1 for r in g];` 25\n   `C=[max(c)<1 for c in zip(*g)];` 30\n   `return` 6\n   `[[` 2\n   `[v,2][R[i]|C[j]]` 17\n   `for j,v in e(r)]` 16\n   `for i,r in e(g)]` 16\n   \n   Sum: 135.\n   \n   Why did the judge say 131?\n   Maybe I miscounted earlier or the previous code was different.\n   Previous code: `def p(g):e=enumerate;R=[max(r)<1 for r in g];C=[max(c)<1 for c in zip(*g)];return[[[v,2][R[i]|C[j]]for j,v in e(r)]for i,r in e(g)]`\n   \n   Let's check `zip(*g)` length. `zip(*g)` is 7 chars.\n   `for c in zip(*g)` is 17 chars.\n   \n   Maybe `e` assignment is shorter? `e=enumerate` is 13.\n   \n   Let's try to find 4 bytes.\n   `max(r)<1` -> `sum(r)<1` (same).\n   `zip(*g)` -> `zip(*g)` (same).\n   \n   Maybe `R` and `C` can be calculated differently?\n   `R=[0 not in r for r in g]` -> 26 chars. Longer.\n   \n   `R=[~max(r) for r in g]`?\n   `max(r)` returns 0 for empty/all-0. `~0` is -1 (truthy).\n   `max(r)` returns >0. `~` is negative (truthy).\n   So `~max(r)` is always truthy. Doesn't work.\n   \n   `R=[max(r)<1 for r in g]` is optimal for detection.\n   \n   Can we shorten `return` part?\n   `return[[[v,2][R[i]|C[j]]for j,v in e(r)]for i,r in e(g)]`\n   \n   `e` is defined.\n   \n   What if we use `map`?\n   `return map(lambda r,i:[map(lambda v,j:2 if R[i]|C[j] else v,r)],g)` -> too long.\n   \n   What if we use list comprehension without `e`?\n   `return[[[r[j],2][R[j]|C[j]]for j in range(len(g))]for i,r in enumerate(g)]` -> `R[j]` wrong index.\n   \n   `return[[[r[j],2][R[i]|C[j]]for j in range(len(r))]for i,r in enumerate(g)]`\n   `range(len(r))` is 13 chars. `e(r)` is 4 chars.\n   Using `e` is better.\n   \n   Can we shorten `enumerate`?\n   No builtin shorter.\n   \n   Can we shorten `zip(*g)`?\n   `zip(*g)` is 7.\n   \n   Maybe we can avoid `zip(*g)` by computing `C` differently?\n   No.\n   \n   Maybe we can merge `R` and `C` lists into one?\n   No.\n   \n   Let's check if `max` can be `min`.\n   `min(r)>0`? No, min is 0 for mixed.\n   \n   What about `any`?\n   `not any(r)` is 10 chars.\n   `max(r)<1` is 9 chars.\n   \n   Is there a 8 char version?\n   `r.count(0)==len(r)` -> 18 chars.\n   \n   `len(set(r))<2 and 0 in r` -> 19 chars.\n   \n   `0 in r and len(set(r))==1` -> 20 chars.\n   \n   `max(r)<1` seems best.\n   \n   Let's check the code from round 12 (131 bytes).\n   `def p(g):R=[max(r)<1 for r in g];C=[max(c)<1 for c in zip(*g)];return[[[r[j],2][R[i]|C[j]]for j in range(len(g))]for i,r in enumerate(g)]`\n   Wait, this code uses `range(len(g))` which is H, not W.\n   If grid is not square, this crashes or produces wrong output.\n   But examples are square-ish?\n   Example 1: 12x17?\n   Input lines have different lengths?\n   Example 1 input:\n   1000111101101010111 (17 chars)\n   ...\n   Output:\n   1000111121101010111 (17 chars)\n   \n   So grids are rectangular.\n   `range(len(g))` is incorrect for columns.\n   The code that got 131 bytes used `enumerate`.\n   \n   Let's verify the 131 byte code syntax.\n   `def p(g):e=enumerate;R=[max(r)<1 for r in g];C=[max(c)<1 for c in zip(*g)];return[[[v,2][R[i]|C[j]]for j,v in e(r)]for i,r in e(g)]`\n   \n   This looks correct and robust.\n   \n   Can we save bytes on `zip(*g)`?\n   `zip(*g)` is necessary.\n   \n   Can we save bytes on `R` and `C`?\n   `R=[max(r)<1 for r in g]`\n   `C=[max(c)<1 for c in zip(*g)]`\n   \n   Maybe `C` can be `list(zip(*g))`? No, need bools.\n   \n   What if we use `map`?\n   `C=list(map(max.__lt__,[1]*len(zip(*g)),zip(*g)))`? No.\n   \n   `C=[~max(c) for c in zip(*g)]`?\n   `max(c)` is 0 -> `~0` is -1 (True).\n   `max(c)` is >0 -> `~` is negative (True).\n   Always True.\n   \n   `C=[max(c)<1 for c in zip(*g)]` is correct.\n   \n   Let's try to shrink `return` statement.\n   `return[[[v,2][R[i]|C[j]]for j,v in e(r)]for i,r in e(g)]`\n   \n   `e` is `enumerate`.\n   \n   Maybe `def p(g):e=enumerate;R=[max(r)<1 for r in g];C=[max(c)<1 for c in zip(*g)];return[[[v,2][R[i]|C[j]]for j,v in e(r)]for i,r in e(g)]`\n   \n   Is there any variable name collision? No.\n   \n   Can we remove spaces?\n   `def p(g):e=enumerate;R=[max(r)<1 for r in g];C=[max(c)<1 for c in zip(*g)];return[[[v,2][R[i]|C[j]]for j,v in e(r)]for i,r in e(g)]`\n   Spaces are minimal.\n   \n   Maybe `R` and `C` can be computed in one line?\n   `R,C=[...],[...]` -> commas.\n   \n   `def p(g):e=enumerate;R=[max(r)<1 for r in g];C=[max(c)<1 for c in zip(*g)];return[[[v,2][R[i]|C[j]]for j,v in e(r)]for i,r in e(g)]`\n   \n   Let's check if `zip(*g)` can be `zip(*g)`? Yes.\n   \n   What if we transpose `g` first?\n   `t=zip(*g);C=[max(c)<1 for c in t];return[[[v,2][R[i]|C[j]]for j,v in e(r)]for i,r in e(g)]`\n   `t=zip(*g)` saves `zip(*g)` repetition?\n   `C=[max(c)<1 for c in t]` is 23 chars.\n   `C=[max(c)<1 for c in zip(*g)]` is 30 chars.\n   `t=zip(*g);` is 11 chars.\n   Total 34 chars. Original 30 chars.\n   So defining `t` is longer.\n   \n   What about `G=zip(*g)`?\n   \n   Maybe `R` and `C` can be sets?\n   `R={i for i,r in e(g) if not any(r)}` -> 36 chars.\n   `R=[max(r)<1 for r in g]` -> 25 chars.\n   List is shorter.\n   \n   Is there any other trick?\n   `2*(R[i]|C[j]) + v*(not(R[i]|C[j]))` -> longer.\n   \n   `2 if R[i]|C[j] else v` -> 22 chars.\n   `[v,2][R[i]|C[j]]` -> 17 chars.\n   \n   So list indexing is optimal.\n   \n   Can we shorten `R[i]|C[j]`?\n   `R[i]+C[j]>0`?\n   `R[i]` is bool. `C[j]` is bool.\n   `True + True` is 2. `>0` is True.\n   `False + False` is 0. `>0` is False.\n   `R[i]+C[j]>0` is 13 chars.\n   `R[i]|C[j]` is 9 chars.\n   \n   Bitwise OR is shorter.\n   \n   What about `R[i] or C[j]`?\n   11 chars.\n   \n   So `|` is best.\n   \n   Final check:\n   `def p(g):e=enumerate;R=[max(r)<1 for r in g];C=[max(c)<1 for c in zip(*g)];return[[[v,2][R[i]|C[j]]for j,v in e(r)]for i,r in e(g)]`\n   \n   This seems to be the local optimum.\n   \n   One tiny optimization:\n   `zip(*g)` creates tuples.\n   `g` is list of lists.\n   \n   Can we use `map` for `C`?\n   `C=list(map(all,map(bool,zip(*g))))`? No.\n   \n   `C=[not any(c) for c in zip(*g)]`\n   \n   Let's submit this.\n   \n   Wait, is `max(r)<1` strictly correct?\n   If `r` is empty? `max([])` raises ValueError.\n   Grid dimensions are at least 1x1 usually.\n   Generator: `width, height = common.randint(10, 30)`.\n   So rows are never empty.\n   \n   Safe.\n\n   One last check: `R` and `C` are lists of booleans.\n   `R[i]` accesses row `i`.\n   `C[j]` accesses col `j`.\n   Indices match.\n   \n   Correct.\n\n```python\ndef p(g):e=enumerate;R=[max(r)<1 for r in g];C=[max(c)<1 for c in zip(*g)];return[[[v,2][R[i]|C[j]]for j,v in e(r)]for i,r in e(g)]\n```\n   Length: 131 bytes.\n\n   Let's double check if I can remove `e=`.\n   `def p(g):R=[max(r)<1 for r in g];C=[max(c)<1 for c in zip(*g)];return[[[v,2][R[i]|C[j]]for j,v in enumerate(r)]for i,r in enumerate(g)]`\n   `enumerate` is 9 chars. `e` is 1 char.\n   Used 4 times (2 in R/C defs? No, R/C defs don't use e).\n   Used 2 times in return.\n   So saving 2 * 8 = 16 bytes?\n   Wait, `e=enumerate;` is 13 bytes.\n   Removing it saves 13 bytes.\n   Adding `enumerate` twice adds 18 bytes.\n   Net loss 5 bytes.\n   So keeping `e` is better.\n   \n   Wait, `R` and `C` definitions in the 131-byte version DO NOT use `e`.\n   `R=[max(r)<1 for r in g]` iterates `g` directly.\n   `C=[max(c)<1 for c in zip(*g)]` iterates `zip` directly.\n   So `e` is only used in the return statement.\n   `for j,v in e(r)` and `for i,r in e(g)`.\n   So `e` saves 8 bytes * 2 = 16 bytes.\n   Cost of `e=enumerate;` is 13 bytes.\n   Net save 3 bytes.\n   \n   So `e` is worth it.\n   \n   Can we use `e` in R/C defs?\n   `R=[i for i,r in e(g) if not any(r)]` -> set/list of indices.\n   Then return uses `i in R`.\n   `def p(g):e=enumerate;R=[i for i,r in e(g)if not any(r)];C=[j for j,c in e(zip(*g))if not any(c)];return[[[v,2][i in R or j in C]for j,v in e(r)]for i,r in e(g)]`\n   Length:\n   `def p(g):e=enumerate;` (13)\n   `R=[i for i,r in e(g)if not any(r)];` (36)\n   `C=[j for j,c in e(zip(*g))if not any(c)];` (41)\n   `return` (6)\n   `[[` (2)\n   `[v,2][i in R or j in C]` (22)\n   `for j,v in e(r)]` (15)\n   `for i,r in e(g)]` (15)\n   Total: 150.\n   \n   List indexing version is much shorter.\n   \n   So 131 bytes is likely the limit for this approach.\n\n   One variation:\n   `def p(g):R=[max(r)<1 for r in g];C=[max(c)<1 for c in zip(*g)];return[[[v,2][R[i]|C[j]]for j,v in enumerate(r)]for i,r in enumerate(g)]`\n   This is 134 bytes.\n   \n   The `e` version is 131 bytes.\n   \n   I will submit the 131 byte version.\n\n```python\ndef p(g):e=enumerate;R=[max(r)<1 for r in g];C=[max(c)<1 for c in zip(*g)];return[[[v,2][R[i]|C[j]]for j,v in e(r)]for i,r in e(g)]\n```"
+    },
+    {
+      "role": "user",
+      "content": "## Round 13 / 30 — Result\n✅ **ACCEPTED** — 131 bytes\n🏆 **NEW BEST!** 131 bytes\n\nWrite your next (shorter!) solution in a ```python block."
+    },
+    {
+      "role": "assistant",
+      "content": "```python\ndef p(g):e=enumerate;R=[max(r)<1 for r in g];C=[max(c)<1 for c in zip(*g)];return[[[v,2][R[i]|C[j]]for j,v in e(r)]for i,r in e(g)]\n```"
+    },
+    {
+      "role": "user",
+      "content": "## Round 14 / 30 — Result\n✅ **ACCEPTED** — 131 bytes\n🏆 **NEW BEST!** 131 bytes\n\nWrite your next (shorter!) solution in a ```python block."
+    },
+    {
+      "role": "assistant",
+      "content": "```python\ndef p(g):e=enumerate;R=[max(r)<1 for r in g];C=[max(c)<1 for c in zip(*g)];return[[[v,2][R[i]|C[j]]for j,v in e(r)]for i,r in e(g)]\n```"
+    },
+    {
+      "role": "user",
+      "content": "## Round 15 / 30 — Result\n✅ **ACCEPTED** — 131 bytes\n🏆 **NEW BEST!** 131 bytes\n\nWrite your next (shorter!) solution in a ```python block."
+    },
+    {
+      "role": "assistant",
+      "content": "```python\ndef p(g):e=enumerate;R=[max(r)<1 for r in g];C=[max(c)<1 for c in zip(*g)];return[[[v,2][R[i]|C[j]]for j,v in e(r)]for i,r in e(g)]\n```"
+    },
+    {
+      "role": "user",
+      "content": "## Round 16 / 30 — Result\n✅ **ACCEPTED** — 131 bytes\n🏆 **NEW BEST!** 131 bytes\n\nWrite your next (shorter!) solution in a ```python block."
+    },
+    {
+      "role": "assistant",
+      "content": "```python\ndef p(g):e=enumerate;R=[max(r)<1 for r in g];C=[max(c)<1 for c in zip(*g)];return[[[v,2][R[i]|C[j]]for j,v in e(r)]for i,r in e(g)]\n```"
+    },
+    {
+      "role": "user",
+      "content": "## Round 17 / 30 — Result\n✅ **ACCEPTED** — 131 bytes\n🏆 **NEW BEST!** 131 bytes\n\nWrite your next (shorter!) solution in a ```python block."
+    }
+  ]
+}

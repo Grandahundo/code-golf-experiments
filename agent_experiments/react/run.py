@@ -15,19 +15,19 @@ import time
 
 # ── API 配置 ───────────────────────────────────────────────────────────
 
-QWEN_API_KEY = "sk-ws-H.EHMELMI.6as6.MEUCIQCZ6VtBnH15HJKtuuGDKdi-fulWcTjGxK2T_DbDflbATAIgGMPTGi1tQIe5y2Ez5e8jmj9vxGcYswLB781AjV0XKvw"
+QWEN_API_KEY = "<your-qwen-api-key>"
 QWEN_BASE = "https://ws-ws3qpraz4z2mszz9.cn-beijing.maas.aliyuncs.com/compatible-mode/v1"
 
 API_CONFIGS = {
     "deepseek-v4-pro": {
         "base_url": "https://api.deepseek.com/v1",
-        "api_key": "sk-6a2eeea6cc2d4d2596f0b5ae8a023c67",
+        "api_key": "<your-deepseek-api-key>",
         "model_name": "deepseek-v4-pro",
         "extra_body": {"thinking": {"type": "enabled"}},
     },
     "deepseek-v4-flash": {
         "base_url": "https://api.deepseek.com/v1",
-        "api_key": "sk-6a2eeea6cc2d4d2596f0b5ae8a023c67",
+        "api_key": "<your-deepseek-api-key>",
         "model_name": "deepseek-v4-flash",
         "extra_body": {},
     },

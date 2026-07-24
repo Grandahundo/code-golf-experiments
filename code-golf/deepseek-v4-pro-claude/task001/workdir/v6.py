@@ -1,0 +1,1 @@
+p=lambda g:[[c*(d>0)for c in b for d in a]for a in g for b in g]

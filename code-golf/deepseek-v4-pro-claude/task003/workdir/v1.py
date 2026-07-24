@@ -1,0 +1,1 @@
+p=lambda g:[[2*(c>0)for c in g[r%[2,4,3][(g[:2]!=g[2:4])+(g[:3]==g[3:6])]]]for r in range(9)]

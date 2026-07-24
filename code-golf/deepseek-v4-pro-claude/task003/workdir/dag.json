@@ -1,0 +1,85 @@
+{
+  "nodes": {
+    "v1": {
+      "version": "v1",
+      "parent": null,
+      "code": "p=lambda g:[[2*(c>0)for c in g[r%[2,4,3][(g[:2]!=g[2:4])+(g[:3]==g[3:6])]]]for r in range(9)]",
+      "bytes": 93,
+      "passed": true,
+      "code_hash": "72d600463be5",
+      "file": "v1.py",
+      "timestamp": "2026-07-14T11:29:15.886200"
+    },
+    "v2": {
+      "version": "v2",
+      "parent": "v1",
+      "code": "p=lambda g:[[c*2for c in g[r%[2,4,3][(g[1]!=g[3])+(g[1]==g[4])]]]for r in range(9)]",
+      "bytes": 83,
+      "passed": true,
+      "code_hash": "2ff950b7c4d4",
+      "file": "v2.py",
+      "timestamp": "2026-07-14T12:00:26.273274"
+    },
+    "v3": {
+      "version": "v3",
+      "parent": "v2",
+      "code": "p=lambda g:[[c*2for c in r]for r in g+[g[2:5],g[:3]][g[0]==g[3]]]",
+      "bytes": 65,
+      "passed": true,
+      "code_hash": "0d70fb83425c",
+      "file": "v3.py",
+      "timestamp": "2026-07-14T12:04:17.448973"
+    },
+    "v4": {
+      "version": "v4",
+      "parent": "v2",
+      "code": "p=lambda g:[[c*2for c in g[r%(4-(g[0]==g[3]))]]for r in range(9)]",
+      "bytes": 65,
+      "passed": true,
+      "code_hash": "2b698ccbff1e",
+      "file": "v4.py",
+      "timestamp": "2026-07-14T12:06:52.369238"
+    },
+    "v5": {
+      "version": "v5",
+      "parent": "v3",
+      "code": "p=lambda g:[[c*2for c in r]for r in g+g[2*(g[0]!=g[3]):][:3]]",
+      "bytes": 61,
+      "passed": true,
+      "code_hash": "e90e7fcf8ccb",
+      "file": "v5.py",
+      "timestamp": "2026-07-14T12:07:47.639585"
+    },
+    "v6": {
+      "version": "v6",
+      "parent": "v5",
+      "code": "p=lambda g:[[c*2for c in r]for r in(g[:4-(g[0]==g[3])]*3)[:9]]",
+      "bytes": 62,
+      "passed": true,
+      "code_hash": "fced0f10cbfd",
+      "file": "v6.py",
+      "timestamp": "2026-07-14T12:11:52.231401"
+    },
+    "v7": {
+      "version": "v7",
+      "parent": "v5",
+      "code": "p=lambda g:eval(str(g+g[2*(g[0]!=g[3]):][:3]).replace('1','2'))",
+      "bytes": 63,
+      "passed": true,
+      "code_hash": "e97dde6cb610",
+      "file": "v7.py",
+      "timestamp": "2026-07-14T12:14:01.048590"
+    },
+    "v8": {
+      "version": "v8",
+      "parent": "v5",
+      "code": "def p(g):return[[c*2for c in r]for r in g+g[2*(g[0]!=g[3]):][:3]]",
+      "bytes": 65,
+      "passed": true,
+      "code_hash": "1aa57c5d4636",
+      "file": "v8.py",
+      "timestamp": "2026-07-14T12:17:15.156754"
+    }
+  },
+  "updated": "2026-07-14T12:17:15.156779"
+}

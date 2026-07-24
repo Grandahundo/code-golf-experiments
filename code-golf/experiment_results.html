@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Task 004 — DAG Visualization</title>
+<script src="https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.min.js"></script>
+<script>mermaid.initialize({startOnLoad:true,theme:'default',flowchart:{useMaxWidth:true,htmlLabels:true,curve:'basis'}});</script>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:-apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#222;padding:32px}
+h1{font-size:20px;margin-bottom:4px}
+.sub{color:#999;font-size:12px;margin-bottom:24px}
+.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+.card{background:#fafafa;border:1px solid #e8e8e8;border-radius:8px;padding:16px}
+.card h2{font-size:13px;margin-bottom:2px}
+.card .stat{font-size:11px;color:#999;margin-bottom:10px}
+.card .mermaid{background:#fff;border-radius:4px}
+.foot{font-size:11px;color:#bbb;margin-top:20px}
+.best{color:#4caf50;font-weight:600}
+</style>
+</head>
+<body>
+<h1>Task 004 — DAG Visualization</h1>
+<p class="sub">3 experiment variants. v0 = root. Green = pass, Red = fail.</p>
+<div class="grid">
+<div class="card">
+<h2 style="color:#5b8def">PAL (cognitive_map + submit)</h2>
+<div class="stat">7 nodes | best: <span class="best">227b</span> | capture: 33% (7/21)</div>
+<div class="mermaid">
+graph TD
+    v0(("v0"))
+    v1("❌ v1<br/>456b<br/>first working attempt: botto")
+    v2["v2<br/>378b<br/>fixed bottom detection: use "]
+    v3["v3<br/>378b<br/>fixed bottom detection: use "]
+    v4["v4<br/>250b<br/>lambda-based bottom detectio"]
+    v5["v5<br/>227b<br/>column-based bottom-up with "]
+    v6["v6<br/>245b<br/>recursive row processing: p("]
+    v7["v7<br/>227b<br/>FINAL: column-based bottom-u"]
+    v0 --> v1
+    v1 --> v2
+    v1 --> v3
+    v2 --> v4
+    v4 --> v5
+    v0 --> v6
+    v4 --> v7
+    style v1 fill:#ffebee,stroke:#ef5350,color:#222
+    style v2 fill:#e8f5e9,stroke:#4caf50,color:#222
+    style v3 fill:#e8f5e9,stroke:#4caf50,color:#222
+    style v4 fill:#e8f5e9,stroke:#4caf50,color:#222
+    style v5 fill:#e8f5e9,stroke:#4caf50,color:#222
+    style v6 fill:#e8f5e9,stroke:#4caf50,color:#222
+    style v7 fill:#e8f5e9,stroke:#4caf50,color:#222
+    style v0 fill:#f5f5f5,stroke:#bbb,color:#666
+</div>
+</div>
+<div class="card">
+<h2 style="color:#e09040">PAL-prompt-augmented</h2>
+<div class="stat">7 nodes | best: <span class="best">179b</span> | capture: 20% (7/35)</div>
+<div class="mermaid">
+graph TD
+    v0(("v0"))
+    v1["v1<br/>258b<br/>initial: two-pass B,R per co"]
+    v2("❌ v2<br/>220b<br/>bottom-up attempt — bad comp")
+    v3["v3<br/>220b<br/>fix: R[c]>j for bool check"]
+    v4["v4<br/>189b<br/>refactor: in-place bottom-up"]
+    v5["v5<br/>186b<br/>if not B[c] + slice r[j:j+2]"]
+    v6["v6<br/>186b<br/>alt: B[c]-i replaces compari"]
+    v7["v7<br/>179b<br/>flat-index while + R=B[:]"]
+    v0 --> v1
+    v1 --> v2
+    v2 --> v3
+    v1 --> v4
+    v4 --> v5
+    v4 --> v6
+    v5 --> v7
+    style v1 fill:#e8f5e9,stroke:#4caf50,color:#222
+    style v2 fill:#ffebee,stroke:#ef5350,color:#222
+    style v3 fill:#e8f5e9,stroke:#4caf50,color:#222
+    style v4 fill:#e8f5e9,stroke:#4caf50,color:#222
+    style v5 fill:#e8f5e9,stroke:#4caf50,color:#222
+    style v6 fill:#e8f5e9,stroke:#4caf50,color:#222
+    style v7 fill:#e8f5e9,stroke:#4caf50,color:#222
+    style v0 fill:#f5f5f5,stroke:#bbb,color:#666
+</div>
+</div>
+<div class="card">
+<h2 style="color:#d94f4f">claude (verify wrapper)</h2>
+<div class="stat">15 nodes | best: <span class="best">90b</span> | capture: 100% (15/15)</div>
+<div class="mermaid">
+graph TD
+    v0(("v0"))
+    v1["v1<br/>400b"]
+    v2["v2<br/>229b"]
+    v3["v3<br/>188b"]
+    v4["v4<br/>186b"]
+    v5["v5<br/>178b"]
+    v6("❌ v6<br/>224b")
+    v7["v7<br/>179b"]
+    v8("❌ v8<br/>169b")
+    v9["v9<br/>145b"]
+    v10["v10<br/>135b"]
+    v11["v11<br/>128b"]
+    v12["v12<br/>122b"]
+    v13["v13<br/>116b"]
+    v14("❌ v14<br/>111b")
+    v15["v15<br/>90b"]
+    v0 --> v1
+    v0 --> v2
+    v2 --> v3
+    v3 --> v4
+    v4 --> v5
+    v3 --> v6
+    v5 --> v7
+    v7 --> v8
+    v5 --> v9
+    v9 --> v10
+    v10 --> v11
+    v11 --> v12
+    v12 --> v13
+    v13 --> v14
+    v14 --> v15
+    style v1 fill:#e8f5e9,stroke:#4caf50,color:#222
+    style v2 fill:#e8f5e9,stroke:#4caf50,color:#222
+    style v3 fill:#e8f5e9,stroke:#4caf50,color:#222
+    style v4 fill:#e8f5e9,stroke:#4caf50,color:#222
+    style v5 fill:#e8f5e9,stroke:#4caf50,color:#222
+    style v6 fill:#ffebee,stroke:#ef5350,color:#222
+    style v7 fill:#e8f5e9,stroke:#4caf50,color:#222
+    style v8 fill:#ffebee,stroke:#ef5350,color:#222
+    style v9 fill:#e8f5e9,stroke:#4caf50,color:#222
+    style v10 fill:#e8f5e9,stroke:#4caf50,color:#222
+    style v11 fill:#e8f5e9,stroke:#4caf50,color:#222
+    style v12 fill:#e8f5e9,stroke:#4caf50,color:#222
+    style v13 fill:#e8f5e9,stroke:#4caf50,color:#222
+    style v14 fill:#ffebee,stroke:#ef5350,color:#222
+    style v15 fill:#e8f5e9,stroke:#4caf50,color:#222
+    style v0 fill:#f5f5f5,stroke:#bbb,color:#666
+</div>
+</div>
+</div>
+<div class="foot">
+<span class="best">claude: 90b (TARGET ACHIEVED)</span> — 15/15 capture, clean tree |
+PAL: 227b — 7/21 capture, 2 broken parents |
+augmented: 179b — 7/35 capture, 100% broken parents (reconstructed)
+</div>
+</body>
+</html>

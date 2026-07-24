@@ -1,0 +1,1 @@
+p=lambda g:(h:=len(g),w:=len(g[0]),o:=[[0]*w for _ in g],exec('for r in range(h):\n for c in range(w):\n  if v:=g[r][c]:\n   a=r and v in g[r-1];b=r<h-1 and v in g[r+1]\n   o[r][c+(a<1 or b and g[r+1][c]!=v)]=v'),o)[-1]

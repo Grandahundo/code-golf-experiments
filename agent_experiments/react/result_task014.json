@@ -1,0 +1,203 @@
+{
+  "solved": true,
+  "bytes": 165,
+  "code": "def p(g):q=min(set(f:=sum(g,[]))-{0},key=f.count);r,c=zip(*[divmod(i,len(g[0]))for i,v in enumerate(f)if v==q]);return[x[min(c):max(c)+1]for x in g[min(r):max(r)+1]]",
+  "history": [
+    {
+      "round": 1,
+      "code": "def p(g):\n q=min(set(f:=[v for r in g for v in r if v]),key=f.count)\n a=c=10**9;b=d=-1\n for i,r in enumerate(g):\n  for j,v in enumerate(r):\n   if v==q:a=min(a,i);b=max(b,i);c=min(c,j);d=max(d,j)\n return [row[c:d+1] for row in g[a:b+1]]",
+      "status": "correct",
+      "bytes": 235,
+      "passed": 263,
+      "total": 263,
+      "error": "",
+      "elapsed_s": 50.76
+    },
+    {
+      "round": 2,
+      "code": "def p(g):\n q=min(set(f:=[v for r in g for v in r if v]),key=f.count)\n a=c=10**9;b=d=-1\n for i,r in enumerate(g):\n  for j,v in enumerate(r):\n   if v==q:a=min(a,i);b=max(b,i);c=min(c,j);d=max(d,j)\n return [row[c:d+1] for row in g[a:b+1]]",
+      "status": "correct",
+      "bytes": 235,
+      "passed": 263,
+      "total": 263,
+      "error": "",
+      "elapsed_s": 127.29
+    },
+    {
+      "round": 3,
+      "status": "parse_error",
+      "code": "",
+      "bytes": 0
+    },
+    {
+      "round": 4,
+      "code": "def p(g):\n q=min(f:=[v for v in sum(g,[])if v],key=f.count);r,c=zip(*[(i,j) for i,r in enumerate(g) for j,v in enumerate(r)if v==q])\n return[x[min(c):max(c)+1] for x in g[min(r):max(r)+1]]",
+      "status": "correct",
+      "bytes": 188,
+      "passed": 263,
+      "total": 263,
+      "error": "",
+      "elapsed_s": 16.3
+    },
+    {
+      "round": 5,
+      "code": "def p(g):\n q=min(set(f:=sum(g,[]))-{0},key=f.count);r,c=zip(*[(i,j)for i,r in enumerate(g)for j,v in enumerate(r)if v==q])\n return[x[min(c):max(c)+1]for x in g[min(r):max(r)+1]]",
+      "status": "correct",
+      "bytes": 177,
+      "passed": 263,
+      "total": 263,
+      "error": "",
+      "elapsed_s": 71.16
+    },
+    {
+      "round": 6,
+      "code": "def p(g):\n q=min(f:=sum(g,[]),key=f.count);r,c=zip(*[(i,j)for i,r in enumerate(g)for j,v in enumerate(r)if v==q])\n return[x[min(c):max(c)+1]for x in g[min(r):max(r)+1]]",
+      "status": "wrong",
+      "bytes": 168,
+      "passed": 203,
+      "total": 263,
+      "error": "",
+      "elapsed_s": 92.3
+    },
+    {
+      "round": 7,
+      "code": "def p(g):\n q=min({*f:=sum(g,[])}-{0},key=f.count);r,c=zip(*[(i,j)for i,r in enumerate(g)for j,v in enumerate(r)if v==q])\n return[x[min(c):max(c)+1]for x in g[min(r):max(r)+1]]",
+      "status": "syntax_error",
+      "bytes": 0,
+      "passed": 0,
+      "total": 263,
+      "error": "SyntaxError: invalid syntax (line 2)",
+      "elapsed_s": 70.38
+    },
+    {
+      "round": 8,
+      "code": "def p(g):\n q=min(set(f:=sum(g,[]))-{0},key=f.count);r,c=zip(*[(i,j)for i,r in enumerate(g)for j,v in enumerate(r)if v==q])\n return[x[min(c):max(c)+1]for x in g[min(r):max(r)+1]]",
+      "status": "correct",
+      "bytes": 177,
+      "passed": 263,
+      "total": 263,
+      "error": "",
+      "elapsed_s": 129.92
+    },
+    {
+      "round": 9,
+      "code": "def p(g):q=min(set(f:=sum(g,[]))-{0},key=f.count);r,c=zip(*[(i,j)for i,r in enumerate(g)for j,v in enumerate(r)if v==q]);return[x[min(c):max(c)+1]for x in g[min(r):max(r)+1]]",
+      "status": "correct",
+      "bytes": 174,
+      "passed": 263,
+      "total": 263,
+      "error": "",
+      "elapsed_s": 127.51
+    },
+    {
+      "round": 10,
+      "code": "def p(g):w=len(g[0]);q=min(set(f:=sum(g,[]))-{0},key=f.count);r,c=zip(*[(i//w,i%w)for i,v in enumerate(f)if v==q]);return[x[min(c):max(c)+1]for x in g[min(r):max(r)+1]]",
+      "status": "correct",
+      "bytes": 168,
+      "passed": 263,
+      "total": 263,
+      "error": "",
+      "elapsed_s": 55.14
+    },
+    {
+      "round": 11,
+      "code": "def p(g):w=len(g[0]);q=min(set(f:=sum(g,[]))-{0},key=f.count);r,c=zip(*[(i//w,i%w)for i,v in enumerate(f)if v==q]);return[x[min(c):max(c)+1]for x in g[min(r):max(r)+1]]",
+      "status": "correct",
+      "bytes": 168,
+      "passed": 263,
+      "total": 263,
+      "error": "",
+      "elapsed_s": 130.47
+    },
+    {
+      "round": 12,
+      "code": "def p(g):w=len(g[0]);q=min(set(f:=sum(g,[]))-{0},key=f.count);r,c=zip(*[(i//w,i%w)for i,v in enumerate(f)if v==q]);return[x[min(c):max(c)+1]for x in g[min(r):max(r)+1]]",
+      "status": "correct",
+      "bytes": 168,
+      "passed": 263,
+      "total": 263,
+      "error": "",
+      "elapsed_s": 103.09
+    },
+    {
+      "round": 13,
+      "code": "def p(g):w=len(g[0]);q=min(set(f:=sum(g,[]))-{0},key=f.count);r,c=zip(*[(i//w,i%w)for i,v in enumerate(f)if v==q]);return[x[min(c):max(c)+1]for x in g[min(r):max(r)+1]]",
+      "status": "correct",
+      "bytes": 168,
+      "passed": 263,
+      "total": 263,
+      "error": "",
+      "elapsed_s": 90.85
+    },
+    {
+      "round": 14,
+      "code": "def p(g):w=len(g[0]);q=min(set(f:=sum(g,[]))-{0},key=f.count);r,c=zip(*[(i//w,i%w)for i,v in enumerate(f)if v==q]);return[x[min(c):max(c)+1]for x in g[min(r):max(r)+1]]",
+      "status": "correct",
+      "bytes": 168,
+      "passed": 263,
+      "total": 263,
+      "error": "",
+      "elapsed_s": 98.46
+    },
+    {
+      "round": 15,
+      "code": "def p(g):q=min(set(f:=sum(g,[]))-{0},key=f.count);r,c=zip(*[divmod(i,len(g[0]))for i,v in enumerate(f)if v==q]);return[x[min(c):max(c)+1]for x in g[min(r):max(r)+1]]",
+      "status": "correct",
+      "bytes": 165,
+      "passed": 263,
+      "total": 263,
+      "error": "",
+      "elapsed_s": 70.69
+    },
+    {
+      "round": 16,
+      "code": "def p(g):q=min(set(f:=sum(g,[]))-{0},key=f.count);r,c=zip(*[divmod(i,len(g[0]))for i,v in enumerate(f)if v==q]);return[x[min(c):max(c)+1]for x in g[min(r):max(r)+1]]",
+      "status": "correct",
+      "bytes": 165,
+      "passed": 263,
+      "total": 263,
+      "error": "",
+      "elapsed_s": 79.28
+    },
+    {
+      "round": 17,
+      "code": "def p(g):q=min(set(f:=sum(g,[]))-{0},key=f.count);r,c=zip(*[divmod(i,len(g[0]))for i,v in enumerate(f)if v==q]);return[x[min(c):max(c)+1]for x in g[min(r):max(r)+1]]",
+      "status": "correct",
+      "bytes": 165,
+      "passed": 263,
+      "total": 263,
+      "error": "",
+      "elapsed_s": 54.47
+    },
+    {
+      "round": 18,
+      "code": "def p(g):q=min(set(f:=sum(g,[]))-{0},key=f.count);r,c=zip(*[divmod(i,len(g[0]))for i,v in enumerate(f)if v==q]);return[x[min(c):max(c)+1]for x in g[min(r):max(r)+1]]",
+      "status": "correct",
+      "bytes": 165,
+      "passed": 263,
+      "total": 263,
+      "error": "",
+      "elapsed_s": 83.17
+    },
+    {
+      "round": 19,
+      "code": "def p(g):q=min(set(f:=sum(g,[]))-{0},key=f.count);r,c=zip(*[divmod(i,len(g[0]))for i,v in enumerate(f)if v==q]);return[x[min(c):max(c)+1]for x in g[min(r):max(r)+1]]",
+      "status": "correct",
+      "bytes": 165,
+      "passed": 263,
+      "total": 263,
+      "error": "",
+      "elapsed_s": 89.46
+    },
+    {
+      "round": 20,
+      "code": "def p(g):q=min(set(f:=sum(g,[]))-{0},key=f.count);r,c=zip(*[divmod(i,len(g[0]))for i,v in enumerate(f)if v==q]);return[x[min(c):max(c)+1]for x in g[min(r):max(r)+1]]",
+      "status": "correct",
+      "bytes": 165,
+      "passed": 263,
+      "total": 263,
+      "error": "",
+      "elapsed_s": 53.78
+    }
+  ]
+}

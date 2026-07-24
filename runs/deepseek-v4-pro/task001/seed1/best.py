@@ -1,0 +1,1 @@
+p=lambda g:[[a&b for a in s for b in r]for s in g for r in g]

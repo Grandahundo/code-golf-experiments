@@ -1,0 +1,1 @@
+p=lambda g:[[c*2for c in g[r%[2,4,3][(g[1]!=g[3])+(g[1]==g[4])]]]for r in range(9)]

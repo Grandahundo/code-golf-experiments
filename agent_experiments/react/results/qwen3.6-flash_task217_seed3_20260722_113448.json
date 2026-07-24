@@ -1,0 +1,323 @@
+{
+  "solved": true,
+  "bytes": 194,
+  "code": "def p(g):R=range(3);f=sum(g,[]);k=f.index(next(filter(None,f)));y,x=k//9,k%9;sp=[g[y-y%3+i][x-x%3:x-x%3+3]for i in R];return[sum([sp[r//3][c]and sp[r%3]or[0]*3 for c in R],[]) for r in range(9)]",
+  "history": [
+    {
+      "round": 1,
+      "code": "def p(g):\n n=len(g);s=int(n**.5);sp=None\n for i in range(s):\n  for j in range(s):\n   if any(any(x for x in r)for r in g[i*s:i*s+s]):sp=g[i*s:i*s+s];break\n  if sp:break\n o=[[0]*n for_ in range(n)]\n for r in range(s):\n  for c in range(s):\n   if sp[r][c]:\n    for i in range(s):\n     o[r*s+i][c*s:c*s+s]=list(sp[i])\n return o",
+      "status": "syntax_error",
+      "bytes": 0,
+      "passed": 0,
+      "total": 263,
+      "error": "SyntaxError: invalid syntax (line 7)",
+      "elapsed_s": 33.59
+    },
+    {
+      "round": 2,
+      "code": "def p(g):\n n=len(g);s=int(n**.5);R=range(n)\n i,j=next((x,y) for x in R for y in R if g[x][y])\n sp=g[i//s*s:i//s*s+s]\n o=[[0]*n for _ in R]\n for r in R:\n  for c in R:\n   if sp[r][c]:\n    for k in R:o[r*s+k][c*s:c*s+s]=sp[k]\n return o",
+      "status": "crash",
+      "bytes": 232,
+      "passed": 0,
+      "total": 263,
+      "error": "3 case(s) crashed: IndexError: list index out of range; IndexError: list index out of range; IndexError: list index out of range",
+      "elapsed_s": 295.98
+    },
+    {
+      "round": 3,
+      "code": "def p(g):\n n=len(g);s=3;R=range(3)\n i=next(x for x,r in enumerate(g) if any(r))\n sp=g[i//s*s:i//s*s+s]\n o=[[0]*n for _ in ' '*n]\n for r in R:\n  for c in R:\n   if sp[r][c]:\n    for k in R:o[r*s+k][c*s:c*s+s]=sp[k]\n return o",
+      "status": "wrong",
+      "bytes": 222,
+      "passed": 0,
+      "total": 263,
+      "error": "",
+      "elapsed_s": 52.77
+    },
+    {
+      "round": 4,
+      "code": "def p(g):\n n=len(g);s=int(n**.5);R=range(n)\n i=next(j for j,r in enumerate(g) if any(r))\n sp=g[i//s*s:i//s*s+s]\n return[[sp[r%s][c%s]or 0 for c in R]for r in R]",
+      "status": "wrong",
+      "bytes": 160,
+      "passed": 0,
+      "total": 263,
+      "error": "",
+      "elapsed_s": 314.69
+    },
+    {
+      "round": 5,
+      "code": "def p(g):\n n=len(g);s=int(n**.5);R=range(s)\n y,x=next((i,j) for i in range(n) for j in range(n) if g[i][j])\n sp=[r[x//s*s:x//s*s+s] for r in g[y//s*s:y//s*s+s]]\n return[sum([sp[k] if sp[br][bc] else [0]*s for bc in R],[]) for br in R for k in R]",
+      "status": "correct",
+      "bytes": 245,
+      "passed": 263,
+      "total": 263,
+      "error": "",
+      "elapsed_s": 212.51
+    },
+    {
+      "round": 6,
+      "code": "def p(g):R=range(9);f=sum(g,[]);i,j=divmod(f.index(next(filter(None,f))),9);b=i-i%3;c=j-j%3;sp=[r[c:c+3] for r in g[b:b+3]];return[[sum([sp[r%3]*(sp[r//3][c//3])or[0]*3 for c in R],[]) for r in R]",
+      "status": "syntax_error",
+      "bytes": 0,
+      "passed": 0,
+      "total": 263,
+      "error": "SyntaxError: unexpected EOF while parsing (line 1)",
+      "elapsed_s": 67.9
+    },
+    {
+      "round": 7,
+      "code": "def p(g):\n R=range(3);n=len(g);y=next(i for i,l in enumerate(g) if any(l));x=next(j for j,v in enumerate(g[y]) if v)\n s=[l[x//3*3:x+3] for l in g[y//3*3:y+3]]\n o=[[0]*n for _ in range(n)]\n for r in R:\n  for c in R:\n   if s[r][c]:\n    for i in R:o[r*3+i][c*3:c*3+3]=s[i]\n return o",
+      "status": "wrong",
+      "bytes": 279,
+      "passed": 8,
+      "total": 263,
+      "error": "",
+      "elapsed_s": 86.18
+    },
+    {
+      "round": 8,
+      "code": "def p(g):\n n=len(g);R=range(3)\n y,x=next((i,j) for i in range(n) for j in range(n) if g[i][j])\n b=x//3*3;y0=y//3*3;sp=[g[y0+k][b:b+3] for k in R]\n return[sum([sp[r%3] if sp[r//3][c] else [0]*3 for c in R],[]) for r in range(n)]",
+      "status": "correct",
+      "bytes": 227,
+      "passed": 263,
+      "total": 263,
+      "error": "",
+      "elapsed_s": 186.98
+    },
+    {
+      "round": 9,
+      "code": "def p(g):\n f=sum(g,[]);k=f.index(next(filter(None,f)));y,x=k//9,k%9\n b=x//3*3;y0=y//3*3;R=range(3);sp=[g[y0+i][b:b+3] for i in R]\n return[[sum([sp[r%3]if sp[r//3][c]else[0]*R for c in R],[]) for r in range(9)]",
+      "status": "syntax_error",
+      "bytes": 0,
+      "passed": 0,
+      "total": 263,
+      "error": "SyntaxError: unexpected EOF while parsing (line 4)",
+      "elapsed_s": 76.09
+    },
+    {
+      "round": 10,
+      "code": "def p(g):R=range(3);f=sum(g,[]);k=f.index(next(filter(None,f)));y,x=k//9,k%9;sp=[g[y//3*3+i][x//3*3:x//3*3+3]for i in R];return[[sum([sp[r%3]if sp[r//3][c]else[] for c in R],[]) for r in R*3]]",
+      "status": "crash",
+      "bytes": 192,
+      "passed": 0,
+      "total": 263,
+      "error": "3 case(s) crashed: TypeError: unsupported operand type(s) for *: 'range' and 'int'; TypeError: unsupported operand type(s) for *: 'range' and 'int'; TypeError: unsupported operand type(s) for *: 'range' and 'int'",
+      "elapsed_s": 81.07
+    },
+    {
+      "round": 11,
+      "code": "def p(g):R=range(3);n=len(g);f=sum(g,[]);k=f.index(next(filter(None,f)));y,x=k//n,k%n;sp=[g[y//3*3+i][x//3*3:x//3*3+3]for i in R];return[sum([sp[r//3][c]and sp[r%3]or[0]*3 for c in R],[]) for r in range(n)]",
+      "status": "correct",
+      "bytes": 206,
+      "passed": 263,
+      "total": 263,
+      "error": "",
+      "elapsed_s": 309.82
+    },
+    {
+      "round": 12,
+      "code": "def p(g):R=range(3);f=sum(g,[]);k=f.index(next(filter(None,f)));y,x=k//9,k%9;sp=[g[y-y%3+i][x-x%3:x-x%3+3]for i in R];return[sum([sp[r//3][c]and sp[r%3]or[0]*3 for c in R],[]) for r in range(9)]",
+      "status": "correct",
+      "bytes": 194,
+      "passed": 263,
+      "total": 263,
+      "error": "",
+      "elapsed_s": 76.9
+    },
+    {
+      "round": 13,
+      "code": "def p(g):R=range(3);k=(f:=sum(g)).index(next(filter(None,f)));sp=[g[k//27*3+i][k%27//9*3:k%27//9*3+3]for i in R];return[sum([sp[r//3][d]and sp[r%3]or[0]*3 for d in R],[]) for r in range(9)]",
+      "status": "crash",
+      "bytes": 189,
+      "passed": 0,
+      "total": 263,
+      "error": "3 case(s) crashed: TypeError: unsupported operand type(s) for +: 'int' and 'list'; TypeError: unsupported operand type(s) for +: 'int' and 'list'; TypeError: unsupported operand type(s) for +: 'int' and 'list'",
+      "elapsed_s": 69.96
+    },
+    {
+      "round": 14,
+      "code": "def p(g):n=len(g);s=n//3;k=(f:=sum(g)).index(next(filter(None,f)));y,x=k//n,k%n;sp=[g[y-y%s+i][x-x%s:x-x%s+s]for i in range(s)];return[[sp[r%s][c%s]if sp[r//s][c//s]else 0 for c in g[0]] for r in g]",
+      "status": "crash",
+      "bytes": 198,
+      "passed": 0,
+      "total": 263,
+      "error": "3 case(s) crashed: TypeError: unsupported operand type(s) for +: 'int' and 'list'; TypeError: unsupported operand type(s) for +: 'int' and 'list'; TypeError: unsupported operand type(s) for +: 'int' and 'list'",
+      "elapsed_s": 75.8
+    },
+    {
+      "round": 15,
+      "code": "def p(g):R=range(3);k=(f:=sum(g)).index(max(f));sp=[g[k//27*3+i][k%9-k%3:k%9-k%3+3]for i in R];return[[sp[r//3][c//3]and sp[r%3][c%3]or 0 for c in R*3] for r in R*3]",
+      "status": "crash",
+      "bytes": 165,
+      "passed": 0,
+      "total": 263,
+      "error": "3 case(s) crashed: TypeError: unsupported operand type(s) for +: 'int' and 'list'; TypeError: unsupported operand type(s) for +: 'int' and 'list'; TypeError: unsupported operand type(s) for +: 'int' and 'list'",
+      "elapsed_s": 64.04
+    },
+    {
+      "round": 16,
+      "code": "def p(g):f=sum(g);k=f.index(next(filter(None,f)));sp=[g[k//27*3+i][k%9-k%3:k%9-k%3+3]for i in range(3)];return[[sp[r%3][c%3]if sp[r//3][c//3]else 0 for c in range(9)] for r in range(9)]",
+      "status": "crash",
+      "bytes": 185,
+      "passed": 0,
+      "total": 263,
+      "error": "3 case(s) crashed: TypeError: unsupported operand type(s) for +: 'int' and 'list'; TypeError: unsupported operand type(s) for +: 'int' and 'list'; TypeError: unsupported operand type(s) for +: 'int' and 'list'",
+      "elapsed_s": 109.78
+    },
+    {
+      "round": 17,
+      "code": "def p(g):f=sum(g);k=f.index(next(filter(None,f)));y,x=k//9,k%9;sp=[r[x-x%3:x-x%3+3]for r in g[y-y%3:y-y%3+3]];return[[sp[r%3][c%3]if sp[r//3][c//3]else 0 for c in range(9)] for r in range(9)]",
+      "status": "crash",
+      "bytes": 191,
+      "passed": 0,
+      "total": 263,
+      "error": "3 case(s) crashed: TypeError: unsupported operand type(s) for +: 'int' and 'list'; TypeError: unsupported operand type(s) for +: 'int' and 'list'; TypeError: unsupported operand type(s) for +: 'int' and 'list'",
+      "elapsed_s": 76.05
+    }
+  ],
+  "messages": [
+    {
+      "role": "system",
+      "content": "You are a code golf expert participating in a 30-round iterative code golf competition.\n\n## Goal\nWrite the **shortest possible Python program** that defines `p(grid) -> grid` and passes ALL test cases.\n\n## Rules\n- `p` receives a nested list of ints and must return a nested list of ints (0-9 only).\n- Score = UTF-8 byte count of your code (fewer = better).\n- Define `p` as `def p(g):` or `p = lambda g:`.  Must be the callable name `p`.\n- Standard library only.  No numpy / scipy / third-party packages.\n- The judge auto-converts booleans → 0/1 and integral floats → ints (numpy.array_equal semantics).\n\n## Strategy\n1. Study the generator code — it IS the ground truth for the transformation rule.\n2. **First get a correct solution** (any length), then compress aggressively.\n3. In each round, try ONE optimization / new approach.  Verify by submitting.\n4. If stuck, try radically different approaches: different algorithms, data structures, builtins.\n\n## Output Format\nYour reply MUST contain a single ````python` code block with your complete program.\nOnly the LAST python block is judged.\nYou may also include brief reasoning before the code block."
+    },
+    {
+      "role": "user",
+      "content": "## Task: task217\n\n## Generator Code (ground truth for the transformation rule)\n```python\ndef generate(rows=None, cols=None, idx=None, color=None, size=3):\n  \"\"\"Returns input and output grids according to the given parameters.\n\n  Args:\n    rows: a list of vertical coordinates where pixels should be placed\n    cols: a list of horizontal coordinates where pixels should be placed\n    idx: the index into the pixel that should be the input grid location\n    color: a digit representing a color to be used\n    size: the width and height of the (square) grid\n  \"\"\"\n  if rows is None:\n    rows, cols = common.conway_sprite()\n    idx = common.randint(0, len(rows) - 1)\n    color = common.random_color()\n\n  grid, output = common.grids(size * size, size * size)\n  for row, col in zip(rows, cols):\n    grid[rows[idx] * size + row][cols[idx] * size + col] = color\n    for r, c in zip(rows, cols):\n      output[row * size + r][col * size + c] = color\n  return {\"input\": grid, \"output\": output}\n```\n\n## Training Examples\n### Example 1\n\nInput:\n880000000\n008000000\n800000000\n000000000\n000000000\n000000000\n000000000\n000000000\n000000000\n\nOutput:\n880880000\n008008000\n800800000\n000000880\n000000008\n000000800\n880000000\n008000000\n800000000\n\n### Example 2\n\nInput:\n000000000\n000000000\n000000000\n000007000\n000077000\n000700000\n000000000\n000000000\n000000000\n\nOutput:\n000000007\n000000077\n000000700\n000007007\n000077077\n000700700\n007000000\n077000000\n700000000\n\n### Example 3\n\nInput:\n000060000\n000606000\n000660000\n000000000\n000000000\n000000000\n000000000\n000000000\n000000000\n\nOutput:\n000060000\n000606000\n000660000\n060000060\n606000606\n660000660\n060060000\n606606000\n660660000\n\n## Status\nRound 1 / 30\n\n**Best so far: NONE** — you need to get ANY correct solution first.\n\nWrite your code in a ```python block.  Good luck!"
+    },
+    {
+      "role": "assistant",
+      "content": "Looking at the generator code, I can see the transformation rule:\n\n1. The input grid contains a \"sprite\" pattern (non-zero pixels) placed at one 3×3 block position within a larger grid (typically 9×9, divided into 3×3 blocks of 3×3 cells).\n2. The output tiles this sprite pattern at every block position corresponding to a non-zero pixel within the sprite itself.\n\nFor example, if the sprite has non-zero pixels at relative positions (0,0), (0,1), (1,2), (2,0), then the output places the full sprite at blocks (0,0), (0,1), (1,2), (2,0).\n\n```python\ndef p(g):\n n=len(g);s=int(n**.5);sp=None\n for i in range(s):\n  for j in range(s):\n   if any(any(x for x in r)for r in g[i*s:i*s+s]):sp=g[i*s:i*s+s];break\n  if sp:break\n o=[[0]*n for_ in range(n)]\n for r in range(s):\n  for c in range(s):\n   if sp[r][c]:\n    for i in range(s):\n     o[r*s+i][c*s:c*s+s]=list(sp[i])\n return o\n```"
+    },
+    {
+      "role": "user",
+      "content": "## Round 1 / 30 — Result\n⚠️ **SYNTAX_ERROR**\nError: SyntaxError: invalid syntax (line 7)\nStill no correct solution yet.\n\nWrite your next (shorter!) solution in a ```python block."
+    },
+    {
+      "role": "assistant",
+      "content": "```python\ndef p(g):\n n=len(g);s=int(n**.5);R=range(n)\n i,j=next((x,y) for x in R for y in R if g[x][y])\n sp=g[i//s*s:i//s*s+s]\n o=[[0]*n for _ in R]\n for r in R:\n  for c in R:\n   if sp[r][c]:\n    for k in R:o[r*s+k][c*s:c*s+s]=sp[k]\n return o\n```"
+    },
+    {
+      "role": "user",
+      "content": "## Round 2 / 30 — Result\n💥 **CRASH / RUNTIME ERROR** — 232 bytes\nError: 3 case(s) crashed: IndexError: list index out of range; IndexError: list index out of range; IndexError: list index out of range\nStill no correct solution yet.\n\nWrite your next (shorter!) solution in a ```python block."
+    },
+    {
+      "role": "assistant",
+      "content": "```python\ndef p(g):\n n=len(g);s=3;R=range(3)\n i=next(x for x,r in enumerate(g) if any(r))\n sp=g[i//s*s:i//s*s+s]\n o=[[0]*n for _ in ' '*n]\n for r in R:\n  for c in R:\n   if sp[r][c]:\n    for k in R:o[r*s+k][c*s:c*s+s]=sp[k]\n return o\n```"
+    },
+    {
+      "role": "user",
+      "content": "## Round 3 / 30 — Result\n❌ **WRONG ANSWER** — 222 bytes\nPassed 3 cases but failed some.\nStill no correct solution yet.\nFailures (first few):\n  - Input: [[0, 0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0, 0], [2, 0, 0, 0, 0, 0, 0, 0, 0], [2, 2, 0, 0, 0, 0, 0, 0, 0], [0, 2, 2, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0, 0]]\n    Expected: [[2, 0, 0, 0, 0, 0, 0, 0, 0], [2, 2, 0, 0, 0, 0, 0, 0, 0], [0, 2, 2, 0, 0, 0, 0, 0, 0], [2, 0, 0, 2, 0, 0, 0, 0, 0], [2, 2, 0, 2, 2, 0, 0, 0, 0], [0, 2, 2, 0, 2, 2, 0, 0, 0], [0, 0, 0, 2, 0, 0, 2, 0, 0], [0, 0, 0, 2, 2, 0, 2, 2, 0], [0, 0, 0, 0, 2, 2, 0, 2, 2]]\n    Got: [[2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0], [2, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0], [0, 2, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0], [2, 0, 0, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0], [2, 2, 0, 2, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0], [0, 2, 2, 0, 2, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 2, 0, 0, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 2, 2, 0, 2, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 2, 2, 0, 2, 2, 0, 0,... (truncated, full: 531 chars)\n  - Input: [[2, 0, 0, 0, 0, 0, 0, 0, 0], [2, 0, 2, 0, 0, 0, 0, 0, 0], [0, 2, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0, 0]]\n    Expected: [[2, 0, 0, 0, 0, 0, 0, 0, 0], [2, 0, 2, 0, 0, 0, 0, 0, 0], [0, 2, 0, 0, 0, 0, 0, 0, 0], [2, 0, 0, 0, 0, 0, 2, 0, 0], [2, 0, 2, 0, 0, 0, 2, 0, 2], [0, 2, 0, 0, 0, 0, 0, 2, 0], [0, 0, 0, 2, 0, 0, 0, 0, 0], [0, 0, 0, 2, 0, 2, 0, 0, 0], [0, 0, 0, 0, 2, 0, 0, 0, 0]]\n    Got: [[2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0], [2, 0, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0], [0, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0], [2, 0, 0, 0, 0, 0, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0], [2, 0, 2, 0, 0, 0, 2, 0, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0], [0, 2, 0, 0, 0, 0, 0, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 2, 0, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]]\n  - Input: [[0, 0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 5, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0, 5], [0, 0, 0, 0, 0, 0, 0, 5, 0], [0, 0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0, 0]]\n    Expected: [[5, 0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 5, 0, 0, 0, 0, 0, 0], [0, 5, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 5, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0, 5], [0, 0, 0, 0, 0, 0, 0, 5, 0], [0, 0, 0, 5, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 5, 0, 0, 0], [0, 0, 0, 0, 5, 0, 0, 0, 0]]\n    Got: [[0, 0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0, 0]]\n\nWrite your next (shorter!) solution in a ```python block."
+    },
+    {
+      "role": "assistant",
+      "content": "```python\ndef p(g):\n n=len(g);s=int(n**.5);R=range(n)\n i=next(j for j,r in enumerate(g) if any(r))\n sp=g[i//s*s:i//s*s+s]\n return[[sp[r%s][c%s]or 0 for c in R]for r in R]\n```"
+    },
+    {
+      "role": "user",
+      "content": "## Round 4 / 30 — Result\n❌ **WRONG ANSWER** — 160 bytes\nPassed 3 cases but failed some.\nStill no correct solution yet.\nFailures (first few):\n  - Input: [[0, 0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0, 0], [2, 0, 0, 0, 0, 0, 0, 0, 0], [2, 2, 0, 0, 0, 0, 0, 0, 0], [0, 2, 2, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0, 0]]\n    Expected: [[2, 0, 0, 0, 0, 0, 0, 0, 0], [2, 2, 0, 0, 0, 0, 0, 0, 0], [0, 2, 2, 0, 0, 0, 0, 0, 0], [2, 0, 0, 2, 0, 0, 0, 0, 0], [2, 2, 0, 2, 2, 0, 0, 0, 0], [0, 2, 2, 0, 2, 2, 0, 0, 0], [0, 0, 0, 2, 0, 0, 2, 0, 0], [0, 0, 0, 2, 2, 0, 2, 2, 0], [0, 0, 0, 0, 2, 2, 0, 2, 2]]\n    Got: [[2, 0, 0, 2, 0, 0, 2, 0, 0], [2, 2, 0, 2, 2, 0, 2, 2, 0], [0, 2, 2, 0, 2, 2, 0, 2, 2], [2, 0, 0, 2, 0, 0, 2, 0, 0], [2, 2, 0, 2, 2, 0, 2, 2, 0], [0, 2, 2, 0, 2, 2, 0, 2, 2], [2, 0, 0, 2, 0, 0, 2, 0, 0], [2, 2, 0, 2, 2, 0, 2, 2, 0], [0, 2, 2, 0, 2, 2, 0, 2, 2]]\n  - Input: [[2, 0, 0, 0, 0, 0, 0, 0, 0], [2, 0, 2, 0, 0, 0, 0, 0, 0], [0, 2, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0, 0]]\n    Expected: [[2, 0, 0, 0, 0, 0, 0, 0, 0], [2, 0, 2, 0, 0, 0, 0, 0, 0], [0, 2, 0, 0, 0, 0, 0, 0, 0], [2, 0, 0, 0, 0, 0, 2, 0, 0], [2, 0, 2, 0, 0, 0, 2, 0, 2], [0, 2, 0, 0, 0, 0, 0, 2, 0], [0, 0, 0, 2, 0, 0, 0, 0, 0], [0, 0, 0, 2, 0, 2, 0, 0, 0], [0, 0, 0, 0, 2, 0, 0, 0, 0]]\n    Got: [[2, 0, 0, 2, 0, 0, 2, 0, 0], [2, 0, 2, 2, 0, 2, 2, 0, 2], [0, 2, 0, 0, 2, 0, 0, 2, 0], [2, 0, 0, 2, 0, 0, 2, 0, 0], [2, 0, 2, 2, 0, 2, 2, 0, 2], [0, 2, 0, 0, 2, 0, 0, 2, 0], [2, 0, 0, 2, 0, 0, 2, 0, 0], [2, 0, 2, 2, 0, 2, 2, 0, 2], [0, 2, 0, 0, 2, 0, 0, 2, 0]]\n  - Input: [[0, 0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 5, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0, 5], [0, 0, 0, 0, 0, 0, 0, 5, 0], [0, 0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0, 0]]\n    Expected: [[5, 0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 5, 0, 0, 0, 0, 0, 0], [0, 5, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 5, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0, 5], [0, 0, 0, 0, 0, 0, 0, 5, 0], [0, 0, 0, 5, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 5, 0, 0, 0], [0, 0, 0, 0, 5, 0, 0, 0, 0]]\n    Got: [[0, 0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0, 0]]\n\nWrite your next (shorter!) solution in a ```python block."
+    },
+    {
+      "role": "assistant",
+      "content": "```python\ndef p(g):\n n=len(g);s=int(n**.5);R=range(s)\n y,x=next((i,j) for i in range(n) for j in range(n) if g[i][j])\n sp=[r[x//s*s:x//s*s+s] for r in g[y//s*s:y//s*s+s]]\n return[sum([sp[k] if sp[br][bc] else [0]*s for bc in R],[]) for br in R for k in R]\n```"
+    },
+    {
+      "role": "user",
+      "content": "## Round 5 / 30 — Result\n✅ **ACCEPTED** — 245 bytes\n🏆 **NEW BEST!** 245 bytes\n\nWrite your next (shorter!) solution in a ```python block."
+    },
+    {
+      "role": "assistant",
+      "content": "```python\ndef p(g):R=range(9);f=sum(g,[]);i,j=divmod(f.index(next(filter(None,f))),9);b=i-i%3;c=j-j%3;sp=[r[c:c+3] for r in g[b:b+3]];return[[sum([sp[r%3]*(sp[r//3][c//3])or[0]*3 for c in R],[]) for r in R]\n```"
+    },
+    {
+      "role": "user",
+      "content": "## Round 6 / 30 — Result\n⚠️ **SYNTAX_ERROR**\nError: SyntaxError: unexpected EOF while parsing (line 1)\nCurrent best: 245 bytes\n\nWrite your next (shorter!) solution in a ```python block."
+    },
+    {
+      "role": "assistant",
+      "content": "```python\ndef p(g):\n R=range(3);n=len(g);y=next(i for i,l in enumerate(g) if any(l));x=next(j for j,v in enumerate(g[y]) if v)\n s=[l[x//3*3:x+3] for l in g[y//3*3:y+3]]\n o=[[0]*n for _ in range(n)]\n for r in R:\n  for c in R:\n   if s[r][c]:\n    for i in R:o[r*3+i][c*3:c*3+3]=s[i]\n return o\n```"
+    },
+    {
+      "role": "user",
+      "content": "## Round 7 / 30 — Result\n❌ **WRONG ANSWER** — 279 bytes\nPassed 3 cases but failed some.\nCurrent best: 245 bytes\nFailures (first few):\n  - Input: [[0, 0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0, 0], [0, 3, 0, 0, 0, 0, 0, 0, 0], [0, 0, 3, 0, 0, 0, 0, 0, 0], [3, 3, 0, 0, 0, 0, 0, 0, 0]]\n    Expected: [[0, 0, 0, 0, 3, 0, 0, 0, 0], [0, 0, 0, 0, 0, 3, 0, 0, 0], [0, 0, 0, 3, 3, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 3, 0], [0, 0, 0, 0, 0, 0, 0, 0, 3], [0, 0, 0, 0, 0, 0, 3, 3, 0], [0, 3, 0, 0, 3, 0, 0, 0, 0], [0, 0, 3, 0, 0, 3, 0, 0, 0], [3, 3, 0, 3, 3, 0, 0, 0, 0]]\n    Got: [[0, 0, 0, 0, 3, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 3, 0, 0, 0, 0], [0, 0, 0, 3, 3, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 3, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0, 3, 0], [0, 0, 0, 0, 0, 0, 3, 3, 0, 0], [0, 3, 0, 0, 3, 0, 0, 0, 0, 0, 0], [0, 0, 3, 0, 0, 3, 0, 0, 0, 0, 0], [3, 3, 0, 3, 3, 0, 0, 0, 0, 0, 0]]\n  - Input: [[0, 0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 4, 0, 0, 0], [0, 0, 0, 0, 4, 0, 0, 0, 0], [0, 0, 0, 4, 4, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0, 0]]\n    Expected: [[0, 0, 0, 0, 0, 0, 0, 0, 4], [0, 0, 0, 0, 0, 0, 0, 4, 0], [0, 0, 0, 0, 0, 0, 4, 4, 0], [0, 0, 0, 0, 0, 4, 0, 0, 0], [0, 0, 0, 0, 4, 0, 0, 0, 0], [0, 0, 0, 4, 4, 0, 0, 0, 0], [0, 0, 4, 0, 0, 4, 0, 0, 0], [0, 4, 0, 0, 4, 0, 0, 0, 0], [4, 4, 0, 4, 4, 0, 0, 0, 0]]\n    Got: [[0, 0, 0, 0, 0, 0, 0, 0, 4, 0, 0], [0, 0, 0, 0, 0, 0, 0, 4, 0, 0, 0], [0, 0, 0, 0, 0, 0, 4, 4, 0, 0, 0], [0, 0, 0, 0, 0, 4, 0, 0, 0, 0, 0], [0, 0, 0, 0, 4, 0, 0, 0, 0, 0, 0], [0, 0, 0, 4, 4, 0, 0, 0, 0, 0, 0], [0, 0, 4, 0, 0, 4, 0, 0, 0, 0, 0, 0, 0], [0, 4, 0, 0, 4, 0, 0, 0, 0, 0, 0, 0, 0], [4, 4, 0, 4, 4, 0, 0, 0, 0, 0, 0, 0, 0]]\n  - Input: [[0, 0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 1, 0, 0, 0, 0, 0, 0], [0, 1, 1, 0, 0, 0, 0, 0, 0], [1, 0, 0, 0, 0, 0, 0, 0, 0]]\n    Expected: [[0, 0, 0, 0, 0, 0, 0, 0, 1], [0, 0, 0, 0, 0, 0, 0, 1, 1], [0, 0, 0, 0, 0, 0, 1, 0, 0], [0, 0, 0, 0, 0, 1, 0, 0, 1], [0, 0, 0, 0, 1, 1, 0, 1, 1], [0, 0, 0, 1, 0, 0, 1, 0, 0], [0, 0, 1, 0, 0, 0, 0, 0, 0], [0, 1, 1, 0, 0, 0, 0, 0, 0], [1, 0, 0, 0, 0, 0, 0, 0, 0]]\n    Got: [[0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0], [0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0], [0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0], [0, 0, 0, 0, 0, 1, 0, 0, 1, 0, 0, 0, 0], [0, 0, 0, 0, 1, 1, 0, 1, 1, 0, 0, 0, 0], [0, 0, 0, 1, 0, 0, 1, 0, 0, 0, 0, 0, 0], [0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0], [0, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0], [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]]\n\nWrite your next (shorter!) solution in a ```python block."
+    },
+    {
+      "role": "assistant",
+      "content": "```python\ndef p(g):\n n=len(g);R=range(3)\n y,x=next((i,j) for i in range(n) for j in range(n) if g[i][j])\n b=x//3*3;y0=y//3*3;sp=[g[y0+k][b:b+3] for k in R]\n return[sum([sp[r%3] if sp[r//3][c] else [0]*3 for c in R],[]) for r in range(n)]\n```"
+    },
+    {
+      "role": "user",
+      "content": "## Round 8 / 30 — Result\n✅ **ACCEPTED** — 227 bytes\n🏆 **NEW BEST!** 227 bytes\n\nWrite your next (shorter!) solution in a ```python block."
+    },
+    {
+      "role": "assistant",
+      "content": "```python\ndef p(g):\n f=sum(g,[]);k=f.index(next(filter(None,f)));y,x=k//9,k%9\n b=x//3*3;y0=y//3*3;R=range(3);sp=[g[y0+i][b:b+3] for i in R]\n return[[sum([sp[r%3]if sp[r//3][c]else[0]*R for c in R],[]) for r in range(9)]\n```"
+    },
+    {
+      "role": "user",
+      "content": "## Round 9 / 30 — Result\n⚠️ **SYNTAX_ERROR**\nError: SyntaxError: unexpected EOF while parsing (line 4)\nCurrent best: 227 bytes\n\nWrite your next (shorter!) solution in a ```python block."
+    },
+    {
+      "role": "assistant",
+      "content": "```python\ndef p(g):R=range(3);f=sum(g,[]);k=f.index(next(filter(None,f)));y,x=k//9,k%9;sp=[g[y//3*3+i][x//3*3:x//3*3+3]for i in R];return[[sum([sp[r%3]if sp[r//3][c]else[] for c in R],[]) for r in R*3]]\n```"
+    },
+    {
+      "role": "user",
+      "content": "## Round 10 / 30 — Result\n💥 **CRASH / RUNTIME ERROR** — 192 bytes\nError: 3 case(s) crashed: TypeError: unsupported operand type(s) for *: 'range' and 'int'; TypeError: unsupported operand type(s) for *: 'range' and 'int'; TypeError: unsupported operand type(s) for *: 'range' and 'int'\nCurrent best: 227 bytes\n\nWrite your next (shorter!) solution in a ```python block."
+    },
+    {
+      "role": "assistant",
+      "content": "```python\ndef p(g):R=range(3);n=len(g);f=sum(g,[]);k=f.index(next(filter(None,f)));y,x=k//n,k%n;sp=[g[y//3*3+i][x//3*3:x//3*3+3]for i in R];return[sum([sp[r//3][c]and sp[r%3]or[0]*3 for c in R],[]) for r in range(n)]\n```"
+    },
+    {
+      "role": "user",
+      "content": "## Round 11 / 30 — Result\n✅ **ACCEPTED** — 206 bytes\n🏆 **NEW BEST!** 206 bytes\n\nWrite your next (shorter!) solution in a ```python block."
+    },
+    {
+      "role": "assistant",
+      "content": "```python\ndef p(g):R=range(3);f=sum(g,[]);k=f.index(next(filter(None,f)));y,x=k//9,k%9;sp=[g[y-y%3+i][x-x%3:x-x%3+3]for i in R];return[sum([sp[r//3][c]and sp[r%3]or[0]*3 for c in R],[]) for r in range(9)]\n```"
+    },
+    {
+      "role": "user",
+      "content": "## Round 12 / 30 — Result\n✅ **ACCEPTED** — 194 bytes\n🏆 **NEW BEST!** 194 bytes\n\nWrite your next (shorter!) solution in a ```python block."
+    },
+    {
+      "role": "assistant",
+      "content": "```python\ndef p(g):R=range(3);k=(f:=sum(g)).index(next(filter(None,f)));sp=[g[k//27*3+i][k%27//9*3:k%27//9*3+3]for i in R];return[sum([sp[r//3][d]and sp[r%3]or[0]*3 for d in R],[]) for r in range(9)]\n```"
+    },
+    {
+      "role": "user",
+      "content": "## Round 13 / 30 — Result\n💥 **CRASH / RUNTIME ERROR** — 189 bytes\nError: 3 case(s) crashed: TypeError: unsupported operand type(s) for +: 'int' and 'list'; TypeError: unsupported operand type(s) for +: 'int' and 'list'; TypeError: unsupported operand type(s) for +: 'int' and 'list'\nCurrent best: 194 bytes\n\nWrite your next (shorter!) solution in a ```python block."
+    },
+    {
+      "role": "assistant",
+      "content": "```python\ndef p(g):n=len(g);s=n//3;k=(f:=sum(g)).index(next(filter(None,f)));y,x=k//n,k%n;sp=[g[y-y%s+i][x-x%s:x-x%s+s]for i in range(s)];return[[sp[r%s][c%s]if sp[r//s][c//s]else 0 for c in g[0]] for r in g]\n```"
+    },
+    {
+      "role": "user",
+      "content": "## Round 14 / 30 — Result\n💥 **CRASH / RUNTIME ERROR** — 198 bytes\nError: 3 case(s) crashed: TypeError: unsupported operand type(s) for +: 'int' and 'list'; TypeError: unsupported operand type(s) for +: 'int' and 'list'; TypeError: unsupported operand type(s) for +: 'int' and 'list'\nCurrent best: 194 bytes\n\nWrite your next (shorter!) solution in a ```python block."
+    },
+    {
+      "role": "assistant",
+      "content": "```python\ndef p(g):R=range(3);k=(f:=sum(g)).index(max(f));sp=[g[k//27*3+i][k%9-k%3:k%9-k%3+3]for i in R];return[[sp[r//3][c//3]and sp[r%3][c%3]or 0 for c in R*3] for r in R*3]\n```"
+    },
+    {
+      "role": "user",
+      "content": "## Round 15 / 30 — Result\n💥 **CRASH / RUNTIME ERROR** — 165 bytes\nError: 3 case(s) crashed: TypeError: unsupported operand type(s) for +: 'int' and 'list'; TypeError: unsupported operand type(s) for +: 'int' and 'list'; TypeError: unsupported operand type(s) for +: 'int' and 'list'\nCurrent best: 194 bytes\n\nWrite your next (shorter!) solution in a ```python block."
+    },
+    {
+      "role": "assistant",
+      "content": "```python\ndef p(g):f=sum(g);k=f.index(next(filter(None,f)));sp=[g[k//27*3+i][k%9-k%3:k%9-k%3+3]for i in range(3)];return[[sp[r%3][c%3]if sp[r//3][c//3]else 0 for c in range(9)] for r in range(9)]\n```"
+    },
+    {
+      "role": "user",
+      "content": "## Round 16 / 30 — Result\n💥 **CRASH / RUNTIME ERROR** — 185 bytes\nError: 3 case(s) crashed: TypeError: unsupported operand type(s) for +: 'int' and 'list'; TypeError: unsupported operand type(s) for +: 'int' and 'list'; TypeError: unsupported operand type(s) for +: 'int' and 'list'\nCurrent best: 194 bytes\n\nWrite your next (shorter!) solution in a ```python block."
+    },
+    {
+      "role": "assistant",
+      "content": "```python\ndef p(g):f=sum(g);k=f.index(next(filter(None,f)));y,x=k//9,k%9;sp=[r[x-x%3:x-x%3+3]for r in g[y-y%3:y-y%3+3]];return[[sp[r%3][c%3]if sp[r//3][c//3]else 0 for c in range(9)] for r in range(9)]\n```"
+    },
+    {
+      "role": "user",
+      "content": "## Round 17 / 30 — Result\n💥 **CRASH / RUNTIME ERROR** — 191 bytes\nError: 3 case(s) crashed: TypeError: unsupported operand type(s) for +: 'int' and 'list'; TypeError: unsupported operand type(s) for +: 'int' and 'list'; TypeError: unsupported operand type(s) for +: 'int' and 'list'\nCurrent best: 194 bytes\n\nWrite your next (shorter!) solution in a ```python block."
+    }
+  ]
+}

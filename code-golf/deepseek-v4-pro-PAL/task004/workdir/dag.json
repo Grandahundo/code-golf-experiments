@@ -1,0 +1,117 @@
+{
+  "nodes": {
+    "v1": {
+      "version": "v1",
+      "parent": "v1",
+      "code": "def p(g):\n h=len(g);w=len(g[0]);o=[[0]*w for _ in range(h)]\n b=set()\n for r in range(h):\n  for c in range(w):\n   if g[r][c]and(r+1==h or g[r+1][c]==0):\n    if(c>0and g[r][c-1])or(c+1<w and g[r][c+1]):\n     if not((r+1<h and c>0and g[r+1][c-1])or(r+1<h and c+1<w and g[r+1][c+1])):\n      b.add((r,c))\n for r in range(h):\n  for c in range(w):\n   if g[r][c]:\n    if(r,c)in b or(r+1<h and(r+1,c)in b):o[r][c]=g[r][c]\n    elif c+1<w:o[r][c+1]=g[r][c]\n return o\n",
+      "bytes": 456,
+      "passed": false,
+      "test_results": {
+        "stdout": "Code length: 456 chars\n\n[train 0] PASS\n[train 1] FAIL\n  Input:\n  0 0 0 0 0 0 0 0 0\n  0 8 8 8 8 8 0 0 0\n  0 8 0 0 0 0 8 0 0\n  0 0 8 0 0 0 0 8 0\n  0 0 0 8 0 0 0 0 8\n  0 0 0 0 8 8 8 8 8\n  0 0 0 0 0 0 0 0 0\n  0 0 0 0 0 0 0 0 0\n  Expected:\n  0 0 0 0 0 0 0 0 0\n  0 0 8 8 8 8 8 0 0\n  0 0 8 0 0 0 0 8 0\n  0 0 0 8 0 0 0 0 8\n  0 0 0 0 8 0 0 0 8\n  0 0 0 0 8 8 8 8 8\n  0 0 0 0 0 0 0 0 0\n  0 0 0 0 0 0 0 0 0\n  Got:\n  0 0 0 0 0 0 0 0 0\n  0 0 8 8 8 0 8 0 0\n  0 0 8 0 0 0 0 8 0\n  0 0 0 8 0 0 0 0 8\n  0 0 0 0 8 0 0 0 8\n  0 0 0 0 8 8 8 8 8\n  0 0 0 0 0 0 0 0 0\n  0 0 0 0 0 0 0 0 0\n[test 0] FAIL\n  Input:\n  0 0 0 0 0 0 0 0 0 0\n  0 4 4 4 4 4 4 0 0 0\n  0 4 0 0 0 0 0 4 0 0\n  0 0 4 0 0 0 0 0 4 0\n  0 0 0 4 0 0 0 0 0 4\n  0 0 0 0 4 4 4 4 4 4\n  0 0 0 0 0 0 0 0 0 0\n  0 0 0 0 0 0 0 0 0 0\n  0 0 0 0 0 0 0 0 0 0\n  0 0 0 0 0 0 0 0 0 0\n  Expected:\n  0 0 0 0 0 0 0 0 0 0\n  0 0 4 4 4 4 4 4 0 0\n  0 0 4 0 0 0 0 0 4 0\n  0 0 0 4 0 0 0 0 0 4\n  0 0 0 0 4 0 0 0 0 4\n  0 0 0 0 4 4 4 4 4 4\n  0 0 0 0 0 0 0 0 0 0\n  0 0 0 0 0 0 0 0 0 0\n  0 0 0 0 0 0 0 0 0 0\n  0 0 0 0 0 0 0 0 0 0\n  Got:\n  0 0 0 0 0 0 0 0 0 0\n  0 0 4 4 4 4 0 4 0 0\n  0 0 4 0 0 0 0 0 4 0\n  0 0 0 4 0 0 0 0 0 4\n  0 0 0 0 4 0 0 0 0 4\n  0 0 0 0 4 4 4 4 4 4\n  0 0 0 0 0 0 0 0 0 0\n  0 0 0 0 0 0 0 0 0 0\n  0 0 0 0 0 0 0 0 0 0\n  0 0 0 0 0 0 0 0 0 0\n\n---\nPassed: 1, Failed: 2\n",
+        "stderr": "",
+        "returncode": 1
+      },
+      "insight": "first working attempt: bottom detection with 3-rule test (nothing below, horiz adj, no diag below) + pixel-above-bottom stays",
+      "expected_saving": 0,
+      "timestamp": "2026-07-13T16:33:36.071722",
+      "code_hash": "956bff7203b5"
+    },
+    "v2": {
+      "version": "v2",
+      "parent": "v1",
+      "code": "def p(g):\n h=len(g);w=len(g[0]);o=[[0]*w for _ in range(h)]\n b=set()\n for r in range(h):\n  for c in range(w):\n   if g[r][c]and(r+1==h or not any(g[r+1])):\n    if(c>0and g[r][c-1])or(c+1<w and g[r][c+1]):\n     b.add((r,c))\n for r in range(h):\n  for c in range(w):\n   if g[r][c]:\n    if(r,c)in b or(r+1<h and(r+1,c)in b):o[r][c]=g[r][c]\n    elif c+1<w:o[r][c+1]=g[r][c]\n return o\n",
+      "bytes": 378,
+      "passed": true,
+      "test_results": {
+        "stdout": "Code length: 378 chars\n\n[train 0] PASS\n[train 1] PASS\n[test 0] PASS\n\n---\nPassed: 3, Failed: 0\n",
+        "stderr": "",
+        "returncode": 0
+      },
+      "insight": "fixed bottom detection: use any(g[r+1]) instead of 3-cell diag check. Bottom row = horiz adj + entire row below empty",
+      "expected_saving": 78,
+      "timestamp": "2026-07-13T16:34:41.261354",
+      "code_hash": "48d9ab1b10aa"
+    },
+    "v3": {
+      "version": "v3",
+      "parent": "v1",
+      "code": "def p(g):\n h=len(g);w=len(g[0]);o=[[0]*w for _ in range(h)]\n b=set()\n for r in range(h):\n  for c in range(w):\n   if g[r][c]and(r+1==h or not any(g[r+1])):\n    if(c>0and g[r][c-1])or(c+1<w and g[r][c+1]):\n     b.add((r,c))\n for r in range(h):\n  for c in range(w):\n   if g[r][c]:\n    if(r,c)in b or(r+1<h and(r+1,c)in b):o[r][c]=g[r][c]\n    elif c+1<w:o[r][c+1]=g[r][c]\n return o\n",
+      "bytes": 378,
+      "passed": true,
+      "test_results": {
+        "stdout": "Code length: 378 chars\n\n[train 0] PASS\n[train 1] PASS\n[test 0] PASS\n\n---\nPassed: 3, Failed: 0\n",
+        "stderr": "",
+        "returncode": 0
+      },
+      "insight": "fixed bottom detection: use e[r+1] (entire row below empty) instead of 3-cell diag check. Bottom row = horiz adj + row below all zeros",
+      "expected_saving": 78,
+      "timestamp": "2026-07-13T16:40:25.504799",
+      "code_hash": "48d9ab1b10aa"
+    },
+    "v4": {
+      "version": "v4",
+      "parent": "v2",
+      "code": "def p(g):\n h=len(g);w=len(g[0]);o=[[0]*w for _ in g]\n B=lambda r,c:r<h and g[r][c]and(r+1==h or any(g[r+1])<1)and(c>0<g[r][c-1]or c+1<w>g[r][c+1])\n for r in range(h):\n  for c in range(w):\n   if g[r][c]:o[r][c+1-(B(r,c)or B(r+1,c))]=g[r][c]\n return o\n",
+      "bytes": 250,
+      "passed": true,
+      "test_results": {
+        "stdout": "Code length: 250 chars\n\n[train 0] PASS\n[train 1] PASS\n[test 0] PASS\n\n---\nPassed: 3, Failed: 0\n",
+        "stderr": "",
+        "returncode": 0
+      },
+      "insight": "lambda-based bottom detection with bottom-up DP approach, 250 bytes",
+      "expected_saving": 128,
+      "timestamp": "2026-07-13T16:53:11.606084",
+      "code_hash": "2fa86a04fcb7"
+    },
+    "v5": {
+      "version": "v5",
+      "parent": "v4",
+      "code": "def p(g):\n h=len(g);w=len(g[0]);o=[[0]*w for _ in g]\n for c in range(w):\n  s=0\n  for r in range(h)[::-1]:\n   if g[r][c]:s|=(c>0<g[r][c-1]or c+1<w>g[r][c+1])and(r+1==h or any(g[r+1])<1);o[r][c+1-s]=g[r][c]\n   else:s=0\n return o\n",
+      "bytes": 227,
+      "passed": true,
+      "test_results": {
+        "stdout": "Code length: 227 chars\n\n[train 0] PASS\n[train 1] PASS\n[test 0] PASS\n\n---\nPassed: 3, Failed: 0\n",
+        "stderr": "",
+        "returncode": 0
+      },
+      "insight": "column-based bottom-up with s tracking. 227 bytes. Key: s propagates stay upward through column gaps. Bottom detection uses any(g[r+1])<1 + horiz adj.",
+      "expected_saving": 23,
+      "timestamp": "2026-07-13T17:11:19.576980",
+      "code_hash": "6d772714b741"
+    },
+    "v6": {
+      "version": "v6",
+      "parent": "v9",
+      "code": "def p(g,r=0):\n h=len(g);w=len(g[0])\n if r>=h:return[[0]*w for _ in g]\n o=p(g,r+1);e=r+1==h or any(g[r+1])<1\n for c in range(w):\n  if g[r][c]:o[r][c+1-((c>0<g[r][c-1]or c+1<w>g[r][c+1])and e or r+1<h and g[r+1][c]*o[r+1][c]>0)]=g[r][c]\n return o\n",
+      "bytes": 245,
+      "passed": true,
+      "test_results": {
+        "stdout": "Code length: 245 chars\n\n[train 0] PASS\n[train 1] PASS\n[test 0] PASS\n\n---\nPassed: 3, Failed: 0\n",
+        "stderr": "",
+        "returncode": 0
+      },
+      "insight": "recursive row processing: p(g,r) processes row r bottom-up. 245 bytes - 18B worse than iterative v9 (227B). Recursion adds base case + call overhead ~50 chars.",
+      "expected_saving": 0,
+      "timestamp": "2026-07-13T17:39:25.946093",
+      "code_hash": "6ca63f9016ed"
+    },
+    "v7": {
+      "version": "v7",
+      "parent": "v4",
+      "code": "def p(g):\n h=len(g);w=len(g[0]);o=[[0]*w for _ in g]\n for c in range(w):\n  s=0\n  for r in range(h)[::-1]:\n   if g[r][c]:s|=(c>0<g[r][c-1]or c+1<w>g[r][c+1])and(r+1==h or any(g[r+1])<1);o[r][c+1-s]=g[r][c]\n   else:s=0\n return o\n",
+      "bytes": 227,
+      "passed": true,
+      "test_results": {
+        "stdout": "Code length: 227 chars\n\n[train 0] PASS\n[train 1] PASS\n[test 0] PASS\n\n---\nPassed: 3, Failed: 0\n",
+        "stderr": "",
+        "returncode": 0
+      },
+      "insight": "FINAL: column-based bottom-up DP with s-propagation. 227 bytes. This is the practical minimum for the general algorithm (theoretical min ~217 bytes due to: grid setup 43B, loops 45B, bottom detection 27B, horiz adj 37B, state propagation 10B, output 22B, state reset 12B, def+return 19B). Recursion adds 18-76 bytes. Self-contained adds 76 bytes. Target of 100 bytes requires non-algorithmic approach (compression, test-case-specific exploit, or different paradigm).",
+      "expected_saving": 23,
+      "timestamp": "2026-07-13T17:50:37.414107",
+      "code_hash": "6d772714b741"
+    }
+  },
+  "last_updated": "2026-07-13T17:50:37.414729"
+}

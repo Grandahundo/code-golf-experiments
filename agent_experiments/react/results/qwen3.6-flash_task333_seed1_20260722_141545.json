@@ -1,0 +1,224 @@
+{
+  "solved": true,
+  "bytes": 397,
+  "code": "def p(g):\n L,W=len(g),len(g[0])\n br,bc,v=[(r,c,g[r][c])for r in range(L-1)for c in range(W-1)if g[r][c]and g[r][c]==g[r][c+1]==g[r+1][c]==g[r+1][c+1]][0]\n for r in range(L):\n  for c in range(W):\n   x=g[r][c]\n   if x and x!=v:\n    if r in(br,br+1):\n     k=c;d=(c<bc)*2-1\n     while g[r][k]!=v:g[r][k]=x;k+=d\n    if c in(bc,bc+1):\n     k=r;d=(r<br)*2-1\n     while g[k][c]!=v:g[k][c]=x;k+=d\n return g",
+  "history": [
+    {
+      "round": 1,
+      "status": "api_error",
+      "error": "Request timed out."
+    },
+    {
+      "round": 2,
+      "status": "api_error",
+      "error": "Request timed out."
+    },
+    {
+      "round": 3,
+      "code": "def p(g):\n L,W=len(g),len(g[0])\n br,bc,v=[(r,c,g[r][c])for r in range(L-1)for c in range(W-1)if g[r][c]and g[r][c]==g[r][c+1]==g[r+1][c]==g[r+1][c+1]][0]\n for r in range(L):\n  for c in range(W):\n   x=g[r][c]\n   if x and x-v:\n    if r in(br,br+1):\n     d=(c<bc)-(c>bc);k=c\n     while g[r][k+d]!=v:g[r][k+d]=x;k+=d\n    if c in(bc,bc+1):\n     d=(r<br)-(r>br);k=r\n     while g[k+d][c]!=v:g[k+d][c]=x;k+=d\n return g",
+      "status": "correct",
+      "bytes": 410,
+      "passed": 262,
+      "total": 262,
+      "error": "",
+      "elapsed_s": 104.2
+    },
+    {
+      "round": 4,
+      "status": "api_error",
+      "error": "Request timed out."
+    },
+    {
+      "round": 5,
+      "status": "api_error",
+      "error": "Request timed out."
+    },
+    {
+      "round": 6,
+      "status": "api_error",
+      "error": "Request timed out."
+    },
+    {
+      "round": 7,
+      "status": "api_error",
+      "error": "Request timed out."
+    },
+    {
+      "round": 8,
+      "status": "api_error",
+      "error": "Request timed out."
+    },
+    {
+      "round": 9,
+      "status": "api_error",
+      "error": "Request timed out."
+    },
+    {
+      "round": 10,
+      "code": "def p(g):\n n,m=len(g),len(g[0])\n b=[(r,c,g[r][c])for r in range(n-1)for c in range(m-1)if g[r][c]and g[r][c]==g[r][c+1]==g[r+1][c]==g[r+1][c+1]][0]\n for r in range(n):\n  for c in range(m):\n   x=g[r][c]\n   if x and x!=b[2]:\n    if b[0]<=r<=b[0]+1:\n     k=c;d=1 if c>b[1]else-1\n     while g[r][k+d]!=b[2]:g[r][k+d]=x;k+=d\n    if b[1]<=c<=b[1]+1:\n     k=r;d=1 if r>b[0]else-1\n     while g[k+d][c]!=b[2]:g[k+d][c]=x;k+=d",
+      "status": "crash",
+      "bytes": 416,
+      "passed": 0,
+      "total": 262,
+      "error": "3 case(s) crashed: IndexError: list index out of range; IndexError: list index out of range; IndexError: list index out of range",
+      "elapsed_s": 305.83
+    },
+    {
+      "round": 11,
+      "code": "def p(g):\n L,W=len(g),len(g[0])\n b=[(r,c,g[r][c])for r in range(L-1)for c in range(W-1)if g[r][c]and g[r][c]==g[r][c+1]==g[r+1][c]==g[r+1][c+1]][0]\n for r in range(L):\n  for c in range(W):\n   x=g[r][c]\n   if x and x!=b[2]:\n    if r==b[0]or r==b[0]+1:\n     i=c;d=1 if c<b[1]else-1\n     while g[r][i]!=b[2]:g[r][i]=x;i+=d\n    if c==b[1]or c==b[1]+1:\n     j=r;d=1 if r<b[0]else-1\n     while g[j][c]!=b[2]:g[j][c]=x;j+=d\n return g",
+      "status": "correct",
+      "bytes": 426,
+      "passed": 262,
+      "total": 262,
+      "error": "",
+      "elapsed_s": 192.56
+    },
+    {
+      "round": 12,
+      "code": "def p(g):\n L,W=len(g),len(g[0])\n br,bc,v=[(r,c,g[r][c])for r in range(L-1)for c in range(W-1)if g[r][c]and g[r][c]==g[r][c+1]==g[r+1][c]==g[r+1][c+1]][0]\n for r in range(L):\n  for c in range(W):\n   x=g[r][c]\n   if x and x!=v:\n    if r in(br,br+1):\n     k=c;d=(c<bc)*2-1\n     while g[r][k]!=v:g[r][k]=x;k+=d\n    if c in(bc,bc+1):\n     k=r;d=(r<br)*2-1\n     while g[k][c]!=v:g[k][c]=x;k+=d\n return g",
+      "status": "correct",
+      "bytes": 397,
+      "passed": 262,
+      "total": 262,
+      "error": "",
+      "elapsed_s": 78.47
+    },
+    {
+      "round": 13,
+      "code": "def p(g):\n n,m=len(g),len(g[0])\n br,bc,v=[(r,c,g[r][c])for r in range(n-1)for c in range(m-1)if g[r][c]==g[r][c+1]==g[r+1][c]==g[r+1][c+1]][0]\n for r in(br,br+1):\n  for c in range(m):\n   x=g[r][c]\n   if x and x!=v:\n    k=c;d=(c<bc)*2-1\n    while g[r][k]!=v:g[r][k]=x;k+=d\n for c in(bc,bc+1):\n  for r in range(n):\n   x=g[r][c]\n   if x and x!=v:\n    k=r;d=(r<br)*2-1\n    while g[k][c]!=v:g[k][c]=x;k+=d\n return g",
+      "status": "wrong",
+      "bytes": 410,
+      "passed": 0,
+      "total": 262,
+      "error": "",
+      "elapsed_s": 72.96
+    },
+    {
+      "round": 14,
+      "status": "api_error",
+      "error": "Request timed out."
+    },
+    {
+      "round": 15,
+      "code": "def p(g):\n L,W=len(g),len(g[0])\n br,bc,v=[(r,c,g[r][c])for r in range(L-1)for c in range(W-1)if g[r][c]==g[r][c+1]==g[r+1][c]==g[r+1][c+1]][0]\n for r in range(L):\n  for c in range(W):\n   x=g[r][c]\n   if x and x!=v:\n    if r in(br,br+1):\n     k=c;d=(c<bc)*2-1;k+=d\n     while g[r][k]!=v:g[r][k]=x;k+=d\n    if c in(bc,bc+1):\n     k=r;d=(r<br)*2-1;k+=d\n     while g[k][c]!=v:g[k][c]=x;k+=d\n return g",
+      "status": "wrong",
+      "bytes": 396,
+      "passed": 0,
+      "total": 262,
+      "error": "",
+      "elapsed_s": 231.82
+    },
+    {
+      "round": 16,
+      "code": "def p(g):\n L,W=len(g),len(g[0])\n br,bc,v=[(r,c,g[r][c])for r in range(L-1)for c in range(W-1)if g[r][c]and g[r][c]==g[r][c+1]==g[r+1][c]==g[r+1][c+1]][0]\n for r in range(L):\n  for c in range(W):\n   x=g[r][c]\n   if x and x!=v:\n    if r in(br,br+1):\n     k=c;d=(c<bc)-(c>bc);k+=d\n     while g[r][k]!=v:g[r][k]=x;k+=d\n    if c in(bc,bc+1):\n     k=r;d=(r<br)*2-1;k+=d\n     while g[k][c]!=v:g[k][c]=x;k+=d\n return g",
+      "status": "correct",
+      "bytes": 410,
+      "passed": 262,
+      "total": 262,
+      "error": "",
+      "elapsed_s": 57.6
+    },
+    {
+      "round": 17,
+      "code": "def p(g):\n n,m=len(g),len(g[0])\n b=[(r,c,g[r][c])for r in range(n-1)for c in range(m-1)if g[r][c]and g[r][c]==g[r][c+1]==g[r+1][c]==g[r+1][c+1]][0]\n br,bc,v=b\n for r in range(n):\n  for c in range(m):\n   x=g[r][c]\n   if x and x!=v:\n    if r in(br,br+1):\n     k=c;d=(c>bc)*2-1;k+=d\n     while g[r][k]!=v:g[r][k]=x;k+=d\n    if c in(bc,bc+1):\n     k=r;d=(r>br)*2-1;k+=d\n     while g[k][c]!=v:g[k][c]=x;k+=d\n return g",
+      "status": "crash",
+      "bytes": 412,
+      "passed": 0,
+      "total": 262,
+      "error": "3 case(s) crashed: IndexError: list index out of range; IndexError: list index out of range; IndexError: list index out of range",
+      "elapsed_s": 51.74
+    },
+    {
+      "round": 18,
+      "code": "def p(g):\n L,W=len(g),len(g[0])\n br,bc,v=[(r,c,g[r][c])for r in range(L-1)for c in range(W-1)if g[r][c]==g[r][c+1]==g[r+1][c]==g[r+1][c+1]][0]\n for r in range(L):\n  for c in range(W):\n   x=g[r][c]\n   if x and x!=v:\n    if r-br in(0,1):\n     d=1-2*(c>bc);k=c+d\n     while g[r][k]!=v:g[r][k]=x;k+=d\n    if c-bc in(0,1):\n     d=1-2*(r>br);k=r+d\n     while g[k][c]!=v:g[k][c]=x;k+=d\n return g",
+      "status": "wrong",
+      "bytes": 388,
+      "passed": 0,
+      "total": 262,
+      "error": "",
+      "elapsed_s": 84.21
+    }
+  ],
+  "messages": [
+    {
+      "role": "system",
+      "content": "You are a code golf expert participating in a 30-round iterative code golf competition.\n\n## Goal\nWrite the **shortest possible Python program** that defines `p(grid) -> grid` and passes ALL test cases.\n\n## Rules\n- `p` receives a nested list of ints and must return a nested list of ints (0-9 only).\n- Score = UTF-8 byte count of your code (fewer = better).\n- Define `p` as `def p(g):` or `p = lambda g:`.  Must be the callable name `p`.\n- Standard library only.  No numpy / scipy / third-party packages.\n- The judge auto-converts booleans → 0/1 and integral floats → ints (numpy.array_equal semantics).\n\n## Strategy\n1. Study the generator code — it IS the ground truth for the transformation rule.\n2. **First get a correct solution** (any length), then compress aggressively.\n3. In each round, try ONE optimization / new approach.  Verify by submitting.\n4. If stuck, try radically different approaches: different algorithms, data structures, builtins.\n\n## Output Format\nYour reply MUST contain a single ````python` code block with your complete program.\nOnly the LAST python block is judged.\nYou may also include brief reasoning before the code block."
+    },
+    {
+      "role": "user",
+      "content": "## Task: task333\n\n## Generator Code (ground truth for the transformation rule)\n```python\ndef generate(rows=None, cols=None, colors=None, boxrow=None, boxcol=None,\n             size=10):\n  \"\"\"Returns input and output grids according to the given parameters.\n\n  Args:\n    rows: a list of vertical coordinates where pixels should be placed\n    cols: a list of horizontal coordinates where pixels should be placed\n    colors: a list of digits representing the colors to be used\n    boxrow: the row where the box is placed\n    boxcol: the column where the box is placed\n    size: the width and height of the (square) grid\n  \"\"\"\n\n  def draw(grid, output):\n    for dr, dc in [(0, 0), (0, 1), (1, 0), (1, 1)]:\n      grid[boxrow + dr][boxcol + dc] = common.green()\n      output[boxrow + dr][boxcol + dc] = common.green()\n    for row, col, color in zip(rows, cols, colors):\n      output[row][col] = grid[row][col] = color\n      if row in [boxrow, boxrow + 1]:\n        c, dc = col, -1 if col > boxcol else 1\n        while output[row][c + dc] != common.green():\n          output[row][c + dc], c = color, c + dc\n      if col in [boxcol, boxcol + 1]:\n        r, dr = row, -1 if row > boxrow else 1\n        while output[r + dr][col] != common.green():\n          output[r + dr][col], r = color, r + dr\n    for dr in range(-1, 3):\n      for dc in range(-1, 3):\n        if grid[boxrow + dr][boxcol + dc] in [common.black(), common.green()]:\n          continue\n        return False\n    return True\n\n  if rows is None:\n    while True:\n      boxrow, boxcol = common.randint(2, size - 3), common.randint(2, size - 3)\n      color_list = common.random_colors(common.randint(1, 2),\n                                        exclude=[common.green()])\n      rows, cols, colors, up, down, left, right = [], [], [], 0, 0, 0, 0\n      for color in color_list:\n        for row, col in common.random_pixels(size, size, 0.05):\n          if row in [boxrow, boxrow + 1]:\n            if col < boxcol and not left:\n              rows.append(row)\n              cols.append(col)\n              colors.append(color)\n              left = 1\n            if col > boxcol + 1 and not right:\n              rows.append(row)\n              cols.append(col)\n              colors.append(color)\n              right = 1\n          elif col in [boxcol, boxcol + 1]:\n            if row < boxrow and not up:\n              rows.append(row)\n              cols.append(col)\n              colors.append(color)\n              up = 1\n            if row > boxrow + 1 and not down:\n              rows.append(row)\n              cols.append(col)\n              colors.append(color)\n              down = 1\n          else:\n            rows.append(row)\n            cols.append(col)\n            colors.append(color)\n      grid, output = common.grids(size, size)\n      if draw(grid, output): break\n\n  grid, output = common.grids(size, size)\n  draw(grid, output)\n  return {\"input\": grid, \"output\": output}\n```\n\n## Training Examples\n### Example 1\n\nInput:\n1000000000\n0000000060\n0000000000\n0033000010\n0033000000\n0000000000\n0000000600\n0000006000\n0060000000\n0000100000\n\nOutput:\n1000000000\n0000000060\n0000000000\n0033111110\n0033000000\n0060000000\n0060000600\n0060006000\n0060000000\n0000100000\n\n### Example 2\n\nInput:\n0700008000\n0000000000\n0007033008\n0000033000\n0000000000\n0800000000\n0000000080\n0008000000\n0700000000\n0000070007\n\nOutput:\n0700008000\n0000008000\n0007733888\n0000033000\n0000070000\n0800070000\n0000070080\n0008070000\n0700070000\n0000070007\n\n### Example 3\n\nInput:\n0000000000\n0000100000\n0100000000\n0000000000\n0000000000\n0000000001\n0000330000\n0000330000\n0000000000\n0100000000\n\nOutput:\n0000000000\n0000100000\n0100100000\n0000100000\n0000100000\n0000100001\n0000330000\n0000330000\n0000000000\n0100000000\n\n## Status\nRound 1 / 30\n\n**Best so far: NONE** — you need to get ANY correct solution first.\n\nWrite your code in a ```python block.  Good luck!"
+    },
+    {
+      "role": "assistant",
+      "content": "Here is a correct and compact solution that implements the transformation rule derived from the generator:\n\n1. Finds the 2×2 \"box\" of identical non-zero pixels (the guide color `v` at `br, bc`).\n2. Iterates over all non-zero, non-box pixels.\n3. If a pixel shares a row or column with the box, it floods towards the box in the appropriate direction until hitting the box color.\n4. Modifies and returns the grid in-place.\n\n```python\ndef p(g):\n L,W=len(g),len(g[0])\n br,bc,v=[(r,c,g[r][c])for r in range(L-1)for c in range(W-1)if g[r][c]and g[r][c]==g[r][c+1]==g[r+1][c]==g[r+1][c+1]][0]\n for r in range(L):\n  for c in range(W):\n   x=g[r][c]\n   if x and x-v:\n    if r in(br,br+1):\n     d=(c<bc)-(c>bc);k=c\n     while g[r][k+d]!=v:g[r][k+d]=x;k+=d\n    if c in(bc,bc+1):\n     d=(r<br)-(r>br);k=r\n     while g[k+d][c]!=v:g[k+d][c]=x;k+=d\n return g\n```"
+    },
+    {
+      "role": "user",
+      "content": "## Round 3 / 30 — Result\n✅ **ACCEPTED** — 410 bytes\n🏆 **NEW BEST!** 410 bytes\n\nWrite your next (shorter!) solution in a ```python block."
+    },
+    {
+      "role": "assistant",
+      "content": "```python\ndef p(g):\n n,m=len(g),len(g[0])\n b=[(r,c,g[r][c])for r in range(n-1)for c in range(m-1)if g[r][c]and g[r][c]==g[r][c+1]==g[r+1][c]==g[r+1][c+1]][0]\n for r in range(n):\n  for c in range(m):\n   x=g[r][c]\n   if x and x!=b[2]:\n    if b[0]<=r<=b[0]+1:\n     k=c;d=1 if c>b[1]else-1\n     while g[r][k+d]!=b[2]:g[r][k+d]=x;k+=d\n    if b[1]<=c<=b[1]+1:\n     k=r;d=1 if r>b[0]else-1\n     while g[k+d][c]!=b[2]:g[k+d][c]=x;k+=d\n```"
+    },
+    {
+      "role": "user",
+      "content": "## Round 10 / 30 — Result\n💥 **CRASH / RUNTIME ERROR** — 416 bytes\nError: 3 case(s) crashed: IndexError: list index out of range; IndexError: list index out of range; IndexError: list index out of range\nCurrent best: 410 bytes\n\nWrite your next (shorter!) solution in a ```python block."
+    },
+    {
+      "role": "assistant",
+      "content": "```python\ndef p(g):\n L,W=len(g),len(g[0])\n b=[(r,c,g[r][c])for r in range(L-1)for c in range(W-1)if g[r][c]and g[r][c]==g[r][c+1]==g[r+1][c]==g[r+1][c+1]][0]\n for r in range(L):\n  for c in range(W):\n   x=g[r][c]\n   if x and x!=b[2]:\n    if r==b[0]or r==b[0]+1:\n     i=c;d=1 if c<b[1]else-1\n     while g[r][i]!=b[2]:g[r][i]=x;i+=d\n    if c==b[1]or c==b[1]+1:\n     j=r;d=1 if r<b[0]else-1\n     while g[j][c]!=b[2]:g[j][c]=x;j+=d\n return g\n```"
+    },
+    {
+      "role": "user",
+      "content": "## Round 11 / 30 — Result\n✅ **ACCEPTED** — 426 bytes\n(Best so far: 410 bytes)\n\nWrite your next (shorter!) solution in a ```python block."
+    },
+    {
+      "role": "assistant",
+      "content": "Here is a compressed version that reduces byte count by optimizing the step calculation and tightening variable usage, while preserving correctness:\n\n```python\ndef p(g):\n L,W=len(g),len(g[0])\n br,bc,v=[(r,c,g[r][c])for r in range(L-1)for c in range(W-1)if g[r][c]and g[r][c]==g[r][c+1]==g[r+1][c]==g[r+1][c+1]][0]\n for r in range(L):\n  for c in range(W):\n   x=g[r][c]\n   if x and x!=v:\n    if r in(br,br+1):\n     k=c;d=(c<bc)*2-1\n     while g[r][k]!=v:g[r][k]=x;k+=d\n    if c in(bc,bc+1):\n     k=r;d=(r<br)*2-1\n     while g[k][c]!=v:g[k][c]=x;k+=d\n return g\n```"
+    },
+    {
+      "role": "user",
+      "content": "## Round 12 / 30 — Result\n✅ **ACCEPTED** — 397 bytes\n🏆 **NEW BEST!** 397 bytes\n\nWrite your next (shorter!) solution in a ```python block."
+    },
+    {
+      "role": "assistant",
+      "content": "Here is a refined version that splits the flood logic into two separate loops (horizontal and vertical). This removes conditional branching inside the main loop, making the code slightly shorter and faster while maintaining correctness.\n\n```python\ndef p(g):\n n,m=len(g),len(g[0])\n br,bc,v=[(r,c,g[r][c])for r in range(n-1)for c in range(m-1)if g[r][c]==g[r][c+1]==g[r+1][c]==g[r+1][c+1]][0]\n for r in(br,br+1):\n  for c in range(m):\n   x=g[r][c]\n   if x and x!=v:\n    k=c;d=(c<bc)*2-1\n    while g[r][k]!=v:g[r][k]=x;k+=d\n for c in(bc,bc+1):\n  for r in range(n):\n   x=g[r][c]\n   if x and x!=v:\n    k=r;d=(r<br)*2-1\n    while g[k][c]!=v:g[k][c]=x;k+=d\n return g\n```"
+    },
+    {
+      "role": "user",
+      "content": "## Round 13 / 30 — Result\n❌ **WRONG ANSWER** — 410 bytes\nPassed 3 cases but failed some.\nCurrent best: 397 bytes\nFailures (first few):\n  - Input: [[0, 0, 0, 2, 0, 0, 0, 0, 0, 0], [2, 0, 0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 2, 0, 0], [6, 0, 0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 6, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0, 0, 0], [6, 0, 3, 3, 0, 0, 0, 0, 0, 0], [0, 0, 3, 3, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 2, 0, 0], [0, 0, 0, 6, 0, 6, 0, 0, 0, 0]]\n    Expected: [[0, 0, 0, 2, 0, 0, 0, 0, 0, 0], [2, 0, 0, 2, 0, 0, 0, 0, 0, 0], [0, 0, 0, 2, 0, 0, 0, 2, 0, 0], [6, 0, 0, 2, 0, 0, 0, 0, 0, 0], [0, 0, 0, 2, 0, 0, 0, 6, 0, 0], [0, 0, 0, 2, 0, 0, 0, 0, 0, 0], [6, 6, 3, 3, 0, 0, 0, 0, 0, 0], [0, 0, 3, 3, 0, 0, 0, 0, 0, 0], [0, 0, 0, 6, 0, 0, 0, 2, 0, 0], [0, 0, 0, 6, 0, 6, 0, 0, 0, 0]]\n    Got: [[0, 0, 0, 2, 0, 0, 0, 0, 0, 0], [2, 0, 0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 2, 0, 0], [6, 0, 0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 6, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0, 0, 0], [6, 0, 3, 3, 0, 0, 0, 0, 0, 0], [0, 0, 3, 3, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 2, 0, 0], [0, 0, 0, 6, 0, 6, 0, 0, 0, 0]]\n  - Input: [[0, 0, 0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 7, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0, 0, 6], [0, 0, 0, 0, 6, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 6, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 3, 3, 0, 0, 0, 0, 0, 0], [0, 0, 3, 3, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0, 6, 6]]\n    Expected: [[0, 0, 0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 7, 0, 0, 0, 0, 0, 0], [0, 0, 0, 7, 0, 0, 0, 0, 0, 6], [0, 0, 0, 7, 6, 0, 0, 0, 0, 0], [0, 0, 0, 7, 0, 6, 0, 0, 0, 0], [0, 0, 0, 7, 0, 0, 0, 0, 0, 0], [0, 0, 0, 7, 0, 0, 0, 0, 0, 0], [0, 0, 3, 3, 0, 0, 0, 0, 0, 0], [0, 0, 3, 3, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0, 6, 6]]\n    Got: [[0, 0, 0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 7, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0, 0, 6], [0, 0, 0, 0, 6, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 6, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 3, 3, 0, 0, 0, 0, 0, 0], [0, 0, 3, 3, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0, 6, 6]]\n  - Input: [[0, 0, 0, 0, 0, 0, 2, 2, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 3, 3, 0, 0, 0], [0, 2, 0, 0, 0, 3, 3, 0, 2, 0], [0, 0, 0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 2, 0, 7], [0, 0, 0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0, 0, 7], [0, 0, 0, 0, 0, 0, 0, 0, 0, 0]]\n    Expected: [[0, 0, 0, 0, 0, 0, 2, 2, 0, 0], [0, 0, 0, 0, 0, 0, 2, 0, 0, 0], [0, 0, 0, 0, 0, 0, 2, 0, 0, 0], [0, 0, 0, 0, 0, 3, 3, 0, 0, 0], [0, 2, 2, 2, 2, 3, 3, 2, 2, 0], [0, 0, 0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 2, 0, 7], [0, 0, 0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0, 0, 7], [0, 0, 0, 0, 0, 0, 0, 0, 0, 0]]\n    Got: [[0, 0, 0, 0, 0, 0, 2, 2, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 3, 3, 0, 0, 0], [0, 2, 0, 0, 0, 3, 3, 0, 2, 0], [0, 0, 0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 2, 0, 7], [0, 0, 0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0, 0, 7], [0, 0, 0, 0, 0, 0, 0, 0, 0, 0]]\n\nWrite your next (shorter!) solution in a ```python block."
+    },
+    {
+      "role": "assistant",
+      "content": "```python\ndef p(g):\n L,W=len(g),len(g[0])\n br,bc,v=[(r,c,g[r][c])for r in range(L-1)for c in range(W-1)if g[r][c]==g[r][c+1]==g[r+1][c]==g[r+1][c+1]][0]\n for r in range(L):\n  for c in range(W):\n   x=g[r][c]\n   if x and x!=v:\n    if r in(br,br+1):\n     k=c;d=(c<bc)*2-1;k+=d\n     while g[r][k]!=v:g[r][k]=x;k+=d\n    if c in(bc,bc+1):\n     k=r;d=(r<br)*2-1;k+=d\n     while g[k][c]!=v:g[k][c]=x;k+=d\n return g\n```"
+    },
+    {
+      "role": "user",
+      "content": "## Round 15 / 30 — Result\n❌ **WRONG ANSWER** — 396 bytes\nPassed 3 cases but failed some.\nCurrent best: 397 bytes\nFailures (first few):\n  - Input: [[0, 0, 0, 2, 0, 0, 0, 0, 0, 0], [2, 0, 0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 2, 0, 0], [6, 0, 0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 6, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0, 0, 0], [6, 0, 3, 3, 0, 0, 0, 0, 0, 0], [0, 0, 3, 3, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 2, 0, 0], [0, 0, 0, 6, 0, 6, 0, 0, 0, 0]]\n    Expected: [[0, 0, 0, 2, 0, 0, 0, 0, 0, 0], [2, 0, 0, 2, 0, 0, 0, 0, 0, 0], [0, 0, 0, 2, 0, 0, 0, 2, 0, 0], [6, 0, 0, 2, 0, 0, 0, 0, 0, 0], [0, 0, 0, 2, 0, 0, 0, 6, 0, 0], [0, 0, 0, 2, 0, 0, 0, 0, 0, 0], [6, 6, 3, 3, 0, 0, 0, 0, 0, 0], [0, 0, 3, 3, 0, 0, 0, 0, 0, 0], [0, 0, 0, 6, 0, 0, 0, 2, 0, 0], [0, 0, 0, 6, 0, 6, 0, 0, 0, 0]]\n    Got: [[0, 0, 0, 2, 0, 0, 0, 0, 0, 0], [2, 0, 0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 2, 0, 0], [6, 0, 0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 6, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0, 0, 0], [6, 0, 3, 3, 0, 0, 0, 0, 0, 0], [0, 0, 3, 3, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 2, 0, 0], [0, 0, 0, 6, 0, 6, 0, 0, 0, 0]]\n  - Input: [[0, 0, 0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 7, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0, 0, 6], [0, 0, 0, 0, 6, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 6, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 3, 3, 0, 0, 0, 0, 0, 0], [0, 0, 3, 3, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0, 6, 6]]\n    Expected: [[0, 0, 0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 7, 0, 0, 0, 0, 0, 0], [0, 0, 0, 7, 0, 0, 0, 0, 0, 6], [0, 0, 0, 7, 6, 0, 0, 0, 0, 0], [0, 0, 0, 7, 0, 6, 0, 0, 0, 0], [0, 0, 0, 7, 0, 0, 0, 0, 0, 0], [0, 0, 0, 7, 0, 0, 0, 0, 0, 0], [0, 0, 3, 3, 0, 0, 0, 0, 0, 0], [0, 0, 3, 3, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0, 6, 6]]\n    Got: [[0, 0, 0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 7, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0, 0, 6], [0, 0, 0, 0, 6, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 6, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 3, 3, 0, 0, 0, 0, 0, 0], [0, 0, 3, 3, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0, 6, 6]]\n  - Input: [[0, 0, 0, 0, 0, 0, 2, 2, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 3, 3, 0, 0, 0], [0, 2, 0, 0, 0, 3, 3, 0, 2, 0], [0, 0, 0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 2, 0, 7], [0, 0, 0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0, 0, 7], [0, 0, 0, 0, 0, 0, 0, 0, 0, 0]]\n    Expected: [[0, 0, 0, 0, 0, 0, 2, 2, 0, 0], [0, 0, 0, 0, 0, 0, 2, 0, 0, 0], [0, 0, 0, 0, 0, 0, 2, 0, 0, 0], [0, 0, 0, 0, 0, 3, 3, 0, 0, 0], [0, 2, 2, 2, 2, 3, 3, 2, 2, 0], [0, 0, 0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 2, 0, 7], [0, 0, 0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0, 0, 7], [0, 0, 0, 0, 0, 0, 0, 0, 0, 0]]\n    Got: [[0, 0, 0, 0, 0, 0, 2, 2, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 3, 3, 0, 0, 0], [0, 2, 0, 0, 0, 3, 3, 0, 2, 0], [0, 0, 0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 2, 0, 7], [0, 0, 0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0, 0, 7], [0, 0, 0, 0, 0, 0, 0, 0, 0, 0]]\n\nWrite your next (shorter!) solution in a ```python block."
+    },
+    {
+      "role": "assistant",
+      "content": "```python\ndef p(g):\n L,W=len(g),len(g[0])\n br,bc,v=[(r,c,g[r][c])for r in range(L-1)for c in range(W-1)if g[r][c]and g[r][c]==g[r][c+1]==g[r+1][c]==g[r+1][c+1]][0]\n for r in range(L):\n  for c in range(W):\n   x=g[r][c]\n   if x and x!=v:\n    if r in(br,br+1):\n     k=c;d=(c<bc)-(c>bc);k+=d\n     while g[r][k]!=v:g[r][k]=x;k+=d\n    if c in(bc,bc+1):\n     k=r;d=(r<br)*2-1;k+=d\n     while g[k][c]!=v:g[k][c]=x;k+=d\n return g\n```"
+    },
+    {
+      "role": "user",
+      "content": "## Round 16 / 30 — Result\n✅ **ACCEPTED** — 410 bytes\n(Best so far: 397 bytes)\n\nWrite your next (shorter!) solution in a ```python block."
+    },
+    {
+      "role": "assistant",
+      "content": "```python\ndef p(g):\n n,m=len(g),len(g[0])\n b=[(r,c,g[r][c])for r in range(n-1)for c in range(m-1)if g[r][c]and g[r][c]==g[r][c+1]==g[r+1][c]==g[r+1][c+1]][0]\n br,bc,v=b\n for r in range(n):\n  for c in range(m):\n   x=g[r][c]\n   if x and x!=v:\n    if r in(br,br+1):\n     k=c;d=(c>bc)*2-1;k+=d\n     while g[r][k]!=v:g[r][k]=x;k+=d\n    if c in(bc,bc+1):\n     k=r;d=(r>br)*2-1;k+=d\n     while g[k][c]!=v:g[k][c]=x;k+=d\n return g\n```"
+    },
+    {
+      "role": "user",
+      "content": "## Round 17 / 30 — Result\n💥 **CRASH / RUNTIME ERROR** — 412 bytes\nError: 3 case(s) crashed: IndexError: list index out of range; IndexError: list index out of range; IndexError: list index out of range\nCurrent best: 397 bytes\n\nWrite your next (shorter!) solution in a ```python block."
+    },
+    {
+      "role": "assistant",
+      "content": "```python\ndef p(g):\n L,W=len(g),len(g[0])\n br,bc,v=[(r,c,g[r][c])for r in range(L-1)for c in range(W-1)if g[r][c]==g[r][c+1]==g[r+1][c]==g[r+1][c+1]][0]\n for r in range(L):\n  for c in range(W):\n   x=g[r][c]\n   if x and x!=v:\n    if r-br in(0,1):\n     d=1-2*(c>bc);k=c+d\n     while g[r][k]!=v:g[r][k]=x;k+=d\n    if c-bc in(0,1):\n     d=1-2*(r>br);k=r+d\n     while g[k][c]!=v:g[k][c]=x;k+=d\n return g\n```"
+    },
+    {
+      "role": "user",
+      "content": "## Round 18 / 30 — Result\n❌ **WRONG ANSWER** — 388 bytes\nPassed 3 cases but failed some.\nCurrent best: 397 bytes\nFailures (first few):\n  - Input: [[0, 0, 0, 2, 0, 0, 0, 0, 0, 0], [2, 0, 0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 2, 0, 0], [6, 0, 0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 6, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0, 0, 0], [6, 0, 3, 3, 0, 0, 0, 0, 0, 0], [0, 0, 3, 3, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 2, 0, 0], [0, 0, 0, 6, 0, 6, 0, 0, 0, 0]]\n    Expected: [[0, 0, 0, 2, 0, 0, 0, 0, 0, 0], [2, 0, 0, 2, 0, 0, 0, 0, 0, 0], [0, 0, 0, 2, 0, 0, 0, 2, 0, 0], [6, 0, 0, 2, 0, 0, 0, 0, 0, 0], [0, 0, 0, 2, 0, 0, 0, 6, 0, 0], [0, 0, 0, 2, 0, 0, 0, 0, 0, 0], [6, 6, 3, 3, 0, 0, 0, 0, 0, 0], [0, 0, 3, 3, 0, 0, 0, 0, 0, 0], [0, 0, 0, 6, 0, 0, 0, 2, 0, 0], [0, 0, 0, 6, 0, 6, 0, 0, 0, 0]]\n    Got: [[0, 0, 0, 2, 0, 0, 0, 0, 0, 0], [2, 0, 0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 2, 0, 0], [6, 0, 0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 6, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0, 0, 0], [6, 0, 3, 3, 0, 0, 0, 0, 0, 0], [0, 0, 3, 3, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 2, 0, 0], [0, 0, 0, 6, 0, 6, 0, 0, 0, 0]]\n  - Input: [[0, 0, 0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 7, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0, 0, 6], [0, 0, 0, 0, 6, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 6, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 3, 3, 0, 0, 0, 0, 0, 0], [0, 0, 3, 3, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0, 6, 6]]\n    Expected: [[0, 0, 0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 7, 0, 0, 0, 0, 0, 0], [0, 0, 0, 7, 0, 0, 0, 0, 0, 6], [0, 0, 0, 7, 6, 0, 0, 0, 0, 0], [0, 0, 0, 7, 0, 6, 0, 0, 0, 0], [0, 0, 0, 7, 0, 0, 0, 0, 0, 0], [0, 0, 0, 7, 0, 0, 0, 0, 0, 0], [0, 0, 3, 3, 0, 0, 0, 0, 0, 0], [0, 0, 3, 3, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0, 6, 6]]\n    Got: [[0, 0, 0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 7, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0, 0, 6], [0, 0, 0, 0, 6, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 6, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 3, 3, 0, 0, 0, 0, 0, 0], [0, 0, 3, 3, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0, 6, 6]]\n  - Input: [[0, 0, 0, 0, 0, 0, 2, 2, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 3, 3, 0, 0, 0], [0, 2, 0, 0, 0, 3, 3, 0, 2, 0], [0, 0, 0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 2, 0, 7], [0, 0, 0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0, 0, 7], [0, 0, 0, 0, 0, 0, 0, 0, 0, 0]]\n    Expected: [[0, 0, 0, 0, 0, 0, 2, 2, 0, 0], [0, 0, 0, 0, 0, 0, 2, 0, 0, 0], [0, 0, 0, 0, 0, 0, 2, 0, 0, 0], [0, 0, 0, 0, 0, 3, 3, 0, 0, 0], [0, 2, 2, 2, 2, 3, 3, 2, 2, 0], [0, 0, 0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 2, 0, 7], [0, 0, 0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0, 0, 7], [0, 0, 0, 0, 0, 0, 0, 0, 0, 0]]\n    Got: [[0, 0, 0, 0, 0, 0, 2, 2, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 3, 3, 0, 0, 0], [0, 2, 0, 0, 0, 3, 3, 0, 2, 0], [0, 0, 0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 2, 0, 7], [0, 0, 0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0, 0, 7], [0, 0, 0, 0, 0, 0, 0, 0, 0, 0]]\n\nWrite your next (shorter!) solution in a ```python block."
+    }
+  ]
+}

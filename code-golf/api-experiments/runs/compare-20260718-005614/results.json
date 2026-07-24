@@ -1,0 +1,452 @@
+[
+  {
+    "task": "task001",
+    "model": "deepseek-v4-pro",
+    "trial": 1,
+    "correct": false,
+    "passed": "0/6",
+    "bytes": 92,
+    "seconds": 317.8
+  },
+  {
+    "task": "task002",
+    "model": "deepseek-v4-pro",
+    "trial": 1,
+    "correct": false,
+    "passed": "0/6",
+    "bytes": 239,
+    "seconds": 505.9
+  },
+  {
+    "task": "task003",
+    "model": "deepseek-v4-pro",
+    "trial": 1,
+    "correct": true,
+    "passed": "4/4",
+    "bytes": 149,
+    "seconds": 332.5
+  },
+  {
+    "task": "task004",
+    "model": "deepseek-v4-pro",
+    "trial": 1,
+    "correct": true,
+    "passed": "3/3",
+    "bytes": 254,
+    "seconds": 766.9
+  },
+  {
+    "task": "task005",
+    "model": "deepseek-v4-pro",
+    "trial": 1,
+    "correct": false,
+    "passed": "2/4",
+    "bytes": 1743,
+    "seconds": 818.4
+  },
+  {
+    "task": "task006",
+    "model": "deepseek-v4-pro",
+    "trial": 1,
+    "correct": false,
+    "passed": "0/4",
+    "bytes": 76,
+    "seconds": 280.7
+  },
+  {
+    "task": "task007",
+    "model": "deepseek-v4-pro",
+    "trial": 1,
+    "correct": true,
+    "passed": "4/4",
+    "bytes": 160,
+    "seconds": 721.8
+  },
+  {
+    "task": "task008",
+    "model": "deepseek-v4-pro",
+    "trial": 1,
+    "correct": true,
+    "passed": "4/4",
+    "bytes": 414,
+    "seconds": 307.7
+  },
+  {
+    "task": "task009",
+    "model": "deepseek-v4-pro",
+    "trial": 1,
+    "correct": true,
+    "passed": "4/4",
+    "bytes": 596,
+    "seconds": 320.2
+  },
+  {
+    "task": "task010",
+    "model": "deepseek-v4-pro",
+    "trial": 1,
+    "correct": false,
+    "passed": "0/3",
+    "bytes": 193,
+    "seconds": 568.0
+  },
+  {
+    "task": "task001",
+    "model": "deepseek-v4-pro",
+    "trial": 2,
+    "correct": true,
+    "passed": "6/6",
+    "bytes": 78,
+    "seconds": 121.0
+  },
+  {
+    "task": "task002",
+    "model": "deepseek-v4-pro",
+    "trial": 2,
+    "correct": false,
+    "passed": "0/6",
+    "bytes": 316,
+    "seconds": 678.7
+  },
+  {
+    "task": "task003",
+    "model": "deepseek-v4-pro",
+    "trial": 2,
+    "correct": true,
+    "passed": "4/4",
+    "bytes": 93,
+    "seconds": 676.9
+  },
+  {
+    "task": "task004",
+    "model": "deepseek-v4-pro",
+    "trial": 2,
+    "correct": true,
+    "passed": "3/3",
+    "bytes": 313,
+    "seconds": 381.8
+  },
+  {
+    "task": "task005",
+    "model": "deepseek-v4-pro",
+    "trial": 2,
+    "correct": false,
+    "passed": "0/4",
+    "bytes": 1,
+    "seconds": 956.7
+  },
+  {
+    "task": "task006",
+    "model": "deepseek-v4-pro",
+    "trial": 2,
+    "correct": true,
+    "passed": "4/4",
+    "bytes": 59,
+    "seconds": 177.4
+  },
+  {
+    "task": "task007",
+    "model": "deepseek-v4-pro",
+    "trial": 2,
+    "correct": true,
+    "passed": "4/4",
+    "bytes": 143,
+    "seconds": 473.9
+  },
+  {
+    "task": "task008",
+    "model": "deepseek-v4-pro",
+    "trial": 2,
+    "correct": false,
+    "passed": "0/4",
+    "bytes": 414,
+    "seconds": 303.2
+  },
+  {
+    "task": "task009",
+    "model": "deepseek-v4-pro",
+    "trial": 2,
+    "correct": true,
+    "passed": "4/4",
+    "bytes": 421,
+    "seconds": 553.3
+  },
+  {
+    "task": "task010",
+    "model": "deepseek-v4-pro",
+    "trial": 2,
+    "correct": true,
+    "passed": "3/3",
+    "bytes": 193,
+    "seconds": 710.8
+  },
+  {
+    "task": "task001",
+    "model": "deepseek-v4-pro",
+    "trial": 3,
+    "correct": true,
+    "passed": "6/6",
+    "bytes": 78,
+    "seconds": 147.3
+  },
+  {
+    "task": "task002",
+    "model": "deepseek-v4-pro",
+    "trial": 3,
+    "correct": false,
+    "passed": "0/6",
+    "bytes": 292,
+    "seconds": 618.4
+  },
+  {
+    "task": "task003",
+    "model": "deepseek-v4-pro",
+    "trial": 3,
+    "correct": true,
+    "passed": "4/4",
+    "bytes": 155,
+    "seconds": 466.7
+  },
+  {
+    "task": "task004",
+    "model": "deepseek-v4-pro",
+    "trial": 3,
+    "correct": true,
+    "passed": "3/3",
+    "bytes": 248,
+    "seconds": 511.6
+  },
+  {
+    "task": "task005",
+    "model": "deepseek-v4-pro",
+    "trial": 3,
+    "correct": false,
+    "passed": "0/4",
+    "bytes": 1,
+    "seconds": 977.5
+  },
+  {
+    "task": "task006",
+    "model": "deepseek-v4-pro",
+    "trial": 3,
+    "correct": true,
+    "passed": "4/4",
+    "bytes": 64,
+    "seconds": 326.9
+  },
+  {
+    "task": "task007",
+    "model": "deepseek-v4-pro",
+    "trial": 3,
+    "correct": true,
+    "passed": "4/4",
+    "bytes": 165,
+    "seconds": 559.7
+  },
+  {
+    "task": "task008",
+    "model": "deepseek-v4-pro",
+    "trial": 3,
+    "correct": false,
+    "passed": "0/4",
+    "bytes": 341,
+    "seconds": 757.7
+  },
+  {
+    "task": "task009",
+    "model": "deepseek-v4-pro",
+    "trial": 3,
+    "correct": false,
+    "passed": "3/4",
+    "bytes": 773,
+    "seconds": 227.2
+  },
+  {
+    "task": "task010",
+    "model": "deepseek-v4-pro",
+    "trial": 3,
+    "correct": true,
+    "passed": "3/3",
+    "bytes": 123,
+    "seconds": 303.2
+  },
+  {
+    "task": "task001",
+    "model": "deepseek-v4-pro",
+    "trial": 4,
+    "correct": true,
+    "passed": "6/6",
+    "bytes": 107,
+    "seconds": 352.5
+  },
+  {
+    "task": "task002",
+    "model": "deepseek-v4-pro",
+    "trial": 4,
+    "correct": true,
+    "passed": "6/6",
+    "bytes": 285,
+    "seconds": 549.3
+  },
+  {
+    "task": "task003",
+    "model": "deepseek-v4-pro",
+    "trial": 4,
+    "correct": false,
+    "passed": "0/4",
+    "bytes": 131,
+    "seconds": 481.3
+  },
+  {
+    "task": "task004",
+    "model": "deepseek-v4-pro",
+    "trial": 4,
+    "correct": false,
+    "passed": "0/3",
+    "bytes": 372,
+    "seconds": 880.4
+  },
+  {
+    "task": "task005",
+    "model": "deepseek-v4-pro",
+    "trial": 4,
+    "correct": false,
+    "passed": "3/4",
+    "bytes": 936,
+    "seconds": 663.0
+  },
+  {
+    "task": "task006",
+    "model": "deepseek-v4-pro",
+    "trial": 4,
+    "correct": false,
+    "passed": "0/4",
+    "bytes": 75,
+    "seconds": 327.5
+  },
+  {
+    "task": "task007",
+    "model": "deepseek-v4-pro",
+    "trial": 4,
+    "correct": true,
+    "passed": "4/4",
+    "bytes": 128,
+    "seconds": 608.5
+  },
+  {
+    "task": "task008",
+    "model": "deepseek-v4-pro",
+    "trial": 4,
+    "correct": true,
+    "passed": "4/4",
+    "bytes": 407,
+    "seconds": 510.2
+  },
+  {
+    "task": "task009",
+    "model": "deepseek-v4-pro",
+    "trial": 4,
+    "correct": false,
+    "passed": "3/4",
+    "bytes": 571,
+    "seconds": 452.5
+  },
+  {
+    "task": "task010",
+    "model": "deepseek-v4-pro",
+    "trial": 4,
+    "correct": true,
+    "passed": "3/3",
+    "bytes": 91,
+    "seconds": 600.6
+  },
+  {
+    "task": "task001",
+    "model": "deepseek-v4-pro",
+    "trial": 5,
+    "correct": true,
+    "passed": "6/6",
+    "bytes": 96,
+    "seconds": 392.5
+  },
+  {
+    "task": "task002",
+    "model": "deepseek-v4-pro",
+    "trial": 5,
+    "correct": false,
+    "passed": "0/6",
+    "bytes": 292,
+    "seconds": 675.9
+  },
+  {
+    "task": "task003",
+    "model": "deepseek-v4-pro",
+    "trial": 5,
+    "correct": true,
+    "passed": "4/4",
+    "bytes": 132,
+    "seconds": 718.8
+  },
+  {
+    "task": "task004",
+    "model": "deepseek-v4-pro",
+    "trial": 5,
+    "correct": true,
+    "passed": "3/3",
+    "bytes": 478,
+    "seconds": 457.5
+  },
+  {
+    "task": "task005",
+    "model": "deepseek-v4-pro",
+    "trial": 5,
+    "correct": false,
+    "passed": "3/4",
+    "bytes": 987,
+    "seconds": 1054.5
+  },
+  {
+    "task": "task006",
+    "model": "deepseek-v4-pro",
+    "trial": 5,
+    "correct": false,
+    "passed": "0/4",
+    "bytes": 74,
+    "seconds": 689.5
+  },
+  {
+    "task": "task007",
+    "model": "deepseek-v4-pro",
+    "trial": 5,
+    "correct": true,
+    "passed": "4/4",
+    "bytes": 176,
+    "seconds": 696.8
+  },
+  {
+    "task": "task008",
+    "model": "deepseek-v4-pro",
+    "trial": 5,
+    "correct": true,
+    "passed": "4/4",
+    "bytes": 518,
+    "seconds": 264.1
+  },
+  {
+    "task": "task009",
+    "model": "deepseek-v4-pro",
+    "trial": 5,
+    "correct": true,
+    "passed": "4/4",
+    "bytes": 479,
+    "seconds": 356.8
+  },
+  {
+    "task": "task010",
+    "model": "deepseek-v4-pro",
+    "trial": 5,
+    "correct": true,
+    "passed": "3/3",
+    "bytes": 209,
+    "seconds": 719.1
+  }
+]

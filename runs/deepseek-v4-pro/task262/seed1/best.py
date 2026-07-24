@@ -1,0 +1,1 @@
+p=lambda g:[[(2<<r.index(5))%5]*3for r in g]

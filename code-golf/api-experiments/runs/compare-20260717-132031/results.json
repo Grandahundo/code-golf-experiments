@@ -1,0 +1,1351 @@
+[
+  {
+    "task": "task001",
+    "model": "deepseek-v4-pro",
+    "trial": 1,
+    "correct": true,
+    "passed": "6/6",
+    "bytes": 742,
+    "seconds": 69.8
+  },
+  {
+    "task": "task001",
+    "model": "glm-5.2",
+    "trial": 1,
+    "correct": true,
+    "passed": "6/6",
+    "bytes": 438,
+    "seconds": 51.9
+  },
+  {
+    "task": "task001",
+    "model": "qwen3.7-max",
+    "trial": 1,
+    "correct": true,
+    "passed": "6/6",
+    "bytes": 365,
+    "seconds": 85.9
+  },
+  {
+    "task": "task002",
+    "model": "deepseek-v4-pro",
+    "trial": 1,
+    "correct": true,
+    "passed": "6/6",
+    "bytes": 1295,
+    "seconds": 86.1
+  },
+  {
+    "task": "task002",
+    "model": "glm-5.2",
+    "trial": 1,
+    "correct": true,
+    "passed": "6/6",
+    "bytes": 983,
+    "seconds": 170.6
+  },
+  {
+    "task": "task002",
+    "model": "qwen3.7-max",
+    "trial": 1,
+    "correct": true,
+    "passed": "6/6",
+    "bytes": 1159,
+    "seconds": 145.0
+  },
+  {
+    "task": "task003",
+    "model": "deepseek-v4-pro",
+    "trial": 1,
+    "correct": true,
+    "passed": "4/4",
+    "bytes": 1206,
+    "seconds": 208.1
+  },
+  {
+    "task": "task003",
+    "model": "glm-5.2",
+    "trial": 1,
+    "correct": true,
+    "passed": "4/4",
+    "bytes": 571,
+    "seconds": 138.4
+  },
+  {
+    "task": "task003",
+    "model": "qwen3.7-max",
+    "trial": 1,
+    "correct": true,
+    "passed": "4/4",
+    "bytes": 449,
+    "seconds": 392.3
+  },
+  {
+    "task": "task004",
+    "model": "deepseek-v4-pro",
+    "trial": 1,
+    "correct": true,
+    "passed": "3/3",
+    "bytes": 2113,
+    "seconds": 312.9
+  },
+  {
+    "task": "task004",
+    "model": "glm-5.2",
+    "trial": 1,
+    "correct": true,
+    "passed": "3/3",
+    "bytes": 1546,
+    "seconds": 189.8
+  },
+  {
+    "task": "task004",
+    "model": "qwen3.7-max",
+    "trial": 1,
+    "correct": true,
+    "passed": "3/3",
+    "bytes": 1901,
+    "seconds": 319.6
+  },
+  {
+    "task": "task005",
+    "model": "deepseek-v4-pro",
+    "trial": 1,
+    "correct": true,
+    "passed": "4/4",
+    "bytes": 3816,
+    "seconds": 615.0
+  },
+  {
+    "task": "task005",
+    "model": "glm-5.2",
+    "trial": 1,
+    "correct": false,
+    "passed": "3/4",
+    "bytes": 2697,
+    "seconds": 331.8
+  },
+  {
+    "task": "task005",
+    "model": "qwen3.7-max",
+    "trial": 1,
+    "correct": true,
+    "passed": "4/4",
+    "bytes": 3150,
+    "seconds": 609.1
+  },
+  {
+    "task": "task006",
+    "model": "deepseek-v4-pro",
+    "trial": 1,
+    "correct": true,
+    "passed": "4/4",
+    "bytes": 985,
+    "seconds": 36.0
+  },
+  {
+    "task": "task006",
+    "model": "glm-5.2",
+    "trial": 1,
+    "correct": true,
+    "passed": "4/4",
+    "bytes": 641,
+    "seconds": 11.0
+  },
+  {
+    "task": "task006",
+    "model": "qwen3.7-max",
+    "trial": 1,
+    "correct": true,
+    "passed": "4/4",
+    "bytes": 668,
+    "seconds": 60.6
+  },
+  {
+    "task": "task007",
+    "model": "deepseek-v4-pro",
+    "trial": 1,
+    "correct": false,
+    "passed": "3/4",
+    "bytes": 659,
+    "seconds": 123.5
+  },
+  {
+    "task": "task007",
+    "model": "glm-5.2",
+    "trial": 1,
+    "correct": true,
+    "passed": "4/4",
+    "bytes": 737,
+    "seconds": 246.2
+  },
+  {
+    "task": "task007",
+    "model": "qwen3.7-max",
+    "trial": 1,
+    "correct": true,
+    "passed": "4/4",
+    "bytes": 426,
+    "seconds": 56.8
+  },
+  {
+    "task": "task008",
+    "model": "deepseek-v4-pro",
+    "trial": 1,
+    "correct": true,
+    "passed": "4/4",
+    "bytes": 1885,
+    "seconds": 110.2
+  },
+  {
+    "task": "task008",
+    "model": "glm-5.2",
+    "trial": 1,
+    "correct": true,
+    "passed": "4/4",
+    "bytes": 2141,
+    "seconds": 362.3
+  },
+  {
+    "task": "task008",
+    "model": "qwen3.7-max",
+    "trial": 1,
+    "correct": true,
+    "passed": "4/4",
+    "bytes": 2968,
+    "seconds": 375.0
+  },
+  {
+    "task": "task009",
+    "model": "deepseek-v4-pro",
+    "trial": 1,
+    "correct": true,
+    "passed": "4/4",
+    "bytes": 2886,
+    "seconds": 298.5
+  },
+  {
+    "task": "task009",
+    "model": "glm-5.2",
+    "trial": 1,
+    "correct": true,
+    "passed": "4/4",
+    "bytes": 2576,
+    "seconds": 815.0
+  },
+  {
+    "task": "task009",
+    "model": "qwen3.7-max",
+    "trial": 1,
+    "correct": true,
+    "passed": "4/4",
+    "bytes": 1896,
+    "seconds": 485.5
+  },
+  {
+    "task": "task010",
+    "model": "deepseek-v4-pro",
+    "trial": 1,
+    "correct": true,
+    "passed": "3/3",
+    "bytes": 899,
+    "seconds": 50.9
+  },
+  {
+    "task": "task010",
+    "model": "glm-5.2",
+    "trial": 1,
+    "correct": true,
+    "passed": "3/3",
+    "bytes": 748,
+    "seconds": 13.6
+  },
+  {
+    "task": "task010",
+    "model": "qwen3.7-max",
+    "trial": 1,
+    "correct": true,
+    "passed": "3/3",
+    "bytes": 704,
+    "seconds": 26.1
+  },
+  {
+    "task": "task001",
+    "model": "deepseek-v4-pro",
+    "trial": 2,
+    "correct": true,
+    "passed": "6/6",
+    "bytes": 735,
+    "seconds": 73.1
+  },
+  {
+    "task": "task001",
+    "model": "glm-5.2",
+    "trial": 2,
+    "correct": true,
+    "passed": "6/6",
+    "bytes": 356,
+    "seconds": 45.0
+  },
+  {
+    "task": "task001",
+    "model": "qwen3.7-max",
+    "trial": 2,
+    "correct": true,
+    "passed": "6/6",
+    "bytes": 425,
+    "seconds": 39.1
+  },
+  {
+    "task": "task002",
+    "model": "deepseek-v4-pro",
+    "trial": 2,
+    "correct": true,
+    "passed": "6/6",
+    "bytes": 1211,
+    "seconds": 138.7
+  },
+  {
+    "task": "task002",
+    "model": "glm-5.2",
+    "trial": 2,
+    "correct": true,
+    "passed": "6/6",
+    "bytes": 1094,
+    "seconds": 25.0
+  },
+  {
+    "task": "task002",
+    "model": "qwen3.7-max",
+    "trial": 2,
+    "correct": true,
+    "passed": "6/6",
+    "bytes": 966,
+    "seconds": 118.7
+  },
+  {
+    "task": "task003",
+    "model": "deepseek-v4-pro",
+    "trial": 2,
+    "correct": true,
+    "passed": "4/4",
+    "bytes": 725,
+    "seconds": 171.9
+  },
+  {
+    "task": "task003",
+    "model": "glm-5.2",
+    "trial": 2,
+    "correct": false,
+    "passed": "3/4",
+    "bytes": 152,
+    "seconds": 9.5
+  },
+  {
+    "task": "task003",
+    "model": "qwen3.7-max",
+    "trial": 2,
+    "correct": true,
+    "passed": "4/4",
+    "bytes": 457,
+    "seconds": 299.4
+  },
+  {
+    "task": "task004",
+    "model": "deepseek-v4-pro",
+    "trial": 2,
+    "correct": true,
+    "passed": "3/3",
+    "bytes": 1469,
+    "seconds": 288.2
+  },
+  {
+    "task": "task004",
+    "model": "glm-5.2",
+    "trial": 2,
+    "correct": false,
+    "passed": "0/3",
+    "bytes": 1312,
+    "seconds": 231.3
+  },
+  {
+    "task": "task004",
+    "model": "qwen3.7-max",
+    "trial": 2,
+    "correct": true,
+    "passed": "3/3",
+    "bytes": 1753,
+    "seconds": 391.3
+  },
+  {
+    "task": "task005",
+    "model": "deepseek-v4-pro",
+    "trial": 2,
+    "correct": false,
+    "passed": "2/4",
+    "bytes": 4304,
+    "seconds": 781.0
+  },
+  {
+    "task": "task005",
+    "model": "glm-5.2",
+    "trial": 2,
+    "correct": true,
+    "passed": "4/4",
+    "bytes": 3231,
+    "seconds": 488.1
+  },
+  {
+    "task": "task005",
+    "model": "qwen3.7-max",
+    "trial": 2,
+    "correct": false,
+    "error": "Connection error.",
+    "seconds": 2700.5
+  },
+  {
+    "task": "task006",
+    "model": "deepseek-v4-pro",
+    "trial": 2,
+    "correct": true,
+    "passed": "4/4",
+    "bytes": 1087,
+    "seconds": 41.7
+  },
+  {
+    "task": "task006",
+    "model": "glm-5.2",
+    "trial": 2,
+    "correct": true,
+    "passed": "4/4",
+    "bytes": 691,
+    "seconds": 12.5
+  },
+  {
+    "task": "task006",
+    "model": "qwen3.7-max",
+    "trial": 2,
+    "correct": true,
+    "passed": "4/4",
+    "bytes": 641,
+    "seconds": 63.8
+  },
+  {
+    "task": "task007",
+    "model": "deepseek-v4-pro",
+    "trial": 2,
+    "correct": false,
+    "passed": "3/4",
+    "bytes": 1108,
+    "seconds": 96.0
+  },
+  {
+    "task": "task007",
+    "model": "glm-5.2",
+    "trial": 2,
+    "correct": false,
+    "passed": "0/4",
+    "bytes": 1,
+    "seconds": 760.4
+  },
+  {
+    "task": "task007",
+    "model": "qwen3.7-max",
+    "trial": 2,
+    "correct": true,
+    "passed": "4/4",
+    "bytes": 689,
+    "seconds": 149.5
+  },
+  {
+    "task": "task008",
+    "model": "deepseek-v4-pro",
+    "trial": 2,
+    "correct": true,
+    "passed": "4/4",
+    "bytes": 1553,
+    "seconds": 141.7
+  },
+  {
+    "task": "task008",
+    "model": "glm-5.2",
+    "trial": 2,
+    "correct": true,
+    "passed": "4/4",
+    "bytes": 1540,
+    "seconds": 75.9
+  },
+  {
+    "task": "task008",
+    "model": "qwen3.7-max",
+    "trial": 2,
+    "correct": true,
+    "passed": "4/4",
+    "bytes": 2620,
+    "seconds": 223.1
+  },
+  {
+    "task": "task009",
+    "model": "deepseek-v4-pro",
+    "trial": 2,
+    "correct": true,
+    "passed": "4/4",
+    "bytes": 2759,
+    "seconds": 256.3
+  },
+  {
+    "task": "task009",
+    "model": "glm-5.2",
+    "trial": 2,
+    "correct": true,
+    "passed": "4/4",
+    "bytes": 1862,
+    "seconds": 419.6
+  },
+  {
+    "task": "task009",
+    "model": "qwen3.7-max",
+    "trial": 2,
+    "correct": true,
+    "passed": "4/4",
+    "bytes": 2210,
+    "seconds": 487.5
+  },
+  {
+    "task": "task010",
+    "model": "deepseek-v4-pro",
+    "trial": 2,
+    "correct": true,
+    "passed": "3/3",
+    "bytes": 705,
+    "seconds": 52.7
+  },
+  {
+    "task": "task010",
+    "model": "glm-5.2",
+    "trial": 2,
+    "correct": true,
+    "passed": "3/3",
+    "bytes": 710,
+    "seconds": 27.0
+  },
+  {
+    "task": "task010",
+    "model": "qwen3.7-max",
+    "trial": 2,
+    "correct": true,
+    "passed": "3/3",
+    "bytes": 903,
+    "seconds": 42.3
+  },
+  {
+    "task": "task001",
+    "model": "deepseek-v4-pro",
+    "trial": 3,
+    "correct": true,
+    "passed": "6/6",
+    "bytes": 727,
+    "seconds": 75.4
+  },
+  {
+    "task": "task001",
+    "model": "glm-5.2",
+    "trial": 3,
+    "correct": true,
+    "passed": "6/6",
+    "bytes": 482,
+    "seconds": 39.9
+  },
+  {
+    "task": "task001",
+    "model": "qwen3.7-max",
+    "trial": 3,
+    "correct": true,
+    "passed": "6/6",
+    "bytes": 349,
+    "seconds": 63.9
+  },
+  {
+    "task": "task002",
+    "model": "deepseek-v4-pro",
+    "trial": 3,
+    "correct": true,
+    "passed": "6/6",
+    "bytes": 1553,
+    "seconds": 106.4
+  },
+  {
+    "task": "task002",
+    "model": "glm-5.2",
+    "trial": 3,
+    "correct": true,
+    "passed": "6/6",
+    "bytes": 1086,
+    "seconds": 45.4
+  },
+  {
+    "task": "task002",
+    "model": "qwen3.7-max",
+    "trial": 3,
+    "correct": true,
+    "passed": "6/6",
+    "bytes": 1133,
+    "seconds": 224.8
+  },
+  {
+    "task": "task003",
+    "model": "deepseek-v4-pro",
+    "trial": 3,
+    "correct": true,
+    "passed": "4/4",
+    "bytes": 1111,
+    "seconds": 176.8
+  },
+  {
+    "task": "task003",
+    "model": "glm-5.2",
+    "trial": 3,
+    "correct": false,
+    "passed": "3/4",
+    "bytes": 147,
+    "seconds": 14.8
+  },
+  {
+    "task": "task003",
+    "model": "qwen3.7-max",
+    "trial": 3,
+    "correct": true,
+    "passed": "4/4",
+    "bytes": 625,
+    "seconds": 469.8
+  },
+  {
+    "task": "task004",
+    "model": "deepseek-v4-pro",
+    "trial": 3,
+    "correct": false,
+    "passed": "0/3",
+    "bytes": 1,
+    "seconds": 1043.2
+  },
+  {
+    "task": "task004",
+    "model": "glm-5.2",
+    "trial": 3,
+    "correct": false,
+    "passed": "0/3",
+    "bytes": 1460,
+    "seconds": 1190.3
+  },
+  {
+    "task": "task004",
+    "model": "qwen3.7-max",
+    "trial": 3,
+    "correct": true,
+    "passed": "3/3",
+    "bytes": 1919,
+    "seconds": 439.9
+  },
+  {
+    "task": "task005",
+    "model": "deepseek-v4-pro",
+    "trial": 3,
+    "correct": true,
+    "passed": "4/4",
+    "bytes": 2884,
+    "seconds": 714.3
+  },
+  {
+    "task": "task005",
+    "model": "glm-5.2",
+    "trial": 3,
+    "correct": false,
+    "passed": "2/4",
+    "bytes": 3487,
+    "seconds": 887.2
+  },
+  {
+    "task": "task005",
+    "model": "qwen3.7-max",
+    "trial": 3,
+    "correct": true,
+    "passed": "4/4",
+    "bytes": 3664,
+    "seconds": 768.8
+  },
+  {
+    "task": "task006",
+    "model": "deepseek-v4-pro",
+    "trial": 3,
+    "correct": true,
+    "passed": "4/4",
+    "bytes": 1160,
+    "seconds": 38.5
+  },
+  {
+    "task": "task006",
+    "model": "glm-5.2",
+    "trial": 3,
+    "correct": true,
+    "passed": "4/4",
+    "bytes": 1372,
+    "seconds": 126.9
+  },
+  {
+    "task": "task006",
+    "model": "qwen3.7-max",
+    "trial": 3,
+    "correct": true,
+    "passed": "4/4",
+    "bytes": 806,
+    "seconds": 51.5
+  },
+  {
+    "task": "task007",
+    "model": "deepseek-v4-pro",
+    "trial": 3,
+    "correct": true,
+    "passed": "4/4",
+    "bytes": 835,
+    "seconds": 100.5
+  },
+  {
+    "task": "task007",
+    "model": "glm-5.2",
+    "trial": 3,
+    "correct": true,
+    "passed": "4/4",
+    "bytes": 384,
+    "seconds": 108.8
+  },
+  {
+    "task": "task007",
+    "model": "qwen3.7-max",
+    "trial": 3,
+    "correct": true,
+    "passed": "4/4",
+    "bytes": 718,
+    "seconds": 119.2
+  },
+  {
+    "task": "task008",
+    "model": "deepseek-v4-pro",
+    "trial": 3,
+    "correct": true,
+    "passed": "4/4",
+    "bytes": 1816,
+    "seconds": 77.8
+  },
+  {
+    "task": "task008",
+    "model": "glm-5.2",
+    "trial": 3,
+    "correct": true,
+    "passed": "4/4",
+    "bytes": 3027,
+    "seconds": 795.0
+  },
+  {
+    "task": "task008",
+    "model": "qwen3.7-max",
+    "trial": 3,
+    "correct": true,
+    "passed": "4/4",
+    "bytes": 2970,
+    "seconds": 223.8
+  },
+  {
+    "task": "task009",
+    "model": "deepseek-v4-pro",
+    "trial": 3,
+    "correct": false,
+    "passed": "3/4",
+    "bytes": 2743,
+    "seconds": 328.0
+  },
+  {
+    "task": "task009",
+    "model": "glm-5.2",
+    "trial": 3,
+    "correct": true,
+    "passed": "4/4",
+    "bytes": 2375,
+    "seconds": 374.3
+  },
+  {
+    "task": "task009",
+    "model": "qwen3.7-max",
+    "trial": 3,
+    "correct": true,
+    "passed": "4/4",
+    "bytes": 3051,
+    "seconds": 363.3
+  },
+  {
+    "task": "task010",
+    "model": "deepseek-v4-pro",
+    "trial": 3,
+    "correct": true,
+    "passed": "3/3",
+    "bytes": 620,
+    "seconds": 39.4
+  },
+  {
+    "task": "task010",
+    "model": "glm-5.2",
+    "trial": 3,
+    "correct": true,
+    "passed": "3/3",
+    "bytes": 706,
+    "seconds": 20.8
+  },
+  {
+    "task": "task010",
+    "model": "qwen3.7-max",
+    "trial": 3,
+    "correct": true,
+    "passed": "3/3",
+    "bytes": 813,
+    "seconds": 23.1
+  },
+  {
+    "task": "task001",
+    "model": "deepseek-v4-pro",
+    "trial": 4,
+    "correct": true,
+    "passed": "6/6",
+    "bytes": 588,
+    "seconds": 70.9
+  },
+  {
+    "task": "task001",
+    "model": "glm-5.2",
+    "trial": 4,
+    "correct": true,
+    "passed": "6/6",
+    "bytes": 346,
+    "seconds": 65.6
+  },
+  {
+    "task": "task001",
+    "model": "qwen3.7-max",
+    "trial": 4,
+    "correct": true,
+    "passed": "6/6",
+    "bytes": 431,
+    "seconds": 62.4
+  },
+  {
+    "task": "task002",
+    "model": "deepseek-v4-pro",
+    "trial": 4,
+    "correct": true,
+    "passed": "6/6",
+    "bytes": 1461,
+    "seconds": 85.4
+  },
+  {
+    "task": "task002",
+    "model": "glm-5.2",
+    "trial": 4,
+    "correct": true,
+    "passed": "6/6",
+    "bytes": 1270,
+    "seconds": 53.4
+  },
+  {
+    "task": "task002",
+    "model": "qwen3.7-max",
+    "trial": 4,
+    "correct": true,
+    "passed": "6/6",
+    "bytes": 1202,
+    "seconds": 135.6
+  },
+  {
+    "task": "task003",
+    "model": "deepseek-v4-pro",
+    "trial": 4,
+    "correct": true,
+    "passed": "4/4",
+    "bytes": 911,
+    "seconds": 403.2
+  },
+  {
+    "task": "task003",
+    "model": "glm-5.2",
+    "trial": 4,
+    "correct": true,
+    "passed": "4/4",
+    "bytes": 606,
+    "seconds": 152.1
+  },
+  {
+    "task": "task003",
+    "model": "qwen3.7-max",
+    "trial": 4,
+    "correct": true,
+    "passed": "4/4",
+    "bytes": 291,
+    "seconds": 701.7
+  },
+  {
+    "task": "task004",
+    "model": "deepseek-v4-pro",
+    "trial": 4,
+    "correct": false,
+    "passed": "0/3",
+    "bytes": 1225,
+    "seconds": 232.4
+  },
+  {
+    "task": "task004",
+    "model": "glm-5.2",
+    "trial": 4,
+    "correct": false,
+    "passed": "0/3",
+    "bytes": 1394,
+    "seconds": 196.5
+  },
+  {
+    "task": "task004",
+    "model": "qwen3.7-max",
+    "trial": 4,
+    "correct": true,
+    "passed": "3/3",
+    "bytes": 2409,
+    "seconds": 762.2
+  },
+  {
+    "task": "task005",
+    "model": "deepseek-v4-pro",
+    "trial": 4,
+    "correct": true,
+    "passed": "4/4",
+    "bytes": 2511,
+    "seconds": 814.9
+  },
+  {
+    "task": "task005",
+    "model": "glm-5.2",
+    "trial": 4,
+    "correct": false,
+    "passed": "3/4",
+    "bytes": 3219,
+    "seconds": 1426.7
+  },
+  {
+    "task": "task005",
+    "model": "qwen3.7-max",
+    "trial": 4,
+    "correct": true,
+    "passed": "4/4",
+    "bytes": 2212,
+    "seconds": 738.4
+  },
+  {
+    "task": "task006",
+    "model": "deepseek-v4-pro",
+    "trial": 4,
+    "correct": true,
+    "passed": "4/4",
+    "bytes": 739,
+    "seconds": 31.1
+  },
+  {
+    "task": "task006",
+    "model": "glm-5.2",
+    "trial": 4,
+    "correct": true,
+    "passed": "4/4",
+    "bytes": 608,
+    "seconds": 25.5
+  },
+  {
+    "task": "task006",
+    "model": "qwen3.7-max",
+    "trial": 4,
+    "correct": true,
+    "passed": "4/4",
+    "bytes": 717,
+    "seconds": 32.8
+  },
+  {
+    "task": "task007",
+    "model": "deepseek-v4-pro",
+    "trial": 4,
+    "correct": false,
+    "passed": "3/4",
+    "bytes": 753,
+    "seconds": 102.9
+  },
+  {
+    "task": "task007",
+    "model": "glm-5.2",
+    "trial": 4,
+    "correct": true,
+    "passed": "4/4",
+    "bytes": 310,
+    "seconds": 34.3
+  },
+  {
+    "task": "task007",
+    "model": "qwen3.7-max",
+    "trial": 4,
+    "correct": true,
+    "passed": "4/4",
+    "bytes": 483,
+    "seconds": 94.3
+  },
+  {
+    "task": "task008",
+    "model": "deepseek-v4-pro",
+    "trial": 4,
+    "correct": true,
+    "passed": "4/4",
+    "bytes": 1848,
+    "seconds": 105.9
+  },
+  {
+    "task": "task008",
+    "model": "glm-5.2",
+    "trial": 4,
+    "correct": true,
+    "passed": "4/4",
+    "bytes": 2094,
+    "seconds": 50.4
+  },
+  {
+    "task": "task008",
+    "model": "qwen3.7-max",
+    "trial": 4,
+    "correct": true,
+    "passed": "4/4",
+    "bytes": 1850,
+    "seconds": 126.1
+  },
+  {
+    "task": "task009",
+    "model": "deepseek-v4-pro",
+    "trial": 4,
+    "correct": true,
+    "passed": "4/4",
+    "bytes": 2325,
+    "seconds": 349.8
+  },
+  {
+    "task": "task009",
+    "model": "glm-5.2",
+    "trial": 4,
+    "correct": true,
+    "passed": "4/4",
+    "bytes": 2680,
+    "seconds": 339.2
+  },
+  {
+    "task": "task009",
+    "model": "qwen3.7-max",
+    "trial": 4,
+    "correct": true,
+    "passed": "4/4",
+    "bytes": 2256,
+    "seconds": 364.7
+  },
+  {
+    "task": "task010",
+    "model": "deepseek-v4-pro",
+    "trial": 4,
+    "correct": true,
+    "passed": "3/3",
+    "bytes": 1629,
+    "seconds": 48.9
+  },
+  {
+    "task": "task010",
+    "model": "glm-5.2",
+    "trial": 4,
+    "correct": true,
+    "passed": "3/3",
+    "bytes": 1029,
+    "seconds": 27.9
+  },
+  {
+    "task": "task010",
+    "model": "qwen3.7-max",
+    "trial": 4,
+    "correct": true,
+    "passed": "3/3",
+    "bytes": 785,
+    "seconds": 42.0
+  },
+  {
+    "task": "task001",
+    "model": "deepseek-v4-pro",
+    "trial": 5,
+    "correct": true,
+    "passed": "6/6",
+    "bytes": 368,
+    "seconds": 77.7
+  },
+  {
+    "task": "task001",
+    "model": "glm-5.2",
+    "trial": 5,
+    "correct": true,
+    "passed": "6/6",
+    "bytes": 352,
+    "seconds": 68.2
+  },
+  {
+    "task": "task001",
+    "model": "qwen3.7-max",
+    "trial": 5,
+    "correct": true,
+    "passed": "6/6",
+    "bytes": 336,
+    "seconds": 45.9
+  },
+  {
+    "task": "task002",
+    "model": "deepseek-v4-pro",
+    "trial": 5,
+    "correct": true,
+    "passed": "6/6",
+    "bytes": 1568,
+    "seconds": 112.5
+  },
+  {
+    "task": "task002",
+    "model": "glm-5.2",
+    "trial": 5,
+    "correct": true,
+    "passed": "6/6",
+    "bytes": 1123,
+    "seconds": 35.0
+  },
+  {
+    "task": "task002",
+    "model": "qwen3.7-max",
+    "trial": 5,
+    "correct": true,
+    "passed": "6/6",
+    "bytes": 944,
+    "seconds": 210.5
+  },
+  {
+    "task": "task003",
+    "model": "deepseek-v4-pro",
+    "trial": 5,
+    "correct": true,
+    "passed": "4/4",
+    "bytes": 983,
+    "seconds": 198.3
+  },
+  {
+    "task": "task003",
+    "model": "glm-5.2",
+    "trial": 5,
+    "correct": true,
+    "passed": "4/4",
+    "bytes": 716,
+    "seconds": 279.7
+  },
+  {
+    "task": "task003",
+    "model": "qwen3.7-max",
+    "trial": 5,
+    "correct": true,
+    "passed": "4/4",
+    "bytes": 595,
+    "seconds": 599.6
+  },
+  {
+    "task": "task004",
+    "model": "deepseek-v4-pro",
+    "trial": 5,
+    "correct": true,
+    "passed": "3/3",
+    "bytes": 1924,
+    "seconds": 447.3
+  },
+  {
+    "task": "task004",
+    "model": "glm-5.2",
+    "trial": 5,
+    "correct": false,
+    "passed": "0/3",
+    "bytes": 1,
+    "seconds": 729.9
+  },
+  {
+    "task": "task004",
+    "model": "qwen3.7-max",
+    "trial": 5,
+    "correct": true,
+    "passed": "3/3",
+    "bytes": 1413,
+    "seconds": 378.6
+  },
+  {
+    "task": "task005",
+    "model": "deepseek-v4-pro",
+    "trial": 5,
+    "correct": false,
+    "passed": "3/4",
+    "bytes": 3028,
+    "seconds": 840.7
+  },
+  {
+    "task": "task005",
+    "model": "glm-5.2",
+    "trial": 5,
+    "correct": false,
+    "passed": "0/4",
+    "bytes": 1,
+    "seconds": 885.4
+  },
+  {
+    "task": "task005",
+    "model": "qwen3.7-max",
+    "trial": 5,
+    "correct": true,
+    "passed": "4/4",
+    "bytes": 4777,
+    "seconds": 875.0
+  },
+  {
+    "task": "task006",
+    "model": "deepseek-v4-pro",
+    "trial": 5,
+    "correct": true,
+    "passed": "4/4",
+    "bytes": 703,
+    "seconds": 29.6
+  },
+  {
+    "task": "task006",
+    "model": "glm-5.2",
+    "trial": 5,
+    "correct": true,
+    "passed": "4/4",
+    "bytes": 569,
+    "seconds": 23.5
+  },
+  {
+    "task": "task006",
+    "model": "qwen3.7-max",
+    "trial": 5,
+    "correct": true,
+    "passed": "4/4",
+    "bytes": 463,
+    "seconds": 101.8
+  },
+  {
+    "task": "task007",
+    "model": "deepseek-v4-pro",
+    "trial": 5,
+    "correct": true,
+    "passed": "4/4",
+    "bytes": 2461,
+    "seconds": 247.7
+  },
+  {
+    "task": "task007",
+    "model": "glm-5.2",
+    "trial": 5,
+    "correct": true,
+    "passed": "4/4",
+    "bytes": 721,
+    "seconds": 381.9
+  },
+  {
+    "task": "task007",
+    "model": "qwen3.7-max",
+    "trial": 5,
+    "correct": true,
+    "passed": "4/4",
+    "bytes": 963,
+    "seconds": 140.3
+  },
+  {
+    "task": "task008",
+    "model": "deepseek-v4-pro",
+    "trial": 5,
+    "correct": true,
+    "passed": "4/4",
+    "bytes": 2051,
+    "seconds": 127.2
+  },
+  {
+    "task": "task008",
+    "model": "glm-5.2",
+    "trial": 5,
+    "correct": true,
+    "passed": "4/4",
+    "bytes": 1655,
+    "seconds": 120.1
+  },
+  {
+    "task": "task008",
+    "model": "qwen3.7-max",
+    "trial": 5,
+    "correct": true,
+    "passed": "4/4",
+    "bytes": 1487,
+    "seconds": 122.4
+  },
+  {
+    "task": "task009",
+    "model": "deepseek-v4-pro",
+    "trial": 5,
+    "correct": true,
+    "passed": "4/4",
+    "bytes": 1827,
+    "seconds": 583.0
+  },
+  {
+    "task": "task009",
+    "model": "glm-5.2",
+    "trial": 5,
+    "correct": false,
+    "passed": "0/4",
+    "bytes": 635,
+    "seconds": 378.4
+  },
+  {
+    "task": "task009",
+    "model": "qwen3.7-max",
+    "trial": 5,
+    "correct": true,
+    "passed": "4/4",
+    "bytes": 3147,
+    "seconds": 439.0
+  },
+  {
+    "task": "task010",
+    "model": "deepseek-v4-pro",
+    "trial": 5,
+    "correct": true,
+    "passed": "3/3",
+    "bytes": 988,
+    "seconds": 75.2
+  },
+  {
+    "task": "task010",
+    "model": "glm-5.2",
+    "trial": 5,
+    "correct": true,
+    "passed": "3/3",
+    "bytes": 649,
+    "seconds": 11.7
+  },
+  {
+    "task": "task010",
+    "model": "qwen3.7-max",
+    "trial": 5,
+    "correct": true,
+    "passed": "3/3",
+    "bytes": 799,
+    "seconds": 54.5
+  }
+]

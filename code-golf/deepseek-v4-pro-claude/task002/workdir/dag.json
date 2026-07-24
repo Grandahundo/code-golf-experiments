@@ -1,0 +1,1365 @@
+{
+  "nodes": {
+    "v1": {
+      "version": "v1",
+      "parent": null,
+      "code": "def p(g):\n g=[r[:]for r in g];H=len(g);W=len(g[0])\n s=[(r,c)for r in range(H)for c in range(W)if g[r][c]<1and(r in(0,H-1)or c in(0,W-1))]\n for r,c in s:g[r][c]=5\n for r,c in s:\n  for dr,dc in((1,0),(-1,0),(0,1),(0,-1)):\n   if 0<=r+dr<H and 0<=c+dc<W and g[r+dr][c+dc]<1:g[r+dr][c+dc]=5;s+=[(r+dr,c+dc)]\n return[[[4,x][x>0]for x in r]for r in g]\n",
+      "bytes": 345,
+      "passed": false,
+      "code_hash": "12b7440d7d43",
+      "file": "v2.py",
+      "timestamp": "2026-07-14T11:27:47.495462"
+    },
+    "v2": {
+      "version": "v2",
+      "parent": "v1",
+      "code": "def p(g):\n g=[r[:]for r in g];H=len(g);W=len(g[0])\n s=[(r,c)for r in range(H)for c in range(W)if g[r][c]<1and(r in(0,H-1)or c in(0,W-1))]\n for r,c in s:g[r][c]=-1\n for r,c in s:\n  for dr,dc in((1,0),(-1,0),(0,1),(0,-1)):\n   if 0<=r+dr<H and 0<=c+dc<W and g[r+dr][c+dc]==0:g[r+dr][c+dc]=-1;s+=[(r+dr,c+dc)]\n return[[4*(x==0)or max(x,0)for x in r]for r in g]\n",
+      "bytes": 357,
+      "passed": true,
+      "code_hash": "3f8a342ef85d",
+      "file": "v3.py",
+      "timestamp": "2026-07-14T11:29:18.319228"
+    },
+    "v3": {
+      "version": "v3",
+      "parent": "v1",
+      "code": "def p(g):\n g=[r[:]for r in g];H=len(g);W=len(g[0]);R=range\n s=[(r,c)for r in R(H)for c in R(W)if g[r][c]<1and(r%(H-1)*c%(W-1)<1)]\n for r,c in s:\n  g[r][c]=-1\n  for a,b in((r+1,c),(r-1,c),(r,c+1),(r,c-1)):\n   if H>a>=0<=b<W>0<g[a][b]<1:s+=(a,b),\n return[[4*(x<1)or x for x in r]for r in g]\n",
+      "bytes": 289,
+      "passed": false,
+      "code_hash": "890d8e3a34c6",
+      "file": "v4.py",
+      "timestamp": "2026-07-14T11:29:29.585744"
+    },
+    "v4": {
+      "version": "v4",
+      "parent": "v3",
+      "code": "def p(g):\n g=[r[:]for r in g];H=len(g);W=len(g[0]);R=range\n s=[(r,c)for r in R(H)for c in R(W)if g[r][c]<1and r%(H-1)*(c%(W-1))<1]\n for r,c in s:\n  g[r][c]=-1\n  for a,b in((r+1,c),(r-1,c),(r,c+1),(r,c-1)):\n   if H>a>=0<=b<W and g[a][b]==0:s+=(a,b),\n return[[4*(x<1)or x for x in r]for r in g]\n",
+      "bytes": 293,
+      "passed": false,
+      "code_hash": "8508f14efd75",
+      "file": "v5.py",
+      "timestamp": "2026-07-14T11:29:40.845434"
+    },
+    "v5": {
+      "version": "v5",
+      "parent": "v4",
+      "code": "def p(g):\n g=[r[:]for r in g];H=len(g);W=len(g[0]);R=range\n s=[(r,c)for r in R(H)for c in R(W)if g[r][c]<1and r%(H-1)*(c%(W-1))<1]\n for r,c in s:\n  g[r][c]=-1\n  for a,b in((r+1,c),(r-1,c),(r,c+1),(r,c-1)):\n   if H>a>=0<=b<W and g[a][b]==0:s+=(a,b),\n return[[4*(x==0)or max(x,0)for x in r]for r in g]\n",
+      "bytes": 300,
+      "passed": true,
+      "code_hash": "e50b718b2213",
+      "file": "v6.py",
+      "timestamp": "2026-07-14T11:30:08.242201"
+    },
+    "v6": {
+      "version": "v6",
+      "parent": "v4",
+      "code": "def p(g):\n g=[r[:]for r in g];H=len(g);W=len(g[0]);R=range\n s=[(r,c)for r in R(H)for c in R(W)if g[r][c]<1and r%(H-1)*(c%(W-1))<1]\n for r,c in s:\n  g[r][c]=-1\n  for a,b in((r+1,c),(r-1,c),(r,c+1),(r,c-1)):\n   if H>a>=0<=b<W and g[a][b]==0:s+=(a,b),\n return[[(x or 4)*(x>-1)for x in r]for r in g]\n",
+      "bytes": 296,
+      "passed": true,
+      "code_hash": "201386da9e57",
+      "file": "v7.py",
+      "timestamp": "2026-07-14T11:30:37.164928"
+    },
+    "v7": {
+      "version": "v7",
+      "parent": "v6",
+      "code": "def p(g):\n H=len(g);W=len(g[0]);o=[r[:]for r in g]\n def f(r,c):\n  if H>r>=0<=c<W and o[r][c]==0:o[r][c]=-1;f(r+1,c);f(r-1,c);f(r,c+1);f(r,c-1)\n for i in range(H):f(i,0);f(i,W-1)\n for i in range(W):f(0,i);f(H-1,i)\n return[[(x or 4)*(x>-1)for x in r]for r in o]\n",
+      "bytes": 260,
+      "passed": true,
+      "code_hash": "11650cc4fd10",
+      "file": "v8.py",
+      "timestamp": "2026-07-14T11:31:11.809589"
+    },
+    "v8": {
+      "version": "v8",
+      "parent": "v7",
+      "code": "def p(g):\n H=len(g);W=len(g[0]);o=[r[:]for r in g]\n def f(r,c):\n  if H>r>=0<=c<W>0==o[r][c]:o[r][c]=-1;[f(r+a,c+b)for a,b in((1,0),(-1,0),(0,1),(0,-1))]\n for i in range(H):\n  for j in range(W):\n   if i%(H-1)*(j%(W-1))<1:f(i,j)\n return[[(x or 4)*(x>-1)for x in r]for r in o]\n",
+      "bytes": 274,
+      "passed": true,
+      "code_hash": "8f0cd53be39c",
+      "file": "v9.py",
+      "timestamp": "2026-07-14T11:31:22.599402"
+    },
+    "v9": {
+      "version": "v9",
+      "parent": "v7",
+      "code": "def p(g):\n H=len(g);W=len(g[0]);o=[r[:]for r in g]\n def f(r,c):H>r>=0<=c<W and o[r][c]==0and(o[r].__setitem__(c,-1)or[f(r+a,c+b)for a,b in((1,0),(-1,0),(0,1),(0,-1))])\n for i in range(H):f(i,0);f(i,W-1)\n for i in range(W):f(0,i);f(H-1,i)\n return[[(x or 4)*(x>-1)for x in r]for r in o]\n",
+      "bytes": 285,
+      "passed": true,
+      "code_hash": "a1cb344b39ca",
+      "file": "v10.py",
+      "timestamp": "2026-07-14T11:31:32.275614"
+    },
+    "v10": {
+      "version": "v10",
+      "parent": "v7",
+      "code": "def p(g):\n H=len(g);W=len(g[0])\n def f(r,c):\n  if H>r>=0<=c<W and g[r][c]==0:g[r][c]=-1;f(r+1,c);f(r-1,c);f(r,c+1);f(r,c-1)\n for i in range(H):f(i,0);f(i,W-1)\n for i in range(W):f(0,i);f(H-1,i)\n return[[(x or 4)*(x>-1)for x in r]for r in g]\n",
+      "bytes": 241,
+      "passed": true,
+      "code_hash": "42e567297a5f",
+      "file": "v11.py",
+      "timestamp": "2026-07-14T11:31:53.080779"
+    },
+    "v11": {
+      "version": "v11",
+      "parent": null,
+      "code": "def p(g,f=lambda g,r,c:H>r>=0<=c<W and g[r][c]==0and(g[r].__setitem__(c,-1),f(g,r+1,c),f(g,r-1,c),f(g,r,c+1),f(g,r,c-1))):\n global H,W;H=len(g);W=len(g[0])\n for i in range(H):f(g,i,0);f(g,i,W-1)\n for i in range(W):f(g,0,i);f(g,H-1,i)\n return[[(x or 4)*(x>-1)for x in r]for r in g]\n",
+      "bytes": 281,
+      "passed": false,
+      "code_hash": "fc1917bdd802",
+      "file": "v12.py",
+      "timestamp": "2026-07-14T11:32:03.169546"
+    },
+    "v12": {
+      "version": "v12",
+      "parent": "v10",
+      "code": "def p(g):\n H=len(g);W=len(g[0])\n def f(r,c):\n  if H>r>=0<=c<W and g[r][c]==0:g[r][c]=-1;[f(r+a,c+b)for a,b in zip((1,-1,0,0),(0,0,1,-1))]\n for i in range(H):f(i,0);f(i,W-1)\n for i in range(W):f(0,i);f(H-1,i)\n return[[(x or 4)*(x>-1)for x in r]for r in g]\n",
+      "bytes": 255,
+      "passed": true,
+      "code_hash": "e4dbc5056800",
+      "file": "v13.py",
+      "timestamp": "2026-07-14T11:32:14.547116"
+    },
+    "v13": {
+      "version": "v13",
+      "parent": "v10",
+      "code": "def p(g):\n H=len(g)\n def f(r,c):\n  if H>r>=0<=c<H and g[r][c]==0:g[r][c]=-1;f(r+1,c);f(r-1,c);f(r,c+1);f(r,c-1)\n for i in range(H):f(i,0);f(i,H-1);f(0,i);f(H-1,i)\n return[[(x or 4)*(x>-1)for x in r]for r in g]\n",
+      "bytes": 210,
+      "passed": true,
+      "code_hash": "c29d456a5494",
+      "file": "v14.py",
+      "timestamp": "2026-07-14T11:32:35.743230"
+    },
+    "v14": {
+      "version": "v14",
+      "parent": "v13",
+      "code": "def p(g):\n H=len(g)\n def f(r,c):\n  if H>r>=0<=c<H>g[r][c]<1:g[r][c]=-1;f(r+1,c);f(r-1,c);f(r,c+1);f(r,c-1)\n for i in range(H):f(i,0);f(i,H-1);f(0,i);f(H-1,i)\n return[[(x or 4)*(x>-1)for x in r]for r in g]\n",
+      "bytes": 205,
+      "passed": false,
+      "code_hash": "5e8243226edd",
+      "file": "v15.py",
+      "timestamp": "2026-07-14T11:32:49.534383"
+    },
+    "v15": {
+      "version": "v15",
+      "parent": "v13",
+      "code": "def p(g):\n H=len(g)\n def f(r,c):\n  if H>r>=0<=c<H and 0==g[r][c]:g[r][c]=-1;f(r+1,c);f(r-1,c);f(r,c+1);f(r,c-1)\n for i in range(H):f(i,0);f(i,H-1);f(0,i);f(H-1,i)\n return[[(x or 4)*(x>-1)for x in r]for r in g]\n",
+      "bytes": 210,
+      "passed": true,
+      "code_hash": "9ec65f0a538b",
+      "file": "v16.py",
+      "timestamp": "2026-07-14T11:33:02.651868"
+    },
+    "v16": {
+      "version": "v16",
+      "parent": "v13",
+      "code": "def p(g):\n H=len(g)\n def f(r,c):\n  try:\n   if g[r][c]==0<=r and c>=0:g[r][c]=-1;f(r+1,c);f(r-1,c);f(r,c+1);f(r,c-1)\n  except:0\n for i in range(H):f(i,0);f(i,H-1);f(0,i);f(H-1,i)\n return[[(x or 4)*(x>-1)for x in r]for r in g]\n",
+      "bytes": 225,
+      "passed": true,
+      "code_hash": "8058ac245e69",
+      "file": "v17.py",
+      "timestamp": "2026-07-14T11:33:02.702410"
+    },
+    "v17": {
+      "version": "v17",
+      "parent": "v13",
+      "code": "def p(g):\n H=len(g)\n def f(r,c):\n  if H>r>=0<=c<H and g[r][c]==0:g[r][c]=-1;f(r+1,c);f(r-1,c);f(r,c+1);f(r,c-1)\n for i in range(H):f(i,0);f(i,H-1);f(0,i);f(H-1,i)\n return[[-~x%~-~4or 4for x in r]for r in g]\n",
+      "bytes": 207,
+      "passed": false,
+      "code_hash": "5fc655d207bb",
+      "file": "v18.py",
+      "timestamp": "2026-07-14T11:35:24.186131"
+    },
+    "v18": {
+      "version": "v18",
+      "parent": "v13",
+      "code": "def p(g):\n H=len(g)\n def f(r,c):\n  if H>r>=0<=c<H and g[r][c]==0:g[r][c]=-1;f(r+1,c);f(r-1,c);f(r,c+1);f(r,c-1)\n for i in range(H):f(i,0);f(i,H-1);f(0,i);f(H-1,i)\n return[[-~x and(x or 4)for x in r]for r in g]\n",
+      "bytes": 210,
+      "passed": true,
+      "code_hash": "836c7b27473b",
+      "file": "v19.py",
+      "timestamp": "2026-07-14T11:35:52.384218"
+    },
+    "v19": {
+      "version": "v19",
+      "parent": "v14",
+      "code": "def p(g):\n H=len(g);G=lambda r,c:0<=r<H>c>=0 and g[r][c]\n for _ in g*4:\n  for r in range(H):\n   for c in range(H):\n    if g[r][c]<1 and(r*c*(H+~r)*(H+~c)==0 or -2 in(G(r+1,c),G(r-1,c),G(r,c+1),G(r,c-1))):g[r][c]=-2\n return[[(x or 4)*(x>-2)for x in r]for r in g]\n",
+      "bytes": 262,
+      "passed": true,
+      "code_hash": "049cd1e74af1",
+      "file": "v20.py",
+      "timestamp": "2026-07-14T11:36:47.791488"
+    },
+    "v20": {
+      "version": "v20",
+      "parent": "v16",
+      "code": "def p(g):\n N=len(g)+2;m=[[0]*N]+[[0]+r+[0]for r in g]+[[0]*N]\n def f(r,c):\n  try:\n   if m[r][c]==0:m[r][c]=-1;f(r+1,c);f(r-1,c);f(r,c+1);f(r,c-1)\n  except:0\n f(0,0)\n return[[(x or 4)*(x>-1)for x in r[1:-1]]for r in m[1:-1]]\n",
+      "bytes": 224,
+      "passed": true,
+      "code_hash": "a1c636f04719",
+      "file": "v21.py",
+      "timestamp": "2026-07-14T11:38:08.342229"
+    },
+    "v21": {
+      "version": "v21",
+      "parent": "v15",
+      "code": "def p(g):\n H=len(g)\n def f(r,c):\n  if H>r>=0<=c<H>0==g[r][c]:g[r][c]=-1;f(r+1,c);f(r-1,c);f(r,c+1);f(r,c-1)\n for i in range(H):f(i,0);f(i,H-1);f(0,i);f(H-1,i)\n return[[(x or 4)*(x>-1)for x in r]for r in g]\n",
+      "bytes": 206,
+      "passed": true,
+      "code_hash": "0b34cb1709f0",
+      "file": "v22.py",
+      "timestamp": "2026-07-14T11:38:36.582093"
+    },
+    "v22": {
+      "version": "v22",
+      "parent": "v11",
+      "code": "def p(g):\n H=len(g);f=lambda r,c:H>r>=0<=c<H>0==g[r][c]and(g[r].__setitem__(c,-1),f(r+1,c),f(r-1,c),f(r,c+1),f(r,c-1))\n [(f(i,0),f(i,H-1),f(0,i),f(H-1,i))for i in range(H)]\n return[[(x or 4)*(x>-1)for x in r]for r in g]\n",
+      "bytes": 220,
+      "passed": true,
+      "code_hash": "67a6706c19af",
+      "file": "v23.py",
+      "timestamp": "2026-07-14T11:39:05.173999"
+    },
+    "v23": {
+      "version": "v23",
+      "parent": "v20",
+      "code": "def p(g):\n m=[[0]*(len(g)+2)]+[[0]+r+[0]for r in g]+[[0]*(len(g)+2)];N=len(m)\n def f(r,c):\n  if N>r>=0<=c<N and m[r][c]==0:m[r][c]=-1;f(r+1,c);f(r-1,c);f(r,c+1);f(r,c-1)\n f(0,0)\n return[[(x or 4)*(x>-1)for x in r[1:-1]]for r in m[1:-1]]\n",
+      "bytes": 237,
+      "passed": true,
+      "code_hash": "70edbdecca8f",
+      "file": "v24.py",
+      "timestamp": "2026-07-14T11:40:21.505229"
+    },
+    "v24": {
+      "version": "v24",
+      "parent": "v21",
+      "code": "def p(g):\n H=len(g);s=[(i,j)for i in range(H)for j in range(H)if i%(H-1)*(j%(H-1))<1>=g[i][j]]\n while s:\n  r,c=s.pop();g[r][c]=-1\n  s+=[(a,b)for a,b in((r+1,c),(r-1,c),(r,c+1),(r,c-1))if H>a>=0<=b<H>0==g[a][b]]\n return[[(x or 4)*(x>-1)for x in r]for r in g]\n",
+      "bytes": 258,
+      "passed": true,
+      "code_hash": "acb04673c9fe",
+      "file": "v25.py",
+      "timestamp": "2026-07-14T11:41:24.050034"
+    },
+    "v25": {
+      "version": "v25",
+      "parent": "v21",
+      "code": "def p(g):\n H=len(g)\n def f(r,c):\n  if H>r>=0<=c<H>0==g[r][c]:g[r][c]=-1;f(r+1,c);f(r-1,c);f(r,c+1);f(r,c-1)\n for i in range(H):f(i,0);f(i,~0);f(0,i);f(~0,i)\n return[[(x or 4)*(x>-1)for x in r]for r in g]\n",
+      "bytes": 204,
+      "passed": false,
+      "code_hash": "156b5abef112",
+      "file": "v26.py",
+      "timestamp": "2026-07-14T11:43:00.648050"
+    },
+    "v26": {
+      "version": "v26",
+      "parent": "v25",
+      "code": "def p(g):\n H=len(g);e=H-1\n def f(r,c):\n  if H>r>=0<=c<H>0==g[r][c]:g[r][c]=-1;f(r+1,c);f(r-1,c);f(r,c+1);f(r,c-1)\n for i in range(H):f(i,0);f(i,e);f(0,i);f(e,i)\n return[[(x or 4)*(x>-1)for x in r]for r in g]\n",
+      "bytes": 208,
+      "passed": true,
+      "code_hash": "45ad763c1406",
+      "file": "v27.py",
+      "timestamp": "2026-07-14T11:43:09.817719"
+    },
+    "v27": {
+      "version": "v27",
+      "parent": "v26",
+      "code": "def p(g):\n H=len(g);e=H-1\n def f(r,c):\n  if H>r>=0<=c<H>0==g[r][c]:g[r][c]=-1;f(r+1,c);f(r-1,c);f(r,c+1);f(r,c-1)\n [f(i,j)for i in range(H)for j in range(H)if i%e*(j%e)<1]\n return[[(x or 4)*(x>-1)for x in r]for r in g]\n",
+      "bytes": 219,
+      "passed": true,
+      "code_hash": "0bafbf6aa2cc",
+      "file": "v28.py",
+      "timestamp": "2026-07-14T11:43:27.407408"
+    },
+    "v28": {
+      "version": "v28",
+      "parent": "v21",
+      "code": "def p(g):\n H=len(g)\n def f(r,c):\n  if H>r>=0<=c<H>0==g[r][c]:g[r][c]=-1;[f(r+d,c)or f(r,c+d)for d in(1,-1)]\n for i in range(H):f(i,0);f(i,H-1);f(0,i);f(H-1,i)\n return[[(x or 4)*(x>-1)for x in r]for r in g]\n",
+      "bytes": 206,
+      "passed": true,
+      "code_hash": "2c32a097f376",
+      "file": "v29.py",
+      "timestamp": "2026-07-14T11:44:06.702596"
+    },
+    "v29": {
+      "version": "v29",
+      "parent": "v21",
+      "code": "def p(g):\n H=len(g)\n def f(r,c):\n  if H>r>=0<=c<H>0==g[r][c]:g[r][c]=-1;f(r+1,c);f(r-1,c);f(r,c+1);f(r,c-1)\n for i in range(H):f(i,0);f(i,H-1);f(0,i);f(H-1,i)\n return[[4>>(x>0)*4or x for x in r]for r in g]\n",
+      "bytes": 206,
+      "passed": false,
+      "code_hash": "680262647345",
+      "file": "v31.py",
+      "timestamp": "2026-07-14T11:44:19.051668"
+    },
+    "v30": {
+      "version": "v30",
+      "parent": "v23",
+      "code": "def p(g):\n g=[[0]*-~-~len(g)]+[[0]+r+[0]for r in g]+[[0]*-~-~len(g)]\n def f(r,c):\n  try:\n   if r>=0<=c and g[r][c]==0:g[r][c]=5;f(r+1,c);f(r-1,c);f(r,c+1);f(r,c-1)\n  except:0\n f(0,0)\n return[[(x<5)*(x or 4)for x in r[1:-1]]for r in g[1:-1]]\n",
+      "bytes": 241,
+      "passed": true,
+      "code_hash": "43ce81f2a795",
+      "file": "v34.py",
+      "timestamp": "2026-07-14T11:45:38.134666"
+    },
+    "v31": {
+      "version": "v31",
+      "parent": "v21",
+      "code": "def p(g):\n H=len(g)\n def f(r,c):H>r>=0<=c<H>0==g[r][c]and[g[r].__setitem__(c,-1),f(r+1,c),f(r-1,c),f(r,c+1),f(r,c-1)]\n for i in range(H):f(i,0);f(i,H-1);f(0,i);f(H-1,i)\n return[[(x or 4)*(x>-1)for x in r]for r in g]\n",
+      "bytes": 216,
+      "passed": true,
+      "code_hash": "cc040393368a",
+      "file": "v35.py",
+      "timestamp": "2026-07-14T11:46:26.438614"
+    },
+    "v32": {
+      "version": "v32",
+      "parent": "v21",
+      "code": "def p(g):\n H=len(g)\n def f(r,c):\n  if H>r>=0<=c<H>0==g[r][c]:g[r][c]=-1;f(r+1,c);f(r-1,c);f(r,c+1);f(r,c-1)\n for i in range(H):f(i,0);f(i,H-1);f(0,i);f(H-1,i)\n return[[(x or 4)*(x>-1)for x in r]for r in g]",
+      "bytes": 205,
+      "passed": true,
+      "code_hash": "462ca325047c",
+      "file": "v36.py",
+      "timestamp": "2026-07-14T11:47:39.513669"
+    },
+    "v33": {
+      "version": "v33",
+      "parent": "v27",
+      "code": "def p(g):\n H=len(g)\n for _ in sum(g,[]):\n  for r in range(H):\n   for c in range(H):\n    if g[r][c]==0and(r%~-H*(c%~-H)<1or-1in(g[r-1][c],g[r+1][c],g[r][c-1],g[r][c+1])):g[r][c]=-1\n return[[(x or 4)*(x>-1)for x in r]for r in g]\n",
+      "bytes": 227,
+      "passed": true,
+      "code_hash": "215a94ac0300",
+      "file": "v37.py",
+      "timestamp": "2026-07-14T11:50:15.581112"
+    },
+    "v34": {
+      "version": "v34",
+      "parent": "v33",
+      "code": "def p(g):\n H=len(g)\n for k in g*H:\n  for r in range(H):\n   for c in range(H):\n    if g[r][c]<1and(r%~-H*(c%~-H)<1or-1in(g[r-1][c],g[r+1][c],g[r][c-1],g[r][c+1])):g[r][c]=-1\n return[[(x or 4)*(x>-1)for x in r]for r in g]\n",
+      "bytes": 220,
+      "passed": true,
+      "code_hash": "94b3366b7360",
+      "file": "v38.py",
+      "timestamp": "2026-07-14T11:50:47.722952"
+    },
+    "v35": {
+      "version": "v35",
+      "parent": "v20",
+      "code": "def p(g):\n n=len(g)+2;g=[[-1]*n]+[[-1]+r+[-1]for r in g]+[[-1]*n]\n for k in g*n:\n  for r in range(1,n-1):\n   for c in range(1,n-1):\n    if g[r][c]<1and-1in(g[r-1][c],g[r+1][c],g[r][c-1],g[r][c+1]):g[r][c]=-1\n return[[(x or 4)*(x>-1)for x in r[1:-1]]for r in g[1:-1]]\n",
+      "bytes": 267,
+      "passed": true,
+      "code_hash": "8e94deb7ae44",
+      "file": "v39.py",
+      "timestamp": "2026-07-14T11:51:00.957743"
+    },
+    "v36": {
+      "version": "v36",
+      "parent": null,
+      "code": "def p(g):\n H=len(g);d={c+1j*r:v for r,o in enumerate(g)for c,v in enumerate(o)};W=(1,-1,1j,-1j)\n def f(z):\n  if d.get(z)==0:d[z]=-1;[f(z+w)for w in W]\n [f(z)for z in[*d]if any(z+w not in d for w in W)]\n return[[(d[c+1j*r]or 4)*(d[c+1j*r]>-1)for c in range(H)]for r in range(H)]\n",
+      "bytes": 278,
+      "passed": true,
+      "code_hash": "a08f4958cc0d",
+      "file": "v40.py",
+      "timestamp": "2026-07-14T11:53:13.832509"
+    },
+    "v37": {
+      "version": "v37",
+      "parent": "v20",
+      "code": "def p(g):\n n=len(g)+2;a=[[0]*n]+[[0]+r+[0]for r in g]+[[0]*n]\n def f(r,c):\n  if n>r>=0<=c<n>0==a[r][c]:a[r][c]=-1;f(r+1,c);f(r-1,c);f(r,c+1);f(r,c-1)\n f(0,0)\n return[[(x or 4)*(x>-1)for x in r[1:-1]]for r in a[1:-1]]\n",
+      "bytes": 217,
+      "passed": true,
+      "code_hash": "49b9255bdb42",
+      "file": "v41.py",
+      "timestamp": "2026-07-14T11:55:39.589341"
+    },
+    "v38": {
+      "version": "v38",
+      "parent": "v14",
+      "code": "def p(g):\n H=len(g);g=[[x or 4for x in r]for r in g]\n def f(r,c):\n  if H>r>=0<=c<H>3<g[r][c]:g[r][c]=0;f(r+1,c);f(r-1,c);f(r,c+1);f(r,c-1)\n for i in range(H):f(i,0);f(i,H-1);f(0,i);f(H-1,i)\n return g\n",
+      "bytes": 200,
+      "passed": true,
+      "code_hash": "f5753c49e7df",
+      "file": "v42.py",
+      "timestamp": "2026-07-14T11:56:42.355607"
+    },
+    "v39": {
+      "version": "v39",
+      "parent": "v37",
+      "code": "def p(g):\n n=len(g)+2;a=[[4]*n]+[[4]+[x or 4for x in r]+[4]for r in g]+[[4]*n]\n def f(r,c):\n  if 3<a[r][c]:a[r][c]=0;[f(r+i,c+j)for i,j in((1,0),(-1,0),(0,1),(0,-1))]\n f(0,0)\n return[r[1:-1]for r in a[1:-1]]\n",
+      "bytes": 208,
+      "passed": false,
+      "code_hash": "20e38a8616e6",
+      "file": "v43.py",
+      "timestamp": "2026-07-14T11:56:54.236103"
+    },
+    "v40": {
+      "version": "v40",
+      "parent": "v39",
+      "code": "def p(g):\n n=len(g)+2;a=[[0]*n]+[[0]+[x or 4for x in r]+[0]for r in g]+[[0]*n]\n for _ in a*n:a=[[0if a[r][c]>3and 0in(a[r-1][c],a[r+1][c],a[r][c-1],a[r][c+1])else a[r][c]for c in range(n)]for r in range(n)]\n return[r[1:-1]for r in a[1:-1]]\n",
+      "bytes": 240,
+      "passed": true,
+      "code_hash": "3396c6b4940e",
+      "file": "v44.py",
+      "timestamp": "2026-07-14T11:57:25.978012"
+    },
+    "v41": {
+      "version": "v41",
+      "parent": "v34",
+      "code": "def p(g):\n H=len(g);g=[[x or 4for x in r]for r in g]\n for k in g*H:\n  for r in range(H):\n   for c in range(H):\n    if g[r][c]>3and(r%~-H<1or c%~-H<1or 0in(g[r-1][c],g[(r+1)%H][c],g[r][c-1],g[r][(c+1)%H])):g[r][c]=0\n return g\n",
+      "bytes": 225,
+      "passed": true,
+      "code_hash": "9c8412f2e55d",
+      "file": "v45.py",
+      "timestamp": "2026-07-14T11:58:06.347250"
+    },
+    "v42": {
+      "version": "v42",
+      "parent": "v41",
+      "code": "def p(g):\n H=len(g);g=[[x or 4*(0<i<~-H<j+2>2)for j,x in enumerate(r)]for i,r in enumerate(g)]\n for k in g*H:\n  for r in range(H):\n   for c in range(H):\n    if g[r][c]>3and 0in(g[r-1][c],g[r+1-H][c],g[r][c-1],g[r][c+1-H]):g[r][c]=0\n return g\n",
+      "bytes": 242,
+      "passed": false,
+      "code_hash": "8dadf9be129d",
+      "file": "v46.py",
+      "timestamp": "2026-07-14T11:58:30.866542"
+    },
+    "v43": {
+      "version": "v43",
+      "parent": "v38",
+      "code": "def p(g):\n H=len(g);g=[[x or 4for x in r]for r in g]\n def f(r,c):\n  if H>r>=0<=c<H>3<g[r][c]:g[r][c]=0;f(r+1,c);f(r-1,c);f(r,c+1);f(r,c-1)\n for i in range(H*H):f(i//H*(i%H%~-H<1),i%H)\n return g\n",
+      "bytes": 194,
+      "passed": true,
+      "code_hash": "0756fddbc113",
+      "file": "v47.py",
+      "timestamp": "2026-07-14T11:58:40.798160"
+    },
+    "v44": {
+      "version": "v44",
+      "parent": "v43",
+      "code": "def p(g):\n a=[[4]*(len(g)+2)]+[[4]+[x or 4for x in r]+[4]for r in g]+[[4]*(len(g)+2)]\n def f(r,c):\n  if a[r][c]>3:a[r][c]=0;f(r+1,c);f(r-1,c);f(r,c+1);f(r,c-1)\n f(0,0)\n return[r[1:-1]for r in a[1:-1]]\n",
+      "bytes": 201,
+      "passed": false,
+      "code_hash": "6161771f3c3e",
+      "file": "v48.py",
+      "timestamp": "2026-07-14T12:01:38.192264"
+    },
+    "v45": {
+      "version": "v45",
+      "parent": "v39",
+      "code": "def p(g):\n n=len(g)+2;a=[[4]*n]+[[4]+[x or 4for x in r]+[4]for r in g]+[[4]*n]\n def f(r,c):\n  if n>r>=0<=c<n>3<a[r][c]:a[r][c]=0;f(r+1,c);f(r-1,c);f(r,c+1);f(r,c-1)\n f(0,0)\n return[r[1:-1]for r in a[1:-1]]\n",
+      "bytes": 206,
+      "passed": true,
+      "code_hash": "27a33c6cb50d",
+      "file": "v49.py",
+      "timestamp": "2026-07-14T12:02:26.608263"
+    },
+    "v46": {
+      "version": "v46",
+      "parent": "v43",
+      "code": "def p(g):\n H=len(g)\n def f(r,c):\n  if H>r>=0<=c<H>0==g[r][c]:g[r][c]=5;f(r+1,c);f(r-1,c);f(r,c+1);f(r,c-1)\n for i in range(H*H):f(i//H*(i%H%~-H<1),i%H)\n return[[4*(x<1)or x%5for x in r]for r in g]\n",
+      "bytes": 197,
+      "passed": true,
+      "code_hash": "0132e8cd3432",
+      "file": "v50.py",
+      "timestamp": "2026-07-14T12:04:05.502126"
+    },
+    "v47": {
+      "version": "v47",
+      "parent": "v43",
+      "code": "def p(g):\n H=len(g);g=[[x or 4for x in r]for r in g]\n def f(r,c):\n  if H>r>=0<=c<H>3<g[r][c]:g[r][c]=0;f(r+1,c);f(r-1,c);f(r,c+1);f(r,c-1)\n for i in range(H*H):\n  if i//H%~-H*(i%H%~-H)<1:f(i//H,i%H)\n return g\n",
+      "bytes": 209,
+      "passed": true,
+      "code_hash": "4f3267886ac6",
+      "file": "v51.py",
+      "timestamp": "2026-07-14T12:04:50.850513"
+    },
+    "v48": {
+      "version": "v48",
+      "parent": "v43",
+      "code": "def p(g):\n H=len(g);g=[[x or 4for x in r]for r in g]\n def f(r,c):\n  if g[r][c]>3:g[r][c]=0;f((r+1)%H,c);f(r-1,c);f(r,(c+1)%H);f(r,c-1)\n for i in range(H):f(i,0);f(0,i)\n return g\n",
+      "bytes": 178,
+      "passed": false,
+      "code_hash": "d3877042ecf0",
+      "file": "v52.py",
+      "timestamp": "2026-07-14T12:05:36.350082"
+    },
+    "v49": {
+      "version": "v49",
+      "parent": "v41",
+      "code": "def p(g):\n H=len(g)\n for k in g*H:\n  for r in range(H):\n   for c in range(H):\n    g[r][c]=g[r][c]and(4,0)[r*c*~(r-H)*(c-H)==0or 0in(g[r-1][c],g[r][c-1],g[(r+1)%H][c],g[r][(c+1)%H])]\n return g\n",
+      "bytes": 192,
+      "passed": false,
+      "code_hash": "99acc75c3202",
+      "file": "v53.py",
+      "timestamp": "2026-07-14T12:06:21.384069"
+    },
+    "v50": {
+      "version": "v50",
+      "parent": "v38",
+      "code": "def p(g):\n H=len(g);g=[[x or 4for x in r]for r in g]\n def f(r,c):\n  if H>r>=0<=c<H>3<g[r][c]:g[r][c]=0;f(r+1,c);f(r-1,c);f(r,c+1);f(r,c-1)\n for i in range(H):f(i,0);f(0,i);f(i,H-1);f(H-1,i)\n return g\n",
+      "bytes": 200,
+      "passed": true,
+      "code_hash": "38098a95df95",
+      "file": "v54.py",
+      "timestamp": "2026-07-14T12:06:38.414057"
+    },
+    "v51": {
+      "version": "v51",
+      "parent": "v34",
+      "code": "def p(g):\n H=len(g)\n for k in g*H:\n  for r in range(H):\n   for c in range(H):\n    if g[r][c]==0and(r*c*(r-H+1)*(c-H+1)==0or-1in(g[r-1][c],g[r+1][c],g[r][c-1],g[r][c+1])):g[r][c]=-1\n return[[(x or 4)*(x>-1)for x in r]for r in g]\n",
+      "bytes": 228,
+      "passed": false,
+      "code_hash": "0ca91afa768c",
+      "file": "v55.py",
+      "timestamp": "2026-07-14T12:07:13.277968"
+    },
+    "v52": {
+      "version": "v52",
+      "parent": "v51",
+      "code": "def p(g):\n H=len(g)\n for k in g*H:\n  for r in range(H):\n   for c in range(H):\n    if g[r][c]==0 and(r*c*(r-H+1)*(c-H+1)<1 or-1in(g[r-1][c],g[r+1][c],g[r][c-1],g[r][c+1])):g[r][c]=-1\n return[[(x or 4)*(x>-1)for x in r]for r in g]\n",
+      "bytes": 229,
+      "passed": true,
+      "code_hash": "e7f2dc34148d",
+      "file": "v56.py",
+      "timestamp": "2026-07-14T12:07:35.621266"
+    },
+    "v53": {
+      "version": "v53",
+      "parent": "v49",
+      "code": "def p(g):\n n=len(g)+2;a=[[-1]*n]+[[-1]+r+[-1]for r in g]+[[-1]*n]\n for k in a*n:\n  for r in range(1,n):\n   for c in range(1,n):\n    if a[r][c]==0and-1in(a[r-1][c],a[r+1][c],a[r][c-1],a[r][c+1]):a[r][c]=-1\n return[[(x or 4)*(x>-1)for x in r[1:-1]]for r in a[1:-1]]\n",
+      "bytes": 264,
+      "passed": true,
+      "code_hash": "fbed4494adcc",
+      "file": "v57.py",
+      "timestamp": "2026-07-14T12:07:48.395297"
+    },
+    "v54": {
+      "version": "v54",
+      "parent": "v52",
+      "code": "def p(g):\n H=len(g);g=[[x or 4 for x in r]for r in g]\n for k in g*H:\n  for r in range(H):\n   for c in range(H):\n    if g[r][c]>3and(r*c*(r-H+1)*(c-H+1)<1 or 0in(g[r-1][c],g[r+1][c],g[r][c-1],g[r][c+1])):g[r][c]=0\n return g\n",
+      "bytes": 223,
+      "passed": true,
+      "code_hash": "c45b38b70669",
+      "file": "v58.py",
+      "timestamp": "2026-07-14T12:08:04.417365"
+    },
+    "v55": {
+      "version": "v55",
+      "parent": "v54",
+      "code": "def p(g):\n H=len(g);g=[[x or 4 for x in r]for r in g]\n for i in range(H):g[i][0]=g[i][-1]=g[0][i]=g[-1][i]=0\n for k in g*H:\n  for r in range(H):\n   for c in range(H):\n    if g[r][c]>3and 0in(g[r-1][c],g[r+1-H][c],g[r][c-1],g[r][c+1-H]):g[r][c]=0\n return g\n",
+      "bytes": 256,
+      "passed": false,
+      "code_hash": "3cca317e9e1e",
+      "file": "v59.py",
+      "timestamp": "2026-07-14T12:08:12.692815"
+    },
+    "v56": {
+      "version": "v56",
+      "parent": "v55",
+      "code": "def p(g):\n H=len(g);g=[[x or 4 for x in r]for r in g]\n for i in range(H):g[i][0]=g[i][-1]=g[0][i]=g[-1][i]=0\n for k in g*H:\n  for r in range(1,H):\n   for c in range(1,H):\n    if g[r][c]>3and 0in(g[r-1][c],g[r+1-H][c],g[r][c-1],g[r][c+1-H]):g[r][c]=0\n return g\n",
+      "bytes": 260,
+      "passed": false,
+      "code_hash": "424d8229ea6c",
+      "file": "v60.py",
+      "timestamp": "2026-07-14T12:08:20.729730"
+    },
+    "v57": {
+      "version": "v57",
+      "parent": "v56",
+      "code": "def p(g):\n H=len(g);g=[[x or 4 for x in r]for r in g]\n for i in range(H):g[i][0]=g[i][-1]=g[0][i]=g[-1][i]=0\n for k in g*H:\n  for r in range(1,H-1):\n   for c in range(1,H-1):\n    if g[r][c]>3and 0in(g[r-1][c],g[r+1][c],g[r][c-1],g[r][c+1]):g[r][c]=0\n return g\n",
+      "bytes": 260,
+      "passed": false,
+      "code_hash": "49b6234b4cf4",
+      "file": "v61.py",
+      "timestamp": "2026-07-14T12:09:03.762766"
+    },
+    "v58": {
+      "version": "v58",
+      "parent": "v54",
+      "code": "def p(g):\n H=len(g);g=[[x or 4 for x in r]for r in g]\n for k in g*H:\n  for r in range(H):\n   for c in range(H):\n    if g[r][c]>3and(min(r,c,H+~r,H+~c)<1 or 0in(g[r-1][c],g[r+1][c],g[r][c-1],g[r][c+1])):g[r][c]=0\n return g\n",
+      "bytes": 222,
+      "passed": true,
+      "code_hash": "535a6d127a86",
+      "file": "v62.py",
+      "timestamp": "2026-07-14T12:09:32.664208"
+    },
+    "v59": {
+      "version": "v59",
+      "parent": "v58",
+      "code": "def p(g):\n H=len(g);g=[[x or 4 for x in r]for r in g]\n for k in g*H:\n  for r,R in enumerate(g):\n   for c,x in enumerate(R):\n    if x>3and(min(r,c,H+~r,H+~c)<1 or 0in(g[r-1][c],g[r-~0*(r<H-1)][c],R[c-1],R[c+1-H*(c>H-2)])):R[c]=0\n return g\n",
+      "bytes": 238,
+      "passed": true,
+      "code_hash": "456eb63ba4df",
+      "file": "v63.py",
+      "timestamp": "2026-07-14T12:09:42.615988"
+    },
+    "v60": {
+      "version": "v60",
+      "parent": "v48",
+      "code": "def p(g):\n H=len(g);g=[[x or 4 for x in r]for r in g]\n def f(r,c):\n  if H>r>=0<=c<H<4+g[r][c]:g[r][c]=0;[f(r+a,c+b)for a,b in zip((1,3,0,0),(0,0,1,3))]\n for i in range(H):f(i,0);f(0,i)\n return g\n",
+      "bytes": 195,
+      "passed": false,
+      "code_hash": "fb02d8775587",
+      "file": "v64.py",
+      "timestamp": "2026-07-14T12:09:52.604137"
+    },
+    "v61": {
+      "version": "v61",
+      "parent": "v60",
+      "code": "def p(g):\n H=len(g);g=[[x or 4 for x in r]for r in g]\n def f(r,c):\n  if H>r>=0<=c<H<4+g[r][c]:g[r][c]=0;[f(r+a,c-a)or f(r-a,c+a)for a in(1,-1)]\n for i in range(H):f(i,0);f(0,i);f(i,H-1);f(H-1,i)\n return g\n",
+      "bytes": 205,
+      "passed": false,
+      "code_hash": "154ee7dd2642",
+      "file": "v65.py",
+      "timestamp": "2026-07-14T12:10:00.264703"
+    },
+    "v62": {
+      "version": "v62",
+      "parent": "v61",
+      "code": "def p(g):\n H=len(g);g=[[x or 4 for x in r]for r in g]\n def f(r,c):\n  if H>r>=0<=c<H<4+g[r][c]:g[r][c]=0;[(f(r+a,c),f(r,c+a))for a in(1,-1)]\n for i in range(H):f(i,0);f(0,i);f(i,H-1);f(H-1,i)\n return g\n",
+      "bytes": 201,
+      "passed": false,
+      "code_hash": "016b8dae21bd",
+      "file": "v66.py",
+      "timestamp": "2026-07-14T12:10:08.473062"
+    },
+    "v63": {
+      "version": "v63",
+      "parent": "v62",
+      "code": "def p(g):\n H=len(g);g=[[x or 4 for x in r]for r in g]\n def f(r,c):\n  if H>r>=0<=c<H and g[r][c]>3:g[r][c]=0;[(f(r+a,c),f(r,c+a))for a in(1,-1)]\n for i in range(H):f(i,0);f(0,i);f(i,H-1);f(H-1,i)\n return g\n",
+      "bytes": 205,
+      "passed": true,
+      "code_hash": "d2190f7cc8b5",
+      "file": "v67.py",
+      "timestamp": "2026-07-14T12:10:23.732555"
+    },
+    "v64": {
+      "version": "v64",
+      "parent": "v62",
+      "code": "def p(g):\n H=len(g);g=[[x or 4 for x in r]for r in g]\n def f(r,c):\n  if H>r>=0<=c<H>3<g[r][c]:g[r][c]=0;[(f(r+a,c),f(r,c+a))for a in(1,-1)]\n for i in range(H):f(i,0);f(0,i);f(i,H-1);f(H-1,i)\n return g\n",
+      "bytes": 201,
+      "passed": true,
+      "code_hash": "b74343e46734",
+      "file": "v68.py",
+      "timestamp": "2026-07-14T12:10:32.745941"
+    },
+    "v65": {
+      "version": "v65",
+      "parent": "v60",
+      "code": "def p(g):\n H=len(g);g=[[x or 4 for x in r]for r in g]\n def f(r,c):\n  if H>r>=0<=c<H>3<g[r][c]:g[r][c]=0;[(f(r+a,c),f(r,c+a))for a in(1,-1)]\n [f(i,j)or f(j,i)for i in range(H)for j in(0,H-1)]\n return g\n",
+      "bytes": 201,
+      "passed": true,
+      "code_hash": "2802bba21fe9",
+      "file": "v69.py",
+      "timestamp": "2026-07-14T12:10:44.547642"
+    },
+    "v66": {
+      "version": "v66",
+      "parent": "v46",
+      "code": "def p(g):\n H=len(g)\n def f(r,c):\n  if H>r>=0<=c<H>0==g[r][c]:g[r][c]=5;[(f(r+a,c),f(r,c+a))for a in(1,-1)]\n [f(i,j)or f(j,i)for i in range(H)for j in(0,H-1)]\n return[[x%5or 4 for x in r]for r in g]\n",
+      "bytes": 198,
+      "passed": false,
+      "code_hash": "1aff96b55e53",
+      "file": "v70.py",
+      "timestamp": "2026-07-14T12:10:55.982669"
+    },
+    "v67": {
+      "version": "v67",
+      "parent": "v65",
+      "code": "def p(g):\n H=len(g);g=[[x or 4for x in r]for r in g]\n def f(r,c):\n  if H>r>=0<=c<H>3<g[r][c]:g[r][c]=0;[(f(r+a,c),f(r,c+a))for a in(1,-1)]\n [f(i,j)or f(j,i)for i in range(H)for j in(0,H-1)]\n return g\n",
+      "bytes": 200,
+      "passed": true,
+      "code_hash": "7a57bf4b949d",
+      "file": "v71.py",
+      "timestamp": "2026-07-14T12:11:16.011891"
+    },
+    "v68": {
+      "version": "v68",
+      "parent": "v43",
+      "code": "def p(g):\n H=len(g);g=[[x or 4for x in r]for r in g]\n def f(r,c):\n  if H>r>=0<=c<H>3<g[r][c]:g[r][c]=0;f(r+1,c);f(r-1,c);f(r,c+1);f(r,c-1)\n [f(i,j)or f(j,i)for i in range(H)for j in(0,H-1)]\n return g\n",
+      "bytes": 200,
+      "passed": true,
+      "code_hash": "adb89809dd28",
+      "file": "v72.py",
+      "timestamp": "2026-07-14T12:12:12.962913"
+    },
+    "v69": {
+      "version": "v69",
+      "parent": "v58",
+      "code": "def p(g):\n H=len(g);g=[[x or 4for x in r]for r in g]\n for k in g*H:\n  for r in range(H):\n   for c in range(H):\n    if g[r][c]>3and(r*c*(H+~r)*(H+~c)<1or 0in(g[r-1][c],g[r+1][c],g[r][c-1],g[r][c+1])):g[r][c]=0\n return g\n",
+      "bytes": 219,
+      "passed": true,
+      "code_hash": "0976af01beef",
+      "file": "v74.py",
+      "timestamp": "2026-07-14T12:12:47.178277"
+    },
+    "v70": {
+      "version": "v70",
+      "parent": "v66",
+      "code": "def p(g):\n H=len(g)\n def f(r,c):\n  if H>r>=0<=c<H>0==g[r][c]:g[r][c]=-1;f(r+1,c);f(r-1,c);f(r,c+1);f(r,c-1)\n [f(i,j)or f(j,i)for i in range(H)for j in(0,H-1)]\n return[[(x or 4)*(x>-1)for x in r]for r in g]\n",
+      "bytes": 206,
+      "passed": true,
+      "code_hash": "79b100e61e4b",
+      "file": "v75.py",
+      "timestamp": "2026-07-14T12:13:35.788457"
+    },
+    "v71": {
+      "version": "v71",
+      "parent": "v68",
+      "code": "def p(g):\n H=len(g);g=[[x or 4for x in r]for r in g]\n f=lambda r,c:H>r>=0<=c<H>3<g[r][c]and(g[r].__setitem__(c,0),f(r+1,c),f(r-1,c),f(r,c+1),f(r,c-1))\n [f(i,j)or f(j,i)for i in range(H)for j in(0,H-1)]\n return g\n",
+      "bytes": 212,
+      "passed": true,
+      "code_hash": "4c126e38d389",
+      "file": "v76.py",
+      "timestamp": "2026-07-14T12:13:46.118255"
+    },
+    "v72": {
+      "version": "v72",
+      "parent": "v45",
+      "code": "def p(g):\n n=len(g)+2;g=[[4]*n]+[[4]+[x or 4for x in r]+[4]for r in g]+[[4]*n]\n def f(r,c):\n  if n>r>=0<=c<n>3<g[r][c]:g[r][c]=0;f(r+1,c);f(r-1,c);f(r,c+1);f(r,c-1)\n f(0,0)\n return[r[1:-1]for r in g[1:-1]]\n",
+      "bytes": 206,
+      "passed": true,
+      "code_hash": "cb3fe0dacf57",
+      "file": "v77.py",
+      "timestamp": "2026-07-14T12:13:54.515447"
+    },
+    "v73": {
+      "version": "v73",
+      "parent": "v67",
+      "code": "def p(g):\n H=len(g);g=[[x or 4for x in r]for r in g]\n def f(r,c):\n  if H>r>=0<=c<H>3<g[r][c]:\n   g[r][c]=0\n   for d in(1,-1):f(r+d,c);f(r,c+d)\n [f(i,j)or f(j,i)for i in range(H)for j in(0,H-1)]\n return g\n",
+      "bytes": 204,
+      "passed": true,
+      "code_hash": "9b204a864b07",
+      "file": "v78.py",
+      "timestamp": "2026-07-14T12:14:06.999797"
+    },
+    "v74": {
+      "version": "v74",
+      "parent": "v50",
+      "code": "def p(g):\n H=len(g);g=[[x or 4for x in r]for r in g]\n def f(r,c):\n  if H>r>=0<=c<H>3<g[r][c]:g[r][c]=0;f(r+1,c);f(r-1,c);f(r,c+1);f(r,c-1)\n for i in range(H):f(i,0);f(0,i)\n return g\n",
+      "bytes": 182,
+      "passed": false,
+      "code_hash": "0b4a1eaf7175",
+      "file": "v79.py",
+      "timestamp": "2026-07-14T12:14:27.139563"
+    },
+    "v75": {
+      "version": "v75",
+      "parent": "v50",
+      "code": "def p(g):\n H=len(g);g=[[x or 4for x in r]for r in g]\n def f(r,c):\n  if H>r>=0<=c<H>3<g[r][c]:g[r][c]=0;f(r+1,c);f(r-1,c);f(r,c+1);f(r,c-1)\n for i in range(H):f(i,0);f(0,i);f(i,-1);f(-1,i)\n return g\n",
+      "bytes": 198,
+      "passed": false,
+      "code_hash": "83f613743def",
+      "file": "v80.py",
+      "timestamp": "2026-07-14T12:14:35.639147"
+    },
+    "v76": {
+      "version": "v76",
+      "parent": "v40",
+      "code": "def p(g):\n n=len(g)+2;a=[[0]*n]+[[0]+[x or 4for x in r]+[0]for r in g]+[[0]*n]\n for k in a*n:\n  for r in range(1,n-1):\n   for c in range(1,n-1):\n    if a[r][c]>3and 0in(a[r-1][c],a[r+1][c],a[r][c-1],a[r][c+1]):a[r][c]=0\n return[r[1:-1]for r in a[1:-1]]\n",
+      "bytes": 253,
+      "passed": true,
+      "code_hash": "8677b85372a3",
+      "file": "v82.py",
+      "timestamp": "2026-07-14T12:15:13.241669"
+    },
+    "v77": {
+      "version": "v77",
+      "parent": "v60",
+      "code": "def p(g):\n H=len(g);d={(r,c):v or 4for r,o in enumerate(g)for c,v in enumerate(o)}\n def f(z):\n  if d.get(z,0)>3:d[z]=0;[f((z[0]+a,z[1]+b))for a,b in((1,0),(-1,0),(0,1),(0,-1))]\n [f(k)for k in list(d)if 0in k or H-1in k]\n return[[d[r,c]for c in range(H)]for r in range(H)]\n",
+      "bytes": 272,
+      "passed": true,
+      "code_hash": "55afdd7f8b73",
+      "file": "v83.py",
+      "timestamp": "2026-07-14T12:15:23.447183"
+    },
+    "v78": {
+      "version": "v78",
+      "parent": "v75",
+      "code": "def p(g):\n H=len(g);e=~-H;g=[[x or 4for x in r]for r in g]\n def f(r,c):\n  if H>r>=0<=c<H>3<g[r][c]:g[r][c]=0;f(r+1,c);f(r-1,c);f(r,c+1);f(r,c-1)\n for i in range(H):f(i,0);f(0,i);f(i,e);f(e,i)\n return g\n",
+      "bytes": 202,
+      "passed": true,
+      "code_hash": "a8a74bebc756",
+      "file": "v84.py",
+      "timestamp": "2026-07-14T12:15:34.578822"
+    },
+    "v79": {
+      "version": "v79",
+      "parent": "v64",
+      "code": "def p(g):\n H=len(g);g=[[x or 4for x in r]for r in g]\n def f(r,c):\n  if H>r>=0<=c<H>3<g[r][c]:g[r][c]=0;[f(r+a,c)or f(r,c+a)for a in(1,-1)]\n for i in range(H):f(i,0);f(0,i);f(i,H-1);f(H-1,i)\n return g\n",
+      "bytes": 200,
+      "passed": true,
+      "code_hash": "777a1a0c0804",
+      "file": "v85.py",
+      "timestamp": "2026-07-14T12:16:28.970109"
+    },
+    "v80": {
+      "version": "v80",
+      "parent": "v46",
+      "code": "def p(g):\n H=len(g)\n def f(r,c):\n  if H>r>=0<=c<H>0==g[r][c]:g[r][c]=4;f(r+1,c);f(r-1,c);f(r,c+1);f(r,c-1)\n for i in range(H):f(i,0);f(0,i);f(i,H-1);f(H-1,i)\n return[[[4-x,x][x==3]for x in r]for r in g]\n",
+      "bytes": 203,
+      "passed": true,
+      "code_hash": "9609f15bd1ad",
+      "file": "v86.py",
+      "timestamp": "2026-07-14T12:18:30.445326"
+    },
+    "v81": {
+      "version": "v81",
+      "parent": "v74",
+      "code": "def p(g):\n H=len(g);g=[[x or 4for x in r]for r in g]\n def f(r,c):\n  if H>r>=0<=c<H>3<g[r][c]:g[r][c]=0;f(r+1,c);f(r-1,c);f(r,c+1);f(r,c-1)\n for i in range(H):f(0,i);f(H-1,i)\n return g\n",
+      "bytes": 184,
+      "passed": true,
+      "code_hash": "75d5484fea63",
+      "file": "v87.py",
+      "timestamp": "2026-07-14T12:19:02.943375"
+    },
+    "v82": {
+      "version": "v82",
+      "parent": "v74",
+      "code": "def p(g):\n H=len(g);g=[[x or 4for x in r]for r in g]\n def f(r,c):\n  if H>r>=0<=c<H>3<g[r][c]:g[r][c]=0;f(r+1,c);f(r-1,c);f(r,c+1);f(r,c-1)\n for i in range(H):f(0,i)\n return g\n",
+      "bytes": 175,
+      "passed": false,
+      "code_hash": "a401825fb2dc",
+      "file": "v88.py",
+      "timestamp": "2026-07-14T12:19:13.520019"
+    },
+    "v83": {
+      "version": "v83",
+      "parent": "v43",
+      "code": "def p(g):\n H=len(g);g=[[x or 4for x in r]for r in g]\n def f(r,c):\n  if H>r>=0<=c<H>3<g[r][c]:g[r][c]=0;f(r+1,c);f(r-1,c);f(r,c+1);f(r,c-1)\n for i in range(H*H):i%H%~-H<1and f(i//H,i%H)\n return g\n",
+      "bytes": 195,
+      "passed": true,
+      "code_hash": "8cb17b29a76b",
+      "file": "v89.py",
+      "timestamp": "2026-07-14T12:19:26.108140"
+    },
+    "v84": {
+      "version": "v84",
+      "parent": "v74",
+      "code": "def p(g):\n H=len(g);g=[[x or 4for x in r]for r in g]\n def f(r,c):\n  if H>r>=0<=c<H>3<g[r][c]:g[r][c]=0;f(r+1,c);f(r-1,c);f(r,c+1);f(r,c-1)\n for i in range(H):f(i,0);f(i,H-1)\n return g\n",
+      "bytes": 184,
+      "passed": true,
+      "code_hash": "38f5a426f129",
+      "file": "v90.py",
+      "timestamp": "2026-07-14T12:19:34.855149"
+    },
+    "v85": {
+      "version": "v85",
+      "parent": "v60",
+      "code": "def p(g):\n H=len(g);g=[[x or 4for x in r]for r in g]\n def f(r,c):\n  if H>r>=0<=c<H>3<g[r][c]:g[r][c]=0;[f(r+a,c+b)for a,b in zip((1,-1,0,0),(0,0,1,-1))]\n for i in range(H):f(i,0);f(i,H-1)\n return g\n",
+      "bytes": 198,
+      "passed": true,
+      "code_hash": "b31b64cab21a",
+      "file": "v91.py",
+      "timestamp": "2026-07-14T12:19:45.344698"
+    },
+    "v86": {
+      "version": "v86",
+      "parent": "v84",
+      "code": "def p(g):\n H=len(g);g=[[x or 4for x in r]for r in g]\n def f(r,c):\n  try:\n   if r>=0<=c and g[r][c]>3:g[r][c]=0;f(r+1,c);f(r-1,c);f(r,c+1);f(r,c-1)\n  except:0\n for i in range(H):f(i,0);f(i,H-1)\n return g\n",
+      "bytes": 203,
+      "passed": true,
+      "code_hash": "b35ee0acd67f",
+      "file": "v92.py",
+      "timestamp": "2026-07-14T12:20:01.314704"
+    },
+    "v87": {
+      "version": "v87",
+      "parent": "v82",
+      "code": "def p(g):\n H=len(g);g=[[x or 4for x in r]for r in g]\n def f(r,c):\n  if H>r>=0<=c<H>3<g[r][c]:g[r][c]=0;f(r+1,c);f(r-1,c);f(r,c+1);f(r,c-1)\n for i in range(H):f(i,0)\n return g\n",
+      "bytes": 175,
+      "passed": false,
+      "code_hash": "5ec6379f032f",
+      "file": "v93.py",
+      "timestamp": "2026-07-14T12:20:09.957939"
+    },
+    "v88": {
+      "version": "v88",
+      "parent": "v21",
+      "code": "def p(g):\n H=len(g)\n def f(r,c):\n  if H>r>=0<=c<H>0==g[r][c]:g[r][c]=1;f(r+1,c);f(r-1,c);f(r,c+1);f(r,c-1)\n for i in range(H):f(i,0);f(i,H-1)\n return[[(x!=1)*(x or 4)for x in r]for r in g]\n",
+      "bytes": 189,
+      "passed": true,
+      "code_hash": "009882e45894",
+      "file": "v95.py",
+      "timestamp": "2026-07-14T12:20:41.555828"
+    },
+    "v89": {
+      "version": "v89",
+      "parent": "v84",
+      "code": "def p(g):\n H=len(g);g=[[x or 4for x in r]for r in g]\n def f(r,c):\n  if H>r>=0<=c<H>3<g[r][c]:g[r][c]=0;f(r+1,c);f(r-1,c);f(r,c+1);f(r,c-1)\n for i in range(H):f(i,0);f(i,~-H)\n return g\n",
+      "bytes": 184,
+      "passed": true,
+      "code_hash": "3ab0372b54aa",
+      "file": "v96.py",
+      "timestamp": "2026-07-14T12:20:50.710408"
+    },
+    "v90": {
+      "version": "v90",
+      "parent": "v48",
+      "code": "def p(g):\n H=len(g);d={c+r*1j:v or 4for r,o in enumerate(g)for c,v in enumerate(o)}\n def f(z):\n  if d.get(z,0)>3:d[z]=0;f(z+1);f(z-1);f(z+1j);f(z-1j)\n for i in range(H):f(i*1j);f(i*1j+~-H)\n return[[d[c+r*1j]for c in range(H)]for r in range(H)]\n",
+      "bytes": 244,
+      "passed": true,
+      "code_hash": "12239a34b66d",
+      "file": "v97.py",
+      "timestamp": "2026-07-14T12:21:26.601912"
+    },
+    "v91": {
+      "version": "v91",
+      "parent": "v41",
+      "code": "def p(g):\n H=len(g);g=[[x or 4for x in r]for r in g]\n for i in g*H:\n  for r in range(H):\n   for c in range(H):\n    if g[r][c]>3and(c%~-H<1or 0in(g[r-1][c],g[r][c-1],g[r][min(c+1,~-H)],g[min(r+1,~-H)][c])):g[r][c]=0\n return g\n",
+      "bytes": 225,
+      "passed": true,
+      "code_hash": "5afbc10859a5",
+      "file": "v99.py",
+      "timestamp": "2026-07-14T12:21:40.495926"
+    },
+    "v92": {
+      "version": "v92",
+      "parent": "v89",
+      "code": "def p(g):\n H=len(g);g=[[x or 4for x in r]for r in g]\n def f(r,c):\n  while H>r>=0<=c<H>3<g[r][c]:g[r][c]=0;f(r,c+1);f(r,c-1);r+=1\n for i in range(H):f(i,0);f(i,~-H)\n return g\n",
+      "bytes": 174,
+      "passed": false,
+      "code_hash": "26c86d44b399",
+      "file": "v100.py",
+      "timestamp": "2026-07-14T12:21:59.576064"
+    },
+    "v93": {
+      "version": "v93",
+      "parent": "v92",
+      "code": "def p(g):\n H=len(g);g=[[x or 4for x in r]for r in g]\n def f(r,c):\n  while H>r>=0<=c<H>3<g[r][c]:g[r][c]=0;f(r,c+1);f(r,c-1);f(r-1,c);r+=1\n for i in range(H):f(i,0);f(i,~-H)\n return g\n",
+      "bytes": 183,
+      "passed": true,
+      "code_hash": "98e2aeee0410",
+      "file": "v101.py",
+      "timestamp": "2026-07-14T12:22:07.239484"
+    },
+    "v94": {
+      "version": "v94",
+      "parent": "v93",
+      "code": "def p(g):\n H=len(g);g=[[x or 4for x in r]for r in g]\n def f(r,c,d=1):\n  while H>r>=0<=c<H>3<g[r][c]:g[r][c]=0;f(r,c+1);f(r,c-1);f(r+d,c,-d);r-=d\n for i in range(H):f(i,0);f(i,~-H)\n return g\n",
+      "bytes": 190,
+      "passed": true,
+      "code_hash": "5edcd00e6fb0",
+      "file": "v102.py",
+      "timestamp": "2026-07-14T12:22:17.137419"
+    },
+    "v95": {
+      "version": "v95",
+      "parent": "v92",
+      "code": "def p(g):\n H=len(g);g=[[x or 4for x in r]for r in g]\n def f(r,c):\n  while H>r>=0<=c<H>3<g[r][c]:g[r][c]=0;f(r+1,c);f(r-1,c);f(r,c-1);c+=1\n for i in range(H):f(i,0);f(i,~-H)\n return g\n",
+      "bytes": 183,
+      "passed": true,
+      "code_hash": "1374f62005ee",
+      "file": "v103.py",
+      "timestamp": "2026-07-14T12:22:27.781086"
+    },
+    "v96": {
+      "version": "v96",
+      "parent": "v95",
+      "code": "def p(g):\n H=len(g);g=[[x or 4for x in r]for r in g]\n def f(r,c):\n  while H>r>=0<=c<H>3<g[r][c]:g[r][c]=0;f(r+1,c);f(r-1,c);f(r,c-1);c+=1\n for i in range(H):f(i,0)\n return g\n",
+      "bytes": 174,
+      "passed": false,
+      "code_hash": "3b4507be117b",
+      "file": "v104.py",
+      "timestamp": "2026-07-14T12:22:38.854408"
+    },
+    "v97": {
+      "version": "v97",
+      "parent": "v88",
+      "code": "def p(g):\n H=len(g)\n def f(r,c):\n  while H>r>=0<=c<H>0==g[r][c]:g[r][c]=4;f(r,c+1);f(r,c-1);f(r-1,c);r+=1\n for i in range(H):f(i,0);f(i,~-H)\n return[[[x,x^4][x!=3]for x in r]for r in g]\n",
+      "bytes": 186,
+      "passed": true,
+      "code_hash": "6e35641137d4",
+      "file": "v105.py",
+      "timestamp": "2026-07-14T12:23:26.904184"
+    },
+    "v98": {
+      "version": "v98",
+      "parent": "v93",
+      "code": "def p(g):\n H=len(g);g=[[x or 4for x in r]for r in g]\n def f(r,c):\n  while H>r>=0<=c<H>3<g[r][c]:g[r][c]=0;f(r,c+1);f(r,c-1);f(r-1,c);r+=1\n for i in range(H):f(0,i)\n return g\n",
+      "bytes": 174,
+      "passed": false,
+      "code_hash": "5c529aa15b81",
+      "file": "v106.py",
+      "timestamp": "2026-07-14T12:23:37.974602"
+    },
+    "v99": {
+      "version": "v99",
+      "parent": "v44",
+      "code": "def p(g):\n a=[[4]*(len(g)+2)]+[[4]+[x or 4for x in r]+[4]for r in g]+[[4]*(len(g)+2)]\n def f(r,c):\n  try:\n   if a[r][c]>3:a[r][c]=0;f(r+1,c);f(r-1,c);f(r,c+1);f(r,c-1)\n  except:0\n f(0,0)\n return[r[1:-1]for r in a[1:-1]]\n",
+      "bytes": 220,
+      "passed": true,
+      "code_hash": "443a337e05d3",
+      "file": "v107.py",
+      "timestamp": "2026-07-14T12:23:52.870623"
+    },
+    "v100": {
+      "version": "v100",
+      "parent": "v82",
+      "code": "def p(g):\n H=len(g);g=[[x or 4for x in r]for r in g];s=[(i,j)for i in range(H)for j in(0,~-H)]\n while s:\n  r,c=s.pop()\n  if H>r>=0<=c<H>3<g[r][c]:g[r][c]=0;s+=[(r+1,c),(r-1,c),(r,c+1),(r,c-1)]\n return g\n",
+      "bytes": 203,
+      "passed": true,
+      "code_hash": "ba02d3794a77",
+      "file": "v108.py",
+      "timestamp": "2026-07-14T12:24:59.039718"
+    },
+    "v101": {
+      "version": "v101",
+      "parent": "v97",
+      "code": "def p(g):\n H=len(g)\n def f(r,c):\n  while H>r>=0<=c<H>0==g[r][c]:g[r][c]=-1;f(r,c+1);f(r,c-1);f(r-1,c);r+=1\n for i in range(H):f(i,0);f(i,~-H)\n return[[(x or 4)*(x>-1)for x in r]for r in g]\n",
+      "bytes": 189,
+      "passed": true,
+      "code_hash": "d0e8db5ddbf2",
+      "file": "v109.py",
+      "timestamp": "2026-07-14T12:25:17.291484"
+    },
+    "v102": {
+      "version": "v102",
+      "parent": "v93",
+      "code": "def p(g):\n H=len(g)+2;g=[[3]*H]+[[3]+[x or 4for x in r]+[3]for r in g]+[[3]*H]\n def f(r,c):\n  while 3<g[r][c]:g[r][c]=0;f(r,c+1);f(r,c-1);f(r-1,c);r+=1\n for i in range(1,H-1):f(i,1);f(i,H-2)\n return[r[1:-1]for r in g[1:-1]]\n",
+      "bytes": 224,
+      "passed": true,
+      "code_hash": "885dbab749bb",
+      "file": "v110.py",
+      "timestamp": "2026-07-14T12:25:48.797654"
+    },
+    "v103": {
+      "version": "v103",
+      "parent": "v93",
+      "code": "def p(g):\n g=[[x or 4for x in r]for r in g];H=len(g)\n def f(r,c):\n  while H>r>=0<=c<H>3<g[r][c]:g[r][c]=0;f(r,c+1);f(r,c-1);f(r-1,c);r+=1\n for i in range(H):f(i,0);f(i,~-H)\n return g\n",
+      "bytes": 183,
+      "passed": true,
+      "code_hash": "9a86b61c0da5",
+      "file": "v112.py",
+      "timestamp": "2026-07-14T12:26:58.183735"
+    },
+    "v104": {
+      "version": "v104",
+      "parent": "v93",
+      "code": "def p(g):\n H=len(g);g=[[x or 4for x in r]for r in g]\n def f(r,c):\n  while H>r>=0<=c<H>3<g[r][c]:\n   d=c\n   while H>d>=0and g[r][d]>3:g[r][d]=0;f(r-1,d);f(r+1,d);d+=1\n   d=c-1\n   while d>=0and g[r][d]>3:g[r][d]=0;f(r-1,d);f(r+1,d);d-=1\n   break\n for i in range(H):f(i,0);f(i,~-H)\n return g\n",
+      "bytes": 289,
+      "passed": true,
+      "code_hash": "e290ba7f7238",
+      "file": "v113.py",
+      "timestamp": "2026-07-14T12:27:10.704064"
+    },
+    "v105": {
+      "version": "v105",
+      "parent": "v101",
+      "code": "f=lambda g,r,c,H:H>r>=0<=c<H>3<g[r][c]and(g[r].__setitem__(c,0),f(g,r,c+1,H),f(g,r,c-1,H),f(g,r-1,c,H),f(g,r+1,c,H))\np=lambda g,H=0:[g:=[[x or 4for x in r]for r in g],H:=len(g),[f(g,i,0,H)or f(g,i,~-H,H)for i in range(H)],g][-1]\n",
+      "bytes": 229,
+      "passed": true,
+      "code_hash": "4e1838592f93",
+      "file": "v114.py",
+      "timestamp": "2026-07-14T12:27:20.222092"
+    },
+    "v106": {
+      "version": "v106",
+      "parent": "v103",
+      "code": "def p(g):\n g=[[x or 4for x in r]for r in g];H=len(g)\n def f(r,c):\n  while H>r>=0<=c<H>3<g[r][c]:g[r][c]=0;f(r,c+1);f(r-1,c);r+=1\n for i in range(H):f(i,0);f(i,~-H)\n return g\n",
+      "bytes": 174,
+      "passed": false,
+      "code_hash": "5cd10963190f",
+      "file": "v115.py",
+      "timestamp": "2026-07-14T12:29:02.974017"
+    },
+    "v107": {
+      "version": "v107",
+      "parent": "v106",
+      "code": "def p(g):\n g=[[x or 4for x in r]for r in g];H=len(g)\n def f(r,c):\n  while H>r>=0<=c<H>3<g[r][c]:g[r][c]=0;f(r,c+1);f(r,c-1);r+=1\n for i in range(H):f(i,0);f(i,~-H)\n return g\n",
+      "bytes": 174,
+      "passed": false,
+      "code_hash": "22bb80018037",
+      "file": "v116.py",
+      "timestamp": "2026-07-14T12:29:03.040183"
+    },
+    "v108": {
+      "version": "v108",
+      "parent": "v85",
+      "code": "def p(g):\n H=len(g);W={(r,c)for r in range(H)for c in range(H)if g[r][c]<1};o={(r,c)for r,c in W if 0in(r,c,r-~-H,c-~-H)}\n while 1:\n  n={(r+a,c+b)for r,c in o for a,b in((1,0),(-1,0),(0,1),(0,-1))}&W-o\n  if not n:break\n  o|=n\n return[[4*((r,c)in W-o)or g[r][c]for c in range(H)]for r in range(H)]\n",
+      "bytes": 297,
+      "passed": true,
+      "code_hash": "d895f61aa3d7",
+      "file": "v117.py",
+      "timestamp": "2026-07-14T12:29:17.531361"
+    },
+    "v109": {
+      "version": "v109",
+      "parent": "v103",
+      "code": "def p(g):\n g=[[x or 4for x in r]for r in g];H=len(g)\n def f(r,c):\n  while H>r>=0<=c<H>3<g[r][c]:g[r][c]=0;f(r,c+1);f(r,c-1);f(r-1,c);r+=1\n f(0,0);f(0,~-H)\n return g\n",
+      "bytes": 165,
+      "passed": false,
+      "code_hash": "7a7ceaa9040a",
+      "file": "v118.py",
+      "timestamp": "2026-07-14T12:29:31.542492"
+    },
+    "v110": {
+      "version": "v110",
+      "parent": "v109",
+      "code": "def p(g):\n g=[[x or 4for x in r]for r in g];H=len(g)\n def f(r,c):\n  while H>r>=0<=c<H>3<g[r][c]:g[r][c]=0;f(r,c+1);f(r,c-1);f(r-1,c);r+=1\n f(0,0);f(0,~-H);f(~-H,~-H)\n return g\n",
+      "bytes": 176,
+      "passed": true,
+      "code_hash": "4c6aca9f9d6a",
+      "file": "v119.py",
+      "timestamp": "2026-07-14T12:29:53.508541"
+    },
+    "v111": {
+      "version": "v111",
+      "parent": "v109",
+      "code": "def p(g):\n g=[[x or 4for x in r]for r in g];H=len(g)\n def f(r,c):\n  while H>r>=0<=c<H>3<g[r][c]:g[r][c]=0;f(r,c+1);f(r,c-1);f(r+1,c);r-=1\n f(0,0);f(~-H,0)\n return g\n",
+      "bytes": 165,
+      "passed": false,
+      "code_hash": "72a6e5f6e220",
+      "file": "v120.py",
+      "timestamp": "2026-07-14T12:29:53.573554"
+    },
+    "v112": {
+      "version": "v112",
+      "parent": "v109",
+      "code": "def p(g):\n g=[[x or 4for x in r]for r in g];H=len(g)\n def f(r,c):\n  while H>r>=0<=c<H>3<g[r][c]:g[r][c]=0;f(r+1,c);f(r-1,c);f(r,c-1);c+=1\n f(0,0);f(~-H,0)\n return g\n",
+      "bytes": 165,
+      "passed": false,
+      "code_hash": "02c023a44a8b",
+      "file": "v121.py",
+      "timestamp": "2026-07-14T12:30:04.602857"
+    },
+    "v113": {
+      "version": "v113",
+      "parent": "v109",
+      "code": "def p(g):\n g=[[x or 4for x in r]for r in g];H=len(g)\n def f(r,c):\n  while H>r>=0<=c<H>3<g[r][c]:g[r][c]=0;f(r,c+1);f(r,c-1);f(r-1,c);r+=1\n f(0,0);f(~-H,~-H)\n return g\n",
+      "bytes": 167,
+      "passed": true,
+      "code_hash": "5bc367fa112a",
+      "file": "v122.py",
+      "timestamp": "2026-07-14T12:30:04.669264"
+    },
+    "v114": {
+      "version": "v114",
+      "parent": "v109",
+      "code": "def p(g):\n g=[[x or 4for x in r]for r in g];H=len(g)\n def f(r,c):\n  while H>r>=0<=c<H>3<g[r][c]:g[r][c]=0;f(r,c+1);f(r,c-1);f(r-1,c);r+=1\n f(0,0)\n return g\n",
+      "bytes": 156,
+      "passed": false,
+      "code_hash": "b1261103c452",
+      "file": "v123.py",
+      "timestamp": "2026-07-14T12:30:14.704913"
+    },
+    "v115": {
+      "version": "v115",
+      "parent": "v112",
+      "code": "def p(g):\n g=[[x or 4for x in r]for r in g];H=len(g)\n def f(r,c):\n  while H>r>=0<=c<H>3<g[r][c]:g[r][c]=0;f(r-1,c);r+=1;[f(r,c+d)for d in(1,-1)]\n f(0,0);f(~-H,~-H)\n return g\n",
+      "bytes": 174,
+      "passed": false,
+      "code_hash": "81c79664d3a2",
+      "file": "v124.py",
+      "timestamp": "2026-07-14T12:30:44.927557"
+    },
+    "v116": {
+      "version": "v116",
+      "parent": "v115",
+      "code": "def p(g):\n g=[[x or 4for x in r]for r in g];H=len(g)\n def f(r,c):\n  while H>r>=0<=c<H>3<g[r][c]:g[r][c]=0;f(r-1,c);[f(r,c+d)for d in(1,-1)];r+=1\n f(0,0);f(~-H,~-H)\n return g\n",
+      "bytes": 174,
+      "passed": true,
+      "code_hash": "b71e3f71c275",
+      "file": "v125.py",
+      "timestamp": "2026-07-14T12:30:52.362640"
+    },
+    "v117": {
+      "version": "v117",
+      "parent": "v113",
+      "code": "def p(g,H=0):\n g=[[x or 4for x in r]for r in g];H=len(g)\n def f(r,c):\n  while H>r>=0<=c<H>3<g[r][c]:g[r][c]=0;f(r,c+1);f(r,c-1);f(r-1,c);r+=1\n f(0,0);f(~-H,~-H)\n return g\n",
+      "bytes": 171,
+      "passed": true,
+      "code_hash": "054e91dc38cd",
+      "file": "v126.py",
+      "timestamp": "2026-07-14T12:31:06.520179"
+    },
+    "v118": {
+      "version": "v118",
+      "parent": "v113",
+      "code": "def p(g):\n g=[[x or 4for x in r]for r in g];H=len(g)\n def f(r,c):\n  while H>r>=0<=c<H>3<g[r][c]:g[r][c]=0;f(r-1,c);f(r,c-1);f(r,-~c);r+=1\n f(0,0);f(~-H,~-H)\n return g\n",
+      "bytes": 167,
+      "passed": true,
+      "code_hash": "fab1bedc155d",
+      "file": "v127.py",
+      "timestamp": "2026-07-14T12:31:26.980027"
+    },
+    "v119": {
+      "version": "v119",
+      "parent": "v110",
+      "code": "def p(g):\n g=[[x or 4for x in r]for r in g];H=len(g)\n def f(r,c):\n  while H>r>=0<=c<H>3<g[r][c]:g[r][c]=0;f(r+1,c);f(r,c-1);c+=1\n f(0,0);f(~-H,~-H);f(0,~-H);f(~-H,0)\n return g\n",
+      "bytes": 176,
+      "passed": false,
+      "code_hash": "f72d33bc0a6f",
+      "file": "v128.py",
+      "timestamp": "2026-07-14T12:31:45.875721"
+    },
+    "v120": {
+      "version": "v120",
+      "parent": "v101",
+      "code": "def p(g):\n H=len(g)\n def f(r,c):\n  while H>r>=0<=c<H>0==g[r][c]:g[r][c]=-9;f(r,c+1);f(r,c-1);f(r-1,c);r+=1\n f(0,0);f(~-H,~-H)\n return[[-x//9*0or(x<1)*4or x for x in r]for r in g]\n",
+      "bytes": 179,
+      "passed": false,
+      "code_hash": "6e8e2a098a74",
+      "file": "v129.py",
+      "timestamp": "2026-07-14T12:31:59.006602"
+    },
+    "v121": {
+      "version": "v121",
+      "parent": "v113",
+      "code": "def p(g):\n H=len(g);a=[[x or 4for x in r]+[3]for r in g]+[[3]*-~H]\n def f(r,c):\n  while a[r][c]>3:a[r][c]=0;f(r,c+1);f(r,c-1);f(r-1,c);r+=1\n f(0,0);f(~-H,~-H)\n return[r[:-1]for r in a[:-1]]\n",
+      "bytes": 190,
+      "passed": true,
+      "code_hash": "19949194d6f4",
+      "file": "v130.py",
+      "timestamp": "2026-07-14T12:33:40.154184"
+    },
+    "v122": {
+      "version": "v122",
+      "parent": "v112",
+      "code": "def p(g):\n g=[[x or 4for x in r]for r in g];H=len(g)\n def f(r,c):\n  if H>r>=0<=c<H>3<g[r][c]:g[r][c]=0;f(r+1,c);f(r-1,c);f(r,c+1);f(r,c-1)\n f(0,0);f(~-H,~-H)\n return g\n",
+      "bytes": 168,
+      "passed": true,
+      "code_hash": "4b4675ae506b",
+      "file": "v131.py",
+      "timestamp": "2026-07-14T12:33:54.196546"
+    },
+    "v123": {
+      "version": "v123",
+      "parent": "v113",
+      "code": "def p(g):\n g=[[x or 4for x in r]for r in g];H=len(g)\n def f(r,c):\n  try:\n   while r>=0<=c<H>3<g[r][c]:g[r][c]=0;f(r,c+1);f(r,c-1);f(r-1,c);r+=1\n  except:0\n f(0,0);f(~-H,~-H)\n return g\n",
+      "bytes": 184,
+      "passed": true,
+      "code_hash": "7d4ab5d8db8b",
+      "file": "v132.py",
+      "timestamp": "2026-07-14T12:34:04.526856"
+    },
+    "v124": {
+      "version": "v124",
+      "parent": "v103",
+      "code": "def p(g):\n g=[[x or 4for x in r]for r in g];H=len(g)\n def f(r,c):\n  while H>r>=0<=c<H>3<g[r][c]:g[r][c]=0;f(r,c+1);f(r,c-1);f(r-1,c);r+=1\n for i in range(H):f(i,0);f(i,~-H);f(0,i);f(~-H,i)\n return g\n",
+      "bytes": 199,
+      "passed": true,
+      "code_hash": "092d0716fdc5",
+      "file": "v133.py",
+      "timestamp": "2026-07-14T12:34:45.778819"
+    },
+    "v125": {
+      "version": "v125",
+      "parent": "v120",
+      "code": "def p(g):\n H=len(g)\n def f(r,c):\n  while H>r>=0<=c<H>0==g[r][c]:g[r][c]=4;f(r,c+1);f(r,c-1);f(r-1,c);r+=1\n f(0,0);f(~-H,~-H)\n return[[(x<4)*(x or 4)for x in r]for r in g]\n",
+      "bytes": 171,
+      "passed": true,
+      "code_hash": "8fab97e694f1",
+      "file": "v134.py",
+      "timestamp": "2026-07-14T12:38:12.126266"
+    },
+    "v126": {
+      "version": "v126",
+      "parent": "v121",
+      "code": "def p(g):\n H=len(g);a=sum([[x or 4for x in r]for r in g],[])\n def f(i):\n  while 0<=i<H*H and a[i]>3and(i%H or 1):a[i]=0;f(i+H);f(i-H);f(i+1);f(i-1)\n f(0);f(H*H-1)\n return[a[i*H:i*H+H]for i in range(H)]\n",
+      "bytes": 202,
+      "passed": true,
+      "code_hash": "f35b5889f971",
+      "file": "v135.py",
+      "timestamp": "2026-07-14T12:38:29.468446"
+    },
+    "v127": {
+      "version": "v127",
+      "parent": "v121",
+      "code": "def p(g):\n H=len(g);a=[[x or 4for x in r]+[3]for r in g]+[[3]*-~H]\n def f(r,c):\n  while a[r][c]>3:a[r][c]=0;f(r,c+1);f(r,c-1);f(r-1,c);r+=1\n f(0,0);f(~-H,~-H)\n return[r[:H]for r in a[:H]]\n",
+      "bytes": 188,
+      "passed": true,
+      "code_hash": "fb70d70fbc5c",
+      "file": "v136.py",
+      "timestamp": "2026-07-14T12:38:42.020652"
+    },
+    "v128": {
+      "version": "v128",
+      "parent": "v113",
+      "code": "def p(g):\n g=[[x or 4for x in r]for r in g];H=len(g)\n def f(r,c):\n  if H>r>=0<=c<H>3<g[r][c]:g[r][c]=0;f(r,c+1);f(r,c-1);f(r-1,c);f(-~r,c)\n f(0,0);f(~-H,~-H)\n return g\n",
+      "bytes": 168,
+      "passed": true,
+      "code_hash": "178fb2144770",
+      "file": "v137.py",
+      "timestamp": "2026-07-14T12:38:54.973987"
+    },
+    "v129": {
+      "version": "v129",
+      "parent": "v110",
+      "code": "def p(g):\n g=[[x or 4for x in r]for r in g];H=len(g)\n def f(r,c):\n  while H>r>=0<=c<H>3<g[r][c]:g[r][c]=0;f(r,c+1);f(r,c-1);f(r-1,c);r+=1\n [*map(f,(0,~-H),(0,~-H))]\n return g\n",
+      "bytes": 175,
+      "passed": true,
+      "code_hash": "1996b771b76e",
+      "file": "v138.py",
+      "timestamp": "2026-07-14T12:39:07.348692"
+    },
+    "v130": {
+      "version": "v130",
+      "parent": "v90",
+      "code": "def p(g):\n d={c+1j*r:v or 4for r,o in enumerate(g)for c,v in enumerate(o)}\n def f(z):\n  while d.get(z,0)>3:d[z]=0;f(z+1);f(z-1);f(z-1j);z+=1j\n H=len(g);f(0);f(~-H+~-H*1j)\n return[[d[c+1j*r]for c in range(H)]for r in range(H)]\n",
+      "bytes": 226,
+      "passed": true,
+      "code_hash": "d50e78df338a",
+      "file": "v139.py",
+      "timestamp": "2026-07-14T12:41:08.889119"
+    },
+    "v131": {
+      "version": "v131",
+      "parent": "v113",
+      "code": "def p(g):\n g=[[x or 4for x in r]for r in g];H=len(g)\n def f(r,c):\n  R=g[r]\n  while H>r>=0<=c<H>3<R[c]:R[c]=0;f(r,c+1);f(r,c-1);f(r-1,c);r+=1;R=g[r*(r<H)]\n f(0,0);f(~-H,~-H)\n return g\n",
+      "bytes": 183,
+      "passed": true,
+      "code_hash": "faa3e832f9bb",
+      "file": "v140.py",
+      "timestamp": "2026-07-14T12:41:26.672713"
+    },
+    "v132": {
+      "version": "v132",
+      "parent": "v113",
+      "code": "def p(g):\n g=[[x or 4for x in r]for r in g];H=len(g)\n def f(r,c):\n  while-1<r<H>c>-1<g[r][c]-3:g[r][c]=0;f(r,c+1);f(r,c-1);f(r-1,c);r+=1\n f(0,0);f(~-H,~-H)\n return g\n",
+      "bytes": 166,
+      "passed": false,
+      "code_hash": "c5ece1457de9",
+      "file": "v141.py",
+      "timestamp": "2026-07-14T12:41:37.967278"
+    },
+    "v133": {
+      "version": "v133",
+      "parent": "v132",
+      "code": "def p(g):\n g=[[x or 4for x in r]for r in g];H=len(g)\n def f(r,c):\n  while-1<r<H>c>-1<g[r][c]-3>0:g[r][c]=0;f(r,c+1);f(r,c-1);f(r-1,c);r+=1\n f(0,0);f(~-H,~-H)\n return g\n",
+      "bytes": 168,
+      "passed": true,
+      "code_hash": "a91b36cd1ea2",
+      "file": "v142.py",
+      "timestamp": "2026-07-14T12:41:49.004470"
+    },
+    "v134": {
+      "version": "v134",
+      "parent": "v132",
+      "code": "def p(g):\n g=[[x or 4for x in r]for r in g];H=len(g)\n def f(r,c):\n  while-1<r<H>c>-1and 3<g[r][c]:g[r][c]=0;f(r,c+1);f(r,c-1);f(r-1,c);r+=1\n f(0,0);f(~-H,~-H)\n return g\n",
+      "bytes": 169,
+      "passed": true,
+      "code_hash": "09f4347e3d42",
+      "file": "v143.py",
+      "timestamp": "2026-07-14T12:41:49.074757"
+    },
+    "v135": {
+      "version": "v135",
+      "parent": "v125",
+      "code": "def p(g):\n H=len(g)\n def f(r,c):\n  while H>r>=0<=c<H>0==g[r][c]:g[r][c]=-1;f(r,c+1);f(r,c-1);f(r-1,c);r+=1\n f(0,0);f(~-H,~-H)\n return[[(x or 4)*(x>-1)for x in r]for r in g]\n",
+      "bytes": 173,
+      "passed": true,
+      "code_hash": "bb090ce605a0",
+      "file": "v144.py",
+      "timestamp": "2026-07-14T12:43:30.093541"
+    },
+    "v136": {
+      "version": "v136",
+      "parent": "v1",
+      "code": "def p(g):\n H=len(g);o=[r[:]for r in g]\n s=[(r,c)for r in range(H)for c in range(len(g[0]))if o[r][c]<1 and(r*c==0 or r==H-1 or c==len(g[0])-1)]\n R={}\n for r,c in s:R[r,c]=1\n while s:\n  r,c=s.pop()\n  for a,b in((1,0),(-1,0),(0,1),(0,-1)):\n   n=(r+a,c+b)\n   if 0<=n[0]<H and 0<=n[1]<len(g[0]) and o[n[0]][n[1]]<1 and n not in R:R[n]=1;s+=[n]\n return[[4*((r,c)not in R)*(o[r][c]<1)or o[r][c] for c in range(len(g[0]))]for r in range(H)]\n",
+      "bytes": 434,
+      "passed": true,
+      "code_hash": "72ce9f7c525c",
+      "file": "vR1.py",
+      "timestamp": "2026-07-14T13:23:03.912488"
+    }
+  },
+  "updated": "2026-07-14T13:23:03.912548"
+}
